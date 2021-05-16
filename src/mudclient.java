@@ -4,11 +4,11 @@ import a.class_20;
 import a.class_21;
 import a.class_22;
 import a.a.class_0;
-import a.a.class_1;
+import a.a.GameApplet;
 import a.a.class_11;
 import a.a.class_13;
 import a.a.class_15;
-import a.a.class_6;
+import a.a.ClientStream;
 import a.a.class_8;
 import a.a.class_9;
 import java.awt.Color;
@@ -21,14 +21,14 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
 
-public class mudclient extends class_1 {
+public class mudclient extends GameApplet {
 
    // $FF: renamed from: bq boolean
    public boolean field_69;
    // $FF: renamed from: br java.math.BigInteger
-   public BigInteger field_70;
+   public BigInteger rsaExponent;
    // $FF: renamed from: bs java.math.BigInteger
-   public BigInteger field_71;
+   public BigInteger rsaModulus;
    // $FF: renamed from: bt boolean
    boolean field_72;
    // $FF: renamed from: bu boolean
@@ -122,11 +122,11 @@ public class mudclient extends class_1 {
    // $FF: renamed from: cm f
    class_14 field_117;
    // $FF: renamed from: cn int
-   int field_118;
+   int planeWidth;
    // $FF: renamed from: co int
-   int field_119;
+   int planeHeight;
    // $FF: renamed from: cp int
-   int field_120;
+   int planeMultiplier;
    // $FF: renamed from: cq int
    int field_121;
    // $FF: renamed from: cr int
@@ -134,7 +134,7 @@ public class mudclient extends class_1 {
    // $FF: renamed from: cs int
    int field_123;
    // $FF: renamed from: ct int
-   int field_124;
+   int planeIndex;
    // $FF: renamed from: cu int
    int field_125;
    // $FF: renamed from: cv int
@@ -180,7 +180,7 @@ public class mudclient extends class_1 {
    // $FF: renamed from: cP int
    int field_146;
    // $FF: renamed from: cQ int
-   int field_147;
+   int localPlayerServerIndex;
    // $FF: renamed from: cR int
    int field_148;
    // $FF: renamed from: cS int
@@ -200,13 +200,13 @@ public class mudclient extends class_1 {
    // $FF: renamed from: cZ int
    int field_156;
    // $FF: renamed from: da int
-   int field_157;
+   int psize;
    // $FF: renamed from: db int[]
-   int[] field_158;
+   int[] groundItemX;
    // $FF: renamed from: dc int[]
-   int[] field_159;
+   int[] groundItemY;
    // $FF: renamed from: dd int[]
-   int[] field_160;
+   int[] groundItemId;
    // $FF: renamed from: de int[]
    int[] field_161;
    // $FF: renamed from: df int
@@ -566,7 +566,7 @@ public class mudclient extends class_1 {
    // $FF: renamed from: gB int
    int field_339;
    // $FF: renamed from: gC boolean
-   boolean field_340;
+   boolean loadingArea;
    // $FF: renamed from: gD int
    int field_341;
    // $FF: renamed from: gE a.a.e
@@ -610,9 +610,9 @@ public class mudclient extends class_1 {
    // $FF: renamed from: gX java.lang.String
    String field_361;
    // $FF: renamed from: gY java.lang.String
-   String field_362;
+   String username;
    // $FF: renamed from: gZ java.lang.String
-   String field_363;
+   String password;
    // $FF: renamed from: ha a.a.e
    class_11 field_364;
    // $FF: renamed from: hb int
@@ -797,11 +797,11 @@ public class mudclient extends class_1 {
       }
 
       if(var0.length > 1) {
-         var1.field_47 = var0[1];
+         var1.address = var0[1];
       }
 
       if(var0.length > 2) {
-         var1.field_48 = Integer.parseInt(var0[2]);
+         var1.port = Integer.parseInt(var0[2]);
       }
 
       var1.method_7(var1.field_96, var1.field_97 + 11, "Runescape by Andrew Gower", false);
@@ -818,7 +818,7 @@ public class mudclient extends class_1 {
          }
       }
 
-      this.method_24(this.field_70, this.field_71);
+      this.method_24(this.rsaExponent, this.rsaModulus);
       int var7 = 0;
       int var2 = 0;
       int var3;
@@ -839,10 +839,10 @@ public class mudclient extends class_1 {
          ++var2;
       }
 
-      String var8;
+      String readParam;
       try {
-         var8 = this.getParameter("member");
-         var4 = Integer.parseInt(var8);
+         readParam = this.getParameter("member");
+         var4 = Integer.parseInt(readParam);
          if(var4 == 1) {
             this.field_69 = true;
          }
@@ -851,17 +851,17 @@ public class mudclient extends class_1 {
       }
 
       if(this.field_75) {
-         super.field_48 = '\uaa4a';
+         super.port = '\uaa4a';
       }
 
       super.field_11 = 0;
-      class_1.field_46 = 1000;
-      class_1.field_45 = class_12.field_808;
+      GameApplet.field_46 = 1000;
+      GameApplet.clientVersion = class_12.clientVer;
 
       try {
-         var8 = this.getParameter("poff");
-         var4 = Integer.parseInt(var8);
-         super.field_48 += var4;
+         readParam = this.getParameter("poff");
+         var4 = Integer.parseInt(readParam);
+         super.port += var4;
          System.out.println("Offset: " + var4);
       } catch (Exception var5) {
          ;
@@ -1449,7 +1449,7 @@ public class mudclient extends class_1 {
 
    // $FF: renamed from: c () void
    public void method_4() {
-      this.method_27();
+      this.confirmLogout();
       this.method_60();
       if(this.field_442 != null) {
          this.field_442.method_318();
@@ -1588,10 +1588,10 @@ public class mudclient extends class_1 {
    public void method_61() {
       this.field_95 = 0;
       this.field_341 = 0;
-      this.field_362 = "";
-      this.field_363 = "";
+      this.username = "";
+      this.password = "";
       this.field_360 = "Please enter a username:";
-      this.field_361 = "*" + this.field_362 + "*";
+      this.field_361 = "*" + this.username + "*";
       this.field_138 = 0;
       this.field_150 = 0;
    }
@@ -1610,8 +1610,8 @@ public class mudclient extends class_1 {
          } else if(this.field_337 > 0) {
             this.method_80("@cya@You can\'t logout for 10 seconds after combat", 3);
          } else {
-            super.field_51.method_160(6, 156);
-            super.field_51.method_162();
+            super.clientStream.newPacket(6, 156);
+            super.clientStream.flushPacket_();
             this.field_336 = 1000;
          }
       }
@@ -1778,7 +1778,7 @@ public class mudclient extends class_1 {
                } while(var10 < 5);
             }
 
-            super.field_51.method_160(208, 457);
+            super.clientStream.newPacket(208, 457);
             int var11 = 0;
             if(var8 != 0 || var11 < 5) {
                do {
@@ -1793,15 +1793,15 @@ public class mudclient extends class_1 {
 
                   var7 = this.field_379.method_308(this.field_384[var11]);
                   var7 = class_21.method_454(var7, 50);
-                  super.field_51.method_153(var12.length());
-                  super.field_51.method_157(var12);
-                  super.field_51.method_153(var7.length());
-                  super.field_51.method_159(var7, super.field_66, this.field_70, this.field_71);
+                  super.clientStream.putByte(var12.length());
+                  super.clientStream.putUnterminatedString(var12);
+                  super.clientStream.putByte(var7.length());
+                  super.clientStream.putPassword(var7, super.sessionId, this.rsaExponent, this.rsaModulus);
                   ++var11;
                } while(var11 < 5);
             }
 
-            super.field_51.method_162();
+            super.clientStream.flushPacket_();
             var6 = 0;
             if(var8 != 0 || var6 < 5) {
                do {
@@ -1962,16 +1962,16 @@ public class mudclient extends class_1 {
             return;
          }
 
-         super.field_51.method_160(253, 155);
-         super.field_51.method_153(var1.length());
-         super.field_51.method_157(var1);
-         super.field_51.method_153(var2.length());
-         super.field_51.method_157(var2);
-         super.field_51.method_153(var3.length());
-         super.field_51.method_157(var3);
-         super.field_51.method_153(var4.length());
-         super.field_51.method_157(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(253, 155);
+         super.clientStream.putByte(var1.length());
+         super.clientStream.putUnterminatedString(var1);
+         super.clientStream.putByte(var2.length());
+         super.clientStream.putUnterminatedString(var2);
+         super.clientStream.putByte(var3.length());
+         super.clientStream.putUnterminatedString(var3);
+         super.clientStream.putByte(var4.length());
+         super.clientStream.putUnterminatedString(var4);
+         super.clientStream.flushPacket_();
          this.field_93.method_223();
          this.field_400 = false;
       }
@@ -2042,7 +2042,7 @@ public class mudclient extends class_1 {
    }
 
    // $FF: renamed from: O () void
-   public void method_73() {
+   public void handleAppearancePanelControls() {
       this.field_93.field_747 = false;
       this.field_93.method_223();
       this.field_364.method_278();
@@ -2135,16 +2135,16 @@ public class mudclient extends class_1 {
       }
 
       if(this.field_364.method_276(this.field_377)) {
-         super.field_51.method_160(236, 65);
-         super.field_51.method_153(this.field_434);
-         super.field_51.method_153(this.field_427);
-         super.field_51.method_153(this.field_428);
-         super.field_51.method_153(this.field_429);
-         super.field_51.method_153(this.field_430);
-         super.field_51.method_153(this.field_431);
-         super.field_51.method_153(this.field_432);
-         super.field_51.method_153(this.field_433);
-         super.field_51.method_162();
+         super.clientStream.newPacket(236, 65);
+         super.clientStream.putByte(this.field_434);
+         super.clientStream.putByte(this.field_427);
+         super.clientStream.putByte(this.field_428);
+         super.clientStream.putByte(this.field_429);
+         super.clientStream.putByte(this.field_430);
+         super.clientStream.putByte(this.field_431);
+         super.clientStream.putByte(this.field_432);
+         super.clientStream.putByte(this.field_433);
+         super.clientStream.flushPacket_();
          this.field_93.method_223();
          this.field_426 = false;
       }
@@ -2514,7 +2514,7 @@ public class mudclient extends class_1 {
          } else {
             int var3;
             String var5;
-            class_6 var10001;
+            ClientStream var10001;
             if(this.field_341 == 2) {
                this.field_353.method_275(super.field_33, super.field_34, super.field_36, super.field_35);
                if(this.field_353.method_276(this.field_358)) {
@@ -2526,32 +2526,32 @@ public class mudclient extends class_1 {
                }
 
                if(this.field_353.method_276(this.field_356) || this.field_353.method_276(this.field_357)) {
-                  this.field_362 = this.field_353.method_308(this.field_355);
-                  this.field_363 = this.field_353.method_308(this.field_356);
-                  this.method_26(this.field_362, this.field_363, false);
+                  this.username = this.field_353.method_308(this.field_355);
+                  this.password = this.field_353.method_308(this.field_356);
+                  this.login(this.username, this.password, false);
                }
 
                if(this.field_353.method_276(this.field_359)) {
-                  this.field_362 = this.field_353.method_308(this.field_355);
-                  this.field_362 = class_21.method_453(this.field_362, 20);
-                  if(this.field_362.trim().length() == 0) {
+                  this.username = this.field_353.method_308(this.field_355);
+                  this.username = class_21.method_453(this.username, 20);
+                  if(this.username.trim().length() == 0) {
                      this.method_43("You must enter your username to recover your password", "");
                      return;
                   }
 
-                  this.method_43(class_1.field_44[6], class_1.field_44[7]);
+                  this.method_43(GameApplet.loginResponses[6], GameApplet.loginResponses[7]);
 
                   try {
-                     super.field_51 = new class_6(this.method_20(super.field_47, super.field_48), this);
-                     super.field_51.field_591 = class_1.field_46;
-                     super.field_51.method_150();
-                     super.field_51.method_160(4, 848);
-                     super.field_51.method_156(class_21.method_456(this.field_362));
-                     super.field_51.method_163();
-                     super.field_51.method_144();
-                     super.field_51.method_144();
-                     int var11 = super.field_51.method_144();
-                     var11 = super.field_51.method_161(var11, class_1.field_68);
+                     super.clientStream = new ClientStream(this.connect(super.address, super.port), this);
+                     super.clientStream.field_591 = GameApplet.field_46;
+                     super.clientStream.readInt();
+                     super.clientStream.newPacket(4, 848);
+                     super.clientStream.putLong(class_21.hashUsername(this.username));
+                     super.clientStream.flushPacket();
+                     super.clientStream.read();
+                     super.clientStream.read();
+                     int var11 = super.clientStream.read();
+                     var11 = super.clientStream.method_161(var11, GameApplet.field_68);
                      System.out.println("Getpq response: " + var11);
                      if(var11 == 0) {
                         this.method_43("Sorry, the recovery questions for this user have not been set", "");
@@ -2561,18 +2561,18 @@ public class mudclient extends class_1 {
                      int var12 = 0;
                      byte[] var4;
                      if(var8 != 0) {
-                        var3 = super.field_51.method_144();
+                        var3 = super.clientStream.read();
                         var4 = new byte[5000];
-                        super.field_51.method_151(var3, var4);
+                        super.clientStream.method_151(var3, var4);
                         var5 = new String(var4, 0, var3);
                         this.field_390.method_307(this.field_398[var12], var5);
                         ++var12;
                      }
 
                      while(var12 < 5) {
-                        var3 = super.field_51.method_144();
+                        var3 = super.clientStream.read();
                         var4 = new byte[5000];
-                        super.field_51.method_151(var3, var4);
+                        super.clientStream.method_151(var3, var4);
                         var5 = new String(var4, 0, var3);
                         this.field_390.method_307(this.field_398[var12], var5);
                         ++var12;
@@ -2602,7 +2602,7 @@ public class mudclient extends class_1 {
                      this.field_390.method_307(this.field_395, "");
                      return;
                   } catch (Exception var9) {
-                     this.method_43(class_1.field_44[12], class_1.field_44[13]);
+                     this.method_43(GameApplet.loginResponses[12], GameApplet.loginResponses[13]);
                      return;
                   }
                }
@@ -2621,40 +2621,40 @@ public class mudclient extends class_1 {
                      return;
                   }
 
-                  this.method_43(class_1.field_44[6], class_1.field_44[7]);
+                  this.method_43(GameApplet.loginResponses[6], GameApplet.loginResponses[7]);
 
                   try {
-                     super.field_51 = new class_6(this.method_20(super.field_47, super.field_48), this);
-                     super.field_51.field_591 = class_1.field_46;
-                     var3 = super.field_51.method_150();
+                     super.clientStream = new ClientStream(this.connect(super.address, super.port), this);
+                     super.clientStream.field_591 = GameApplet.field_46;
+                     var3 = super.clientStream.readInt();
                      String var13 = class_21.method_453(this.field_390.method_308(this.field_393), 20);
                      var5 = class_21.method_453(this.field_390.method_308(this.field_394), 20);
-                     super.field_51.method_160(8, 121);
-                     super.field_51.method_156(class_21.method_456(this.field_362));
-                     super.field_51.method_155(this.method_25());
-                     super.field_51.method_159(var13 + var5, var3, this.field_70, this.field_71);
+                     super.clientStream.newPacket(8, 121);
+                     super.clientStream.putLong(class_21.hashUsername(this.username));
+                     super.clientStream.putInt(this.getRandomDat());
+                     super.clientStream.putPassword(var13 + var5, var3, this.rsaExponent, this.rsaModulus);
                      int var6 = 0;
                      String var7;
                      if(var8 != 0) {
                         var7 = this.field_390.method_308(this.field_399[var6]);
                         var7 = class_21.method_454(var7, 50);
-                        super.field_51.method_153(var7.length());
-                        super.field_51.method_159(var7, var3, this.field_70, this.field_71);
+                        super.clientStream.putByte(var7.length());
+                        super.clientStream.putPassword(var7, var3, this.rsaExponent, this.rsaModulus);
                         ++var6;
                      }
 
                      while(var6 < 5) {
                         var7 = this.field_390.method_308(this.field_399[var6]);
                         var7 = class_21.method_454(var7, 50);
-                        super.field_51.method_153(var7.length());
-                        super.field_51.method_159(var7, var3, this.field_70, this.field_71);
+                        super.clientStream.putByte(var7.length());
+                        super.clientStream.putPassword(var7, var3, this.rsaExponent, this.rsaModulus);
                         ++var6;
                      }
 
-                     super.field_51.method_163();
-                     super.field_51.method_144();
-                     int var14 = super.field_51.method_144();
-                     var14 = super.field_51.method_161(var14, class_1.field_68);
+                     super.clientStream.flushPacket();
+                     super.clientStream.read();
+                     int var14 = super.clientStream.read();
+                     var14 = super.clientStream.method_161(var14, GameApplet.field_68);
                      System.out.println("Recover response: " + var14);
                      if(var14 == 0) {
                         this.field_341 = 2;
@@ -2673,7 +2673,7 @@ public class mudclient extends class_1 {
                      this.method_43("Recovery failed! Attempts exceeded?", "");
                      return;
                   } catch (Exception var10) {
-                     this.method_43(class_1.field_44[12], class_1.field_44[13]);
+                     this.method_43(GameApplet.loginResponses[12], GameApplet.loginResponses[13]);
                   }
                }
 
@@ -2762,7 +2762,7 @@ public class mudclient extends class_1 {
 
       this.field_163 = 0;
       this.field_172 = 0;
-      this.field_157 = 0;
+      this.psize = 0;
       this.field_138 = 0;
       int var3 = 0;
       if(var8 != 0) {
@@ -2824,21 +2824,21 @@ public class mudclient extends class_1 {
 
    // $FF: renamed from: s () void
    public void method_48() {
-      String var1 = this.field_345.method_308(this.field_349);
-      String var2 = this.field_345.method_308(this.field_350);
+      String username = this.field_345.method_308(this.field_349);
+      String password = this.field_345.method_308(this.field_350);
       this.field_341 = 2;
       this.field_353.method_307(this.field_354, "Please enter your username and password");
-      this.field_353.method_307(this.field_355, var1);
-      this.field_353.method_307(this.field_356, var2);
+      this.field_353.method_307(this.field_355, username);
+      this.field_353.method_307(this.field_356, password);
       this.method_76();
       this.method_10();
-      this.method_26(var1, var2, false);
+      this.login(username, password, false);
    }
 
    // $FF: renamed from: U () void
    public void method_79() {
       int var9 = class_4.field_563;
-      this.method_31();
+      this.checkConnection();
       if(this.field_336 > 0) {
          --this.field_336;
       }
@@ -3406,22 +3406,22 @@ public class mudclient extends class_1 {
                if(super.field_41.length() > 0) {
                   label928: {
                      if(super.field_41.equalsIgnoreCase("::lostcon") && !this.field_75) {
-                        super.field_51.method_143();
+                        super.clientStream.method_143();
                         if(var9 == 0) {
                            break label928;
                         }
                      }
 
                      if(super.field_41.equalsIgnoreCase("::closecon") && !this.field_75) {
-                        this.method_27();
+                        this.confirmLogout();
                         if(var9 == 0) {
                            break label928;
                         }
                      }
 
-                     super.field_51.method_160(193, 127);
-                     super.field_51.method_157(super.field_41);
-                     super.field_51.method_162();
+                     super.clientStream.newPacket(193, 127);
+                     super.clientStream.putUnterminatedString(super.field_41);
+                     super.clientStream.flushPacket_();
                      super.field_40 = "";
                      super.field_41 = "";
                      this.field_449 = "Please wait...";
@@ -3429,9 +3429,9 @@ public class mudclient extends class_1 {
                }
 
                if(super.field_36 == 1 && super.field_34 > 275 && super.field_34 < 310 && super.field_33 > 56 && super.field_33 < 456) {
-                  super.field_51.method_160(193, 127);
-                  super.field_51.method_157("-null-");
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(193, 127);
+                  super.clientStream.putUnterminatedString("-null-");
+                  super.clientStream.flushPacket_();
                   super.field_40 = "";
                   super.field_41 = "";
                   this.field_449 = "Please wait...";
@@ -3481,27 +3481,27 @@ public class mudclient extends class_1 {
                      this.field_240.method_307(this.field_242, "");
                      if(var16.startsWith("::")) {
                         if(var16.equalsIgnoreCase("::lostcon") && !this.field_75) {
-                           super.field_51.method_143();
+                           super.clientStream.method_143();
                            if(var9 == 0) {
                               break label544;
                            }
                         }
 
                         if(var16.equalsIgnoreCase("::closecon") && !this.field_75) {
-                           this.method_27();
+                           this.confirmLogout();
                            if(var9 == 0) {
                               break label544;
                            }
                         }
 
-                        this.method_42(var16.substring(2));
+                        this.sendCommandString(var16.substring(2));
                         if(var9 == 0) {
                            break label544;
                         }
                      }
 
                      var5 = class_22.method_464(var16);
-                     this.method_41(class_22.field_1010, var5);
+                     this.sendChat(class_22.field_1010, var5);
                      var16 = class_22.method_463(class_22.field_1010, 0, var5);
                      var16 = class_20.method_417(var16);
                      this.field_144.field_622 = 150;
@@ -3773,7 +3773,7 @@ public class mudclient extends class_1 {
                var3 = var1.indexOf(":");
                if(var3 != -1) {
                   var4 = var1.substring(0, var3);
-                  var5 = class_21.method_456(var4);
+                  var5 = class_21.hashUsername(var4);
                   var7 = 0;
                   if(var8 != 0 || var7 < super.field_58) {
                      do {
@@ -3792,7 +3792,7 @@ public class mudclient extends class_1 {
                var3 = var1.indexOf(":");
                if(var3 != -1) {
                   var4 = var1.substring(0, var3);
-                  var5 = class_21.method_456(var4);
+                  var5 = class_21.hashUsername(var4);
                   var7 = 0;
                   if(var8 != 0 || var7 < super.field_58) {
                      do {
@@ -4026,13 +4026,13 @@ public class mudclient extends class_1 {
    }
 
    // $FF: renamed from: a (int, int, byte[]) void
-   public void method_49(int var1, int var2, byte[] var3) {
+   public void method_49(int opcode, int var2, byte[] data) {
       int var19 = class_4.field_563;
 
       int var6;
       try {
          int var4;
-         int var8;
+         int oldIndex;
          int var9;
          int var10;
          int var11;
@@ -4040,10 +4040,10 @@ public class mudclient extends class_1 {
          int var14;
          int var15;
          byte var22;
-         int var23;
+         int newIndex;
          int var28;
          boolean var29;
-         if(var1 == 255) {
+         if(opcode == 255) {
             this.field_139 = this.field_138;
             var4 = 0;
             if(var19 != 0 || var4 < this.field_139) {
@@ -4054,43 +4054,43 @@ public class mudclient extends class_1 {
             }
 
             var22 = 8;
-            this.field_145 = class_21.method_452(var3, var22, 11);
-            var23 = var22 + 11;
-            this.field_146 = class_21.method_452(var3, var23, 13);
-            var23 += 13;
-            var6 = class_21.method_452(var3, var23, 4);
-            var23 += 4;
+            this.field_145 = class_21.readBits(data, var22, 11);
+            newIndex = var22 + 11;
+            this.field_146 = class_21.readBits(data, newIndex, 13);
+            newIndex += 13;
+            var6 = class_21.readBits(data, newIndex, 4);
+            newIndex += 4;
             boolean var7 = this.method_103(this.field_145, this.field_146);
             this.field_145 -= this.field_122;
             this.field_146 -= this.field_123;
-            var8 = this.field_145 * this.field_94 + 64;
+            oldIndex = this.field_145 * this.field_94 + 64;
             var9 = this.field_146 * this.field_94 + 64;
             if(var7) {
                this.field_144.field_617 = 0;
                this.field_144.field_616 = 0;
-               this.field_144.field_610 = this.field_144.field_618[0] = var8;
+               this.field_144.field_610 = this.field_144.field_618[0] = oldIndex;
                this.field_144.field_611 = this.field_144.field_619[0] = var9;
             }
 
             this.field_138 = 0;
-            this.field_144 = this.method_81(this.field_147, var8, var9, var6);
-            var10 = class_21.method_452(var3, var23, 8);
-            var23 += 8;
+            this.field_144 = this.method_81(this.localPlayerServerIndex, oldIndex, var9, var6);
+            var10 = class_21.readBits(data, newIndex, 8);
+            newIndex += 8;
             var11 = 0;
             int var16;
             if(var19 != 0 || var11 < var10) {
                do {
                   label1467: {
                      class_7 var12 = this.field_143[var11 + 1];
-                     var13 = class_21.method_452(var3, var23, 1);
-                     ++var23;
+                     var13 = class_21.readBits(data, newIndex, 1);
+                     ++newIndex;
                      if(var13 != 0) {
                         label1599: {
-                           var14 = class_21.method_452(var3, var23, 1);
-                           ++var23;
+                           var14 = class_21.readBits(data, newIndex, 1);
+                           ++newIndex;
                            if(var14 == 0) {
-                              var15 = class_21.method_452(var3, var23, 3);
-                              var23 += 3;
+                              var15 = class_21.readBits(data, newIndex, 3);
+                              newIndex += 3;
                               var16 = var12.field_617;
                               int var17 = var12.field_618[var16];
                               int var18 = var12.field_619[var16];
@@ -4119,16 +4119,16 @@ public class mudclient extends class_1 {
                               }
                            }
 
-                           var15 = class_21.method_452(var3, var23, 4);
+                           var15 = class_21.readBits(data, newIndex, 4);
                            if((var15 & 12) == 12) {
-                              var23 += 2;
+                              newIndex += 2;
                               if(var19 == 0) {
                                  break label1467;
                               }
                            }
 
-                           var12.field_615 = class_21.method_452(var3, var23, 4);
-                           var23 += 4;
+                           var12.field_615 = class_21.readBits(data, newIndex, 4);
+                           newIndex += 4;
                         }
                      }
 
@@ -4140,227 +4140,227 @@ public class mudclient extends class_1 {
             }
 
             var28 = 0;
-            if(var19 != 0 || var23 + 24 < var2 * 8) {
+            if(var19 != 0 || newIndex + 24 < var2 * 8) {
                do {
-                  var13 = class_21.method_452(var3, var23, 11);
-                  var23 += 11;
-                  var14 = class_21.method_452(var3, var23, 5);
-                  var23 += 5;
+                  var13 = class_21.readBits(data, newIndex, 11);
+                  newIndex += 11;
+                  var14 = class_21.readBits(data, newIndex, 5);
+                  newIndex += 5;
                   if(var14 > 15) {
                      var14 -= 32;
                   }
 
-                  var15 = class_21.method_452(var3, var23, 5);
-                  var23 += 5;
+                  var15 = class_21.readBits(data, newIndex, 5);
+                  newIndex += 5;
                   if(var15 > 15) {
                      var15 -= 32;
                   }
 
-                  var6 = class_21.method_452(var3, var23, 4);
-                  var23 += 4;
-                  var16 = class_21.method_452(var3, var23, 1);
-                  ++var23;
-                  var8 = (this.field_145 + var14) * this.field_94 + 64;
+                  var6 = class_21.readBits(data, newIndex, 4);
+                  newIndex += 4;
+                  var16 = class_21.readBits(data, newIndex, 1);
+                  ++newIndex;
+                  oldIndex = (this.field_145 + var14) * this.field_94 + 64;
                   var9 = (this.field_146 + var15) * this.field_94 + 64;
-                  this.method_81(var13, var8, var9, var6);
+                  this.method_81(var13, oldIndex, var9, var6);
                   if(var16 == 0) {
                      this.field_155[var28++] = var13;
                   }
-               } while(var23 + 24 < var2 * 8);
+               } while(newIndex + 24 < var2 * 8);
             }
 
             if(var28 > 0) {
-               super.field_51.method_160(254, 120);
-               super.field_51.method_154(var28);
+               super.clientStream.newPacket(254, 120);
+               super.clientStream.putShort(var28);
                var13 = 0;
                if(var19 == 0 && var13 >= var28) {
-                  super.field_51.method_162();
+                  super.clientStream.flushPacket_();
                   var29 = false;
                   return;
                }
 
                do {
                   class_7 var32 = this.field_141[this.field_155[var13]];
-                  super.field_51.method_154(var32.field_608);
-                  super.field_51.method_154(var32.field_609);
+                  super.clientStream.putShort(var32.field_608);
+                  super.clientStream.putShort(var32.field_609);
                   ++var13;
                } while(var13 < var28);
 
-               super.field_51.method_162();
+               super.clientStream.flushPacket_();
                var29 = false;
                return;
             }
          } else {
             int var25;
-            if(var1 == 254) {
+            if(opcode == 254) {
                var4 = 1;
                if(var19 == 0 && var4 >= var2) {
                   return;
                }
 
                do {
-                  if(class_21.method_446(var3[var4]) == 255) {
-                     var23 = 0;
-                     var6 = this.field_145 + var3[var4 + 1] >> 3;
-                     var25 = this.field_146 + var3[var4 + 2] >> 3;
+                  if(class_21.getUnsignedByte(data[var4]) == 255) {
+                     newIndex = 0;
+                     var6 = this.field_145 + data[var4 + 1] >> 3;
+                     var25 = this.field_146 + data[var4 + 2] >> 3;
                      var4 += 3;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.field_157) {
+                     oldIndex = 0;
+                     if(var19 != 0 || oldIndex < this.psize) {
                         do {
-                           var9 = (this.field_158[var8] >> 3) - var6;
-                           var10 = (this.field_159[var8] >> 3) - var25;
+                           var9 = (this.groundItemX[oldIndex] >> 3) - var6;
+                           var10 = (this.groundItemY[oldIndex] >> 3) - var25;
                            if(var9 != 0 || var10 != 0) {
-                              if(var8 != var23) {
-                                 this.field_158[var23] = this.field_158[var8];
-                                 this.field_159[var23] = this.field_159[var8];
-                                 this.field_160[var23] = this.field_160[var8];
-                                 this.field_161[var23] = this.field_161[var8];
+                              if(oldIndex != newIndex) {
+                                 this.groundItemX[newIndex] = this.groundItemX[oldIndex];
+                                 this.groundItemY[newIndex] = this.groundItemY[oldIndex];
+                                 this.groundItemId[newIndex] = this.groundItemId[oldIndex];
+                                 this.field_161[newIndex] = this.field_161[oldIndex];
                               }
 
-                              ++var23;
+                              ++newIndex;
                            }
 
-                           ++var8;
-                        } while(var8 < this.field_157);
+                           ++oldIndex;
+                        } while(oldIndex < this.psize);
                      }
 
-                     this.field_157 = var23;
+                     this.psize = newIndex;
                      if(var19 == 0) {
                         continue;
                      }
                   }
 
-                  var23 = class_21.method_447(var3, var4);
+                  newIndex = class_21.readUnsignedShort(data, var4);
                   var4 += 2;
-                  var6 = this.field_145 + var3[var4++];
-                  var25 = this.field_146 + var3[var4++];
-                  if((var23 & '\u8000') == 0) {
-                     this.field_158[this.field_157] = var6;
-                     this.field_159[this.field_157] = var25;
-                     this.field_160[this.field_157] = var23;
-                     this.field_161[this.field_157] = 0;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.field_163) {
+                  var6 = this.field_145 + data[var4++];
+                  var25 = this.field_146 + data[var4++];
+                  if((newIndex & '\u8000') == 0) {
+                     this.groundItemX[this.psize] = var6;
+                     this.groundItemY[this.psize] = var25;
+                     this.groundItemId[this.psize] = newIndex;
+                     this.field_161[this.psize] = 0;
+                     oldIndex = 0;
+                     if(var19 != 0 || oldIndex < this.field_163) {
                         do {
-                           if(this.field_165[var8] == var6 && this.field_166[var8] == var25) {
-                              this.field_161[this.field_157] = class_4.field_523[this.field_167[var8]];
+                           if(this.field_165[oldIndex] == var6 && this.field_166[oldIndex] == var25) {
+                              this.field_161[this.psize] = class_4.field_523[this.field_167[oldIndex]];
                               if(var19 == 0) {
                                  break;
                               }
                            }
 
-                           ++var8;
-                        } while(var8 < this.field_163);
+                           ++oldIndex;
+                        } while(oldIndex < this.field_163);
                      }
 
-                     ++this.field_157;
+                     ++this.psize;
                      if(var19 == 0) {
                         continue;
                      }
                   }
 
-                  var23 &= 32767;
-                  var8 = 0;
+                  newIndex &= 32767;
+                  oldIndex = 0;
                   var9 = 0;
-                  if(var19 == 0 && var9 >= this.field_157) {
-                     this.field_157 = var8;
+                  if(var19 == 0 && var9 >= this.psize) {
+                     this.psize = oldIndex;
                   } else {
                      do {
                         label1703: {
-                           if(this.field_158[var9] != var6 || this.field_159[var9] != var25 || this.field_160[var9] != var23) {
-                              if(var9 != var8) {
-                                 this.field_158[var8] = this.field_158[var9];
-                                 this.field_159[var8] = this.field_159[var9];
-                                 this.field_160[var8] = this.field_160[var9];
-                                 this.field_161[var8] = this.field_161[var9];
+                           if(this.groundItemX[var9] != var6 || this.groundItemY[var9] != var25 || this.groundItemId[var9] != newIndex) {
+                              if(var9 != oldIndex) {
+                                 this.groundItemX[oldIndex] = this.groundItemX[var9];
+                                 this.groundItemY[oldIndex] = this.groundItemY[var9];
+                                 this.groundItemId[oldIndex] = this.groundItemId[var9];
+                                 this.field_161[oldIndex] = this.field_161[var9];
                               }
 
-                              ++var8;
+                              ++oldIndex;
                               if(var19 == 0) {
                                  break label1703;
                               }
                            }
 
-                           var23 = -123;
+                           newIndex = -123;
                         }
 
                         ++var9;
-                     } while(var9 < this.field_157);
+                     } while(var9 < this.psize);
 
-                     this.field_157 = var8;
+                     this.psize = oldIndex;
                   }
                } while(var4 < var2);
 
                return;
             }
 
-            if(var1 == 253) {
+            if(opcode == 253) {
                var4 = 1;
                if(var19 == 0 && var4 >= var2) {
                   return;
                }
 
                do {
-                  if(class_21.method_446(var3[var4]) == 255) {
-                     var23 = 0;
-                     var6 = this.field_145 + var3[var4 + 1] >> 3;
-                     var25 = this.field_146 + var3[var4 + 2] >> 3;
+                  if(class_21.getUnsignedByte(data[var4]) == 255) {
+                     newIndex = 0;
+                     var6 = this.field_145 + data[var4 + 1] >> 3;
+                     var25 = this.field_146 + data[var4 + 2] >> 3;
                      var4 += 3;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.field_163) {
+                     oldIndex = 0;
+                     if(var19 != 0 || oldIndex < this.field_163) {
                         do {
                            label1683: {
-                              var9 = (this.field_165[var8] >> 3) - var6;
-                              var10 = (this.field_166[var8] >> 3) - var25;
+                              var9 = (this.field_165[oldIndex] >> 3) - var6;
+                              var10 = (this.field_166[oldIndex] >> 3) - var25;
                               if(var9 != 0 || var10 != 0) {
-                                 if(var8 != var23) {
-                                    this.field_164[var23] = this.field_164[var8];
-                                    this.field_164[var23].field_883 = var23;
-                                    this.field_165[var23] = this.field_165[var8];
-                                    this.field_166[var23] = this.field_166[var8];
-                                    this.field_167[var23] = this.field_167[var8];
-                                    this.field_168[var23] = this.field_168[var8];
+                                 if(oldIndex != newIndex) {
+                                    this.field_164[newIndex] = this.field_164[oldIndex];
+                                    this.field_164[newIndex].field_883 = newIndex;
+                                    this.field_165[newIndex] = this.field_165[oldIndex];
+                                    this.field_166[newIndex] = this.field_166[oldIndex];
+                                    this.field_167[newIndex] = this.field_167[oldIndex];
+                                    this.field_168[newIndex] = this.field_168[oldIndex];
                                  }
 
-                                 ++var23;
+                                 ++newIndex;
                                  if(var19 == 0) {
                                     break label1683;
                                  }
                               }
 
-                              this.field_92.method_171(this.field_164[var8]);
-                              this.field_117.method_327(this.field_165[var8], this.field_166[var8], this.field_167[var8]);
+                              this.field_92.method_171(this.field_164[oldIndex]);
+                              this.field_117.method_327(this.field_165[oldIndex], this.field_166[oldIndex], this.field_167[oldIndex]);
                            }
 
-                           ++var8;
-                        } while(var8 < this.field_163);
+                           ++oldIndex;
+                        } while(oldIndex < this.field_163);
                      }
 
-                     this.field_163 = var23;
+                     this.field_163 = newIndex;
                      if(var19 == 0) {
                         continue;
                      }
                   }
 
-                  var23 = class_21.method_447(var3, var4);
+                  newIndex = class_21.readUnsignedShort(data, var4);
                   var4 += 2;
-                  var6 = this.field_145 + var3[var4++];
-                  var25 = this.field_146 + var3[var4++];
-                  var8 = 0;
+                  var6 = this.field_145 + data[var4++];
+                  var25 = this.field_146 + data[var4++];
+                  oldIndex = 0;
                   var9 = 0;
                   if(var19 != 0) {
                      label1704: {
                         if(this.field_165[var9] != var6 || this.field_166[var9] != var25) {
-                           if(var9 != var8) {
-                              this.field_164[var8] = this.field_164[var9];
-                              this.field_164[var8].field_883 = var8;
-                              this.field_165[var8] = this.field_165[var9];
-                              this.field_166[var8] = this.field_166[var9];
-                              this.field_167[var8] = this.field_167[var9];
-                              this.field_168[var8] = this.field_168[var9];
+                           if(var9 != oldIndex) {
+                              this.field_164[oldIndex] = this.field_164[var9];
+                              this.field_164[oldIndex].field_883 = oldIndex;
+                              this.field_165[oldIndex] = this.field_165[var9];
+                              this.field_166[oldIndex] = this.field_166[var9];
+                              this.field_167[oldIndex] = this.field_167[var9];
+                              this.field_168[oldIndex] = this.field_168[var9];
                            }
 
-                           ++var8;
+                           ++oldIndex;
                            if(var19 == 0) {
                               break label1704;
                            }
@@ -4375,16 +4375,16 @@ public class mudclient extends class_1 {
 
                   for(; var9 < this.field_163; ++var9) {
                      if(this.field_165[var9] != var6 || this.field_166[var9] != var25) {
-                        if(var9 != var8) {
-                           this.field_164[var8] = this.field_164[var9];
-                           this.field_164[var8].field_883 = var8;
-                           this.field_165[var8] = this.field_165[var9];
-                           this.field_166[var8] = this.field_166[var9];
-                           this.field_167[var8] = this.field_167[var9];
-                           this.field_168[var8] = this.field_168[var9];
+                        if(var9 != oldIndex) {
+                           this.field_164[oldIndex] = this.field_164[var9];
+                           this.field_164[oldIndex].field_883 = oldIndex;
+                           this.field_165[oldIndex] = this.field_165[var9];
+                           this.field_166[oldIndex] = this.field_166[var9];
+                           this.field_167[oldIndex] = this.field_167[var9];
+                           this.field_168[oldIndex] = this.field_168[var9];
                         }
 
-                        ++var8;
+                        ++oldIndex;
                         if(var19 == 0) {
                            continue;
                         }
@@ -4394,39 +4394,39 @@ public class mudclient extends class_1 {
                      this.field_117.method_327(this.field_165[var9], this.field_166[var9], this.field_167[var9]);
                   }
 
-                  this.field_163 = var8;
-                  if(var23 != '\uea60') {
+                  this.field_163 = oldIndex;
+                  if(newIndex != '\uea60') {
                      label1684: {
                         var10 = this.field_117.method_341(var6, var25);
                         if(var10 == 0 || var10 == 4) {
-                           var11 = class_4.field_520[var23];
-                           var28 = class_4.field_521[var23];
+                           var11 = class_4.field_520[newIndex];
+                           var28 = class_4.field_521[newIndex];
                            if(var19 == 0) {
                               break label1684;
                            }
                         }
 
-                        var28 = class_4.field_520[var23];
-                        var11 = class_4.field_521[var23];
+                        var28 = class_4.field_520[newIndex];
+                        var11 = class_4.field_521[newIndex];
                      }
 
                      var13 = (var6 + var6 + var11) * this.field_94 / 2;
                      var14 = (var25 + var25 + var28) * this.field_94 / 2;
-                     var15 = class_4.field_519[var23];
+                     var15 = class_4.field_519[newIndex];
                      class_15 var39 = this.field_169[var15].method_390();
                      this.field_92.method_170(var39);
                      var39.field_883 = this.field_163;
                      var39.method_375(0, var10 * 32, 0);
                      var39.method_377(var13, -this.field_117.method_332(var13, var14), var14);
                      var39.method_371(true, 48, 48, -50, -10, -50);
-                     this.field_117.method_326(var6, var25, var23);
-                     if(var23 == 74) {
+                     this.field_117.method_326(var6, var25, newIndex);
+                     if(newIndex == 74) {
                         var39.method_377(0, -480, 0);
                      }
 
                      this.field_165[this.field_163] = var6;
                      this.field_166[this.field_163] = var25;
-                     this.field_167[this.field_163] = var23;
+                     this.field_167[this.field_163] = newIndex;
                      this.field_168[this.field_163] = var10;
                      this.field_164[this.field_163++] = var39;
                   }
@@ -4436,24 +4436,24 @@ public class mudclient extends class_1 {
             }
 
             byte var21;
-            if(var1 == 252) {
+            if(opcode == 252) {
                var21 = 1;
                var4 = var21 + 1;
-               this.field_181 = var3[var21] & 255;
-               var23 = 0;
-               if(var19 == 0 && var23 >= this.field_181) {
+               this.field_181 = data[var21] & 255;
+               newIndex = 0;
+               if(var19 == 0 && newIndex >= this.field_181) {
                   return;
                }
 
                do {
                   label1247: {
-                     var6 = class_21.method_447(var3, var4);
+                     var6 = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     this.field_182[var23] = var6 & 32767;
-                     this.field_184[var23] = var6 / '\u8000';
+                     this.field_182[newIndex] = var6 & 32767;
+                     this.field_184[newIndex] = var6 / '\u8000';
                      if(class_4.field_479[var6 & 32767] == 0) {
-                        this.field_183[var23] = class_21.method_451(var3, var4);
-                        if(this.field_183[var23] >= 128) {
+                        this.field_183[newIndex] = class_21.method_451(data, var4);
+                        if(this.field_183[newIndex] >= 128) {
                            var4 += 4;
                            if(var19 == 0) {
                               break label1247;
@@ -4466,19 +4466,19 @@ public class mudclient extends class_1 {
                         }
                      }
 
-                     this.field_183[var23] = 1;
+                     this.field_183[newIndex] = 1;
                   }
 
-                  ++var23;
-               } while(var23 < this.field_181);
+                  ++newIndex;
+               } while(newIndex < this.field_181);
 
                return;
             }
 
             class_7 var30;
-            if(var1 == 250) {
-               var4 = class_21.method_447(var3, 1);
-               var23 = 3;
+            if(opcode == 250) {
+               var4 = class_21.readUnsignedShort(data, 1);
+               newIndex = 3;
                var6 = 0;
                if(var19 == 0 && var6 >= var4) {
                   return;
@@ -4486,14 +4486,14 @@ public class mudclient extends class_1 {
 
                do {
                   label1618: {
-                     var25 = class_21.method_447(var3, var23);
-                     var23 += 2;
+                     var25 = class_21.readUnsignedShort(data, newIndex);
+                     newIndex += 2;
                      var30 = this.field_141[var25];
-                     byte var34 = var3[var23];
-                     ++var23;
+                     byte var34 = data[newIndex];
+                     ++newIndex;
                      if(var34 == 0) {
-                        var10 = class_21.method_447(var3, var23);
-                        var23 += 2;
+                        var10 = class_21.readUnsignedShort(data, newIndex);
+                        newIndex += 2;
                         if(var30 == null) {
                            break label1618;
                         }
@@ -4508,10 +4508,10 @@ public class mudclient extends class_1 {
                      byte var36;
                      String var40;
                      if(var34 == 1) {
-                        var36 = var3[var23];
-                        ++var23;
+                        var36 = data[newIndex];
+                        ++newIndex;
                         if(var30 != null) {
-                           var40 = class_20.method_417(class_22.method_463(var3, var23, var36));
+                           var40 = class_20.method_417(class_22.method_463(data, newIndex, var36));
                            var29 = false;
                            var13 = 0;
                            if(var19 != 0 || var13 < super.field_58) {
@@ -4531,19 +4531,19 @@ public class mudclient extends class_1 {
                            }
                         }
 
-                        var23 += var36;
+                        newIndex += var36;
                         if(var19 == 0) {
                            break label1618;
                         }
                      }
 
                      if(var34 == 2) {
-                        var10 = class_21.method_446(var3[var23]);
-                        ++var23;
-                        var11 = class_21.method_446(var3[var23]);
-                        ++var23;
-                        var28 = class_21.method_446(var3[var23]);
-                        ++var23;
+                        var10 = class_21.getUnsignedByte(data[newIndex]);
+                        ++newIndex;
+                        var11 = class_21.getUnsignedByte(data[newIndex]);
+                        ++newIndex;
+                        var28 = class_21.getUnsignedByte(data[newIndex]);
+                        ++newIndex;
                         if(var30 == null) {
                            break label1618;
                         }
@@ -4566,10 +4566,10 @@ public class mudclient extends class_1 {
                      }
 
                      if(var34 == 3) {
-                        var10 = class_21.method_447(var3, var23);
-                        var23 += 2;
-                        var11 = class_21.method_447(var3, var23);
-                        var23 += 2;
+                        var10 = class_21.readUnsignedShort(data, newIndex);
+                        newIndex += 2;
+                        var11 = class_21.readUnsignedShort(data, newIndex);
+                        newIndex += 2;
                         if(var30 == null) {
                            break label1618;
                         }
@@ -4584,10 +4584,10 @@ public class mudclient extends class_1 {
                      }
 
                      if(var34 == 4) {
-                        var10 = class_21.method_447(var3, var23);
-                        var23 += 2;
-                        var11 = class_21.method_447(var3, var23);
-                        var23 += 2;
+                        var10 = class_21.readUnsignedShort(data, newIndex);
+                        newIndex += 2;
+                        var11 = class_21.readUnsignedShort(data, newIndex);
+                        newIndex += 2;
                         if(var30 == null) {
                            break label1618;
                         }
@@ -4603,18 +4603,18 @@ public class mudclient extends class_1 {
 
                      if(var34 == 5) {
                         if(var30 != null) {
-                           var30.field_609 = class_21.method_447(var3, var23);
-                           var23 += 2;
-                           var30.field_606 = class_21.method_449(var3, var23);
-                           var23 += 8;
+                           var30.field_609 = class_21.readUnsignedShort(data, newIndex);
+                           newIndex += 2;
+                           var30.field_606 = class_21.method_449(data, newIndex);
+                           newIndex += 8;
                            var30.field_607 = class_21.method_457(var30.field_606);
-                           var10 = class_21.method_446(var3[var23]);
-                           ++var23;
+                           var10 = class_21.getUnsignedByte(data[newIndex]);
+                           ++newIndex;
                            var11 = 0;
                            if(var19 != 0 || var11 < var10) {
                               do {
-                                 var30.field_620[var11] = class_21.method_446(var3[var23]);
-                                 ++var23;
+                                 var30.field_620[var11] = class_21.getUnsignedByte(data[newIndex]);
+                                 ++newIndex;
                                  ++var11;
                               } while(var11 < var10);
                            }
@@ -4627,30 +4627,30 @@ public class mudclient extends class_1 {
                               } while(var28 < 12);
                            }
 
-                           var30.field_630 = var3[var23++] & 255;
-                           var30.field_631 = var3[var23++] & 255;
-                           var30.field_632 = var3[var23++] & 255;
-                           var30.field_633 = var3[var23++] & 255;
-                           var30.field_629 = var3[var23++] & 255;
-                           var30.field_640 = var3[var23++] & 255;
+                           var30.field_630 = data[newIndex++] & 255;
+                           var30.field_631 = data[newIndex++] & 255;
+                           var30.field_632 = data[newIndex++] & 255;
+                           var30.field_633 = data[newIndex++] & 255;
+                           var30.field_629 = data[newIndex++] & 255;
+                           var30.field_640 = data[newIndex++] & 255;
                            if(var19 == 0) {
                               break label1618;
                            }
                         }
 
-                        var23 += 14;
-                        var10 = class_21.method_446(var3[var23]);
-                        var23 += var10 + 1;
+                        newIndex += 14;
+                        var10 = class_21.getUnsignedByte(data[newIndex]);
+                        newIndex += var10 + 1;
                         if(var19 == 0) {
                            break label1618;
                         }
                      }
 
                      if(var34 == 6) {
-                        var36 = var3[var23];
-                        ++var23;
+                        var36 = data[newIndex];
+                        ++newIndex;
                         if(var30 != null) {
-                           var40 = class_22.method_463(var3, var23, var36);
+                           var40 = class_22.method_463(data, newIndex, var36);
                            var30.field_622 = 150;
                            var30.field_621 = var40;
                            if(var30 == this.field_144) {
@@ -4658,7 +4658,7 @@ public class mudclient extends class_1 {
                            }
                         }
 
-                        var23 += var36;
+                        newIndex += var36;
                      }
                   }
 
@@ -4668,71 +4668,71 @@ public class mudclient extends class_1 {
                return;
             }
 
-            if(var1 == 249) {
+            if(opcode == 249) {
                var4 = 1;
                if(var19 == 0 && var4 >= var2) {
                   return;
                }
 
                do {
-                  if(class_21.method_446(var3[var4]) == 255) {
-                     var23 = 0;
-                     var6 = this.field_145 + var3[var4 + 1] >> 3;
-                     var25 = this.field_146 + var3[var4 + 2] >> 3;
+                  if(class_21.getUnsignedByte(data[var4]) == 255) {
+                     newIndex = 0;
+                     var6 = this.field_145 + data[var4 + 1] >> 3;
+                     var25 = this.field_146 + data[var4 + 2] >> 3;
                      var4 += 3;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.field_172) {
+                     oldIndex = 0;
+                     if(var19 != 0 || oldIndex < this.field_172) {
                         do {
                            label1688: {
-                              var9 = (this.field_174[var8] >> 3) - var6;
-                              var10 = (this.field_175[var8] >> 3) - var25;
+                              var9 = (this.field_174[oldIndex] >> 3) - var6;
+                              var10 = (this.field_175[oldIndex] >> 3) - var25;
                               if(var9 != 0 || var10 != 0) {
-                                 if(var8 != var23) {
-                                    this.field_173[var23] = this.field_173[var8];
-                                    this.field_173[var23].field_883 = var23 + 10000;
-                                    this.field_174[var23] = this.field_174[var8];
-                                    this.field_175[var23] = this.field_175[var8];
-                                    this.field_176[var23] = this.field_176[var8];
-                                    this.field_177[var23] = this.field_177[var8];
+                                 if(oldIndex != newIndex) {
+                                    this.field_173[newIndex] = this.field_173[oldIndex];
+                                    this.field_173[newIndex].field_883 = newIndex + 10000;
+                                    this.field_174[newIndex] = this.field_174[oldIndex];
+                                    this.field_175[newIndex] = this.field_175[oldIndex];
+                                    this.field_176[newIndex] = this.field_176[oldIndex];
+                                    this.field_177[newIndex] = this.field_177[oldIndex];
                                  }
 
-                                 ++var23;
+                                 ++newIndex;
                                  if(var19 == 0) {
                                     break label1688;
                                  }
                               }
 
-                              this.field_92.method_171(this.field_173[var8]);
-                              this.field_117.method_325(this.field_174[var8], this.field_175[var8], this.field_176[var8], this.field_177[var8]);
+                              this.field_92.method_171(this.field_173[oldIndex]);
+                              this.field_117.method_325(this.field_174[oldIndex], this.field_175[oldIndex], this.field_176[oldIndex], this.field_177[oldIndex]);
                            }
 
-                           ++var8;
-                        } while(var8 < this.field_172);
+                           ++oldIndex;
+                        } while(oldIndex < this.field_172);
                      }
 
-                     this.field_172 = var23;
+                     this.field_172 = newIndex;
                      if(var19 == 0) {
                         continue;
                      }
                   }
 
-                  var23 = class_21.method_447(var3, var4);
+                  newIndex = class_21.readUnsignedShort(data, var4);
                   var4 += 2;
-                  var6 = this.field_145 + var3[var4++];
-                  var25 = this.field_146 + var3[var4++];
-                  byte var35 = var3[var4++];
+                  var6 = this.field_145 + data[var4++];
+                  var25 = this.field_146 + data[var4++];
+                  byte var35 = data[var4++];
                   var9 = 0;
                   var10 = 0;
                   class_15 var37;
                   if(var19 == 0 && var10 >= this.field_172) {
                      this.field_172 = var9;
-                     if(var23 != '\uffff') {
-                        this.field_117.method_324(var6, var25, var35, var23);
-                        var37 = this.method_104(var6, var25, var35, var23, this.field_172);
+                     if(newIndex != '\uffff') {
+                        this.field_117.method_324(var6, var25, var35, newIndex);
+                        var37 = this.method_104(var6, var25, var35, newIndex, this.field_172);
                         this.field_173[this.field_172] = var37;
                         this.field_174[this.field_172] = var6;
                         this.field_175[this.field_172] = var25;
-                        this.field_177[this.field_172] = var23;
+                        this.field_177[this.field_172] = newIndex;
                         this.field_176[this.field_172++] = var35;
                      }
                   } else {
@@ -4762,13 +4762,13 @@ public class mudclient extends class_1 {
                      } while(var10 < this.field_172);
 
                      this.field_172 = var9;
-                     if(var23 != '\uffff') {
-                        this.field_117.method_324(var6, var25, var35, var23);
-                        var37 = this.method_104(var6, var25, var35, var23, this.field_172);
+                     if(newIndex != '\uffff') {
+                        this.field_117.method_324(var6, var25, var35, newIndex);
+                        var37 = this.method_104(var6, var25, var35, newIndex, this.field_172);
                         this.field_173[this.field_172] = var37;
                         this.field_174[this.field_172] = var6;
                         this.field_175[this.field_172] = var25;
-                        this.field_177[this.field_172] = var23;
+                        this.field_177[this.field_172] = newIndex;
                         this.field_176[this.field_172++] = var35;
                      }
                   }
@@ -4777,7 +4777,7 @@ public class mudclient extends class_1 {
                return;
             }
 
-            if(var1 == 248) {
+            if(opcode == 248) {
                this.field_151 = this.field_150;
                this.field_150 = 0;
                var4 = 0;
@@ -4792,41 +4792,41 @@ public class mudclient extends class_1 {
                }
 
                var22 = 8;
-               var6 = class_21.method_452(var3, var22, 8);
-               var23 = var22 + 8;
+               var6 = class_21.readBits(data, var22, 8);
+               newIndex = var22 + 8;
                var25 = 0;
                if(var19 == 0 && var25 >= var6) {
-                  if(var19 == 0 && var23 + 34 >= var2 * 8) {
+                  if(var19 == 0 && newIndex + 34 >= var2 * 8) {
                      return;
                   }
 
                   do {
-                     var8 = class_21.method_452(var3, var23, 12);
-                     var23 += 12;
-                     var9 = class_21.method_452(var3, var23, 5);
-                     var23 += 5;
+                     oldIndex = class_21.readBits(data, newIndex, 12);
+                     newIndex += 12;
+                     var9 = class_21.readBits(data, newIndex, 5);
+                     newIndex += 5;
                      if(var9 > 15) {
                         var9 -= 32;
                      }
 
-                     var10 = class_21.method_452(var3, var23, 5);
-                     var23 += 5;
+                     var10 = class_21.readBits(data, newIndex, 5);
+                     newIndex += 5;
                      if(var10 > 15) {
                         var10 -= 32;
                      }
 
-                     var11 = class_21.method_452(var3, var23, 4);
-                     var23 += 4;
+                     var11 = class_21.readBits(data, newIndex, 4);
+                     newIndex += 4;
                      var28 = (this.field_145 + var9) * this.field_94 + 64;
                      var13 = (this.field_146 + var10) * this.field_94 + 64;
-                     var14 = class_21.method_452(var3, var23, 10);
-                     var23 += 10;
+                     var14 = class_21.readBits(data, newIndex, 10);
+                     newIndex += 10;
                      if(var14 >= class_4.field_485) {
                         var14 = 24;
                      }
 
-                     this.method_82(var8, var28, var13, var11, var14);
-                  } while(var23 + 34 < var2 * 8);
+                     this.method_82(oldIndex, var28, var13, var11, var14);
+                  } while(newIndex + 34 < var2 * 8);
 
                   return;
                }
@@ -4834,15 +4834,15 @@ public class mudclient extends class_1 {
                do {
                   label1044: {
                      var30 = this.field_154[var25];
-                     var9 = class_21.method_452(var3, var23, 1);
-                     ++var23;
+                     var9 = class_21.readBits(data, newIndex, 1);
+                     ++newIndex;
                      if(var9 != 0) {
                         label1629: {
-                           var10 = class_21.method_452(var3, var23, 1);
-                           ++var23;
+                           var10 = class_21.readBits(data, newIndex, 1);
+                           ++newIndex;
                            if(var10 == 0) {
-                              var11 = class_21.method_452(var3, var23, 3);
-                              var23 += 3;
+                              var11 = class_21.readBits(data, newIndex, 3);
+                              newIndex += 3;
                               var28 = var30.field_617;
                               var13 = var30.field_618[var28];
                               var14 = var30.field_619[var28];
@@ -4871,16 +4871,16 @@ public class mudclient extends class_1 {
                               }
                            }
 
-                           var11 = class_21.method_452(var3, var23, 4);
+                           var11 = class_21.readBits(data, newIndex, 4);
                            if((var11 & 12) == 12) {
-                              var23 += 2;
+                              newIndex += 2;
                               if(var19 == 0) {
                                  break label1044;
                               }
                            }
 
-                           var30.field_615 = class_21.method_452(var3, var23, 4);
-                           var23 += 4;
+                           var30.field_615 = class_21.readBits(data, newIndex, 4);
+                           newIndex += 4;
                         }
                      }
 
@@ -4890,44 +4890,44 @@ public class mudclient extends class_1 {
                   ++var25;
                } while(var25 < var6);
 
-               if(var19 == 0 && var23 + 34 >= var2 * 8) {
+               if(var19 == 0 && newIndex + 34 >= var2 * 8) {
                   return;
                }
 
                do {
-                  var8 = class_21.method_452(var3, var23, 12);
-                  var23 += 12;
-                  var9 = class_21.method_452(var3, var23, 5);
-                  var23 += 5;
+                  oldIndex = class_21.readBits(data, newIndex, 12);
+                  newIndex += 12;
+                  var9 = class_21.readBits(data, newIndex, 5);
+                  newIndex += 5;
                   if(var9 > 15) {
                      var9 -= 32;
                   }
 
-                  var10 = class_21.method_452(var3, var23, 5);
-                  var23 += 5;
+                  var10 = class_21.readBits(data, newIndex, 5);
+                  newIndex += 5;
                   if(var10 > 15) {
                      var10 -= 32;
                   }
 
-                  var11 = class_21.method_452(var3, var23, 4);
-                  var23 += 4;
+                  var11 = class_21.readBits(data, newIndex, 4);
+                  newIndex += 4;
                   var28 = (this.field_145 + var9) * this.field_94 + 64;
                   var13 = (this.field_146 + var10) * this.field_94 + 64;
-                  var14 = class_21.method_452(var3, var23, 10);
-                  var23 += 10;
+                  var14 = class_21.readBits(data, newIndex, 10);
+                  newIndex += 10;
                   if(var14 >= class_4.field_485) {
                      var14 = 24;
                   }
 
-                  this.method_82(var8, var28, var13, var11, var14);
-               } while(var23 + 34 < var2 * 8);
+                  this.method_82(oldIndex, var28, var13, var11, var14);
+               } while(newIndex + 34 < var2 * 8);
 
                return;
             }
 
-            if(var1 == 247) {
-               var4 = class_21.method_447(var3, 1);
-               var23 = 3;
+            if(opcode == 247) {
+               var4 = class_21.readUnsignedShort(data, 1);
+               newIndex = 3;
                var6 = 0;
                if(var19 == 0 && var6 >= var4) {
                   return;
@@ -4935,18 +4935,18 @@ public class mudclient extends class_1 {
 
                do {
                   label987: {
-                     var25 = class_21.method_447(var3, var23);
-                     var23 += 2;
+                     var25 = class_21.readUnsignedShort(data, newIndex);
+                     newIndex += 2;
                      var30 = this.field_152[var25];
-                     var9 = class_21.method_446(var3[var23]);
-                     ++var23;
+                     var9 = class_21.getUnsignedByte(data[newIndex]);
+                     ++newIndex;
                      if(var9 == 1) {
-                        var10 = class_21.method_447(var3, var23);
-                        var23 += 2;
-                        byte var31 = var3[var23];
-                        ++var23;
+                        var10 = class_21.readUnsignedShort(data, newIndex);
+                        newIndex += 2;
+                        byte var31 = data[newIndex];
+                        ++newIndex;
                         if(var30 != null) {
-                           String var33 = class_22.method_463(var3, var23, var31);
+                           String var33 = class_22.method_463(data, newIndex, var31);
                            var30.field_622 = 150;
                            var30.field_621 = var33;
                            if(var10 == this.field_144.field_608) {
@@ -4954,19 +4954,19 @@ public class mudclient extends class_1 {
                            }
                         }
 
-                        var23 += var31;
+                        newIndex += var31;
                         if(var19 == 0) {
                            break label987;
                         }
                      }
 
                      if(var9 == 2) {
-                        var10 = class_21.method_446(var3[var23]);
-                        ++var23;
-                        var11 = class_21.method_446(var3[var23]);
-                        ++var23;
-                        var28 = class_21.method_446(var3[var23]);
-                        ++var23;
+                        var10 = class_21.getUnsignedByte(data[newIndex]);
+                        ++newIndex;
+                        var11 = class_21.getUnsignedByte(data[newIndex]);
+                        ++newIndex;
+                        var28 = class_21.getUnsignedByte(data[newIndex]);
+                        ++newIndex;
                         if(var30 != null) {
                            var30.field_625 = var10;
                            var30.field_626 = var11;
@@ -4982,149 +4982,149 @@ public class mudclient extends class_1 {
                return;
             }
 
-            if(var1 == 246) {
+            if(opcode == 246) {
                this.field_316 = true;
-               var4 = class_21.method_446(var3[1]);
+               var4 = class_21.getUnsignedByte(data[1]);
                this.field_317 = var4;
-               var23 = 2;
+               newIndex = 2;
                var6 = 0;
                if(var19 == 0 && var6 >= var4) {
                   return;
                }
 
                do {
-                  var25 = class_21.method_446(var3[var23]);
-                  ++var23;
-                  this.field_318[var6] = new String(var3, var23, var25);
-                  var23 += var25;
+                  var25 = class_21.getUnsignedByte(data[newIndex]);
+                  ++newIndex;
+                  this.field_318[var6] = new String(data, newIndex, var25);
+                  newIndex += var25;
                   ++var6;
                } while(var6 < var4);
 
                return;
             }
 
-            if(var1 == 245) {
+            if(opcode == 245) {
                this.field_316 = false;
                return;
             }
 
-            if(var1 == 244) {
-               this.field_340 = true;
-               this.field_147 = class_21.method_447(var3, 1);
-               this.field_118 = class_21.method_447(var3, 3);
-               this.field_119 = class_21.method_447(var3, 5);
-               this.field_124 = class_21.method_447(var3, 7);
-               this.field_120 = class_21.method_447(var3, 9);
-               this.field_119 -= this.field_124 * this.field_120;
+            if(opcode == 244) {
+               this.loadingArea = true;
+               this.localPlayerServerIndex = class_21.readUnsignedShort(data, 1);
+               this.planeWidth = class_21.readUnsignedShort(data, 3);
+               this.planeHeight = class_21.readUnsignedShort(data, 5);
+               this.planeIndex = class_21.readUnsignedShort(data, 7);
+               this.planeMultiplier = class_21.readUnsignedShort(data, 9);
+               this.planeHeight -= this.planeIndex * this.planeMultiplier;
                return;
             }
 
-            if(var1 == 243) {
+            if(opcode == 243) {
                var4 = 1;
-               var23 = 0;
+               newIndex = 0;
                if(var19 != 0) {
-                  this.field_189[var23] = class_21.method_446(var3[var4++]);
-                  ++var23;
+                  this.field_189[newIndex] = class_21.getUnsignedByte(data[var4++]);
+                  ++newIndex;
                }
 
-               while(var23 < 18) {
-                  this.field_189[var23] = class_21.method_446(var3[var4++]);
-                  ++var23;
+               while(newIndex < 18) {
+                  this.field_189[newIndex] = class_21.getUnsignedByte(data[var4++]);
+                  ++newIndex;
                }
 
                var6 = 0;
                if(var19 != 0) {
-                  this.field_190[var6] = class_21.method_446(var3[var4++]);
+                  this.field_190[var6] = class_21.getUnsignedByte(data[var4++]);
                   ++var6;
                }
 
                while(var6 < 18) {
-                  this.field_190[var6] = class_21.method_446(var3[var4++]);
+                  this.field_190[var6] = class_21.getUnsignedByte(data[var4++]);
                   ++var6;
                }
 
                var25 = 0;
                if(var19 != 0) {
-                  this.field_191[var25] = class_21.method_448(var3, var4);
+                  this.field_191[var25] = class_21.getUnsignedInt(data, var4);
                   var4 += 4;
                   ++var25;
                }
 
                while(var25 < 18) {
-                  this.field_191[var25] = class_21.method_448(var3, var4);
+                  this.field_191[var25] = class_21.getUnsignedInt(data, var4);
                   var4 += 4;
                   ++var25;
                }
 
-               this.field_193 = class_21.method_446(var3[var4++]);
+               this.field_193 = class_21.getUnsignedByte(data[var4++]);
                return;
             }
 
-            if(var1 == 242) {
+            if(opcode == 242) {
                var4 = 0;
                if(var19 == 0 && var4 >= 5) {
                   return;
                }
 
                do {
-                  this.field_192[var4] = class_21.method_446(var3[1 + var4]);
+                  this.field_192[var4] = class_21.getUnsignedByte(data[1 + var4]);
                   ++var4;
                } while(var4 < 5);
 
                return;
             }
 
-            if(var1 == 241) {
+            if(opcode == 241) {
                this.field_338 = 250;
                return;
             }
 
-            if(var1 == 240) {
+            if(opcode == 240) {
                var4 = (var2 - 1) / 4;
-               var23 = 0;
-               if(var19 == 0 && var23 >= var4) {
+               newIndex = 0;
+               if(var19 == 0 && newIndex >= var4) {
                   return;
                }
 
                do {
-                  var6 = this.field_145 + class_21.method_450(var3, 1 + var23 * 4) >> 3;
-                  var25 = this.field_146 + class_21.method_450(var3, 3 + var23 * 4) >> 3;
-                  var8 = 0;
+                  var6 = this.field_145 + class_21.method_450(data, 1 + newIndex * 4) >> 3;
+                  var25 = this.field_146 + class_21.method_450(data, 3 + newIndex * 4) >> 3;
+                  oldIndex = 0;
                   var9 = 0;
                   if(var19 != 0) {
-                     var10 = (this.field_158[var9] >> 3) - var6;
-                     var11 = (this.field_159[var9] >> 3) - var25;
+                     var10 = (this.groundItemX[var9] >> 3) - var6;
+                     var11 = (this.groundItemY[var9] >> 3) - var25;
                      if(var10 != 0 || var11 != 0) {
-                        if(var9 != var8) {
-                           this.field_158[var8] = this.field_158[var9];
-                           this.field_159[var8] = this.field_159[var9];
-                           this.field_160[var8] = this.field_160[var9];
-                           this.field_161[var8] = this.field_161[var9];
+                        if(var9 != oldIndex) {
+                           this.groundItemX[oldIndex] = this.groundItemX[var9];
+                           this.groundItemY[oldIndex] = this.groundItemY[var9];
+                           this.groundItemId[oldIndex] = this.groundItemId[var9];
+                           this.field_161[oldIndex] = this.field_161[var9];
                         }
 
-                        ++var8;
+                        ++oldIndex;
                      }
 
                      ++var9;
                   }
 
-                  for(; var9 < this.field_157; ++var9) {
-                     var10 = (this.field_158[var9] >> 3) - var6;
-                     var11 = (this.field_159[var9] >> 3) - var25;
+                  for(; var9 < this.psize; ++var9) {
+                     var10 = (this.groundItemX[var9] >> 3) - var6;
+                     var11 = (this.groundItemY[var9] >> 3) - var25;
                      if(var10 != 0 || var11 != 0) {
-                        if(var9 != var8) {
-                           this.field_158[var8] = this.field_158[var9];
-                           this.field_159[var8] = this.field_159[var9];
-                           this.field_160[var8] = this.field_160[var9];
-                           this.field_161[var8] = this.field_161[var9];
+                        if(var9 != oldIndex) {
+                           this.groundItemX[oldIndex] = this.groundItemX[var9];
+                           this.groundItemY[oldIndex] = this.groundItemY[var9];
+                           this.groundItemId[oldIndex] = this.groundItemId[var9];
+                           this.field_161[oldIndex] = this.field_161[var9];
                         }
 
-                        ++var8;
+                        ++oldIndex;
                      }
                   }
 
-                  this.field_157 = var8;
-                  var8 = 0;
+                  this.psize = oldIndex;
+                  oldIndex = 0;
                   var10 = 0;
                   if(var19 != 0 || var10 < this.field_163) {
                      do {
@@ -5132,16 +5132,16 @@ public class mudclient extends class_1 {
                            var11 = (this.field_165[var10] >> 3) - var6;
                            var28 = (this.field_166[var10] >> 3) - var25;
                            if(var11 != 0 || var28 != 0) {
-                              if(var10 != var8) {
-                                 this.field_164[var8] = this.field_164[var10];
-                                 this.field_164[var8].field_883 = var8;
-                                 this.field_165[var8] = this.field_165[var10];
-                                 this.field_166[var8] = this.field_166[var10];
-                                 this.field_167[var8] = this.field_167[var10];
-                                 this.field_168[var8] = this.field_168[var10];
+                              if(var10 != oldIndex) {
+                                 this.field_164[oldIndex] = this.field_164[var10];
+                                 this.field_164[oldIndex].field_883 = oldIndex;
+                                 this.field_165[oldIndex] = this.field_165[var10];
+                                 this.field_166[oldIndex] = this.field_166[var10];
+                                 this.field_167[oldIndex] = this.field_167[var10];
+                                 this.field_168[oldIndex] = this.field_168[var10];
                               }
 
-                              ++var8;
+                              ++oldIndex;
                               if(var19 == 0) {
                                  break label1693;
                               }
@@ -5155,28 +5155,28 @@ public class mudclient extends class_1 {
                      } while(var10 < this.field_163);
                   }
 
-                  this.field_163 = var8;
-                  var8 = 0;
+                  this.field_163 = oldIndex;
+                  oldIndex = 0;
                   var11 = 0;
                   if(var19 == 0 && var11 >= this.field_172) {
-                     this.field_172 = var8;
-                     ++var23;
+                     this.field_172 = oldIndex;
+                     ++newIndex;
                   } else {
                      do {
                         label1694: {
                            var28 = (this.field_174[var11] >> 3) - var6;
                            var13 = (this.field_175[var11] >> 3) - var25;
                            if(var28 != 0 || var13 != 0) {
-                              if(var11 != var8) {
-                                 this.field_173[var8] = this.field_173[var11];
-                                 this.field_173[var8].field_883 = var8 + 10000;
-                                 this.field_174[var8] = this.field_174[var11];
-                                 this.field_175[var8] = this.field_175[var11];
-                                 this.field_176[var8] = this.field_176[var11];
-                                 this.field_177[var8] = this.field_177[var11];
+                              if(var11 != oldIndex) {
+                                 this.field_173[oldIndex] = this.field_173[var11];
+                                 this.field_173[oldIndex].field_883 = oldIndex + 10000;
+                                 this.field_174[oldIndex] = this.field_174[var11];
+                                 this.field_175[oldIndex] = this.field_175[var11];
+                                 this.field_176[oldIndex] = this.field_176[var11];
+                                 this.field_177[oldIndex] = this.field_177[var11];
                               }
 
-                              ++var8;
+                              ++oldIndex;
                               if(var19 == 0) {
                                  break label1694;
                               }
@@ -5189,21 +5189,21 @@ public class mudclient extends class_1 {
                         ++var11;
                      } while(var11 < this.field_172);
 
-                     this.field_172 = var8;
-                     ++var23;
+                     this.field_172 = oldIndex;
+                     ++newIndex;
                   }
-               } while(var23 < var4);
+               } while(newIndex < var4);
 
                return;
             }
 
-            if(var1 == 239) {
+            if(opcode == 239) {
                this.field_426 = true;
                return;
             }
 
-            if(var1 == 238) {
-               var4 = class_21.method_447(var3, 1);
+            if(opcode == 238) {
+               var4 = class_21.readUnsignedShort(data, 1);
                if(this.field_141[var4] != null) {
                   this.field_277 = this.field_141[var4].field_607;
                }
@@ -5216,29 +5216,29 @@ public class mudclient extends class_1 {
                return;
             }
 
-            if(var1 == 237) {
+            if(opcode == 237) {
                this.field_276 = false;
                this.field_289 = false;
                return;
             }
 
-            if(var1 == 236) {
-               this.field_281 = var3[1] & 255;
+            if(opcode == 236) {
+               this.field_281 = data[1] & 255;
                var4 = 2;
-               var23 = 0;
-               if(var19 == 0 && var23 >= this.field_281) {
+               newIndex = 0;
+               if(var19 == 0 && newIndex >= this.field_281) {
                   this.field_284 = false;
                   this.field_285 = false;
                   return;
                }
 
                do {
-                  this.field_282[var23] = class_21.method_447(var3, var4);
+                  this.field_282[newIndex] = class_21.readUnsignedShort(data, var4);
                   var4 += 2;
-                  this.field_283[var23] = class_21.method_448(var3, var4);
+                  this.field_283[newIndex] = class_21.getUnsignedInt(data, var4);
                   var4 += 4;
-                  ++var23;
-               } while(var23 < this.field_281);
+                  ++newIndex;
+               } while(newIndex < this.field_281);
 
                this.field_284 = false;
                this.field_285 = false;
@@ -5246,8 +5246,8 @@ public class mudclient extends class_1 {
             }
 
             byte var38;
-            if(var1 == 235) {
-               var38 = var3[1];
+            if(opcode == 235) {
+               var38 = data[1];
                if(var38 == 1) {
                   this.field_284 = true;
                   return;
@@ -5257,14 +5257,14 @@ public class mudclient extends class_1 {
                return;
             }
 
-            if(var1 == 234) {
+            if(opcode == 234) {
                this.field_297 = true;
                var21 = 1;
                var4 = var21 + 1;
-               var23 = var3[var21] & 255;
-               byte var24 = var3[var4++];
-               this.field_298 = var3[var4++] & 255;
-               this.field_299 = var3[var4++] & 255;
+               newIndex = data[var21] & 255;
+               byte var24 = data[var4++];
+               this.field_298 = data[var4++] & 255;
+               this.field_299 = data[var4++] & 255;
                var25 = 0;
                if(var19 != 0 || var25 < 40) {
                   do {
@@ -5273,23 +5273,23 @@ public class mudclient extends class_1 {
                   } while(var25 < 40);
                }
 
-               var8 = 0;
-               if(var19 != 0 || var8 < var23) {
+               oldIndex = 0;
+               if(var19 != 0 || oldIndex < newIndex) {
                   do {
-                     this.field_300[var8] = class_21.method_447(var3, var4);
+                     this.field_300[oldIndex] = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     this.field_301[var8] = class_21.method_447(var3, var4);
+                     this.field_301[oldIndex] = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     this.field_302[var8] = var3[var4++];
-                     ++var8;
-                  } while(var8 < var23);
+                     this.field_302[oldIndex] = data[var4++];
+                     ++oldIndex;
+                  } while(oldIndex < newIndex);
                }
 
                if(var24 == 1) {
                   var9 = 39;
                   var10 = 0;
                   if(var19 != 0 || var10 < this.field_181) {
-                     while(var9 >= var23) {
+                     while(var9 >= newIndex) {
                         boolean var27 = false;
                         var28 = 0;
                         if(var19 != 0 || var28 < 40) {
@@ -5330,12 +5330,12 @@ public class mudclient extends class_1 {
                   return;
                }
             } else {
-               if(var1 == 233) {
+               if(opcode == 233) {
                   this.field_297 = false;
                   return;
                }
 
-               if(var1 == 232) {
+               if(opcode == 232) {
                   this.field_400 = true;
                   this.field_401.method_307(this.field_403, "");
                   this.field_401.method_307(this.field_404, "");
@@ -5344,8 +5344,8 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 229) {
-                  var38 = var3[1];
+               if(opcode == 229) {
+                  var38 = data[1];
                   if(var38 == 1) {
                      this.field_285 = true;
                      return;
@@ -5355,21 +5355,21 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 228) {
-                  this.field_217 = class_21.method_446(var3[1]) == 1;
-                  this.field_218 = class_21.method_446(var3[2]) == 1;
-                  this.field_219 = class_21.method_446(var3[3]) == 1;
+               if(opcode == 228) {
+                  this.field_217 = class_21.getUnsignedByte(data[1]) == 1;
+                  this.field_218 = class_21.getUnsignedByte(data[2]) == 1;
+                  this.field_219 = class_21.getUnsignedByte(data[3]) == 1;
                   return;
                }
 
-               if(var1 == 227) {
+               if(opcode == 227) {
                   var4 = 0;
                   if(var19 == 0 && var4 >= var2 - 1) {
                      return;
                   }
 
                   do {
-                     boolean var41 = var3[var4 + 1] == 1;
+                     boolean var41 = data[var4 + 1] == 1;
                      if(!this.field_215[var4] && var41) {
                         this.method_64("prayeron");
                      }
@@ -5385,21 +5385,21 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 226) {
+               if(opcode == 226) {
                   var4 = 0;
                   if(var19 == 0 && var4 >= this.field_212) {
                      return;
                   }
 
                   do {
-                     this.field_214[var4] = var3[var4 + 1] == 1;
+                     this.field_214[var4] = data[var4 + 1] == 1;
                      ++var4;
                   } while(var4 < this.field_212);
 
                   return;
                }
 
-               if(var1 == 224) {
+               if(opcode == 224) {
                   this.field_378 = true;
                   var4 = 0;
                   if(var19 == 0 && var4 >= 5) {
@@ -5417,24 +5417,24 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 222) {
+               if(opcode == 222) {
                   this.field_305 = true;
                   var21 = 1;
                   var4 = var21 + 1;
-                  this.field_306 = var3[var21] & 255;
-                  this.field_314 = var3[var4++] & 255;
-                  var23 = 0;
-                  if(var19 == 0 && var23 >= this.field_306) {
+                  this.field_306 = data[var21] & 255;
+                  this.field_314 = data[var4++] & 255;
+                  newIndex = 0;
+                  if(var19 == 0 && newIndex >= this.field_306) {
                      this.method_83();
                      return;
                   }
 
                   do {
                      label753: {
-                        this.field_307[var23] = class_21.method_447(var3, var4);
+                        this.field_307[newIndex] = class_21.readUnsignedShort(data, var4);
                         var4 += 2;
-                        this.field_308[var23] = class_21.method_451(var3, var4);
-                        if(this.field_308[var23] >= 128) {
+                        this.field_308[newIndex] = class_21.method_451(data, var4);
+                        if(this.field_308[newIndex] >= 128) {
                            var4 += 4;
                            if(var19 == 0) {
                               break label753;
@@ -5444,26 +5444,26 @@ public class mudclient extends class_1 {
                         ++var4;
                      }
 
-                     ++var23;
-                  } while(var23 < this.field_306);
+                     ++newIndex;
+                  } while(newIndex < this.field_306);
 
                   this.method_83();
                   return;
                }
 
-               if(var1 == 221) {
+               if(opcode == 221) {
                   this.field_305 = false;
                   return;
                }
 
-               if(var1 == 220) {
-                  var4 = var3[1] & 255;
-                  this.field_191[var4] = class_21.method_448(var3, 2);
+               if(opcode == 220) {
+                  var4 = data[1] & 255;
+                  this.field_191[var4] = class_21.getUnsignedInt(data, 2);
                   return;
                }
 
-               if(var1 == 219) {
-                  var4 = class_21.method_447(var3, 1);
+               if(opcode == 219) {
+                  var4 = class_21.readUnsignedShort(data, 1);
                   if(this.field_141[var4] != null) {
                      this.field_250 = this.field_141[var4].field_607;
                   }
@@ -5480,47 +5480,47 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 218) {
+               if(opcode == 218) {
                   this.field_249 = false;
                   this.field_263 = false;
                   return;
                }
 
-               if(var1 == 217) {
+               if(opcode == 217) {
                   this.field_289 = true;
                   this.field_290 = false;
                   this.field_276 = false;
                   var21 = 1;
-                  this.field_288 = class_21.method_449(var3, var21);
+                  this.field_288 = class_21.method_449(data, var21);
                   var4 = var21 + 8;
-                  this.field_294 = var3[var4++] & 255;
-                  var23 = 0;
+                  this.field_294 = data[var4++] & 255;
+                  newIndex = 0;
                   if(var19 != 0) {
-                     this.field_295[var23] = class_21.method_447(var3, var4);
+                     this.field_295[newIndex] = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     this.field_296[var23] = class_21.method_448(var3, var4);
+                     this.field_296[newIndex] = class_21.getUnsignedInt(data, var4);
                      var4 += 4;
-                     ++var23;
+                     ++newIndex;
                   }
 
-                  while(var23 < this.field_294) {
-                     this.field_295[var23] = class_21.method_447(var3, var4);
+                  while(newIndex < this.field_294) {
+                     this.field_295[newIndex] = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     this.field_296[var23] = class_21.method_448(var3, var4);
+                     this.field_296[newIndex] = class_21.getUnsignedInt(data, var4);
                      var4 += 4;
-                     ++var23;
+                     ++newIndex;
                   }
 
-                  this.field_291 = var3[var4++] & 255;
+                  this.field_291 = data[var4++] & 255;
                   var6 = 0;
                   if(var19 == 0 && var6 >= this.field_291) {
                      return;
                   }
 
                   do {
-                     this.field_292[var6] = class_21.method_447(var3, var4);
+                     this.field_292[var6] = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     this.field_293[var6] = class_21.method_448(var3, var4);
+                     this.field_293[var6] = class_21.getUnsignedInt(data, var4);
                      var4 += 4;
                      ++var6;
                   } while(var6 < this.field_291);
@@ -5528,32 +5528,32 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 216) {
-                  this.field_254 = var3[1] & 255;
+               if(opcode == 216) {
+                  this.field_254 = data[1] & 255;
                   var4 = 2;
-                  var23 = 0;
-                  if(var19 == 0 && var23 >= this.field_254) {
+                  newIndex = 0;
+                  if(var19 == 0 && newIndex >= this.field_254) {
                      this.field_257 = false;
                      this.field_258 = false;
                      return;
                   }
 
                   do {
-                     this.field_255[var23] = class_21.method_447(var3, var4);
+                     this.field_255[newIndex] = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     this.field_256[var23] = class_21.method_448(var3, var4);
+                     this.field_256[newIndex] = class_21.getUnsignedInt(data, var4);
                      var4 += 4;
-                     ++var23;
-                  } while(var23 < this.field_254);
+                     ++newIndex;
+                  } while(newIndex < this.field_254);
 
                   this.field_257 = false;
                   this.field_258 = false;
                   return;
                }
 
-               if(var1 == 215) {
+               if(opcode == 215) {
                   label718: {
-                     if(var3[1] == 1) {
+                     if(data[1] == 1) {
                         this.field_259 = true;
                         if(var19 == 0) {
                            break label718;
@@ -5564,7 +5564,7 @@ public class mudclient extends class_1 {
                   }
 
                   label713: {
-                     if(var3[2] == 1) {
+                     if(data[2] == 1) {
                         this.field_260 = true;
                         if(var19 == 0) {
                            break label713;
@@ -5575,7 +5575,7 @@ public class mudclient extends class_1 {
                   }
 
                   label708: {
-                     if(var3[3] == 1) {
+                     if(data[3] == 1) {
                         this.field_261 = true;
                         if(var19 == 0) {
                            break label708;
@@ -5586,7 +5586,7 @@ public class mudclient extends class_1 {
                   }
 
                   label703: {
-                     if(var3[4] == 1) {
+                     if(data[4] == 1) {
                         this.field_262 = true;
                         if(var19 == 0) {
                            break label703;
@@ -5601,14 +5601,14 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 214) {
+               if(opcode == 214) {
                   label697: {
                      var21 = 1;
                      var4 = var21 + 1;
-                     var23 = var3[var21] & 255;
-                     var6 = class_21.method_447(var3, var4);
+                     newIndex = data[var21] & 255;
+                     var6 = class_21.readUnsignedShort(data, var4);
                      var4 += 2;
-                     var25 = class_21.method_451(var3, var4);
+                     var25 = class_21.method_451(data, var4);
                      if(var25 >= 128) {
                         var4 += 4;
                         if(var19 == 0) {
@@ -5622,13 +5622,13 @@ public class mudclient extends class_1 {
                   label692: {
                      if(var25 == 0) {
                         --this.field_306;
-                        var8 = var23;
-                        if(var19 != 0 || var23 < this.field_306) {
+                        oldIndex = newIndex;
+                        if(var19 != 0 || newIndex < this.field_306) {
                            do {
-                              this.field_307[var8] = this.field_307[var8 + 1];
-                              this.field_308[var8] = this.field_308[var8 + 1];
-                              ++var8;
-                           } while(var8 < this.field_306);
+                              this.field_307[oldIndex] = this.field_307[oldIndex + 1];
+                              this.field_308[oldIndex] = this.field_308[oldIndex + 1];
+                              ++oldIndex;
+                           } while(oldIndex < this.field_306);
                         }
 
                         if(var19 == 0) {
@@ -5636,10 +5636,10 @@ public class mudclient extends class_1 {
                         }
                      }
 
-                     this.field_307[var23] = var6;
-                     this.field_308[var23] = var25;
-                     if(var23 >= this.field_306) {
-                        this.field_306 = var23 + 1;
+                     this.field_307[newIndex] = var6;
+                     this.field_308[newIndex] = var25;
+                     if(newIndex >= this.field_306) {
+                        this.field_306 = newIndex + 1;
                      }
                   }
 
@@ -5647,17 +5647,17 @@ public class mudclient extends class_1 {
                   return;
                }
 
-               if(var1 == 213) {
+               if(opcode == 213) {
                   var21 = 1;
-                  var23 = 1;
+                  newIndex = 1;
                   var4 = var21 + 1;
-                  var6 = var3[var21] & 255;
-                  var25 = class_21.method_447(var3, var4);
+                  var6 = data[var21] & 255;
+                  var25 = class_21.readUnsignedShort(data, var4);
                   var4 += 2;
                   if(class_4.field_479[var25 & 32767] == 0) {
                      label676: {
-                        var23 = class_21.method_451(var3, var4);
-                        if(var23 >= 128) {
+                        newIndex = class_21.method_451(data, var4);
+                        if(newIndex >= 128) {
                            var4 += 4;
                            if(var19 == 0) {
                               break label676;
@@ -5670,43 +5670,43 @@ public class mudclient extends class_1 {
 
                   this.field_182[var6] = var25 & 32767;
                   this.field_184[var6] = var25 / '\u8000';
-                  this.field_183[var6] = var23;
+                  this.field_183[var6] = newIndex;
                   if(var6 >= this.field_181) {
                      this.field_181 = var6 + 1;
                      return;
                   }
                } else {
-                  if(var1 == 212) {
-                     var4 = var3[1] & 255;
+                  if(opcode == 212) {
+                     var4 = data[1] & 255;
                      --this.field_181;
-                     var23 = var4;
+                     newIndex = var4;
                      if(var19 == 0 && var4 >= this.field_181) {
                         return;
                      }
 
                      do {
-                        this.field_182[var23] = this.field_182[var23 + 1];
-                        this.field_183[var23] = this.field_183[var23 + 1];
-                        this.field_184[var23] = this.field_184[var23 + 1];
-                        ++var23;
-                     } while(var23 < this.field_181);
+                        this.field_182[newIndex] = this.field_182[newIndex + 1];
+                        this.field_183[newIndex] = this.field_183[newIndex + 1];
+                        this.field_184[newIndex] = this.field_184[newIndex + 1];
+                        ++newIndex;
+                     } while(newIndex < this.field_181);
 
                      return;
                   }
 
-                  if(var1 == 211) {
+                  if(opcode == 211) {
                      var21 = 1;
                      var4 = var21 + 1;
-                     var23 = var3[var21] & 255;
-                     this.field_189[var23] = class_21.method_446(var3[var4++]);
-                     this.field_190[var23] = class_21.method_446(var3[var4++]);
-                     this.field_191[var23] = class_21.method_448(var3, var4);
+                     newIndex = data[var21] & 255;
+                     this.field_189[newIndex] = class_21.getUnsignedByte(data[var4++]);
+                     this.field_190[newIndex] = class_21.getUnsignedByte(data[var4++]);
+                     this.field_191[newIndex] = class_21.getUnsignedInt(data, var4);
                      var4 += 4;
                      return;
                   }
 
-                  if(var1 == 210) {
-                     var38 = var3[1];
+                  if(opcode == 210) {
+                     var38 = data[1];
                      if(var38 == 1) {
                         this.field_257 = true;
                         return;
@@ -5716,8 +5716,8 @@ public class mudclient extends class_1 {
                      return;
                   }
 
-                  if(var1 == 209) {
-                     var38 = var3[1];
+                  if(opcode == 209) {
+                     var38 = data[1];
                      if(var38 == 1) {
                         this.field_258 = true;
                         return;
@@ -5727,79 +5727,79 @@ public class mudclient extends class_1 {
                      return;
                   }
 
-                  if(var1 == 208) {
+                  if(opcode == 208) {
                      this.field_263 = true;
                      this.field_264 = false;
                      this.field_249 = false;
                      var21 = 1;
-                     this.field_265 = class_21.method_449(var3, var21);
+                     this.field_265 = class_21.method_449(data, var21);
                      var4 = var21 + 8;
-                     this.field_269 = var3[var4++] & 255;
-                     var23 = 0;
+                     this.field_269 = data[var4++] & 255;
+                     newIndex = 0;
                      if(var19 != 0) {
-                        this.field_270[var23] = class_21.method_447(var3, var4);
+                        this.field_270[newIndex] = class_21.readUnsignedShort(data, var4);
                         var4 += 2;
-                        this.field_271[var23] = class_21.method_448(var3, var4);
+                        this.field_271[newIndex] = class_21.getUnsignedInt(data, var4);
                         var4 += 4;
-                        ++var23;
+                        ++newIndex;
                      }
 
-                     while(var23 < this.field_269) {
-                        this.field_270[var23] = class_21.method_447(var3, var4);
+                     while(newIndex < this.field_269) {
+                        this.field_270[newIndex] = class_21.readUnsignedShort(data, var4);
                         var4 += 2;
-                        this.field_271[var23] = class_21.method_448(var3, var4);
+                        this.field_271[newIndex] = class_21.getUnsignedInt(data, var4);
                         var4 += 4;
-                        ++var23;
+                        ++newIndex;
                      }
 
-                     this.field_266 = var3[var4++] & 255;
+                     this.field_266 = data[var4++] & 255;
                      var6 = 0;
                      if(var19 != 0) {
-                        this.field_267[var6] = class_21.method_447(var3, var4);
+                        this.field_267[var6] = class_21.readUnsignedShort(data, var4);
                         var4 += 2;
-                        this.field_268[var6] = class_21.method_448(var3, var4);
+                        this.field_268[var6] = class_21.getUnsignedInt(data, var4);
                         var4 += 4;
                         ++var6;
                      }
 
                      while(var6 < this.field_266) {
-                        this.field_267[var6] = class_21.method_447(var3, var4);
+                        this.field_267[var6] = class_21.readUnsignedShort(data, var4);
                         var4 += 2;
-                        this.field_268[var6] = class_21.method_448(var3, var4);
+                        this.field_268[var6] = class_21.getUnsignedInt(data, var4);
                         var4 += 4;
                         ++var6;
                      }
 
-                     this.field_272 = var3[var4++] & 255;
-                     this.field_273 = var3[var4++] & 255;
-                     this.field_274 = var3[var4++] & 255;
-                     this.field_275 = var3[var4++] & 255;
+                     this.field_272 = data[var4++] & 255;
+                     this.field_273 = data[var4++] & 255;
+                     this.field_274 = data[var4++] & 255;
+                     this.field_275 = data[var4++] & 255;
                      return;
                   }
 
-                  if(var1 == 207) {
-                     String var26 = new String(var3, 1, var2 - 1);
+                  if(opcode == 207) {
+                     String var26 = new String(data, 1, var2 - 1);
                      this.method_64(var26);
                      return;
                   }
 
-                  if(var1 == 206) {
+                  if(opcode == 206) {
                      if(this.field_443 < 50) {
-                        var4 = var3[1] & 255;
-                        var23 = var3[2] + this.field_145;
-                        var6 = var3[3] + this.field_146;
+                        var4 = data[1] & 255;
+                        newIndex = data[2] + this.field_145;
+                        var6 = data[3] + this.field_146;
                         this.field_447[this.field_443] = var4;
                         this.field_446[this.field_443] = 0;
-                        this.field_444[this.field_443] = var23;
+                        this.field_444[this.field_443] = newIndex;
                         this.field_445[this.field_443] = var6;
                         ++this.field_443;
                         return;
                      }
-                  } else if(var1 == 205) {
+                  } else if(opcode == 205) {
                      if(!this.field_326) {
-                        this.field_330 = class_21.method_448(var3, 1);
-                        this.field_331 = class_21.method_448(var3, 5);
-                        this.field_328 = class_21.method_448(var3, 9);
+                        this.field_330 = class_21.getUnsignedInt(data, 1);
+                        this.field_331 = class_21.getUnsignedInt(data, 5);
+                        this.field_328 = class_21.getUnsignedInt(data, 9);
                         this.field_332 = (int)(Math.random() * 6.0D);
                         this.field_327 = true;
                         this.field_326 = true;
@@ -5807,26 +5807,26 @@ public class mudclient extends class_1 {
                         return;
                      }
                   } else {
-                     if(var1 == 204) {
-                        this.field_335 = new String(var3, 1, var2 - 1);
+                     if(opcode == 204) {
+                        this.field_335 = new String(data, 1, var2 - 1);
                         this.field_334 = true;
                         this.field_333 = false;
                         return;
                      }
 
-                     if(var1 == 203) {
-                        this.field_335 = new String(var3, 1, var2 - 1);
+                     if(opcode == 203) {
+                        this.field_335 = new String(data, 1, var2 - 1);
                         this.field_334 = true;
                         this.field_333 = true;
                         return;
                      }
 
-                     if(var1 == 202) {
-                        this.field_194 = class_21.method_447(var3, 1);
+                     if(opcode == 202) {
+                        this.field_194 = class_21.readUnsignedShort(data, 1);
                         return;
                      }
 
-                     if(var1 == 201) {
+                     if(opcode == 201) {
                         if(!this.field_448) {
                            this.field_195 = this.field_194;
                         }
@@ -5834,22 +5834,22 @@ public class mudclient extends class_1 {
                         this.field_448 = true;
                         super.field_40 = "";
                         super.field_41 = "";
-                        this.field_93.method_237(this.field_103 + 1, var3);
+                        this.field_93.method_237(this.field_103 + 1, data);
                         this.field_449 = null;
                         return;
                      }
 
-                     if(var1 == 200) {
-                        this.field_195 = class_21.method_447(var3, 1);
+                     if(opcode == 200) {
+                        this.field_195 = class_21.readUnsignedShort(data, 1);
                         return;
                      }
 
-                     if(var1 == 199) {
+                     if(opcode == 199) {
                         this.field_448 = false;
                         return;
                      }
 
-                     if(var1 != 198) {
+                     if(opcode != 198) {
                         return;
                      }
 
@@ -5862,27 +5862,27 @@ public class mudclient extends class_1 {
          return;
       } catch (RuntimeException var20) {
          if(this.field_90 < 3) {
-            super.field_51.method_160(17, 743);
-            super.field_51.method_157(var20.toString());
-            super.field_51.method_162();
-            super.field_51.method_160(17, 743);
-            super.field_51.method_157("p-type:" + var1 + " p-size:" + var2);
-            super.field_51.method_162();
-            super.field_51.method_160(17, 743);
-            super.field_51.method_157("rx:" + this.field_145 + " ry:" + this.field_146 + " num3l:" + this.field_163);
-            super.field_51.method_162();
+            super.clientStream.newPacket(17, 743);
+            super.clientStream.putUnterminatedString(var20.toString());
+            super.clientStream.flushPacket_();
+            super.clientStream.newPacket(17, 743);
+            super.clientStream.putUnterminatedString("p-type:" + opcode + " p-size:" + var2);
+            super.clientStream.flushPacket_();
+            super.clientStream.newPacket(17, 743);
+            super.clientStream.putUnterminatedString("rx:" + this.field_145 + " ry:" + this.field_146 + " num3l:" + this.field_163);
+            super.clientStream.flushPacket_();
             String var5 = "";
             var6 = 0;
             if(var19 != 0 || var6 < 80 && var6 < var2) {
                do {
-                  var5 = var5 + var3[var6] + " ";
+                  var5 = var5 + data[var6] + " ";
                   ++var6;
                } while(var6 < 80 && var6 < var2);
             }
 
-            super.field_51.method_160(17, 743);
-            super.field_51.method_157(var5);
-            super.field_51.method_162();
+            super.clientStream.newPacket(17, 743);
+            super.clientStream.putUnterminatedString(var5);
+            super.clientStream.flushPacket_();
             ++this.field_90;
          }
       }
@@ -6040,7 +6040,7 @@ public class mudclient extends class_1 {
          this.method_88();
          this.field_93.method_222(this.field_91, 0, 0);
       } else if(this.field_426) {
-         this.method_73();
+         this.handleAppearancePanelControls();
       } else if(this.field_378) {
          this.method_67();
       } else if(this.field_400) {
@@ -6314,14 +6314,14 @@ public class mudclient extends class_1 {
          }
 
          var5 = 0;
-         if(var15 != 0 || var5 < this.field_157) {
+         if(var15 != 0 || var5 < this.psize) {
             do {
-               var6 = this.field_158[var5] * this.field_94 + 64;
-               var7 = this.field_159[var5] * this.field_94 + 64;
-               this.field_92.method_175('\u9c40' + this.field_160[var5], var6, -this.field_117.method_332(var6, var7) - this.field_161[var5], var7, 96, 64, var5 + 20000);
+               var6 = this.groundItemX[var5] * this.field_94 + 64;
+               var7 = this.groundItemY[var5] * this.field_94 + 64;
+               this.field_92.method_175('\u9c40' + this.groundItemId[var5], var6, -this.field_117.method_332(var6, var7) - this.field_161[var5], var7, 96, 64, var5 + 20000);
                ++this.field_140;
                ++var5;
-            } while(var5 < this.field_157);
+            } while(var5 < this.psize);
          }
 
          var6 = 0;
@@ -6429,9 +6429,9 @@ public class mudclient extends class_1 {
             this.field_93.method_242(this.field_115 - 8, this.field_116 - 8, this.field_99 + 18 + (24 + this.field_114) / 6);
          }
 
-         if(!this.field_340) {
-            var7 = 2203 - (this.field_146 + this.field_119 + this.field_123);
-            if(this.field_145 + this.field_118 + this.field_122 >= 2640) {
+         if(!this.loadingArea) {
+            var7 = 2203 - (this.field_146 + this.planeHeight + this.field_123);
+            if(this.field_145 + this.planeWidth + this.field_122 >= 2640) {
                var7 = -50;
             }
 
@@ -7344,13 +7344,13 @@ public class mudclient extends class_1 {
 
    // $FF: renamed from: a (int, int, int, int, boolean) void
    public void method_98(int var1, int var2, int var3, int var4, boolean var5) {
-      this.method_102(var1, var2, var3, var4, var3, var4, false, var5);
+      this.walkTo(var1, var2, var3, var4, var3, var4, false, var5);
    }
 
    // $FF: renamed from: b (int, int, int, int, boolean) void
    public void method_99(int var1, int var2, int var3, int var4, boolean var5) {
-      if(!this.method_102(var1, var2, var3, var4, var3, var4, false, var5)) {
-         this.method_102(var1, var2, var3, var4, var3, var4, true, var5);
+      if(!this.walkTo(var1, var2, var3, var4, var3, var4, false, var5)) {
+         this.walkTo(var1, var2, var3, var4, var3, var4, true, var5);
       }
    }
 
@@ -7372,7 +7372,7 @@ public class mudclient extends class_1 {
       }
 
       if(class_4.field_522[var4] != 2 && class_4.field_522[var4] != 3) {
-         this.method_102(this.field_145, this.field_146, var1, var2, var1 + var5 - 1, var2 + var6 - 1, true, true);
+         this.walkTo(this.field_145, this.field_146, var1, var2, var1 + var5 - 1, var2 + var6 - 1, true, true);
       } else {
          if(var3 == 0) {
             --var1;
@@ -7392,23 +7392,23 @@ public class mudclient extends class_1 {
             ++var6;
          }
 
-         this.method_102(this.field_145, this.field_146, var1, var2, var1 + var5 - 1, var2 + var6 - 1, false, true);
+         this.walkTo(this.field_145, this.field_146, var1, var2, var1 + var5 - 1, var2 + var6 - 1, false, true);
       }
    }
 
    // $FF: renamed from: c (int, int, int) void
    public void method_101(int var1, int var2, int var3) {
       if(var3 == 0) {
-         this.method_102(this.field_145, this.field_146, var1, var2 - 1, var1, var2, false, true);
+         this.walkTo(this.field_145, this.field_146, var1, var2 - 1, var1, var2, false, true);
       } else if(var3 == 1) {
-         this.method_102(this.field_145, this.field_146, var1 - 1, var2, var1, var2, false, true);
+         this.walkTo(this.field_145, this.field_146, var1 - 1, var2, var1, var2, false, true);
       } else {
-         this.method_102(this.field_145, this.field_146, var1, var2, var1, var2, true, true);
+         this.walkTo(this.field_145, this.field_146, var1, var2, var1, var2, true, true);
       }
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, boolean, boolean) boolean
-   public boolean method_102(int var1, int var2, int var3, int var4, int var5, int var6, boolean var7, boolean var8) {
+   public boolean walkTo(int var1, int var2, int var3, int var4, int var5, int var6, boolean var7, boolean var8) {
       int var11 = class_4.field_563;
       int var9 = this.field_117.method_321(var1, var2, var3, var4, var5, var6, this.field_80, this.field_81, var7);
       if(var9 == -1) {
@@ -7420,27 +7420,27 @@ public class mudclient extends class_1 {
             var2 = this.field_81[var9];
             --var9;
             if(var8) {
-               super.field_51.method_160(215, 592);
+               super.clientStream.newPacket(215, 592);
                if(var11 == 0) {
                   break label34;
                }
             }
 
-            super.field_51.method_160(194, 770);
+            super.clientStream.newPacket(194, 770);
          }
 
-         super.field_51.method_154(var1 + this.field_122);
-         super.field_51.method_154(var2 + this.field_123);
+         super.clientStream.putShort(var1 + this.field_122);
+         super.clientStream.putShort(var2 + this.field_123);
          int var10 = var9;
          if(var11 != 0 || var9 >= 0 && var9 > var9 - 25) {
             do {
-               super.field_51.method_153(this.field_80[var10] - var1);
-               super.field_51.method_153(this.field_81[var10] - var2);
+               super.clientStream.putByte(this.field_80[var10] - var1);
+               super.clientStream.putByte(this.field_81[var10] - var2);
                --var10;
             } while(var10 >= 0 && var10 > var9 - 25);
          }
 
-         super.field_51.method_162();
+         super.clientStream.flushPacket_();
          this.field_114 = -24;
          this.field_115 = super.field_33;
          this.field_116 = super.field_34;
@@ -7455,10 +7455,10 @@ public class mudclient extends class_1 {
          this.field_117.field_847 = false;
          return false;
       } else {
-         this.field_340 = false;
-         var1 += this.field_118;
-         var2 += this.field_119;
-         if(this.field_121 == this.field_124 && var1 > this.field_125 && var1 < this.field_127 && var2 > this.field_126 && var2 < this.field_128) {
+         this.loadingArea = false;
+         var1 += this.planeWidth;
+         var2 += this.planeHeight;
+         if(this.field_121 == this.planeIndex && var1 > this.field_125 && var1 < this.field_127 && var2 > this.field_126 && var2 < this.field_128) {
             this.field_117.field_847 = true;
             return false;
          } else {
@@ -7469,7 +7469,7 @@ public class mudclient extends class_1 {
             int var4 = this.field_123;
             int var5 = (var1 + 24) / 48;
             int var6 = (var2 + 24) / 48;
-            this.field_121 = this.field_124;
+            this.field_121 = this.planeIndex;
             this.field_122 = var5 * 48 - 48;
             this.field_123 = var6 * 48 - 48;
             this.field_125 = var5 * 48 - 32;
@@ -7477,8 +7477,8 @@ public class mudclient extends class_1 {
             this.field_127 = var5 * 48 + 32;
             this.field_128 = var6 * 48 + 32;
             this.field_117.method_348(var1, var2, this.field_121);
-            this.field_122 -= this.field_118;
-            this.field_123 -= this.field_119;
+            this.field_122 -= this.planeWidth;
+            this.field_123 -= this.planeHeight;
             int var7 = this.field_122 - var3;
             int var8 = this.field_123 - var4;
             int var9 = 0;
@@ -7599,14 +7599,14 @@ public class mudclient extends class_1 {
 
             var11 = 0;
             if(var19 != 0) {
-               this.field_158[var11] -= var7;
-               this.field_159[var11] -= var8;
+               this.groundItemX[var11] -= var7;
+               this.groundItemY[var11] -= var8;
                ++var11;
             }
 
-            while(var11 < this.field_157) {
-               this.field_158[var11] -= var7;
-               this.field_159[var11] -= var8;
+            while(var11 < this.psize) {
+               this.groundItemX[var11] -= var7;
+               this.groundItemY[var11] -= var8;
                ++var11;
             }
 
@@ -7747,7 +7747,7 @@ public class mudclient extends class_1 {
          }
 
          if(this.field_297 && this.field_337 == 0) {
-            this.method_116();
+            this.drawDialogShop();
             if(var2 == 0) {
                break label157;
             }
@@ -7803,11 +7803,11 @@ public class mudclient extends class_1 {
          }
 
          if(this.field_316) {
-            this.method_106();
+            this.drawOptionsMenu();
          }
 
          if(this.field_144.field_614 == 8 || this.field_144.field_614 == 9) {
-            this.method_107();
+            this.drawDialogCombatStyle();
          }
 
          this.method_121();
@@ -7857,7 +7857,7 @@ public class mudclient extends class_1 {
    }
 
    // $FF: renamed from: bb () void
-   public void method_106() {
+   public void drawOptionsMenu() {
       int var3 = class_4.field_563;
       int var1;
       if(this.field_78 != 0) {
@@ -7865,9 +7865,9 @@ public class mudclient extends class_1 {
          if(var3 != 0 || var1 < this.field_317) {
             do {
                if(super.field_33 < this.field_93.method_271(this.field_318[var1], 1) && super.field_34 > var1 * 12 && super.field_34 < 12 + var1 * 12) {
-                  super.field_51.method_160(237, 3);
-                  super.field_51.method_153(var1);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(237, 3);
+                  super.clientStream.putByte(var1);
+                  super.clientStream.flushPacket_();
                   if(var3 == 0) {
                      break;
                   }
@@ -7897,7 +7897,7 @@ public class mudclient extends class_1 {
    }
 
    // $FF: renamed from: bc () void
-   public void method_107() {
+   public void drawDialogCombatStyle() {
       int var5 = class_4.field_563;
       byte var1 = 7;
       byte var2 = 15;
@@ -7910,9 +7910,9 @@ public class mudclient extends class_1 {
                if(var4 > 0 && super.field_33 > var1 && super.field_33 < var1 + var3 && super.field_34 > var2 + var4 * 20 && super.field_34 < var2 + var4 * 20 + 20) {
                   this.field_319 = var4 - 1;
                   this.field_78 = 0;
-                  super.field_51.method_160(231, 700);
-                  super.field_51.method_153(this.field_319);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(231, 700);
+                  super.clientStream.putByte(this.field_319);
+                  super.clientStream.flushPacket_();
                   if(var5 == 0) {
                      break;
                   }
@@ -7988,7 +7988,7 @@ public class mudclient extends class_1 {
          this.field_93.method_227(56, 167 - var1 / 2, 400, var1, 0);
          this.field_93.method_228(56, 167 - var1 / 2, 400, var1, 16777215);
          var2 += 20;
-         this.field_93.method_265("Welcome to RuneScape " + this.field_362, 256, var2, 4, 16776960);
+         this.field_93.method_265("Welcome to RuneScape " + this.username, 256, var2, 4, 16776960);
          var2 += 30;
          if(this.field_330 <= 0) {
             var3 = "earlier today";
@@ -8051,8 +8051,8 @@ public class mudclient extends class_1 {
 
             this.field_93.method_265("No that wasn\'t me - Cancel the request!", 256, var2, 1, var4);
             if(var4 == 16711680 && this.field_78 == 1) {
-               super.field_51.method_160(196, 651);
-               super.field_51.method_162();
+               super.clientStream.newPacket(196, 651);
+               super.clientStream.flushPacket_();
                this.field_327 = false;
             }
 
@@ -8210,11 +8210,11 @@ public class mudclient extends class_1 {
          super.field_40 = "";
          super.field_41 = "";
          if(var6.length() > 0) {
-            long var7 = class_21.method_456(var6);
-            super.field_51.method_160(51, 277);
-            super.field_51.method_156(var7);
-            super.field_51.method_153(this.field_322);
-            super.field_51.method_162();
+            long var7 = class_21.hashUsername(var6);
+            super.clientStream.newPacket(51, 277);
+            super.clientStream.putLong(var7);
+            super.clientStream.putByte(this.field_322);
+            super.clientStream.flushPacket_();
          }
 
          this.field_321 = 0;
@@ -8432,7 +8432,7 @@ public class mudclient extends class_1 {
                this.field_323 = 5;
             }
 
-            if(this.field_325.trim().equalsIgnoreCase(this.field_362.trim())) {
+            if(this.field_325.trim().equalsIgnoreCase(this.username.trim())) {
                this.field_323 = 7;
                return;
             }
@@ -8453,7 +8453,7 @@ public class mudclient extends class_1 {
          if(super.field_41.length() > 0) {
             if(super.field_41.equalsIgnoreCase(this.field_325)) {
                this.field_323 = 4;
-               this.method_34(this.field_324, this.field_325);
+               this.changePassword(this.field_324, this.field_325);
                return;
             }
 
@@ -8530,8 +8530,8 @@ public class mudclient extends class_1 {
             super.field_40 = "";
             super.field_41 = "";
             this.field_320 = 0;
-            if(var2.length() > 0 && class_21.method_456(var2) != this.field_144.field_606) {
-               this.method_38(var2);
+            if(var2.length() > 0 && class_21.hashUsername(var2) != this.field_144.field_606) {
+               this.friendAdd(var2);
             }
          }
       }
@@ -8549,7 +8549,7 @@ public class mudclient extends class_1 {
             super.field_43 = "";
             this.field_320 = 0;
             int var3 = class_22.method_464(var2);
-            this.method_40(this.field_208, class_22.field_1010, var3);
+            this.sendPrivateChat(this.field_208, class_22.field_1010, var3);
             var2 = class_22.method_463(class_22.field_1010, 0, var3);
             var2 = class_20.method_417(var2);
             this.method_50("@pri@You tell " + class_21.method_457(this.field_208) + ": " + var2);
@@ -8568,8 +8568,8 @@ public class mudclient extends class_1 {
             super.field_40 = "";
             super.field_41 = "";
             this.field_320 = 0;
-            if(var2.length() > 0 && class_21.method_456(var2) != this.field_144.field_606) {
-               this.method_36(var2);
+            if(var2.length() > 0 && class_21.hashUsername(var2) != this.field_144.field_606) {
+               this.ignoreAdd(var2);
             }
          }
       }
@@ -8669,90 +8669,90 @@ public class mudclient extends class_1 {
                }
 
                if(var5 >= 1 && super.field_33 >= var3 + 220 && super.field_34 >= var4 + 238 && super.field_33 < var3 + 250 && super.field_34 <= var4 + 249) {
-                  super.field_51.method_160(206, 655);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(1);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(206, 655);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(1);
+                  super.clientStream.flushPacket_();
                }
 
                if(var5 >= 5 && super.field_33 >= var3 + 250 && super.field_34 >= var4 + 238 && super.field_33 < var3 + 280 && super.field_34 <= var4 + 249) {
-                  super.field_51.method_160(206, 655);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(5);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(206, 655);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(5);
+                  super.clientStream.flushPacket_();
                }
 
                if(var5 >= 25 && super.field_33 >= var3 + 280 && super.field_34 >= var4 + 238 && super.field_33 < var3 + 305 && super.field_34 <= var4 + 249) {
-                  super.field_51.method_160(206, 655);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(25);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(206, 655);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(25);
+                  super.clientStream.flushPacket_();
                }
 
                if(var5 >= 100 && super.field_33 >= var3 + 305 && super.field_34 >= var4 + 238 && super.field_33 < var3 + 335 && super.field_34 <= var4 + 249) {
-                  super.field_51.method_160(206, 655);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(100);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(206, 655);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(100);
+                  super.clientStream.flushPacket_();
                }
 
                if(var5 >= 500 && super.field_33 >= var3 + 335 && super.field_34 >= var4 + 238 && super.field_33 < var3 + 368 && super.field_34 <= var4 + 249) {
-                  super.field_51.method_160(206, 655);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(500);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(206, 655);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(500);
+                  super.clientStream.flushPacket_();
                }
 
                if(var5 >= 2500 && super.field_33 >= var3 + 370 && super.field_34 >= var4 + 238 && super.field_33 < var3 + 400 && super.field_34 <= var4 + 249) {
-                  super.field_51.method_160(206, 655);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(2500);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(206, 655);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(2500);
+                  super.clientStream.flushPacket_();
                }
 
                if(this.method_94(var7) >= 1 && super.field_33 >= var3 + 220 && super.field_34 >= var4 + 263 && super.field_33 < var3 + 250 && super.field_34 <= var4 + 274) {
-                  super.field_51.method_160(205, 523);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(1);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(205, 523);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(1);
+                  super.clientStream.flushPacket_();
                }
 
                if(this.method_94(var7) >= 5 && super.field_33 >= var3 + 250 && super.field_34 >= var4 + 263 && super.field_33 < var3 + 280 && super.field_34 <= var4 + 274) {
-                  super.field_51.method_160(205, 523);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(5);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(205, 523);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(5);
+                  super.clientStream.flushPacket_();
                }
 
                if(this.method_94(var7) >= 25 && super.field_33 >= var3 + 280 && super.field_34 >= var4 + 263 && super.field_33 < var3 + 305 && super.field_34 <= var4 + 274) {
-                  super.field_51.method_160(205, 523);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(25);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(205, 523);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(25);
+                  super.clientStream.flushPacket_();
                }
 
                if(this.method_94(var7) >= 100 && super.field_33 >= var3 + 305 && super.field_34 >= var4 + 263 && super.field_33 < var3 + 335 && super.field_34 <= var4 + 274) {
-                  super.field_51.method_160(205, 523);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(100);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(205, 523);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(100);
+                  super.clientStream.flushPacket_();
                }
 
                if(this.method_94(var7) >= 500 && super.field_33 >= var3 + 335 && super.field_34 >= var4 + 263 && super.field_33 < var3 + 368 && super.field_34 <= var4 + 274) {
-                  super.field_51.method_160(205, 523);
-                  super.field_51.method_154(var7);
-                  super.field_51.method_154(500);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(205, 523);
+                  super.clientStream.putShort(var7);
+                  super.clientStream.putShort(500);
+                  super.clientStream.flushPacket_();
                }
 
                if(this.method_94(var7) < 2500 || super.field_33 < var3 + 370 || super.field_34 < var4 + 263 || super.field_33 >= var3 + 400 || super.field_34 > var4 + 274) {
                   break label666;
                }
 
-               super.field_51.method_160(205, 523);
-               super.field_51.method_154(var7);
-               super.field_51.method_154(2500);
-               super.field_51.method_162();
+               super.clientStream.newPacket(205, 523);
+               super.clientStream.putShort(var7);
+               super.clientStream.putShort(2500);
+               super.clientStream.flushPacket_();
                if(var14 == 0) {
                   break label666;
                }
@@ -8786,8 +8786,8 @@ public class mudclient extends class_1 {
                }
             }
 
-            super.field_51.method_160(207, 886);
-            super.field_51.method_162();
+            super.clientStream.newPacket(207, 886);
+            super.clientStream.flushPacket_();
             this.field_305 = false;
             return;
          }
@@ -9094,13 +9094,13 @@ public class mudclient extends class_1 {
    }
 
    // $FF: renamed from: bl () void
-   public void method_116() {
+   public void drawDialogShop() {
       int var11 = class_4.field_563;
       int var3;
       int var4;
       int var5;
       int var6;
-      int var7;
+      int expectedPrice;
       if(this.field_78 != 0) {
          label229: {
             this.field_78 = 0;
@@ -9117,8 +9117,8 @@ public class mudclient extends class_1 {
                      } else {
                         do {
                            var6 = 7 + var5 * 49;
-                           var7 = 28 + var4 * 34;
-                           if(var1 > var6 && var1 < var6 + 49 && var2 > var7 && var2 < var7 + 34 && this.field_300[var3] != -1) {
+                           expectedPrice = 28 + var4 * 34;
+                           if(var1 > var6 && var1 < var6 + 49 && var2 > expectedPrice && var2 < expectedPrice + 34 && this.field_300[var3] != -1) {
                               this.field_303 = var3;
                               this.field_304 = this.field_300[var3];
                            }
@@ -9147,11 +9147,11 @@ public class mudclient extends class_1 {
                      var6 = 10;
                   }
 
-                  var7 = var6 * class_4.field_478[var5] / 100;
-                  super.field_51.method_160(217, 666);
-                  super.field_51.method_154(this.field_300[this.field_303]);
-                  super.field_51.method_155(var7);
-                  super.field_51.method_162();
+                  expectedPrice = var6 * class_4.field_478[var5] / 100;
+                  super.clientStream.newPacket(217, 666);
+                  super.clientStream.putShort(this.field_300[this.field_303]);
+                  super.clientStream.putInt(expectedPrice);
+                  super.clientStream.flushPacket_();
                }
 
                if(this.method_94(var5) <= 0 || var1 <= 2 || var2 < 229 || var1 >= 112 || var2 > 240) {
@@ -9163,18 +9163,18 @@ public class mudclient extends class_1 {
                   var6 = 10;
                }
 
-               var7 = var6 * class_4.field_478[var5] / 100;
-               super.field_51.method_160(216, 665);
-               super.field_51.method_154(this.field_300[this.field_303]);
-               super.field_51.method_155(var7);
-               super.field_51.method_162();
+               expectedPrice = var6 * class_4.field_478[var5] / 100;
+               super.clientStream.newPacket(216, 665);
+               super.clientStream.putShort(this.field_300[this.field_303]);
+               super.clientStream.putInt(expectedPrice);
+               super.clientStream.flushPacket_();
                if(var11 == 0) {
                   break label229;
                }
             }
 
-            super.field_51.method_160(218, 312);
-            super.field_51.method_162();
+            super.clientStream.newPacket(218, 312);
+            super.clientStream.flushPacket_();
             this.field_297 = false;
             return;
          }
@@ -9200,19 +9200,19 @@ public class mudclient extends class_1 {
       this.field_93.method_267("Your money: " + this.method_94(10) + "gp", var12 + 280, var13 + 24, 1, 16776960);
       var5 = 13684944;
       var6 = 0;
-      var7 = 0;
+      expectedPrice = 0;
       int var8;
       int var9;
       int var10;
       if(var11 != 0) {
          var8 = 0;
          if(var11 == 0 && var8 >= 8) {
-            ++var7;
+            ++expectedPrice;
          } else {
             while(true) {
                label160: {
                   var9 = var12 + 7 + var8 * 49;
-                  var10 = var13 + 28 + var7 * 34;
+                  var10 = var13 + 28 + expectedPrice * 34;
                   if(this.field_303 == var6) {
                      this.field_93.method_225(var9, var10, 49, 34, 16711680, 160);
                      if(var11 == 0) {
@@ -9233,22 +9233,22 @@ public class mudclient extends class_1 {
                ++var6;
                ++var8;
                if(var8 >= 8) {
-                  ++var7;
+                  ++expectedPrice;
                   break;
                }
             }
          }
       }
 
-      while(var7 < 5) {
+      while(expectedPrice < 5) {
          var8 = 0;
          if(var11 == 0 && var8 >= 8) {
-            ++var7;
+            ++expectedPrice;
          } else {
             do {
                label132: {
                   var9 = var12 + 7 + var8 * 49;
-                  var10 = var13 + 28 + var7 * 34;
+                  var10 = var13 + 28 + expectedPrice * 34;
                   if(this.field_303 == var6) {
                      this.field_93.method_225(var9, var10, 49, 34, 16711680, 160);
                      if(var11 == 0) {
@@ -9270,7 +9270,7 @@ public class mudclient extends class_1 {
                ++var8;
             } while(var8 < 8);
 
-            ++var7;
+            ++expectedPrice;
          }
       }
 
@@ -9407,20 +9407,20 @@ public class mudclient extends class_1 {
       if(this.field_78 == 1) {
          if(super.field_33 < var1 || super.field_34 < var2 || super.field_33 > var1 + 468 || super.field_34 > var2 + 262) {
             this.field_289 = false;
-            super.field_51.method_160(233, 235);
-            super.field_51.method_162();
+            super.clientStream.newPacket(233, 235);
+            super.clientStream.flushPacket_();
          }
 
          if(super.field_33 >= var1 + 118 - 35 && super.field_33 <= var1 + 118 + 70 && super.field_34 >= var2 + 238 && super.field_34 <= var2 + 238 + 21) {
             this.field_290 = true;
-            super.field_51.method_160(202, 96);
-            super.field_51.method_162();
+            super.clientStream.newPacket(202, 96);
+            super.clientStream.flushPacket_();
          }
 
          if(super.field_33 >= var1 + 352 - 35 && super.field_33 <= var1 + 353 + 70 && super.field_34 >= var2 + 238 && super.field_34 <= var2 + 238 + 21) {
             this.field_289 = false;
-            super.field_51.method_160(233, 235);
-            super.field_51.method_162();
+            super.clientStream.newPacket(233, 235);
+            super.clientStream.flushPacket_();
          }
 
          this.field_78 = 0;
@@ -9500,18 +9500,18 @@ public class mudclient extends class_1 {
                      }
 
                      if(var4) {
-                        super.field_51.method_160(234, 500);
-                        super.field_51.method_153(this.field_278);
+                        super.clientStream.newPacket(234, 500);
+                        super.clientStream.putByte(this.field_278);
                         var8 = 0;
                         if(var14 != 0 || var8 < this.field_278) {
                            do {
-                              super.field_51.method_154(this.field_279[var8]);
-                              super.field_51.method_155(this.field_280[var8]);
+                              super.clientStream.putShort(this.field_279[var8]);
+                              super.clientStream.putInt(this.field_280[var8]);
                               ++var8;
                            } while(var8 < this.field_278);
                         }
 
-                        super.field_51.method_162();
+                        super.clientStream.flushPacket_();
                         this.field_284 = false;
                         this.field_285 = false;
                      }
@@ -9553,18 +9553,18 @@ public class mudclient extends class_1 {
                         } while(var5 < this.field_287);
                      }
 
-                     super.field_51.method_160(234, 500);
-                     super.field_51.method_153(this.field_278);
+                     super.clientStream.newPacket(234, 500);
+                     super.clientStream.putByte(this.field_278);
                      var6 = 0;
                      if(var14 != 0 || var6 < this.field_278) {
                         do {
-                           super.field_51.method_154(this.field_279[var6]);
-                           super.field_51.method_155(this.field_280[var6]);
+                           super.clientStream.putShort(this.field_279[var6]);
+                           super.clientStream.putInt(this.field_280[var6]);
                            ++var6;
                         } while(var6 < this.field_278);
                      }
 
-                     super.field_51.method_162();
+                     super.clientStream.flushPacket_();
                      this.field_284 = false;
                      this.field_285 = false;
                   }
@@ -9572,8 +9572,8 @@ public class mudclient extends class_1 {
 
                if(var1 >= 217 && var2 >= 238 && var1 <= 286 && var2 <= 259) {
                   this.field_285 = true;
-                  super.field_51.method_160(232, 277);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(232, 277);
+                  super.clientStream.flushPacket_();
                }
 
                if(var1 < 394 || var2 < 238 || var1 >= 463 || var2 >= 259) {
@@ -9581,8 +9581,8 @@ public class mudclient extends class_1 {
                }
 
                this.field_276 = false;
-               super.field_51.method_160(233, 235);
-               super.field_51.method_162();
+               super.clientStream.newPacket(233, 235);
+               super.clientStream.flushPacket_();
                if(var14 == 0) {
                   break label364;
                }
@@ -9590,8 +9590,8 @@ public class mudclient extends class_1 {
 
             if(this.field_78 != 0) {
                this.field_276 = false;
-               super.field_51.method_160(233, 235);
-               super.field_51.method_162();
+               super.clientStream.newPacket(233, 235);
+               super.clientStream.flushPacket_();
             }
          }
 
@@ -9874,20 +9874,20 @@ public class mudclient extends class_1 {
       if(this.field_78 == 1) {
          if(super.field_33 < var1 || super.field_34 < var2 || super.field_33 > var1 + 468 || super.field_34 > var2 + 262) {
             this.field_263 = false;
-            super.field_51.method_160(233, 235);
-            super.field_51.method_162();
+            super.clientStream.newPacket(233, 235);
+            super.clientStream.flushPacket_();
          }
 
          if(super.field_33 >= var1 + 118 - 35 && super.field_33 <= var1 + 118 + 70 && super.field_34 >= var2 + 238 && super.field_34 <= var2 + 238 + 21) {
             this.field_264 = true;
-            super.field_51.method_160(198, 412);
-            super.field_51.method_162();
+            super.clientStream.newPacket(198, 412);
+            super.clientStream.flushPacket_();
          }
 
          if(super.field_33 >= var1 + 352 - 35 && super.field_33 <= var1 + 353 + 70 && super.field_34 >= var2 + 238 && super.field_34 <= var2 + 238 + 21) {
             this.field_263 = false;
-            super.field_51.method_160(203, 266);
-            super.field_51.method_162();
+            super.clientStream.newPacket(203, 266);
+            super.clientStream.flushPacket_();
          }
 
          this.field_78 = 0;
@@ -9967,18 +9967,18 @@ public class mudclient extends class_1 {
                      }
 
                      if(var4) {
-                        super.field_51.method_160(201, 53);
-                        super.field_51.method_153(this.field_251);
+                        super.clientStream.newPacket(201, 53);
+                        super.clientStream.putByte(this.field_251);
                         var8 = 0;
                         if(var14 != 0 || var8 < this.field_251) {
                            do {
-                              super.field_51.method_154(this.field_252[var8]);
-                              super.field_51.method_155(this.field_253[var8]);
+                              super.clientStream.putShort(this.field_252[var8]);
+                              super.clientStream.putInt(this.field_253[var8]);
                               ++var8;
                            } while(var8 < this.field_251);
                         }
 
-                        super.field_51.method_162();
+                        super.clientStream.flushPacket_();
                         this.field_257 = false;
                         this.field_258 = false;
                      }
@@ -10020,18 +10020,18 @@ public class mudclient extends class_1 {
                         } while(var5 < this.field_287);
                      }
 
-                     super.field_51.method_160(201, 53);
-                     super.field_51.method_153(this.field_251);
+                     super.clientStream.newPacket(201, 53);
+                     super.clientStream.putByte(this.field_251);
                      var6 = 0;
                      if(var14 != 0 || var6 < this.field_251) {
                         do {
-                           super.field_51.method_154(this.field_252[var6]);
-                           super.field_51.method_155(this.field_253[var6]);
+                           super.clientStream.putShort(this.field_252[var6]);
+                           super.clientStream.putInt(this.field_253[var6]);
                            ++var6;
                         } while(var6 < this.field_251);
                      }
 
-                     super.field_51.method_162();
+                     super.clientStream.flushPacket_();
                      this.field_257 = false;
                      this.field_258 = false;
                   }
@@ -10059,20 +10059,20 @@ public class mudclient extends class_1 {
                }
 
                if(var17) {
-                  super.field_51.method_160(200, 285);
-                  super.field_51.method_153(this.field_259?1:0);
-                  super.field_51.method_153(this.field_260?1:0);
-                  super.field_51.method_153(this.field_261?1:0);
-                  super.field_51.method_153(this.field_262?1:0);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(200, 285);
+                  super.clientStream.putByte(this.field_259?1:0);
+                  super.clientStream.putByte(this.field_260?1:0);
+                  super.clientStream.putByte(this.field_261?1:0);
+                  super.clientStream.putByte(this.field_262?1:0);
+                  super.clientStream.flushPacket_();
                   this.field_257 = false;
                   this.field_258 = false;
                }
 
                if(var1 >= 217 && var2 >= 238 && var1 <= 286 && var2 <= 259) {
                   this.field_258 = true;
-                  super.field_51.method_160(199, 564);
-                  super.field_51.method_162();
+                  super.clientStream.newPacket(199, 564);
+                  super.clientStream.flushPacket_();
                }
 
                if(var1 < 394 || var2 < 238 || var1 >= 463 || var2 >= 259) {
@@ -10080,8 +10080,8 @@ public class mudclient extends class_1 {
                }
 
                this.field_249 = false;
-               super.field_51.method_160(203, 266);
-               super.field_51.method_162();
+               super.clientStream.newPacket(203, 266);
+               super.clientStream.flushPacket_();
                if(var14 == 0) {
                   break label470;
                }
@@ -10089,8 +10089,8 @@ public class mudclient extends class_1 {
 
             if(this.field_78 != 0) {
                this.field_249 = false;
-               super.field_51.method_160(203, 266);
-               super.field_51.method_162();
+               super.clientStream.newPacket(203, 266);
+               super.clientStream.flushPacket_();
             }
          }
 
@@ -10548,17 +10548,17 @@ public class mudclient extends class_1 {
 
       int var13 = 0;
       if(var19 != 0) {
-         var7 = (this.field_158[var13] * this.field_94 + 64 - this.field_144.field_610) * 3 * var5 / 2048;
-         var8 = (this.field_159[var13] * this.field_94 + 64 - this.field_144.field_611) * 3 * var5 / 2048;
+         var7 = (this.groundItemX[var13] * this.field_94 + 64 - this.field_144.field_610) * 3 * var5 / 2048;
+         var8 = (this.groundItemY[var13] * this.field_94 + 64 - this.field_144.field_611) * 3 * var5 / 2048;
          var11 = var8 * var9 + var7 * var10 >> 18;
          var8 = var8 * var10 - var7 * var9 >> 18;
          this.method_97(var2 + var3 / 2 + var11, 36 + var4 / 2 - var8, 16711680);
          ++var13;
       }
 
-      while(var13 < this.field_157) {
-         var7 = (this.field_158[var13] * this.field_94 + 64 - this.field_144.field_610) * 3 * var5 / 2048;
-         var8 = (this.field_159[var13] * this.field_94 + 64 - this.field_144.field_611) * 3 * var5 / 2048;
+      while(var13 < this.psize) {
+         var7 = (this.groundItemX[var13] * this.field_94 + 64 - this.field_144.field_610) * 3 * var5 / 2048;
+         var8 = (this.groundItemY[var13] * this.field_94 + 64 - this.field_144.field_611) * 3 * var5 / 2048;
          var11 = var8 * var9 + var7 * var10 >> 18;
          var8 = var8 * var10 - var7 * var9 >> 18;
          this.method_97(var2 + var3 / 2 + var11, 36 + var4 / 2 - var8, 16711680);
@@ -11048,9 +11048,9 @@ public class mudclient extends class_1 {
                      }
 
                      if(this.field_215[var8]) {
-                        super.field_51.method_160(211, 457);
-                        super.field_51.method_153(var8);
-                        super.field_51.method_162();
+                        super.clientStream.newPacket(211, 457);
+                        super.clientStream.putByte(var8);
+                        super.clientStream.flushPacket_();
                         this.field_215[var8] = false;
                         this.method_64("prayeroff");
                         if(var16 == 0) {
@@ -11058,9 +11058,9 @@ public class mudclient extends class_1 {
                         }
                      }
 
-                     super.field_51.method_160(212, 126);
-                     super.field_51.method_153(var8);
-                     super.field_51.method_162();
+                     super.clientStream.newPacket(212, 126);
+                     super.clientStream.putByte(var8);
+                     super.clientStream.flushPacket_();
                      this.field_215[var8] = true;
                      this.method_64("prayeron");
                   }
@@ -11257,7 +11257,7 @@ public class mudclient extends class_1 {
                if(var8 >= 0 && super.field_33 < 489) {
                   label111: {
                      if(super.field_33 > 429) {
-                        this.method_39(super.field_56[var8]);
+                        this.friendRemove(super.field_56[var8]);
                         if(var10 == 0) {
                            break label111;
                         }
@@ -11276,7 +11276,7 @@ public class mudclient extends class_1 {
             if(this.field_78 == 1 && this.field_207 == 1) {
                var8 = this.field_205.method_313(this.field_206);
                if(var8 >= 0 && super.field_33 < 489 && super.field_33 > 429) {
-                  this.method_37(super.field_59[var8]);
+                  this.ignoreRemove(super.field_59[var8]);
                }
             }
 
@@ -11455,28 +11455,28 @@ public class mudclient extends class_1 {
             var6 = var9 + 30;
             if(super.field_33 > var5 && super.field_33 < var5 + var4 && super.field_34 > var6 - 12 && super.field_34 < var6 + 4 && this.field_78 == 1) {
                this.field_217 = !this.field_217;
-               super.field_51.method_160(213, 892);
-               super.field_51.method_153(0);
-               super.field_51.method_153(this.field_217?1:0);
-               super.field_51.method_162();
+               super.clientStream.newPacket(213, 892);
+               super.clientStream.putByte(0);
+               super.clientStream.putByte(this.field_217?1:0);
+               super.clientStream.flushPacket_();
             }
 
             var6 += 15;
             if(super.field_33 > var5 && super.field_33 < var5 + var4 && super.field_34 > var6 - 12 && super.field_34 < var6 + 4 && this.field_78 == 1) {
                this.field_218 = !this.field_218;
-               super.field_51.method_160(213, 892);
-               super.field_51.method_153(2);
-               super.field_51.method_153(this.field_218?1:0);
-               super.field_51.method_162();
+               super.clientStream.newPacket(213, 892);
+               super.clientStream.putByte(2);
+               super.clientStream.putByte(this.field_218?1:0);
+               super.clientStream.flushPacket_();
             }
 
             var6 += 15;
             if(this.field_69 && super.field_33 > var5 && super.field_33 < var5 + var4 && super.field_34 > var6 - 12 && super.field_34 < var6 + 4 && this.field_78 == 1) {
                this.field_219 = !this.field_219;
-               super.field_51.method_160(213, 892);
-               super.field_51.method_153(3);
-               super.field_51.method_153(this.field_219?1:0);
-               super.field_51.method_162();
+               super.clientStream.newPacket(213, 892);
+               super.clientStream.putByte(3);
+               super.clientStream.putByte(this.field_219?1:0);
+               super.clientStream.flushPacket_();
             }
 
             var6 += 15;
@@ -11489,14 +11489,14 @@ public class mudclient extends class_1 {
 
             var6 += 15;
             if(super.field_33 > var5 && super.field_33 < var5 + var4 && super.field_34 > var6 - 12 && super.field_34 < var6 + 4 && this.field_78 == 1) {
-               super.field_51.method_160(197, 882);
-               super.field_51.method_162();
+               super.clientStream.newPacket(197, 882);
+               super.clientStream.flushPacket_();
             }
 
             var6 += 15;
             if(super.field_33 > var5 && super.field_33 < var5 + var4 && super.field_34 > var6 - 12 && super.field_34 < var6 + 4 && this.field_78 == 1) {
-               super.field_51.method_160(247, 888);
-               super.field_51.method_162();
+               super.clientStream.newPacket(247, 888);
+               super.clientStream.flushPacket_();
             }
 
             var6 += 15;
@@ -11527,7 +11527,7 @@ public class mudclient extends class_1 {
 
             var6 += 15;
             if(var10) {
-               this.method_35(super.field_60, super.field_61, super.field_62, super.field_63);
+               this.sendPrivacySettings(super.field_60, super.field_61, super.field_62, super.field_63);
             }
 
             var6 += 20;
@@ -11544,8 +11544,8 @@ public class mudclient extends class_1 {
    // $FF: renamed from: br () void
    public void method_128() {
       int var18 = class_4.field_563;
-      int var1 = 2203 - (this.field_146 + this.field_119 + this.field_123);
-      if(this.field_145 + this.field_118 + this.field_122 >= 2640) {
+      int var1 = 2203 - (this.field_146 + this.planeHeight + this.field_123);
+      if(this.field_145 + this.planeWidth + this.field_122 >= 2640) {
          var1 = -50;
       }
 
@@ -11659,7 +11659,7 @@ public class mudclient extends class_1 {
                         }
 
                         label237: {
-                           if(var1 > 0 && (this.field_142[var11].field_611 - 64) / this.field_94 + this.field_119 + this.field_123 < 2203) {
+                           if(var1 > 0 && (this.field_142[var11].field_611 - 64) / this.field_94 + this.planeHeight + this.field_123 < 2203) {
                               label231: {
                                  this.field_228[this.field_225] = "Attack";
                                  this.field_227[this.field_225] = "@whi@" + this.field_142[var11].field_607 + var13;
@@ -11715,11 +11715,11 @@ public class mudclient extends class_1 {
                            }
 
                            this.field_228[this.field_225] = "Cast " + class_4.field_543[this.field_204] + " on";
-                           this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.field_160[var11]];
+                           this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.groundItemId[var11]];
                            this.field_229[this.field_225] = 200;
-                           this.field_230[this.field_225] = this.field_158[var11];
-                           this.field_231[this.field_225] = this.field_159[var11];
-                           this.field_232[this.field_225] = this.field_160[var11];
+                           this.field_230[this.field_225] = this.groundItemX[var11];
+                           this.field_231[this.field_225] = this.groundItemY[var11];
+                           this.field_232[this.field_225] = this.groundItemId[var11];
                            this.field_233[this.field_225] = this.field_204;
                            ++this.field_225;
                            if(var18 == 0) {
@@ -11729,11 +11729,11 @@ public class mudclient extends class_1 {
 
                         if(this.field_185 >= 0) {
                            this.field_228[this.field_225] = "Use " + this.field_186 + " with";
-                           this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.field_160[var11]];
+                           this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.groundItemId[var11]];
                            this.field_229[this.field_225] = 210;
-                           this.field_230[this.field_225] = this.field_158[var11];
-                           this.field_231[this.field_225] = this.field_159[var11];
-                           this.field_232[this.field_225] = this.field_160[var11];
+                           this.field_230[this.field_225] = this.groundItemX[var11];
+                           this.field_231[this.field_225] = this.groundItemY[var11];
+                           this.field_232[this.field_225] = this.groundItemId[var11];
                            this.field_233[this.field_225] = this.field_185;
                            ++this.field_225;
                            if(var18 == 0) {
@@ -11742,16 +11742,16 @@ public class mudclient extends class_1 {
                         }
 
                         this.field_228[this.field_225] = "Take";
-                        this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.field_160[var11]];
+                        this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.groundItemId[var11]];
                         this.field_229[this.field_225] = 220;
-                        this.field_230[this.field_225] = this.field_158[var11];
-                        this.field_231[this.field_225] = this.field_159[var11];
-                        this.field_232[this.field_225] = this.field_160[var11];
+                        this.field_230[this.field_225] = this.groundItemX[var11];
+                        this.field_231[this.field_225] = this.groundItemY[var11];
+                        this.field_232[this.field_225] = this.groundItemId[var11];
                         ++this.field_225;
                         this.field_228[this.field_225] = "Examine";
-                        this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.field_160[var11]];
+                        this.field_227[this.field_225] = "@lre@" + class_4.field_474[this.groundItemId[var11]];
                         this.field_229[this.field_225] = 3200;
-                        this.field_232[this.field_225] = this.field_160[var11];
+                        this.field_232[this.field_225] = this.groundItemId[var11];
                         ++this.field_225;
                         if(var18 == 0) {
                            break label356;
@@ -12288,33 +12288,33 @@ public class mudclient extends class_1 {
       int var7 = this.field_229[var1];
       if(var7 == 200) {
          this.method_99(this.field_145, this.field_146, var2, var3, true);
-         super.field_51.method_160(224, 821);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(224, 821);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
       if(var7 == 210) {
          this.method_99(this.field_145, this.field_146, var2, var3, true);
-         super.field_51.method_160(250, 346);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(250, 346);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_185 = -1;
       }
 
       if(var7 == 220) {
          this.method_99(this.field_145, this.field_146, var2, var3, true);
-         super.field_51.method_160(252, 634);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(252, 634);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 3200) {
@@ -12323,42 +12323,42 @@ public class mudclient extends class_1 {
 
       if(var7 == 300) {
          this.method_101(var2, var3, var4);
-         super.field_51.method_160(223, 596);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_153(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(223, 596);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putByte(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
       if(var7 == 310) {
          this.method_101(var2, var3, var4);
-         super.field_51.method_160(239, 792);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_153(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(239, 792);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putByte(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_185 = -1;
       }
 
       if(var7 == 320) {
          this.method_101(var2, var3, var4);
-         super.field_51.method_160(238, 212);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_153(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(238, 212);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putByte(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 2300) {
          this.method_101(var2, var3, var4);
-         super.field_51.method_160(229, 726);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_153(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(229, 726);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putByte(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 3300) {
@@ -12367,38 +12367,38 @@ public class mudclient extends class_1 {
 
       if(var7 == 400) {
          this.method_100(var2, var3, var4, var5);
-         super.field_51.method_160(222, 555);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_154(var6);
-         super.field_51.method_162();
+         super.clientStream.newPacket(222, 555);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putShort(var6);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
       if(var7 == 410) {
          this.method_100(var2, var3, var4, var5);
-         super.field_51.method_160(241, 772);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_154(var6);
-         super.field_51.method_162();
+         super.clientStream.newPacket(241, 772);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putShort(var6);
+         super.clientStream.flushPacket_();
          this.field_185 = -1;
       }
 
       if(var7 == 420) {
          this.method_100(var2, var3, var4, var5);
-         super.field_51.method_160(242, 863);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_162();
+         super.clientStream.newPacket(242, 863);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 2400) {
          this.method_100(var2, var3, var4, var5);
-         super.field_51.method_160(230, 67);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_162();
+         super.clientStream.newPacket(230, 67);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 3400) {
@@ -12406,37 +12406,37 @@ public class mudclient extends class_1 {
       }
 
       if(var7 == 600) {
-         super.field_51.method_160(220, 567);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(220, 567);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
       if(var7 == 610) {
-         super.field_51.method_160(240, 377);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(240, 377);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_185 = -1;
       }
 
       if(var7 == 620) {
-         super.field_51.method_160(248, 466);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(248, 466);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 630) {
-         super.field_51.method_160(249, 267);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(249, 267);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 640) {
-         super.field_51.method_160(246, 237);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(246, 237);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 650) {
@@ -12446,9 +12446,9 @@ public class mudclient extends class_1 {
       }
 
       if(var7 == 660) {
-         super.field_51.method_160(251, 664);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(251, 664);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
          this.field_185 = -1;
          this.field_179 = 0;
          this.method_80("Dropping " + class_4.field_474[this.field_182[var4]], 4);
@@ -12464,10 +12464,10 @@ public class mudclient extends class_1 {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(225, 824);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(225, 824);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
@@ -12475,10 +12475,10 @@ public class mudclient extends class_1 {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(243, 876);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(243, 876);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_185 = -1;
       }
 
@@ -12486,89 +12486,96 @@ public class mudclient extends class_1 {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(245, 586);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(245, 586);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 725) {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(195, 543);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(195, 543);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
+      // npc attack
       if(var7 == 715 || var7 == 2715) {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(244, 754);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(244, 754);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 3700) {
          this.method_80(class_4.field_487[var4], 3);
       }
 
+      // player cast pvp
       if(var7 == 800) {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(226, 117);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(226, 117);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
+      // player use item
       if(var7 == 810) {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(219, 145);
-         super.field_51.method_154(var4);
-         super.field_51.method_154(var5);
-         super.field_51.method_162();
+         super.clientStream.newPacket(219, 145);
+         super.clientStream.putShort(var4);
+         super.clientStream.putShort(var5);
+         super.clientStream.flushPacket_();
          this.field_185 = -1;
       }
 
+      // player attack
       if(var7 == 805 || var7 == 2805) {
          var8 = (var2 - 64) / this.field_94;
          var9 = (var3 - 64) / this.field_94;
          this.method_98(this.field_145, this.field_146, var8, var9, true);
-         super.field_51.method_160(228, 414);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(228, 414);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
+      // player duel
       if(var7 == 2806) {
-         super.field_51.method_160(204, 273);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(204, 273);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
+      // init trade request
       if(var7 == 2810) {
-         super.field_51.method_160(235, 636);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(235, 636);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
+      // follow
       if(var7 == 2820) {
-         super.field_51.method_160(214, 596);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(214, 596);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
       }
 
       if(var7 == 900) {
          this.method_98(this.field_145, this.field_146, var2, var3, true);
-         super.field_51.method_160(221, 545);
-         super.field_51.method_154(var2 + this.field_122);
-         super.field_51.method_154(var3 + this.field_123);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(221, 545);
+         super.clientStream.putShort(var2 + this.field_122);
+         super.clientStream.putShort(var3 + this.field_123);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
@@ -12580,9 +12587,9 @@ public class mudclient extends class_1 {
       }
 
       if(var7 == 1000) {
-         super.field_51.method_160(227, 411);
-         super.field_51.method_154(var4);
-         super.field_51.method_162();
+         super.clientStream.newPacket(227, 411);
+         super.clientStream.putShort(var4);
+         super.clientStream.flushPacket_();
          this.field_204 = -1;
       }
 
@@ -12629,7 +12636,7 @@ public class mudclient extends class_1 {
    }
 
    // $FF: renamed from: j () int
-   public int method_25() {
+   public int getRandomDat() {
       return link.uid;
    }
 
@@ -12654,10 +12661,10 @@ public class mudclient extends class_1 {
    }
 
    // $FF: renamed from: a (java.lang.String, int) java.net.Socket
-   public Socket method_20(String var1, int var2) throws IOException {
+   public Socket connect(String address, int port) throws IOException {
       Socket var3;
       if(link.mainapp != null) {
-         var3 = link.opensocket(var2);
+         var3 = link.opensocket(port);
          if(var3 == null) {
             throw new IOException();
          } else {
@@ -12666,13 +12673,13 @@ public class mudclient extends class_1 {
       } else {
          label18: {
             if(this.method_8()) {
-               var3 = new Socket(InetAddress.getByName(this.getCodeBase().getHost()), var2);
+               var3 = new Socket(InetAddress.getByName(this.getCodeBase().getHost()), port);
                if(class_4.field_563 == 0) {
                   break label18;
                }
             }
 
-            var3 = new Socket(InetAddress.getByName(var1), var2);
+            var3 = new Socket(InetAddress.getByName(address), port);
          }
 
          var3.setSoTimeout(30000);
@@ -12702,8 +12709,8 @@ public class mudclient extends class_1 {
       super();
       int var1 = class_4.field_563;
       this.field_69 = false;
-      this.field_70 = new BigInteger("18439792161837834709");
-      this.field_71 = new BigInteger("192956484481579778191558061814292671521");
+      this.rsaExponent = new BigInteger("18439792161837834709");
+      this.rsaModulus = new BigInteger("192956484481579778191558061814292671521");
       this.field_72 = false;
       this.field_73 = false;
       this.field_74 = false;
@@ -12725,7 +12732,7 @@ public class mudclient extends class_1 {
       this.field_112 = -1;
       this.field_113 = -1;
       this.field_121 = -1;
-      this.field_124 = -1;
+      this.planeIndex = -1;
       this.field_129 = 550;
       this.field_130 = false;
       this.field_133 = 1;
@@ -12736,7 +12743,7 @@ public class mudclient extends class_1 {
       this.field_142 = new class_7[this.field_137];
       this.field_143 = new class_7[this.field_137];
       this.field_144 = new class_7();
-      this.field_147 = -1;
+      this.localPlayerServerIndex = -1;
       this.field_148 = 5000;
       this.field_149 = 500;
       this.field_152 = new class_7[this.field_148];
@@ -12744,9 +12751,9 @@ public class mudclient extends class_1 {
       this.field_154 = new class_7[this.field_149];
       this.field_155 = new int[500];
       this.field_156 = 5000;
-      this.field_158 = new int[this.field_156];
-      this.field_159 = new int[this.field_156];
-      this.field_160 = new int[this.field_156];
+      this.groundItemX = new int[this.field_156];
+      this.groundItemY = new int[this.field_156];
+      this.groundItemId = new int[this.field_156];
       this.field_161 = new int[this.field_156];
       this.field_162 = 1500;
       this.field_164 = new class_15[this.field_162];
@@ -12856,11 +12863,11 @@ public class mudclient extends class_1 {
       this.field_333 = false;
       this.field_334 = false;
       this.field_335 = "";
-      this.field_340 = false;
+      this.loadingArea = false;
       this.field_360 = "";
       this.field_361 = "";
-      this.field_362 = "";
-      this.field_363 = "";
+      this.username = "";
+      this.password = "";
       this.field_378 = false;
       this.field_382 = -1;
       this.field_383 = new int[5];

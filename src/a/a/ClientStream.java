@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 // $FF: renamed from: a.a.k
-public class class_6 extends class_5 implements Runnable {
+public class ClientStream extends class_5 implements Runnable {
 
    // $FF: renamed from: I java.io.InputStream
    private InputStream field_598;
@@ -30,7 +30,7 @@ public class class_6 extends class_5 implements Runnable {
 
 
    // $FF: renamed from: <init> (java.net.Socket, a.a.a) void
-   public class_6(Socket var1, class_0 var2) throws IOException {
+   public ClientStream(Socket var1, class_0 var2) throws IOException {
       super();
       this.field_601 = false;
       this.field_605 = true;
@@ -63,24 +63,25 @@ public class class_6 extends class_5 implements Runnable {
       }
 
       this.field_605 = true;
-      synchronized(this){}
+      synchronized(this) {
 
-      try {
-         this.notify();
-      } catch (Throwable var4) {
-         throw var4;
-      }
+				try {
+					this.notify();
+				} catch (Throwable var4) {
+					throw var4;
+				}
+			}
 
       this.field_602 = null;
    }
 
    // $FF: renamed from: b () int
-   public int method_144() throws IOException {
+   public int read() throws IOException {
       return this.field_601?0:this.field_598.read();
    }
 
    // $FF: renamed from: c () int
-   public int method_145() throws IOException {
+   public int available() throws IOException {
       return this.field_601?0:this.field_598.available();
    }
 
@@ -110,26 +111,28 @@ public class class_6 extends class_5 implements Runnable {
             this.field_602 = new byte[5000];
          }
 
-         synchronized(this){}
+         synchronized(this) {
 
-         try {
-            int var6 = 0;
-            if(class_9.field_759 || var6 < var3) {
-               do {
-                  this.field_602[this.field_604] = var1[var6 + var2];
-                  this.field_604 = (this.field_604 + 1) % 5000;
-                  if(this.field_604 == (this.field_603 + 4900) % 5000) {
-                     throw new IOException("buffer overflow");
-                  }
+					 try {
+						 int var6 = 0;
+						 if (class_9.field_759 || var6 < var3) {
+							 do {
+								 this.field_602[this.field_604] = var1[var6 + var2];
+								 this.field_604 = (this.field_604 + 1) % 5000;
+								 if (this.field_604 == (this.field_603 + 4900) % 5000) {
+									 throw new IOException("buffer overflow");
+								 }
 
-                  ++var6;
-               } while(var6 < var3);
-            }
+								 ++var6;
+							 } while (var6 < var3);
+						 }
 
-            this.notify();
-         } catch (Throwable var8) {
-            throw var8;
-         }
+						 this.notify();
+
+					 } catch (Throwable var8) {
+						 throw var8;
+					 }
+				 }
 
       }
    }
@@ -138,57 +141,60 @@ public class class_6 extends class_5 implements Runnable {
       boolean var5 = class_9.field_759;
       if(var5 || !this.field_605) {
          do {
-            synchronized(this){}
 
-            int var1;
-            int var2;
-            try {
-               label126: {
-                  if(this.field_604 == this.field_603) {
-                     try {
-                        this.wait();
-                     } catch (InterruptedException var10) {
-                        ;
-                     }
-                  }
 
-                  if(this.field_605) {
-                     return;
-                  }
+							int var1;
+							int var2;
+					 synchronized(this) {
+							try {
+								label126:
+								{
+									if (this.field_604 == this.field_603) {
+										try {
+											this.wait();
+										} catch (InterruptedException var10) {
+											;
+										}
+									}
 
-                  var2 = this.field_603;
-                  if(this.field_604 >= this.field_603) {
-                     var1 = this.field_604 - this.field_603;
-                     if(!var5) {
-                        break label126;
-                     }
-                  }
+									if (this.field_605) {
+										return;
+									}
 
-                  var1 = 5000 - this.field_603;
-               }
-            } catch (Throwable var13) {
-               throw var13;
-            }
+									var2 = this.field_603;
+									if (this.field_604 >= this.field_603) {
+										var1 = this.field_604 - this.field_603;
+										if (!var5) {
+											break label126;
+										}
+									}
 
-            if(var1 > 0) {
-               try {
-                  this.field_599.write(this.field_602, var2, var1);
-               } catch (IOException var12) {
-                  super.field_573 = true;
-                  super.field_574 = "Twriter:" + var12;
-               }
+									var1 = 5000 - this.field_603;
+								}
+							} catch (Throwable var13) {
+								throw var13;
+							}
+						}
+							if (var1 > 0) {
+								try {
+									this.field_599.write(this.field_602, var2, var1);
+								} catch (IOException var12) {
+									super.field_573 = true;
+									super.field_574 = "Twriter:" + var12;
+								}
 
-               this.field_603 = (this.field_603 + var1) % 5000;
+								this.field_603 = (this.field_603 + var1) % 5000;
 
-               try {
-                  if(this.field_604 == this.field_603) {
-                     this.field_599.flush();
-                  }
-               } catch (IOException var11) {
-                  super.field_573 = true;
-                  super.field_574 = "Twriter:" + var11;
-               }
-            }
+								try {
+									if (this.field_604 == this.field_603) {
+										this.field_599.flush();
+									}
+								} catch (IOException var11) {
+									super.field_573 = true;
+									super.field_574 = "Twriter:" + var11;
+								}
+							}
+
          } while(!this.field_605);
 
       }

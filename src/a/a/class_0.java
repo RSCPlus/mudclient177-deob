@@ -789,22 +789,22 @@ public class class_0 extends Applet implements Runnable {
    }
 
    // $FF: renamed from: a (java.lang.String, int) java.net.Socket
-   public Socket method_20(String var1, int var2) throws IOException {
-      Socket var3;
+   public Socket connect(String address, int port) throws IOException {
+      Socket sock;
       label11: {
          if(this.method_8()) {
-            var3 = new Socket(InetAddress.getByName(this.getCodeBase().getHost()), var2);
+            sock = new Socket(InetAddress.getByName(this.getCodeBase().getHost()), port);
             if(!class_9.field_759) {
                break label11;
             }
          }
 
-         var3 = new Socket(InetAddress.getByName(var1), var2);
+         sock = new Socket(InetAddress.getByName(address), port);
       }
 
-      var3.setSoTimeout(30000);
-      var3.setTcpNoDelay(true);
-      return var3;
+      sock.setSoTimeout(30000);
+      sock.setTcpNoDelay(true);
+      return sock;
    }
 
    // $FF: renamed from: a (java.lang.Runnable) void

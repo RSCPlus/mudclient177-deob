@@ -368,9 +368,9 @@ public class class_15 {
       this.field_932 = 256;
       this.field_933 = 512;
       this.field_934 = 32;
-      int var4 = class_21.method_447(var1, var2);
+      int var4 = class_21.readUnsignedShort(var1, var2);
       var2 += 2;
-      int var5 = class_21.method_447(var1, var2);
+      int var5 = class_21.readUnsignedShort(var1, var2);
       var2 += 2;
       this.method_357(var4, var5);
       this.field_905 = new int[var5][1];
@@ -489,7 +489,7 @@ public class class_15 {
                         }
                      }
 
-                     this.field_862[var13][var14] = class_21.method_447(var1, var2);
+                     this.field_862[var13][var14] = class_21.readUnsignedShort(var1, var2);
                      var2 += 2;
                   }
 

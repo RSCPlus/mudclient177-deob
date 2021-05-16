@@ -5,7 +5,7 @@ public class class_12 {
    // $FF: renamed from: a int
    public static int field_807;
    // $FF: renamed from: b int
-   public static int field_808;
+   public static int clientVer;
    // $FF: renamed from: c int
    public static int field_809;
    // $FF: renamed from: d int
@@ -27,7 +27,7 @@ public class class_12 {
    // $FF: renamed from: <clinit> () void
    static {
       field_807 = 177;
-      field_808 = 177;
+      clientVer = 177;
       field_809 = 85;
       field_810 = 63;
       field_811 = 58;

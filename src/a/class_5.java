@@ -18,13 +18,13 @@ public class class_5 {
    // $FF: renamed from: e int
    private int field_568;
    // $FF: renamed from: f int
-   private int field_569;
+   private int opcodeFriend;
    // $FF: renamed from: g int[]
    public static int[] field_570;
    // $FF: renamed from: h int[]
    public static int[] field_571;
    // $FF: renamed from: i int
-   protected int field_572;
+   protected int maxOutgoingDataSize;
    // $FF: renamed from: j boolean
    protected boolean field_573;
    // $FF: renamed from: k java.lang.String
@@ -64,13 +64,13 @@ public class class_5 {
    // $FF: renamed from: B int
    public int field_591;
    // $FF: renamed from: C int
-   public int field_592;
+   public int outgoingDataOffset;
    // $FF: renamed from: D int
-   private int field_593;
+   private int outgoingOffsetTotal;
    // $FF: renamed from: E int
    private int field_594;
    // $FF: renamed from: F byte[]
-   public byte[] field_595;
+   public byte[] outgoingData;
    // $FF: renamed from: G int[]
    private static int[] field_596;
    // $FF: renamed from: H int
@@ -82,7 +82,7 @@ public class class_5 {
       super();
       this.field_566 = 3141592;
       this.field_568 = 3141592;
-      this.field_572 = 5000;
+      this.maxOutgoingDataSize = 5000;
       this.field_573 = false;
       this.field_574 = "";
       this.field_576 = 61;
@@ -97,7 +97,7 @@ public class class_5 {
       this.field_585 = 32;
       this.field_586 = 124;
       this.field_587 = 34;
-      this.field_593 = 3;
+      this.outgoingOffsetTotal = 3;
       this.field_594 = 8;
    }
 
@@ -105,12 +105,12 @@ public class class_5 {
    public void method_143() {}
 
    // $FF: renamed from: b () int
-   public int method_144() throws IOException {
+   public int read() throws IOException {
       return 0;
    }
 
    // $FF: renamed from: c () int
-   public int method_145() throws IOException {
+   public int available() throws IOException {
       return 0;
    }
 
@@ -122,7 +122,7 @@ public class class_5 {
 
    // $FF: renamed from: d () int
    public int method_148() throws IOException {
-      return this.method_144();
+      return this.read();
    }
 
    // $FF: renamed from: e () int
@@ -133,7 +133,7 @@ public class class_5 {
    }
 
    // $FF: renamed from: f () int
-   public int method_150() throws IOException {
+   public int readInt() throws IOException {
       int var1 = this.method_149();
       int var2 = this.method_149();
       return var1 * 65536 + var2;
@@ -155,14 +155,14 @@ public class class_5 {
             return 0;
          }
 
-         if(this.field_589 == 0 && this.method_145() >= 2) {
-            this.field_589 = this.method_144();
+         if(this.field_589 == 0 && this.available() >= 2) {
+            this.field_589 = this.read();
             if(this.field_589 >= 160) {
-               this.field_589 = (this.field_589 - 160) * 256 + this.method_144();
+               this.field_589 = (this.field_589 - 160) * 256 + this.read();
             }
          }
 
-         if(this.field_589 > 0 && this.method_145() >= this.field_589) {
+         if(this.field_589 > 0 && this.available() >= this.field_589) {
             label30: {
                if(this.field_589 >= 160) {
                   this.method_151(this.field_589, var1);
@@ -171,7 +171,7 @@ public class class_5 {
                   }
                }
 
-               var1[this.field_589 - 1] = (byte)this.method_144();
+               var1[this.field_589 - 1] = (byte)this.read();
                if(this.field_589 > 1) {
                   this.method_151(this.field_589 - 1, var1);
                }
@@ -191,42 +191,42 @@ public class class_5 {
    }
 
    // $FF: renamed from: a (int) void
-   public void method_153(int var1) {
-      this.field_595[this.field_593++] = (byte)var1;
+   public void putByte(int var1) {
+      this.outgoingData[this.outgoingOffsetTotal++] = (byte)var1;
    }
 
    // $FF: renamed from: b (int) void
-   public void method_154(int var1) {
-      this.field_595[this.field_593++] = (byte)(var1 >> 8);
-      this.field_595[this.field_593++] = (byte)var1;
+   public void putShort(int var1) {
+      this.outgoingData[this.outgoingOffsetTotal++] = (byte)(var1 >> 8);
+      this.outgoingData[this.outgoingOffsetTotal++] = (byte)var1;
    }
 
    // $FF: renamed from: c (int) void
-   public void method_155(int var1) {
-      this.field_595[this.field_593++] = (byte)(var1 >> 24);
-      this.field_595[this.field_593++] = (byte)(var1 >> 16);
-      this.field_595[this.field_593++] = (byte)(var1 >> 8);
-      this.field_595[this.field_593++] = (byte)var1;
+   public void putInt(int var1) {
+      this.outgoingData[this.outgoingOffsetTotal++] = (byte)(var1 >> 24);
+      this.outgoingData[this.outgoingOffsetTotal++] = (byte)(var1 >> 16);
+      this.outgoingData[this.outgoingOffsetTotal++] = (byte)(var1 >> 8);
+      this.outgoingData[this.outgoingOffsetTotal++] = (byte)var1;
    }
 
    // $FF: renamed from: a (long) void
-   public void method_156(long var1) {
-      this.method_155((int)(var1 >> 32));
-      this.method_155((int)(var1 & -1L));
+   public void putLong(long var1) {
+      this.putInt((int)(var1 >> 32));
+      this.putInt((int)(var1 & -1L));
    }
 
    // $FF: renamed from: a (java.lang.String) void
-   public void method_157(String var1) {
-      var1.getBytes(0, var1.length(), this.field_595, this.field_593);
-      this.field_593 += var1.length();
+   public void putUnterminatedString(String var1) {
+      var1.getBytes(0, var1.length(), this.outgoingData, this.outgoingOffsetTotal);
+      this.outgoingOffsetTotal += var1.length();
    }
 
    // $FF: renamed from: b (byte[], int, int) void
-   public void method_158(byte[] var1, int var2, int var3) {
+   public void put177RSCString(byte[] var1, int var2, int var3) {
       int var4 = 0;
       if(field_597 != 0 || var4 < var3) {
          do {
-            this.field_595[this.field_593++] = var1[var2 + var4];
+            this.outgoingData[this.outgoingOffsetTotal++] = var1[var2 + var4];
             ++var4;
          } while(var4 < var3);
 
@@ -234,7 +234,7 @@ public class class_5 {
    }
 
    // $FF: renamed from: a (java.lang.String, int, java.math.BigInteger, java.math.BigInteger) void
-   public void method_159(String var1, int var2, BigInteger var3, BigInteger var4) {
+   public void putPassword(String var1, int var2, BigInteger var3, BigInteger var4) {
       int var14 = field_597;
       byte[] var5 = var1.getBytes();
       int var6 = var5.length;
@@ -277,11 +277,11 @@ public class class_5 {
             BigInteger var10 = new BigInteger(1, var7);
             BigInteger var11 = var10.modPow(var3, var4);
             byte[] var12 = var11.toByteArray();
-            this.field_595[this.field_593++] = (byte)var12.length;
+            this.outgoingData[this.outgoingOffsetTotal++] = (byte)var12.length;
             int var13 = 0;
             if(var14 != 0 || var13 < var12.length) {
                do {
-                  this.field_595[this.field_593++] = var12[var13];
+                  this.outgoingData[this.outgoingOffsetTotal++] = var12[var13];
                   ++var13;
                } while(var13 < var12.length);
 
@@ -295,24 +295,24 @@ public class class_5 {
    }
 
    // $FF: renamed from: a (int, int) void
-   public void method_160(int var1, int var2) {
-      this.field_569 = var2;
-      if(this.field_592 > this.field_572 * 4 / 5) {
+   public void newPacket(int opcode, int opcodeFriend) {
+      this.opcodeFriend = opcodeFriend;
+      if(this.outgoingDataOffset > this.maxOutgoingDataSize * 4 / 5) {
          try {
-            this.method_164(0);
+            this.newPacket_(0);
          } catch (IOException var4) {
             this.field_573 = true;
             this.field_574 = var4.getMessage();
          }
       }
 
-      if(this.field_595 == null) {
-         this.field_595 = new byte[this.field_572];
+      if(this.outgoingData == null) {
+         this.outgoingData = new byte[this.maxOutgoingDataSize];
       }
 
-      this.field_595[this.field_592 + 2] = (byte)var1;
-      this.field_595[this.field_592 + 3] = 0;
-      this.field_593 = this.field_592 + 3;
+      this.outgoingData[this.outgoingDataOffset + 2] = (byte)opcode;
+      this.outgoingData[this.outgoingDataOffset + 3] = 0;
+      this.outgoingOffsetTotal = this.outgoingDataOffset + 3;
       this.field_594 = 8;
    }
 
@@ -327,7 +327,7 @@ public class class_5 {
    }
 
    // $FF: renamed from: g () void
-   public void method_162() {
+   public void flushPacket_() {
       int var6 = field_597;
       int var1 = this.field_595[this.field_592 + 2] & 255;
       this.field_595[this.field_592 + 2] = (byte)(var1 + this.field_566);
@@ -336,31 +336,31 @@ public class class_5 {
       char var3 = "All RuneScape code and data, including this message, are copyright 2003 Jagex Ltd. Unauthorised reproduction in any form is strictly prohibited.  The RuneScape network protocol is copyright 2003 Jagex Ltd and is protected by international copyright laws. The RuneScape network protocol also incorporates a copy protection mechanism to prevent unauthorised access or use of our servers. Attempting to break, bypass or duplicate this mechanism is an infringement of the Digital Millienium Copyright Act and may lead to prosecution. Decompiling, or reverse-engineering the RuneScape code in any way is strictly prohibited. RuneScape and Jagex are registered trademarks of Jagex Ltd. You should not be reading this message, you have been warned...".charAt(this.field_565);
       this.field_566 = this.field_566 * 3 + var3 + var2 & '\uffff';
       if(this.field_594 != 8) {
-         ++this.field_593;
+         ++this.outgoingOffsetTotal;
       }
 
       label22: {
-         int var4 = this.field_593 - this.field_592 - 2;
-         if(var4 >= 160) {
-            this.field_595[this.field_592] = (byte)(160 + var4 / 256);
-            this.field_595[this.field_592 + 1] = (byte)(var4 & 255);
+         int packetLength = this.outgoingOffsetTotal - this.outgoingDataOffset - 2;
+         if(packetLength >= 160) {
+            this.outgoingData[this.outgoingDataOffset] = (byte)(160 + packetLength / 256);
+            this.outgoingData[this.outgoingDataOffset + 1] = (byte)(packetLength & 255);
             if(var6 == 0) {
                break label22;
             }
          }
 
-         this.field_595[this.field_592] = (byte)var4;
-         --this.field_593;
-         this.field_595[this.field_592 + 1] = this.field_595[this.field_593];
+         this.outgoingData[this.outgoingDataOffset] = (byte)packetLength;
+         --this.outgoingOffsetTotal;
+         this.outgoingData[this.outgoingDataOffset + 1] = this.outgoingData[this.outgoingOffsetTotal];
       }
 
-      if(this.field_572 <= 10000) {
-         int var5 = this.field_595[this.field_592 + 2] & 255;
+      if(this.maxOutgoingDataSize <= 10000) {
+         int var5 = this.outgoingData[this.outgoingDataOffset + 2] & 255;
          ++field_570[var5];
-         field_571[var5] += this.field_593 - this.field_592;
+         field_571[var5] += this.outgoingOffsetTotal - this.outgoingDataOffset;
       }
 
-      this.field_592 = this.field_593;
+      this.outgoingDataOffset = this.outgoingOffsetTotal;
       if(class_21.field_1009 != 0) {
          ++var6;
          field_597 = var6;
@@ -369,35 +369,35 @@ public class class_5 {
    }
 
    // $FF: renamed from: h () void
-   public void method_163() throws IOException {
-      this.method_162();
-      this.method_164(0);
+   public void flushPacket() throws IOException {
+      this.flushPacket_();
+      this.newPacket_(0);
    }
 
    // $FF: renamed from: d (int) void
-   public void method_164(int var1) throws IOException {
+   public void newPacket_(int var1) throws IOException {
       if(this.field_573) {
-         this.field_592 = 0;
-         this.field_593 = 3;
+         this.outgoingDataOffset = 0;
+         this.outgoingOffsetTotal = 3;
          this.field_573 = false;
          throw new IOException(this.field_574);
       } else {
          ++this.field_575;
          if(this.field_575 >= var1) {
-            if(this.field_592 > 0) {
+            if(this.outgoingDataOffset > 0) {
                this.field_575 = 0;
-               this.method_147(this.field_595, 0, this.field_592);
+               this.method_147(this.outgoingData, 0, this.outgoingDataOffset);
             }
 
-            this.field_592 = 0;
-            this.field_593 = 3;
+            this.outgoingDataOffset = 0;
+            this.outgoingOffsetTotal = 3;
          }
       }
    }
 
    // $FF: renamed from: i () boolean
    public boolean method_165() {
-      return this.field_592 > 0;
+      return this.outgoingDataOffset > 0;
    }
 
    // $FF: renamed from: <clinit> () void

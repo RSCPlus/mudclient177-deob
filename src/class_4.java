@@ -225,14 +225,14 @@ public class class_4 {
 
    // $FF: renamed from: b () int
    public static int method_137() {
-      int var0 = class_21.method_447(field_560, field_562);
+      int var0 = class_21.readUnsignedShort(field_560, field_562);
       field_562 += 2;
       return var0;
    }
 
    // $FF: renamed from: c () int
    public static int method_138() {
-      int var0 = class_21.method_448(field_560, field_562);
+      int var0 = class_21.getUnsignedInt(field_560, field_562);
       field_562 += 4;
       if(var0 > 99999999) {
          var0 = 99999999 - var0;

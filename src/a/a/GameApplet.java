@@ -4,7 +4,7 @@ import a.class_20;
 import a.class_21;
 import a.class_22;
 import a.a.class_0;
-import a.a.class_6;
+import a.a.ClientStream;
 import a.a.class_9;
 import java.awt.Color;
 import java.awt.Font;
@@ -13,24 +13,24 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 // $FF: renamed from: a.a.b
-public class class_1 extends class_0 {
+public class GameApplet extends class_0 {
 
    // $FF: renamed from: R java.lang.String[]
-   public static String[] field_44;
+   public static String[] loginResponses;
    // $FF: renamed from: S int
-   public static int field_45;
+   public static int clientVersion;
    // $FF: renamed from: T int
    public static int field_46;
    // $FF: renamed from: U java.lang.String
-   public String field_47;
+   public String address;
    // $FF: renamed from: V int
-   public int field_48;
+   public int port;
    // $FF: renamed from: W java.lang.String
-   String field_49;
+   String username_;
    // $FF: renamed from: X java.lang.String
-   String field_50;
+   String password_;
    // $FF: renamed from: Y a.a.k
-   public class_6 field_51;
+   public ClientStream clientStream;
    // $FF: renamed from: Z byte[]
    byte[] field_52;
    // $FF: renamed from: ba int
@@ -60,7 +60,7 @@ public class class_1 extends class_0 {
    // $FF: renamed from: bm java.math.BigInteger
    public BigInteger field_65;
    // $FF: renamed from: bn int
-   public int field_66;
+   public int sessionId;
    // $FF: renamed from: bo int
    public int field_67;
    // $FF: renamed from: bp int[]
@@ -74,15 +74,15 @@ public class class_1 extends class_0 {
    }
 
    // $FF: renamed from: j () int
-   public int method_25() {
+   public int getRandomDat() {
       return 0;
    }
 
    // $FF: renamed from: a (java.lang.String, java.lang.String, boolean) void
-   public void method_26(String var1, String var2, boolean var3) {
+   public void login(String username, String password, boolean reconnecting) {
       boolean var8 = class_9.field_759;
       if(this.field_67 > 0) {
-         this.method_43(field_44[6], field_44[7]);
+         this.method_43(loginResponses[6], loginResponses[7]);
 
          try {
             Thread.sleep(2000L);
@@ -90,41 +90,41 @@ public class class_1 extends class_0 {
             ;
          }
 
-         this.method_43(field_44[8], field_44[9]);
+         this.method_43(loginResponses[8], loginResponses[9]);
       } else {
          try {
-            this.field_49 = var1;
-            var1 = class_21.method_453(var1, 20);
-            this.field_50 = var2;
-            var2 = class_21.method_453(var2, 20);
-            if(var1.trim().length() == 0) {
-               this.method_43(field_44[0], field_44[1]);
+            this.username_ = username;
+            username = class_21.method_453(username, 20);
+            this.password_ = password;
+            password = class_21.method_453(password, 20);
+            if(username.trim().length() == 0) {
+               this.method_43(loginResponses[0], loginResponses[1]);
             } else {
                label124: {
-                  if(var3) {
-                     this.method_29(field_44[2], field_44[3]);
+                  if(reconnecting) {
+                     this.method_29(loginResponses[2], loginResponses[3]);
                      if(!var8) {
                         break label124;
                      }
                   }
 
-                  this.method_43(field_44[6], field_44[7]);
+                  this.method_43(loginResponses[6], loginResponses[7]);
                }
 
-               this.field_51 = new class_6(this.method_20(this.field_47, this.field_48), this);
-               this.field_51.field_591 = field_46;
-               int var4 = this.field_51.method_150();
-               this.field_66 = var4;
-               System.out.println("Session id: " + var4);
-               int var5 = 0;
+            	 this.clientStream = new ClientStream(this.connect(this.address, this.port), this);
+               this.clientStream.field_591 = field_46;
+               int sessionId = this.clientStream.readInt();
+               this.sessionId = sessionId;
+               System.out.println("Session id: " + sessionId);
+               int limit30 = 0;
 
                try {
                   if(this.method_8()) {
-                     String var6 = this.getParameter("referid");
-                     var5 = Integer.parseInt(var6);
-                     String var7 = this.getParameter("limit30");
-                     if(var7.equals("1")) {
-                        var5 += 50;
+                     String referId = this.getParameter("referid");
+                     limit30 = Integer.parseInt(referId);
+                     String limit30Read = this.getParameter("limit30");
+                     if(limit30Read.equals("1")) {
+                        limit30 += 50;
                      }
                   }
                } catch (Exception var11) {
@@ -132,61 +132,61 @@ public class class_1 extends class_0 {
                }
 
                label118: {
-                  if(var3) {
-                     this.field_51.method_160(19, 712);
+                  if(reconnecting) {
+                     this.clientStream.newPacket(19, 712);
                      if(!var8) {
                         break label118;
                      }
                   }
 
-                  this.field_51.method_160(0, 625);
+                  this.clientStream.newPacket(0, 625);
                }
 
-               this.field_51.method_154(field_45);
-               this.field_51.method_154(var5);
-               this.field_51.method_156(class_21.method_456(var1));
-               this.field_51.method_159(var2, var4, this.field_64, this.field_65);
-               this.field_51.method_155(this.method_25());
-               this.field_51.method_163();
-               this.field_51.method_144();
-               int var13 = this.field_51.method_144();
-               var13 = this.field_51.method_161(var13, field_68);
-               System.out.println("Login response: " + var13);
-               if(var13 == 0) {
+               this.clientStream.putShort(clientVersion);
+               this.clientStream.putShort(limit30);
+               this.clientStream.putLong(class_21.hashUsername(username));
+               this.clientStream.putPassword(password, sessionId, this.field_64, this.field_65);
+               this.clientStream.putInt(this.getRandomDat());
+               this.clientStream.flushPacket();
+               this.clientStream.read();
+               int loginResponse = this.clientStream.read();
+               loginResponse = this.clientStream.method_161(loginResponse, field_68);
+               System.out.println("Login response: " + loginResponse);
+               if(loginResponse == 0) {
                   this.field_53 = 0;
                   this.method_45();
-               } else if(var13 == 1) {
+               } else if(loginResponse == 1) {
                   this.field_53 = 0;
                   this.method_44();
-               } else if(var3) {
-                  var1 = "";
-                  var2 = "";
+               } else if(reconnecting) {
+                  username = "";
+                  password = "";
                   this.method_46();
-               } else if(var13 == 3) {
-                  this.method_43(field_44[10], field_44[11]);
-               } else if(var13 == 4) {
-                  this.method_43(field_44[4], field_44[5]);
-               } else if(var13 == 5) {
-                  this.method_43(field_44[16], field_44[17]);
-               } else if(var13 == 6) {
-                  this.method_43(field_44[18], field_44[19]);
-               } else if(var13 == 7) {
-                  this.method_43(field_44[20], field_44[21]);
-               } else if(var13 == 11) {
-                  this.method_43(field_44[22], field_44[23]);
-               } else if(var13 == 12) {
-                  this.method_43(field_44[24], field_44[25]);
-               } else if(var13 == 13) {
-                  this.method_43(field_44[14], field_44[15]);
-               } else if(var13 == 14) {
-                  this.method_43(field_44[8], field_44[9]);
+               } else if(loginResponse == 3) {
+                  this.method_43(loginResponses[10], loginResponses[11]);
+               } else if(loginResponse == 4) {
+                  this.method_43(loginResponses[4], loginResponses[5]);
+               } else if(loginResponse == 5) {
+                  this.method_43(loginResponses[16], loginResponses[17]);
+               } else if(loginResponse == 6) {
+                  this.method_43(loginResponses[18], loginResponses[19]);
+               } else if(loginResponse == 7) {
+                  this.method_43(loginResponses[20], loginResponses[21]);
+               } else if(loginResponse == 11) {
+                  this.method_43(loginResponses[22], loginResponses[23]);
+               } else if(loginResponse == 12) {
+                  this.method_43(loginResponses[24], loginResponses[25]);
+               } else if(loginResponse == 13) {
+                  this.method_43(loginResponses[14], loginResponses[15]);
+               } else if(loginResponse == 14) {
+                  this.method_43(loginResponses[8], loginResponses[9]);
                   this.field_67 = 1500;
-               } else if(var13 == 15) {
-                  this.method_43(field_44[26], field_44[27]);
-               } else if(var13 == 16) {
-                  this.method_43(field_44[28], field_44[29]);
+               } else if(loginResponse == 15) {
+                  this.method_43(loginResponses[26], loginResponses[27]);
+               } else if(loginResponse == 16) {
+                  this.method_43(loginResponses[28], loginResponses[29]);
                } else {
-                  this.method_43(field_44[12], field_44[13]);
+                  this.method_43(loginResponses[12], loginResponses[13]);
                }
             }
          } catch (Exception var12) {
@@ -199,36 +199,36 @@ public class class_1 extends class_0 {
                }
 
                --this.field_53;
-               this.method_26(this.field_49, this.field_50, var3);
+               this.login(this.username_, this.password_, reconnecting);
             }
 
-            if(var3) {
-               this.field_49 = "";
-               this.field_50 = "";
+            if(reconnecting) {
+               this.username_ = "";
+               this.password_ = "";
                this.method_46();
                if(!var8) {
                   return;
                }
             }
 
-            this.method_43(field_44[12], field_44[13]);
+            this.method_43(loginResponses[12], loginResponses[13]);
          }
       }
    }
 
    // $FF: renamed from: k () void
-   public void method_27() {
-      if(this.field_51 != null) {
+   public void confirmLogout() {
+      if(this.clientStream != null) {
          try {
-            this.field_51.method_160(1, 325);
-            this.field_51.method_163();
+            this.clientStream.newPacket(1, 325);
+            this.clientStream.flushPacket();
          } catch (IOException var1) {
             ;
          }
       }
 
-      this.field_49 = "";
-      this.field_50 = "";
+      this.username_ = "";
+      this.password_ = "";
       this.method_46();
    }
 
@@ -236,7 +236,7 @@ public class class_1 extends class_0 {
    public void method_28() {
       System.out.println("Lost connection");
       this.field_53 = 10;
-      this.method_26(this.field_49, this.field_50, true);
+      this.login(this.username_, this.password_, true);
    }
 
    // $FF: renamed from: a (java.lang.String, java.lang.String) void
@@ -256,7 +256,7 @@ public class class_1 extends class_0 {
    // $FF: renamed from: b (java.lang.String, java.lang.String) void
    public void method_30(String var1, String var2) {
       if(this.field_67 > 0) {
-         this.method_43(field_44[6], field_44[7]);
+         this.method_43(loginResponses[6], loginResponses[7]);
 
          try {
             Thread.sleep(2000L);
@@ -264,15 +264,15 @@ public class class_1 extends class_0 {
             ;
          }
 
-         this.method_43(field_44[8], field_44[9]);
+         this.method_43(loginResponses[8], loginResponses[9]);
       } else {
          try {
             var1 = class_21.method_453(var1, 20);
             var2 = class_21.method_453(var2, 20);
-            this.method_43(field_44[6], field_44[7]);
-            this.field_51 = new class_6(this.method_20(this.field_47, this.field_48), this);
-            int var3 = this.field_51.method_150();
-            this.field_66 = var3;
+            this.method_43(loginResponses[6], loginResponses[7]);
+            this.clientStream = new ClientStream(this.connect(this.address, this.port), this);
+            int var3 = this.clientStream.readInt();
+            this.sessionId = var3;
             System.out.println("Session id: " + var3);
             int var4 = 0;
 
@@ -289,75 +289,75 @@ public class class_1 extends class_0 {
                ;
             }
 
-            this.field_51.method_160(2, 129);
-            this.field_51.method_154(field_45);
-            this.field_51.method_156(class_21.method_456(var1));
-            this.field_51.method_154(var4);
-            this.field_51.method_159(var2, var3, this.field_64, this.field_65);
-            this.field_51.method_155(this.method_25());
-            this.field_51.method_163();
-            this.field_51.method_144();
-            int var10 = this.field_51.method_144();
-            this.field_51.method_143();
-            var10 = this.field_51.method_161(var10, field_68);
+            this.clientStream.newPacket(2, 129);
+            this.clientStream.putShort(clientVersion);
+            this.clientStream.putLong(class_21.hashUsername(var1));
+            this.clientStream.putShort(var4);
+            this.clientStream.putPassword(var2, var3, this.field_64, this.field_65);
+            this.clientStream.putInt(this.getRandomDat());
+            this.clientStream.flushPacket();
+            this.clientStream.read();
+            int var10 = this.clientStream.read();
+            this.clientStream.method_143();
+            var10 = this.clientStream.method_161(var10, field_68);
             System.out.println("Newplayer response: " + var10);
             if(var10 == 2) {
                this.method_48();
             } else if(var10 == 3) {
-               this.method_43(field_44[14], field_44[15]);
+               this.method_43(loginResponses[14], loginResponses[15]);
             } else if(var10 == 4) {
-               this.method_43(field_44[4], field_44[5]);
+               this.method_43(loginResponses[4], loginResponses[5]);
             } else if(var10 == 5) {
-               this.method_43(field_44[16], field_44[17]);
+               this.method_43(loginResponses[16], loginResponses[17]);
             } else if(var10 == 6) {
-               this.method_43(field_44[18], field_44[19]);
+               this.method_43(loginResponses[18], loginResponses[19]);
             } else if(var10 == 7) {
-               this.method_43(field_44[20], field_44[21]);
+               this.method_43(loginResponses[20], loginResponses[21]);
             } else if(var10 == 11) {
-               this.method_43(field_44[22], field_44[23]);
+               this.method_43(loginResponses[22], loginResponses[23]);
             } else if(var10 == 12) {
-               this.method_43(field_44[24], field_44[25]);
+               this.method_43(loginResponses[24], loginResponses[25]);
             } else if(var10 == 13) {
-               this.method_43(field_44[14], field_44[15]);
+               this.method_43(loginResponses[14], loginResponses[15]);
             } else if(var10 == 14) {
-               this.method_43(field_44[8], field_44[9]);
+               this.method_43(loginResponses[8], loginResponses[9]);
                this.field_67 = 1500;
             } else if(var10 == 15) {
-               this.method_43(field_44[26], field_44[27]);
+               this.method_43(loginResponses[26], loginResponses[27]);
             } else if(var10 == 16) {
-               this.method_43(field_44[28], field_44[29]);
+               this.method_43(loginResponses[28], loginResponses[29]);
             } else {
-               this.method_43(field_44[12], field_44[13]);
+               this.method_43(loginResponses[12], loginResponses[13]);
             }
          } catch (Exception var9) {
             System.out.println(String.valueOf(var9));
-            this.method_43(field_44[12], field_44[13]);
+            this.method_43(loginResponses[12], loginResponses[13]);
          }
       }
    }
 
    // $FF: renamed from: m () void
-   public void method_31() {
+   public void checkConnection() {
       long var1 = System.currentTimeMillis();
-      if(this.field_51.method_165()) {
+      if(this.clientStream.method_165()) {
          this.field_54 = var1;
       }
 
       if(var1 - this.field_54 > 5000L) {
          this.field_54 = var1;
-         this.field_51.method_160(5, 348);
-         this.field_51.method_162();
+         this.clientStream.newPacket(5, 348); // heartbeat packet
+         this.clientStream.flushPacket_();
       }
 
       try {
-         this.field_51.method_164(20);
+         this.clientStream.newPacket_(20);
       } catch (IOException var4) {
          this.method_28();
          return;
       }
 
       if(this.method_51()) {
-         int var3 = this.field_51.method_152(this.field_52);
+         int var3 = this.clientStream.method_152(this.field_52);
          if(var3 > 0) {
             this.method_32(this.field_52[0] & 255, var3);
          }
@@ -366,40 +366,40 @@ public class class_1 extends class_0 {
    }
 
    // $FF: renamed from: a (int, int) void
-   public void method_32(int var1, int var2) {
+   public void method_32(int opcode, int var2) {
       boolean var7 = class_9.field_759;
-      var1 = this.field_51.method_161(var1, field_68);
-      if(var1 == 8) {
+      opcode = this.clientStream.method_161(opcode, field_68);
+      if(opcode == 8) {
          String var3 = new String(this.field_52, 1, var2 - 1);
          this.method_50(var3);
       }
 
-      if(var1 == 9) {
-         this.method_27();
+      if(opcode == 9) {
+         this.confirmLogout();
       }
 
-      if(var1 == 10) {
+      if(opcode == 10) {
          this.method_47();
       } else {
          int var9;
-         if(var1 != 23) {
+         if(opcode != 23) {
             long var10;
-            if(var1 != 24) {
-               if(var1 != 26) {
-                  if(var1 == 27) {
+            if(opcode != 24) {
+               if(opcode != 26) {
+                  if(opcode == 27) {
                      this.field_60 = this.field_52[1];
                      this.field_61 = this.field_52[2];
                      this.field_62 = this.field_52[3];
                      this.field_63 = this.field_52[4];
-                  } else if(var1 == 28) {
+                  } else if(opcode == 28) {
                      var10 = class_21.method_449(this.field_52, 1);
                      String var11 = class_20.method_417(class_22.method_463(this.field_52, 9, var2 - 9));
                      this.method_50("@pri@" + class_21.method_457(var10) + ": tells you " + var11);
                   } else {
-                     this.method_49(var1, var2, this.field_52);
+                     this.method_49(opcode, var2, this.field_52);
                   }
                } else {
-                  this.field_58 = class_21.method_446(this.field_52[1]);
+                  this.field_58 = class_21.getUnsignedByte(this.field_52[1]);
                   var9 = 0;
                   if(var7 || var9 < this.field_58) {
                      do {
@@ -447,14 +447,14 @@ public class class_1 extends class_0 {
                }
             }
          } else {
-            this.field_55 = class_21.method_446(this.field_52[1]);
+            this.field_55 = class_21.getUnsignedByte(this.field_52[1]);
             var9 = 0;
             if(!var7 && var9 >= this.field_55) {
                this.method_33();
             } else {
                do {
                   this.field_56[var9] = class_21.method_449(this.field_52, 2 + var9 * 9);
-                  this.field_57[var9] = class_21.method_446(this.field_52[10 + var9 * 9]);
+                  this.field_57[var9] = class_21.getUnsignedByte(this.field_52[10 + var9 * 9]);
                   ++var9;
                } while(var9 < this.field_55);
 
@@ -493,30 +493,30 @@ public class class_1 extends class_0 {
    }
 
    // $FF: renamed from: c (java.lang.String, java.lang.String) void
-   public void method_34(String var1, String var2) {
+   public void changePassword(String var1, String var2) {
       var1 = class_21.method_453(var1, 20);
       var2 = class_21.method_453(var2, 20);
-      this.field_51.method_160(25, 551);
-      this.field_51.method_159(var1 + var2, this.field_66, this.field_64, this.field_65);
-      this.field_51.method_162();
+      this.clientStream.newPacket(25, 551);
+      this.clientStream.putPassword(var1 + var2, this.sessionId, this.field_64, this.field_65);
+      this.clientStream.flushPacket_();
    }
 
    // $FF: renamed from: a (int, int, int, int) void
-   public void method_35(int var1, int var2, int var3, int var4) {
-      this.field_51.method_160(31, 777);
-      this.field_51.method_153(var1);
-      this.field_51.method_153(var2);
-      this.field_51.method_153(var3);
-      this.field_51.method_153(var4);
-      this.field_51.method_162();
+   public void sendPrivacySettings(int var1, int var2, int var3, int var4) {
+      this.clientStream.newPacket(31, 777);
+      this.clientStream.putByte(var1);
+      this.clientStream.putByte(var2);
+      this.clientStream.putByte(var3);
+      this.clientStream.putByte(var4);
+      this.clientStream.flushPacket_();
    }
 
    // $FF: renamed from: a (java.lang.String) void
-   public void method_36(String var1) {
-      long var2 = class_21.method_456(var1);
-      this.field_51.method_160(29, 101);
-      this.field_51.method_156(var2);
-      this.field_51.method_162();
+   public void ignoreAdd(String var1) {
+      long var2 = class_21.hashUsername(var1);
+      this.clientStream.newPacket(29, 101);
+      this.clientStream.putLong(var2);
+      this.clientStream.flushPacket_();
       int var4 = 0;
       if(class_9.field_759) {
          if(this.field_59[var4] == var2) {
@@ -540,11 +540,11 @@ public class class_1 extends class_0 {
    }
 
    // $FF: renamed from: a (long) void
-   public void method_37(long var1) {
+   public void ignoreRemove(long var1) {
       boolean var5 = class_9.field_759;
-      this.field_51.method_160(30, 511);
-      this.field_51.method_156(var1);
-      this.field_51.method_162();
+      this.clientStream.newPacket(30, 511);
+      this.clientStream.putLong(var1);
+      this.clientStream.flushPacket_();
       int var3 = 0;
       if(var5 || var3 < this.field_58) {
          while(this.field_59[var3] != var1) {
@@ -567,18 +567,18 @@ public class class_1 extends class_0 {
    }
 
    // $FF: renamed from: b (java.lang.String) void
-   public void method_38(String var1) {
-      this.field_51.method_160(26, 622);
-      this.field_51.method_156(class_21.method_456(var1));
-      this.field_51.method_162();
+   public void friendAdd(String var1) {
+      this.clientStream.newPacket(26, 622);
+      this.clientStream.putLong(class_21.hashUsername(var1));
+      this.clientStream.flushPacket_();
    }
 
    // $FF: renamed from: b (long) void
-   public void method_39(long var1) {
+   public void friendRemove(long var1) {
       boolean var5 = class_9.field_759;
-      this.field_51.method_160(27, 707);
-      this.field_51.method_156(var1);
-      this.field_51.method_162();
+      this.clientStream.newPacket(27, 707);
+      this.clientStream.putLong(var1);
+      this.clientStream.flushPacket_();
       int var3 = 0;
       if(var5 || var3 < this.field_55) {
          do {
@@ -606,25 +606,25 @@ public class class_1 extends class_0 {
    }
 
    // $FF: renamed from: a (long, byte[], int) void
-   public void method_40(long var1, byte[] var3, int var4) {
-      this.field_51.method_160(28, 185);
-      this.field_51.method_156(var1);
-      this.field_51.method_158(var3, 0, var4);
-      this.field_51.method_162();
+   public void sendPrivateChat(long var1, byte[] var3, int var4) {
+      this.clientStream.newPacket(28, 185);
+      this.clientStream.putLong(var1);
+      this.clientStream.put177RSCString(var3, 0, var4);
+      this.clientStream.flushPacket_();
    }
 
    // $FF: renamed from: a (byte[], int) void
-   public void method_41(byte[] var1, int var2) {
-      this.field_51.method_160(3, 643);
-      this.field_51.method_158(var1, 0, var2);
-      this.field_51.method_162();
+   public void sendChat(byte[] var1, int var2) {
+      this.clientStream.newPacket(3, 643);
+      this.clientStream.put177RSCString(var1, 0, var2);
+      this.clientStream.flushPacket_();
    }
 
    // $FF: renamed from: c (java.lang.String) void
-   public void method_42(String var1) {
-      this.field_51.method_160(7, 293);
-      this.field_51.method_157(var1);
-      this.field_51.method_162();
+   public void sendCommandString(String var1) {
+      this.clientStream.newPacket(7, 293);
+      this.clientStream.putUnterminatedString(var1);
+      this.clientStream.flushPacket_();
    }
 
    // $FF: renamed from: d (java.lang.String, java.lang.String) void
@@ -657,12 +657,12 @@ public class class_1 extends class_0 {
    }
 
    // $FF: renamed from: <init> () void
-   public class_1() {
+   public GameApplet() {
       super();
-      this.field_47 = "127.0.0.1";
-      this.field_48 = '\uaa4a';
-      this.field_49 = "";
-      this.field_50 = "";
+      this.address = "127.0.0.1";
+      this.port = '\uaa4a';
+      this.username_ = "";
+      this.password_ = "";
       this.field_52 = new byte[5000];
       this.field_56 = new long[100];
       this.field_57 = new int[100];
@@ -671,38 +671,38 @@ public class class_1 extends class_0 {
 
    // $FF: renamed from: <clinit> () void
    static {
-      field_44 = new String[50];
-      field_45 = 1;
-      field_44[0] = "You must enter both a username";
-      field_44[1] = "and a password - Please try again";
-      field_44[2] = "Connection lost! Please wait...";
-      field_44[3] = "Attempting to re-establish";
-      field_44[4] = "That username is already in use.";
-      field_44[5] = "Wait 60 seconds then retry";
-      field_44[6] = "Please wait...";
-      field_44[7] = "Connecting to server";
-      field_44[8] = "Sorry! The server is currently full.";
-      field_44[9] = "Please try again later";
-      field_44[10] = "Invalid username or password.";
-      field_44[11] = "Try again, or create a new account";
-      field_44[12] = "Sorry! Unable to connect to server.";
-      field_44[13] = "Check your internet settings";
-      field_44[14] = "Username already taken.";
-      field_44[15] = "Please choose another username";
-      field_44[16] = "The client has been updated.";
-      field_44[17] = "Please reload this page";
-      field_44[18] = "You may only use 1 character at once.";
-      field_44[19] = "Your ip-address is already in use";
-      field_44[20] = "Login attempts exceeded!";
-      field_44[21] = "Please try again in 5 minutes";
-      field_44[22] = "Account has been temporarily disabled";
-      field_44[23] = "check your message inbox for details";
-      field_44[24] = "Account has been permanently disabled";
-      field_44[25] = "check your message inbox for details";
-      field_44[26] = "You need a members account";
-      field_44[27] = "to login to this server";
-      field_44[28] = "Please login to a members server";
-      field_44[29] = "to access member-only features";
+      loginResponses = new String[50];
+      clientVersion = 1;
+      loginResponses[0] = "You must enter both a username";
+      loginResponses[1] = "and a password - Please try again";
+      loginResponses[2] = "Connection lost! Please wait...";
+      loginResponses[3] = "Attempting to re-establish";
+      loginResponses[4] = "That username is already in use.";
+      loginResponses[5] = "Wait 60 seconds then retry";
+      loginResponses[6] = "Please wait...";
+      loginResponses[7] = "Connecting to server";
+      loginResponses[8] = "Sorry! The server is currently full.";
+      loginResponses[9] = "Please try again later";
+      loginResponses[10] = "Invalid username or password.";
+      loginResponses[11] = "Try again, or create a new account";
+      loginResponses[12] = "Sorry! Unable to connect to server.";
+      loginResponses[13] = "Check your internet settings";
+      loginResponses[14] = "Username already taken.";
+      loginResponses[15] = "Please choose another username";
+      loginResponses[16] = "The client has been updated.";
+      loginResponses[17] = "Please reload this page";
+      loginResponses[18] = "You may only use 1 character at once.";
+      loginResponses[19] = "Your ip-address is already in use";
+      loginResponses[20] = "Login attempts exceeded!";
+      loginResponses[21] = "Please try again in 5 minutes";
+      loginResponses[22] = "Account has been temporarily disabled";
+      loginResponses[23] = "check your message inbox for details";
+      loginResponses[24] = "Account has been permanently disabled";
+      loginResponses[25] = "check your message inbox for details";
+      loginResponses[26] = "You need a members account";
+      loginResponses[27] = "to login to this server";
+      loginResponses[28] = "Please login to a members server";
+      loginResponses[29] = "to access member-only features";
       field_68 = new int[]{124, 345, 953, 124, 634, 636, 661, 127, 177, 295, 559, 384, 321, 679, 871, 592, 679, 347, 926, 585, 681, 195, 785, 679, 818, 115, 226, 799, 925, 852, 194, 966, 32, 3, 4, 5, 6, 7, 8, 9, 40, 1, 2, 3, 4, 5, 6, 7, 8, 9, 50, 444, 52, 3, 4, 5, 6, 7, 8, 9, 60, 1, 2, 3, 4, 5, 6, 7, 8, 9, 70, 1, 2, 3, 4, 5, 6, 7, 8, 9, 80, 1, 2, 3, 4, 5, 6, 7, 8, 9, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 110, 1, 2, 3, 4, 5, 6, 7, 8, 9, 120, 1, 2, 3, 4, 5, 6, 7, 8, 9, 130, 1, 2, 3, 4, 5, 6, 7, 8, 9, 140, 1, 2, 3, 4, 5, 6, 7, 8, 9, 150, 1, 2, 3, 4, 5, 6, 7, 8, 9, 160, 1, 2, 3, 4, 5, 6, 7, 8, 9, 170, 1, 2, 3, 4, 5, 6, 7, 8, 9, 180, 1, 2, 3, 4, 5, 6, 7, 8, 9, 694, 235, 846, 834, 300, 200, 298, 278, 247, 286, 346, 144, 23, 913, 812, 765, 432, 176, 935, 452, 542, 45, 346, 65, 637, 62, 354, 123, 34, 912, 812, 834, 698, 324, 872, 912, 438, 765, 344, 731, 625, 783, 176, 658, 128, 854, 489, 85, 6, 865, 43, 573, 132, 527, 235, 434, 658, 912, 825, 298, 753, 282, 652, 439, 629, 945};
    }
 }

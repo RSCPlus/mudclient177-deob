@@ -59,28 +59,28 @@ public class class_21 {
    }
 
    // $FF: renamed from: a (byte) int
-   public static int method_446(byte var0) {
+   public static int getUnsignedByte(byte var0) {
       return var0 & 255;
    }
 
    // $FF: renamed from: a (byte[], int) int
-   public static int method_447(byte[] var0, int var1) {
+   public static int readUnsignedShort(byte[] var0, int var1) {
       return ((var0[var1] & 255) << 8) + (var0[var1 + 1] & 255);
    }
 
    // $FF: renamed from: b (byte[], int) int
-   public static int method_448(byte[] var0, int var1) {
+   public static int getUnsignedInt(byte[] var0, int var1) {
       return ((var0[var1] & 255) << 24) + ((var0[var1 + 1] & 255) << 16) + ((var0[var1 + 2] & 255) << 8) + (var0[var1 + 3] & 255);
    }
 
    // $FF: renamed from: c (byte[], int) long
    public static long method_449(byte[] var0, int var1) {
-      return (((long)method_448(var0, var1) & 4294967295L) << 32) + ((long)method_448(var0, var1 + 4) & 4294967295L);
+      return (((long) getUnsignedInt(var0, var1) & 4294967295L) << 32) + ((long) getUnsignedInt(var0, var1 + 4) & 4294967295L);
    }
 
    // $FF: renamed from: d (byte[], int) int
    public static int method_450(byte[] var0, int var1) {
-      int var2 = method_446(var0[var1]) * 256 + method_446(var0[var1 + 1]);
+      int var2 = getUnsignedByte(var0[var1]) * 256 + getUnsignedByte(var0[var1 + 1]);
       if(var2 > 32767) {
          var2 -= 65536;
       }
@@ -94,7 +94,7 @@ public class class_21 {
    }
 
    // $FF: renamed from: b (byte[], int, int) int
-   public static int method_452(byte[] var0, int var1, int var2) {
+   public static int readBits(byte[] var0, int var1, int var2) {
       int var6 = class_5.field_597;
       int var3 = var1 >> 3;
       int var4 = 8 - (var1 & 7);
@@ -200,7 +200,7 @@ public class class_21 {
    }
 
    // $FF: renamed from: b (java.lang.String) long
-   public static long method_456(String var0) {
+   public static long hashUsername(String var0) {
       int var7 = class_5.field_597;
       String var1 = "";
       int var2 = 0;
@@ -339,7 +339,7 @@ public class class_21 {
    // $FF: renamed from: a (java.lang.String, byte[]) int
    public static int method_458(String var0, byte[] var1) {
       int var9 = class_5.field_597;
-      int var2 = method_447(var1, 0);
+      int var2 = readUnsignedShort(var1, 0);
       int var3 = 0;
       var0 = var0.toUpperCase();
       int var4 = 0;
@@ -373,7 +373,7 @@ public class class_21 {
    // $FF: renamed from: b (java.lang.String, byte[]) int
    public static int method_459(String var0, byte[] var1) {
       int var10 = class_5.field_597;
-      int var2 = method_447(var1, 0);
+      int var2 = readUnsignedShort(var1, 0);
       int var3 = 0;
       var0 = var0.toUpperCase();
       int var4 = 0;
