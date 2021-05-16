@@ -1,8 +1,5 @@
 package a;
 
-import a.class_19;
-import a.class_5;
-
 // $FF: renamed from: a.g
 public class class_20 {
 
@@ -29,7 +26,7 @@ public class class_20 {
    // $FF: renamed from: k int[]
    static int[] field_1005;
    // $FF: renamed from: l java.lang.String[]
-   static String[] field_1006;
+   static String[] goodWords;
 
 
    // $FF: renamed from: a (a.d, a.d, a.d, a.d) void
@@ -144,7 +141,7 @@ public class class_20 {
    }
 
    // $FF: renamed from: a (java.lang.String) java.lang.String
-   public static String method_417(String var0) {
+   public static String formatChat(String var0) {
       int var6 = class_5.field_597;
       char[] var1 = var0.toLowerCase().toCharArray();
       method_422(var1);
@@ -152,7 +149,7 @@ public class class_20 {
       method_421(var1);
       method_431(var1);
       int var2 = 0;
-      if(var6 == 0 && var2 >= field_1006.length) {
+      if(var6 == 0 && var2 >= goodWords.length) {
          if(field_997) {
             method_418(var0.toCharArray(), var1);
             method_419(var1);
@@ -162,11 +159,11 @@ public class class_20 {
       } else {
          do {
             int var3 = -1;
-            if(var6 == 0 && (var3 = var0.indexOf(field_1006[var2], var3 + 1)) == -1) {
+            if(var6 == 0 && (var3 = var0.indexOf(goodWords[var2], var3 + 1)) == -1) {
                ++var2;
             } else {
                do {
-                  char[] var4 = field_1006[var2].toCharArray();
+                  char[] var4 = goodWords[var2].toCharArray();
                   int var5 = 0;
                   if(var6 != 0 || var5 < var4.length) {
                      do {
@@ -174,11 +171,11 @@ public class class_20 {
                         ++var5;
                      } while(var5 < var4.length);
                   }
-               } while((var3 = var0.indexOf(field_1006[var2], var3 + 1)) != -1);
+               } while((var3 = var0.indexOf(goodWords[var2], var3 + 1)) != -1);
 
                ++var2;
             }
-         } while(var2 < field_1006.length);
+         } while(var2 < goodWords.length);
 
          if(field_997) {
             method_418(var0.toCharArray(), var1);
@@ -352,7 +349,7 @@ public class class_20 {
                   int var17 = method_424(var0, var1, var5);
                   int var18 = method_425(var0, var2, var6 - 1);
                   if(field_995) {
-                     System.out.println("Potential tld: " + var3 + " at char " + var5 + " (type=" + var4 + ", startmatch=" + var17 + ", endmatch=" + var18 + ")");
+                     System.out.println("Potential tld: " + var3 + " at char " + var5 + " (type=" + var4 + ", startmatch=" + var17 + ", endmatch=" + var18 + ")");  // authentic System.out.println
                   }
 
                   if(var4 == 1 && var17 > 0 && var18 > 0) {
@@ -376,7 +373,7 @@ public class class_20 {
 
                   if(var8) {
                      if(field_995) {
-                        System.out.println("Filtered tld: " + var3 + " at char " + var5);
+                        System.out.println("Filtered tld: " + var3 + " at char " + var5); // authentic System.out.println
                      }
 
                      int var11 = var5;
@@ -651,7 +648,7 @@ public class class_20 {
                if(var5 >= var1.length) {
                   var7 = true;
                   if(field_995) {
-                     System.out.println("Potential word: " + var1 + " at char " + var3);
+                     System.out.println("Potential word: " + var1 + " at char " + var3); // authentic System.out.println
                   }
 
                   label249: {
@@ -742,7 +739,7 @@ public class class_20 {
 
                   if(var7) {
                      if(field_996) {
-                        System.out.println("Filtered word: " + var1 + " at char " + var3);
+                        System.out.println("Filtered word: " + var1 + " at char " + var3); // authentic System.out.println
                      }
 
                      int var19 = var3;
@@ -1041,7 +1038,7 @@ public class class_20 {
             return 0;
          } else {
             if(field_996) {
-               System.out.println("Letter=" + var0 + " not matched");
+               System.out.println("Letter=" + var0 + " not matched"); // authentic System.out.println
             }
 
             return 0;
@@ -1212,7 +1209,7 @@ public class class_20 {
       if(var1) {
          return true;
       } else {
-         int var3 = method_441(var0);
+         int var3 = word2hash(var0);
          int var4 = 0;
          int var5 = field_999.length - 1;
          if(var3 != field_999[var4] && var3 != field_999[var5]) {
@@ -1240,7 +1237,7 @@ public class class_20 {
    }
 
    // $FF: renamed from: g (char[]) int
-   public static int method_441(char[] var0) {
+   public static int word2hash(char[] var0) {
       int var4 = class_5.field_597;
       if(var0.length > 6) {
          return 0;
@@ -1276,7 +1273,7 @@ public class class_20 {
 
                   if(var3 != 0) {
                      if(field_996) {
-                        System.out.println("word2hash failed on " + new String(var0));
+                        System.out.println("word2hash failed on " + new String(var0)); // authentic System.out.println
                      }
 
                      return 0;
@@ -1295,6 +1292,6 @@ public class class_20 {
    static {
       field_997 = true;
       field_998 = 3;
-      field_1006 = new String[]{"cook", "cook\'s", "cooks", "seeks", "sheet"};
+      goodWords = new String[]{"cook", "cook\'s", "cooks", "seeks", "sheet"};
    }
 }

@@ -8,27 +8,27 @@ public class class_22 {
    // $FF: renamed from: a byte[]
    public static byte[] field_1010;
    // $FF: renamed from: b char[]
-   public static char[] field_1011;
+   public static char[] stringBuilder;
    // $FF: renamed from: c char[]
-   private static char[] field_1012;
+   private static char[] characterDictionary;
 
 
    // $FF: renamed from: a (byte[], int, int) java.lang.String
-   public static String method_463(byte[] var0, int var1, int var2) {
+   public static String readChatString(byte[] data, int dataIndex, int strLength) {
       int var9 = class_5.field_597;
-      int var3 = 0;
+      int formattedLength = 0;
       int var4 = -1;
-      int var5 = 0;
+      int stringIndex = 0;
       int var7;
-      if(var9 != 0 || var5 < var2) {
+      if(var9 != 0 || stringIndex < strLength) {
          do {
-            int var6;
+            int character;
             label65: {
-               var6 = var0[var1++] & 255;
-               var7 = var6 >> 4 & 15;
+               character = data[dataIndex++] & 255;
+               var7 = character >> 4 & 15;
                if(var4 == -1) {
                   if(var7 < 13) {
-                     field_1011[var3++] = field_1012[var7];
+                     stringBuilder[formattedLength++] = characterDictionary[var7];
                      if(var9 == 0) {
                         break label65;
                      }
@@ -40,15 +40,15 @@ public class class_22 {
                   }
                }
 
-               field_1011[var3++] = field_1012[(var4 << 4) + var7 - 195];
+               stringBuilder[formattedLength++] = characterDictionary[(var4 << 4) + var7 - 195];
                var4 = -1;
             }
 
             label56: {
-               var7 = var6 & 15;
+               var7 = character & 15;
                if(var4 == -1) {
                   if(var7 < 13) {
-                     field_1011[var3++] = field_1012[var7];
+                     stringBuilder[formattedLength++] = characterDictionary[var7];
                      if(var9 == 0) {
                         break label56;
                      }
@@ -60,31 +60,31 @@ public class class_22 {
                   }
                }
 
-               field_1011[var3++] = field_1012[(var4 << 4) + var7 - 195];
+               stringBuilder[formattedLength++] = characterDictionary[(var4 << 4) + var7 - 195];
                var4 = -1;
             }
 
-            ++var5;
-         } while(var5 < var2);
+            ++stringIndex;
+         } while(stringIndex < strLength);
       }
 
       boolean var10 = true;
       var7 = 0;
-      if(var9 == 0 && var7 >= var3) {
-         return new String(field_1011, 0, var3);
+      if(var9 == 0 && var7 >= formattedLength) {
+         return new String(stringBuilder, 0, formattedLength);
       } else {
          do {
-            char var8 = field_1011[var7];
+            char var8 = stringBuilder[var7];
             if(var7 > 4 && var8 == 64) {
-               field_1011[var7] = 32;
+               stringBuilder[var7] = 32;
             }
 
             if(var8 == 37) {
-               field_1011[var7] = 32;
+               stringBuilder[var7] = 32;
             }
 
             if(var10 && var8 >= 97 && var8 <= 122) {
-               field_1011[var7] = (char)(field_1011[var7] + -32);
+               stringBuilder[var7] = (char)(stringBuilder[var7] + -32);
                var10 = false;
             }
 
@@ -93,14 +93,14 @@ public class class_22 {
             }
 
             ++var7;
-         } while(var7 < var3);
+         } while(var7 < formattedLength);
 
-         return new String(field_1011, 0, var3);
+         return new String(stringBuilder, 0, formattedLength);
       }
    }
 
    // $FF: renamed from: a (java.lang.String) int
-   public static int method_464(String var0) {
+   public static int prepareToSendChat(String var0) {
       int var7 = class_5.field_597;
       if(var0.length() > 80) {
          var0 = var0.substring(0, 80);
@@ -121,9 +121,9 @@ public class class_22 {
             char var4 = var0.charAt(var3);
             int var5 = 0;
             int var6 = 0;
-            if(var7 != 0 || var6 < field_1012.length) {
+            if(var7 != 0 || var6 < characterDictionary.length) {
                do {
-                  if(var4 == field_1012[var6]) {
+                  if(var4 == characterDictionary[var6]) {
                      var5 = var6;
                      if(var7 == 0) {
                         break;
@@ -131,7 +131,7 @@ public class class_22 {
                   }
 
                   ++var6;
-               } while(var6 < field_1012.length);
+               } while(var6 < characterDictionary.length);
             }
 
             if(var5 > 12) {
@@ -179,7 +179,7 @@ public class class_22 {
    // $FF: renamed from: <clinit> () void
    static {
       field_1010 = new byte[100];
-      field_1011 = new char[100];
-      field_1012 = new char[]{' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '\u00a3', '$', '%', '\"', '[', ']'};
+      stringBuilder = new char[100];
+      characterDictionary = new char[]{' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '\u00a3', '$', '%', '\"', '[', ']'};
    }
 }

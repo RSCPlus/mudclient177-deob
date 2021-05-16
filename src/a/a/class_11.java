@@ -20,7 +20,7 @@ public class class_11 {
    // $FF: renamed from: g boolean[]
    public boolean[] field_767;
    // $FF: renamed from: h int[]
-   public int[] field_768;
+   public int[] controlFlashText;
    // $FF: renamed from: i int[]
    public int[] field_769;
    // $FF: renamed from: j int[]
@@ -111,7 +111,7 @@ public class class_11 {
       this.field_766 = new boolean[var2];
       this.field_767 = new boolean[var2];
       this.field_772 = new boolean[var2];
-      this.field_768 = new int[var2];
+      this.controlFlashText = new int[var2];
       this.field_769 = new int[var2];
       this.field_770 = new int[var2];
       this.field_771 = new int[var2];
@@ -295,7 +295,7 @@ public class class_11 {
                   }
 
                   if(this.field_775[var1] == 4) {
-                     this.method_287(var1, this.field_773[var1], this.field_774[var1], this.field_776[var1], this.field_777[var1], this.field_779[var1], this.field_781[var1], this.field_769[var1], this.field_768[var1]);
+                     this.method_287(var1, this.field_773[var1], this.field_774[var1], this.field_776[var1], this.field_777[var1], this.field_779[var1], this.field_781[var1], this.field_769[var1], this.controlFlashText[var1]);
                      if(!var2) {
                         break label86;
                      }
@@ -323,7 +323,7 @@ public class class_11 {
                   }
 
                   if(this.field_775[var1] == 9) {
-                     this.method_291(var1, this.field_773[var1], this.field_774[var1], this.field_776[var1], this.field_777[var1], this.field_779[var1], this.field_781[var1], this.field_769[var1], this.field_768[var1]);
+                     this.method_291(var1, this.field_773[var1], this.field_774[var1], this.field_776[var1], this.field_777[var1], this.field_779[var1], this.field_781[var1], this.field_769[var1], this.controlFlashText[var1]);
                      if(!var2) {
                         break label86;
                      }
@@ -517,7 +517,7 @@ public class class_11 {
          var9 = 0;
       }
 
-      this.field_768[var1] = var9;
+      this.controlFlashText[var1] = var9;
       int var11;
       int var12;
       int var13;
@@ -538,7 +538,7 @@ public class class_11 {
                ++var9;
             }
 
-            this.field_768[var1] = var9;
+            this.controlFlashText[var1] = var9;
          }
 
          label83: {
@@ -558,7 +558,7 @@ public class class_11 {
                   var9 = 0;
                }
 
-               this.field_768[var1] = var9;
+               this.controlFlashText[var1] = var9;
                if(!var15) {
                   break label83;
                }
@@ -763,7 +763,7 @@ public class class_11 {
                   ++var9;
                }
 
-               this.field_768[var1] = var9;
+               this.controlFlashText[var1] = var9;
             }
 
             label114: {
@@ -783,7 +783,7 @@ public class class_11 {
                      var9 = var8 - var10;
                   }
 
-                  this.field_768[var1] = var9;
+                  this.controlFlashText[var1] = var9;
                   if(!var15) {
                      break label114;
                   }
@@ -800,7 +800,7 @@ public class class_11 {
          }
 
          var9 = 0;
-         this.field_768[var1] = 0;
+         this.controlFlashText[var1] = 0;
       }
 
       this.field_771[var1] = -1;
@@ -933,7 +933,7 @@ public class class_11 {
       this.field_779[this.field_762] = var5;
       this.field_778[this.field_762] = var6;
       this.field_769[this.field_762] = 0;
-      this.field_768[this.field_762] = 0;
+      this.controlFlashText[this.field_762] = 0;
       this.field_781[this.field_762] = new String[var6];
       return this.field_762++;
    }
@@ -986,7 +986,7 @@ public class class_11 {
       this.field_778[this.field_762] = var6;
       this.field_781[this.field_762] = new String[var6];
       this.field_769[this.field_762] = 0;
-      this.field_768[this.field_762] = 0;
+      this.controlFlashText[this.field_762] = 0;
       this.field_770[this.field_762] = -1;
       this.field_771[this.field_762] = -1;
       return this.field_762++;
@@ -1023,7 +1023,7 @@ public class class_11 {
 
    // $FF: renamed from: d (int) void
    public void method_304(int var1) {
-      this.field_768[var1] = 0;
+      this.controlFlashText[var1] = 0;
       this.field_771[var1] = -1;
    }
 
@@ -1053,13 +1053,13 @@ public class class_11 {
 
       this.field_781[var1][var4] = var2;
       if(var3) {
-         this.field_768[var1] = 999999;
+         this.controlFlashText[var1] = 999999;
       }
 
    }
 
    // $FF: renamed from: a (int, java.lang.String) void
-   public void method_307(int var1, String var2) {
+   public void updateText(int var1, String var2) {
       this.field_780[var1] = var2;
    }
 

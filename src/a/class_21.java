@@ -74,7 +74,7 @@ public class class_21 {
    }
 
    // $FF: renamed from: c (byte[], int) long
-   public static long method_449(byte[] var0, int var1) {
+   public static long getUnsignedLong(byte[] var0, int var1) {
       return (((long) getUnsignedInt(var0, var1) & 4294967295L) << 32) + ((long) getUnsignedInt(var0, var1 + 4) & 4294967295L);
    }
 
@@ -89,7 +89,7 @@ public class class_21 {
    }
 
    // $FF: renamed from: e (byte[], int) int
-   public static int method_451(byte[] var0, int var1) {
+   public static int readUnsignedByteInt(byte[] var0, int var1) {
       return (var0[var1] & 255) < 128?var0[var1]:((var0[var1] & 255) - 128 << 24) + ((var0[var1 + 1] & 255) << 16) + ((var0[var1 + 2] & 255) << 8) + (var0[var1 + 3] & 255);
    }
 
@@ -295,7 +295,7 @@ public class class_21 {
    }
 
    // $FF: renamed from: a (long) java.lang.String
-   public static String method_457(long var0) {
+   public static String unhashUsername(long var0) {
       int var4 = class_5.field_597;
       if(var0 < 0L) {
          return "invalid_name";

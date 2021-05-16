@@ -58,17 +58,17 @@ public class class_14 {
    // $FF: renamed from: y int[][]
    int[][] field_844;
    // $FF: renamed from: z int[][]
-   int[][] field_845;
+   int[][] objectTileDirections;
    // $FF: renamed from: A int[][]
    int[][] field_846;
    // $FF: renamed from: B boolean
-   boolean field_847;
+   boolean playerAlive;
    // $FF: renamed from: C a.a.f[]
    class_15[] field_848;
    // $FF: renamed from: D a.a.f[][]
-   class_15[][] field_849;
+   class_15[][] gameModelArrayArray1;
    // $FF: renamed from: E a.a.f[][]
-   class_15[][] field_850;
+   class_15[][] gameModelArrayArray2;
    // $FF: renamed from: F a.a.f
    class_15 field_851;
 
@@ -96,12 +96,12 @@ public class class_14 {
       this.field_842 = new int[this.field_840 * this.field_841 * 2];
       this.field_843 = new int[this.field_840 * this.field_841 * 2];
       this.field_844 = new int[this.field_840][this.field_841];
-      this.field_845 = new int[this.field_840][this.field_841];
+      this.objectTileDirections = new int[this.field_840][this.field_841];
       this.field_846 = new int[this.field_840][this.field_841];
-      this.field_847 = false;
+      this.playerAlive = false;
       this.field_848 = new class_15[64];
-      this.field_849 = new class_15[4][64];
-      this.field_850 = new class_15[4][64];
+      this.gameModelArrayArray1 = new class_15[4][64];
+      this.gameModelArrayArray2 = new class_15[4][64];
       this.field_823 = var1;
       this.field_822 = var2;
       int var3 = 0;
@@ -199,28 +199,28 @@ public class class_14 {
             }
 
             if(var9) {
-               if(var13 > 0 && var13 - 1 >= var3 && var13 - 1 <= var5 && var14 >= var4 && var14 <= var6 && (this.field_845[var13 - 1][var14] & 8) == 0) {
+               if(var13 > 0 && var13 - 1 >= var3 && var13 - 1 <= var5 && var14 >= var4 && var14 <= var6 && (this.objectTileDirections[var13 - 1][var14] & 8) == 0) {
                   var16 = true;
                   if(var19 == 0) {
                      break;
                   }
                }
 
-               if(var13 < this.field_840 - 1 && var13 + 1 >= var3 && var13 + 1 <= var5 && var14 >= var4 && var14 <= var6 && (this.field_845[var13 + 1][var14] & 2) == 0) {
+               if(var13 < this.field_840 - 1 && var13 + 1 >= var3 && var13 + 1 <= var5 && var14 >= var4 && var14 <= var6 && (this.objectTileDirections[var13 + 1][var14] & 2) == 0) {
                   var16 = true;
                   if(var19 == 0) {
                      break;
                   }
                }
 
-               if(var14 > 0 && var13 >= var3 && var13 <= var5 && var14 - 1 >= var4 && var14 - 1 <= var6 && (this.field_845[var13][var14 - 1] & 4) == 0) {
+               if(var14 > 0 && var13 >= var3 && var13 <= var5 && var14 - 1 >= var4 && var14 - 1 <= var6 && (this.objectTileDirections[var13][var14 - 1] & 4) == 0) {
                   var16 = true;
                   if(var19 == 0) {
                      break;
                   }
                }
 
-               if(var14 < this.field_841 - 1 && var13 >= var3 && var13 <= var5 && var14 + 1 >= var4 && var14 + 1 <= var6 && (this.field_845[var13][var14 + 1] & 1) == 0) {
+               if(var14 < this.field_841 - 1 && var13 >= var3 && var13 <= var5 && var14 + 1 >= var4 && var14 + 1 <= var6 && (this.objectTileDirections[var13][var14 + 1] & 1) == 0) {
                   var16 = true;
                   if(var19 == 0) {
                      break;
@@ -228,56 +228,56 @@ public class class_14 {
                }
             }
 
-            if(var13 > 0 && this.field_844[var13 - 1][var14] == 0 && (this.field_845[var13 - 1][var14] & 120) == 0) {
+            if(var13 > 0 && this.field_844[var13 - 1][var14] == 0 && (this.objectTileDirections[var13 - 1][var14] & 120) == 0) {
                var7[var11] = var13 - 1;
                var8[var11] = var14;
                var11 = (var11 + 1) % var15;
                this.field_844[var13 - 1][var14] = 2;
             }
 
-            if(var13 < this.field_840 - 1 && this.field_844[var13 + 1][var14] == 0 && (this.field_845[var13 + 1][var14] & 114) == 0) {
+            if(var13 < this.field_840 - 1 && this.field_844[var13 + 1][var14] == 0 && (this.objectTileDirections[var13 + 1][var14] & 114) == 0) {
                var7[var11] = var13 + 1;
                var8[var11] = var14;
                var11 = (var11 + 1) % var15;
                this.field_844[var13 + 1][var14] = 8;
             }
 
-            if(var14 > 0 && this.field_844[var13][var14 - 1] == 0 && (this.field_845[var13][var14 - 1] & 116) == 0) {
+            if(var14 > 0 && this.field_844[var13][var14 - 1] == 0 && (this.objectTileDirections[var13][var14 - 1] & 116) == 0) {
                var7[var11] = var13;
                var8[var11] = var14 - 1;
                var11 = (var11 + 1) % var15;
                this.field_844[var13][var14 - 1] = 1;
             }
 
-            if(var14 < this.field_841 - 1 && this.field_844[var13][var14 + 1] == 0 && (this.field_845[var13][var14 + 1] & 113) == 0) {
+            if(var14 < this.field_841 - 1 && this.field_844[var13][var14 + 1] == 0 && (this.objectTileDirections[var13][var14 + 1] & 113) == 0) {
                var7[var11] = var13;
                var8[var11] = var14 + 1;
                var11 = (var11 + 1) % var15;
                this.field_844[var13][var14 + 1] = 4;
             }
 
-            if(var13 > 0 && var14 > 0 && (this.field_845[var13][var14 - 1] & 116) == 0 && (this.field_845[var13 - 1][var14] & 120) == 0 && (this.field_845[var13 - 1][var14 - 1] & 124) == 0 && this.field_844[var13 - 1][var14 - 1] == 0) {
+            if(var13 > 0 && var14 > 0 && (this.objectTileDirections[var13][var14 - 1] & 116) == 0 && (this.objectTileDirections[var13 - 1][var14] & 120) == 0 && (this.objectTileDirections[var13 - 1][var14 - 1] & 124) == 0 && this.field_844[var13 - 1][var14 - 1] == 0) {
                var7[var11] = var13 - 1;
                var8[var11] = var14 - 1;
                var11 = (var11 + 1) % var15;
                this.field_844[var13 - 1][var14 - 1] = 3;
             }
 
-            if(var13 < this.field_840 - 1 && var14 > 0 && (this.field_845[var13][var14 - 1] & 116) == 0 && (this.field_845[var13 + 1][var14] & 114) == 0 && (this.field_845[var13 + 1][var14 - 1] & 118) == 0 && this.field_844[var13 + 1][var14 - 1] == 0) {
+            if(var13 < this.field_840 - 1 && var14 > 0 && (this.objectTileDirections[var13][var14 - 1] & 116) == 0 && (this.objectTileDirections[var13 + 1][var14] & 114) == 0 && (this.objectTileDirections[var13 + 1][var14 - 1] & 118) == 0 && this.field_844[var13 + 1][var14 - 1] == 0) {
                var7[var11] = var13 + 1;
                var8[var11] = var14 - 1;
                var11 = (var11 + 1) % var15;
                this.field_844[var13 + 1][var14 - 1] = 9;
             }
 
-            if(var13 > 0 && var14 < this.field_841 - 1 && (this.field_845[var13][var14 + 1] & 113) == 0 && (this.field_845[var13 - 1][var14] & 120) == 0 && (this.field_845[var13 - 1][var14 + 1] & 121) == 0 && this.field_844[var13 - 1][var14 + 1] == 0) {
+            if(var13 > 0 && var14 < this.field_841 - 1 && (this.objectTileDirections[var13][var14 + 1] & 113) == 0 && (this.objectTileDirections[var13 - 1][var14] & 120) == 0 && (this.objectTileDirections[var13 - 1][var14 + 1] & 121) == 0 && this.field_844[var13 - 1][var14 + 1] == 0) {
                var7[var11] = var13 - 1;
                var8[var11] = var14 + 1;
                var11 = (var11 + 1) % var15;
                this.field_844[var13 - 1][var14 + 1] = 6;
             }
 
-            if(var13 < this.field_840 - 1 && var14 < this.field_841 - 1 && (this.field_845[var13][var14 + 1] & 113) == 0 && (this.field_845[var13 + 1][var14] & 114) == 0 && (this.field_845[var13 + 1][var14 + 1] & 115) == 0 && this.field_844[var13 + 1][var14 + 1] == 0) {
+            if(var13 < this.field_840 - 1 && var14 < this.field_841 - 1 && (this.objectTileDirections[var13][var14 + 1] & 113) == 0 && (this.objectTileDirections[var13 + 1][var14] & 114) == 0 && (this.objectTileDirections[var13 + 1][var14 + 1] & 115) == 0 && this.field_844[var13 + 1][var14 + 1] == 0) {
                var7[var11] = var13 + 1;
                var8[var11] = var14 + 1;
                var11 = (var11 + 1) % var15;
@@ -341,12 +341,12 @@ public class class_14 {
 
    // $FF: renamed from: a (int, int, int) void
    public void method_322(int var1, int var2, int var3) {
-      this.field_845[var1][var2] |= var3;
+      this.objectTileDirections[var1][var2] |= var3;
    }
 
    // $FF: renamed from: b (int, int, int) void
    public void method_323(int var1, int var2, int var3) {
-      this.field_845[var1][var2] &= '\uffff' - var3;
+      this.objectTileDirections[var1][var2] &= '\uffff' - var3;
    }
 
    // $FF: renamed from: a (int, int, int, int) void
@@ -356,7 +356,7 @@ public class class_14 {
          if(class_4.field_532[var4] == 1) {
             label47: {
                if(var3 == 0) {
-                  this.field_845[var1][var2] |= 1;
+                  this.objectTileDirections[var1][var2] |= 1;
                   if(var2 <= 0) {
                      break label47;
                   }
@@ -368,7 +368,7 @@ public class class_14 {
                }
 
                if(var3 == 1) {
-                  this.field_845[var1][var2] |= 2;
+                  this.objectTileDirections[var1][var2] |= 2;
                   if(var1 <= 0) {
                      break label47;
                   }
@@ -380,14 +380,14 @@ public class class_14 {
                }
 
                if(var3 == 2) {
-                  this.field_845[var1][var2] |= 16;
+                  this.objectTileDirections[var1][var2] |= 16;
                   if(var5 == 0) {
                      break label47;
                   }
                }
 
                if(var3 == 3) {
-                  this.field_845[var1][var2] |= 32;
+                  this.objectTileDirections[var1][var2] |= 32;
                }
             }
 
@@ -404,7 +404,7 @@ public class class_14 {
          if(class_4.field_532[var4] == 1) {
             label47: {
                if(var3 == 0) {
-                  this.field_845[var1][var2] &= '\ufffe';
+                  this.objectTileDirections[var1][var2] &= '\ufffe';
                   if(var2 <= 0) {
                      break label47;
                   }
@@ -416,7 +416,7 @@ public class class_14 {
                }
 
                if(var3 == 1) {
-                  this.field_845[var1][var2] &= '\ufffd';
+                  this.objectTileDirections[var1][var2] &= '\ufffd';
                   if(var1 <= 0) {
                      break label47;
                   }
@@ -428,14 +428,14 @@ public class class_14 {
                }
 
                if(var3 == 2) {
-                  this.field_845[var1][var2] &= '\uffef';
+                  this.objectTileDirections[var1][var2] &= '\uffef';
                   if(var5 == 0) {
                      break label47;
                   }
                }
 
                if(var3 == 3) {
-                  this.field_845[var1][var2] &= '\uffdf';
+                  this.objectTileDirections[var1][var2] &= '\uffdf';
                }
             }
 
@@ -477,14 +477,14 @@ public class class_14 {
                      do {
                         label104: {
                            if(class_4.field_522[var3] == 1) {
-                              this.field_845[var7][var8] |= 64;
+                              this.objectTileDirections[var7][var8] |= 64;
                               if(var9 == 0) {
                                  break label104;
                               }
                            }
 
                            if(var4 == 0) {
-                              this.field_845[var7][var8] |= 2;
+                              this.objectTileDirections[var7][var8] |= 2;
                               if(var7 <= 0) {
                                  break label104;
                               }
@@ -496,7 +496,7 @@ public class class_14 {
                            }
 
                            if(var4 == 2) {
-                              this.field_845[var7][var8] |= 4;
+                              this.objectTileDirections[var7][var8] |= 4;
                               if(var8 >= this.field_841 - 1) {
                                  break label104;
                               }
@@ -508,7 +508,7 @@ public class class_14 {
                            }
 
                            if(var4 == 4) {
-                              this.field_845[var7][var8] |= 8;
+                              this.objectTileDirections[var7][var8] |= 8;
                               if(var7 >= this.field_840 - 1) {
                                  break label104;
                               }
@@ -520,7 +520,7 @@ public class class_14 {
                            }
 
                            if(var4 == 6) {
-                              this.field_845[var7][var8] |= 1;
+                              this.objectTileDirections[var7][var8] |= 1;
                               if(var8 > 0) {
                                  this.method_322(var7, var8 - 1, 4);
                               }
@@ -573,14 +573,14 @@ public class class_14 {
                      do {
                         label104: {
                            if(class_4.field_522[var3] == 1) {
-                              this.field_845[var7][var8] &= '\uffbf';
+                              this.objectTileDirections[var7][var8] &= '\uffbf';
                               if(var9 == 0) {
                                  break label104;
                               }
                            }
 
                            if(var4 == 0) {
-                              this.field_845[var7][var8] &= '\ufffd';
+                              this.objectTileDirections[var7][var8] &= '\ufffd';
                               if(var7 <= 0) {
                                  break label104;
                               }
@@ -592,7 +592,7 @@ public class class_14 {
                            }
 
                            if(var4 == 2) {
-                              this.field_845[var7][var8] &= '\ufffb';
+                              this.objectTileDirections[var7][var8] &= '\ufffb';
                               if(var8 >= this.field_841 - 1) {
                                  break label104;
                               }
@@ -604,7 +604,7 @@ public class class_14 {
                            }
 
                            if(var4 == 4) {
-                              this.field_845[var7][var8] &= '\ufff7';
+                              this.objectTileDirections[var7][var8] &= '\ufff7';
                               if(var7 >= this.field_840 - 1) {
                                  break label104;
                               }
@@ -616,7 +616,7 @@ public class class_14 {
                            }
 
                            if(var4 == 6) {
-                              this.field_845[var7][var8] &= '\ufffe';
+                              this.objectTileDirections[var7][var8] &= '\ufffe';
                               if(var8 > 0) {
                                  this.method_323(var7, var8 - 1, 4);
                               }
@@ -711,11 +711,11 @@ public class class_14 {
 
    // $FF: renamed from: a (int, int) int
    public int method_331(int var1, int var2) {
-      return var1 >= 0 && var2 >= 0 && var1 < this.field_840 && var2 < this.field_841?this.field_845[var1][var2]:0;
+      return var1 >= 0 && var2 >= 0 && var1 < this.field_840 && var2 < this.field_841?this.objectTileDirections[var1][var2]:0;
    }
 
    // $FF: renamed from: b (int, int) int
-   public int method_332(int var1, int var2) {
+   public int getElevation(int var1, int var2) {
       int var3 = var1 >> 7;
       int var4 = var2 >> 7;
       int var5 = var1 & 127;
@@ -1303,19 +1303,19 @@ public class class_14 {
             this.field_848[var1] = null;
             int var2 = 0;
             if(var4 != 0) {
-               this.field_849[var2][var1] = null;
+               this.gameModelArrayArray1[var2][var1] = null;
                ++var2;
             }
 
             while(var2 < 4) {
-               this.field_849[var2][var1] = null;
+               this.gameModelArrayArray1[var2][var1] = null;
                ++var2;
             }
 
             int var3 = 0;
             if(var4 != 0 || var3 < 4) {
                do {
-                  this.field_850[var3][var1] = null;
+                  this.gameModelArrayArray2[var3][var1] = null;
                   ++var3;
                } while(var3 < 4);
 
@@ -1452,7 +1452,7 @@ public class class_14 {
                   ++var7;
                } else {
                   do {
-                     this.field_845[var7][var8] = 0;
+                     this.objectTileDirections[var7][var8] = 0;
                      ++var8;
                   } while(var8 < 96);
 
@@ -1609,11 +1609,11 @@ public class class_14 {
                         }
 
                         if(class_4.field_540[var17 - 1] != 0) {
-                           this.field_845[var10][var11] |= 64;
+                           this.objectTileDirections[var10][var11] |= 64;
                         }
 
                         if(class_4.field_539[var17 - 1] == 2) {
-                           this.field_845[var10][var11] |= 128;
+                           this.objectTileDirections[var10][var11] |= 128;
                         }
                      }
 
@@ -1827,7 +1827,7 @@ public class class_14 {
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9);
                   if(var4 && class_4.field_532[var10 - 1] != 0) {
-                     this.field_845[var8][var9] |= 1;
+                     this.objectTileDirections[var8][var9] |= 1;
                      if(var9 > 0) {
                         this.method_322(var8, var9 - 1, 4);
                      }
@@ -1842,7 +1842,7 @@ public class class_14 {
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 1, var8, var9, var8, var9 + 1);
                   if(var4 && class_4.field_532[var10 - 1] != 0) {
-                     this.field_845[var8][var9] |= 2;
+                     this.objectTileDirections[var8][var9] |= 2;
                      if(var8 > 0) {
                         this.method_322(var8 - 1, var9, 8);
                      }
@@ -1857,7 +1857,7 @@ public class class_14 {
                if(var10 > 0 && var10 < 12000 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9 + 1);
                   if(var4 && class_4.field_532[var10 - 1] != 0) {
-                     this.field_845[var8][var9] |= 32;
+                     this.objectTileDirections[var8][var9] |= 32;
                   }
 
                   if(var4) {
@@ -1870,7 +1870,7 @@ public class class_14 {
                if(var10 > 12000 && var10 < 24000 && (class_4.field_533[var10 - 12001] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 12001, var8 + 1, var9, var8, var9 + 1);
                   if(var4 && class_4.field_532[var10 - 12001] != 0) {
-                     this.field_845[var8][var9] |= 16;
+                     this.objectTileDirections[var8][var9] |= 16;
                   }
 
                   if(var4) {
@@ -1899,7 +1899,7 @@ public class class_14 {
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9);
                   if(var4 && class_4.field_532[var10 - 1] != 0) {
-                     this.field_845[var8][var9] |= 1;
+                     this.objectTileDirections[var8][var9] |= 1;
                      if(var9 > 0) {
                         this.method_322(var8, var9 - 1, 4);
                      }
@@ -1914,7 +1914,7 @@ public class class_14 {
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 1, var8, var9, var8, var9 + 1);
                   if(var4 && class_4.field_532[var10 - 1] != 0) {
-                     this.field_845[var8][var9] |= 2;
+                     this.objectTileDirections[var8][var9] |= 2;
                      if(var8 > 0) {
                         this.method_322(var8 - 1, var9, 8);
                      }
@@ -1929,7 +1929,7 @@ public class class_14 {
                if(var10 > 0 && var10 < 12000 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9 + 1);
                   if(var4 && class_4.field_532[var10 - 1] != 0) {
-                     this.field_845[var8][var9] |= 32;
+                     this.objectTileDirections[var8][var9] |= 32;
                   }
 
                   if(var4) {
@@ -1942,7 +1942,7 @@ public class class_14 {
                if(var10 > 12000 && var10 < 24000 && (class_4.field_533[var10 - 12001] == 0 || this.field_820)) {
                   this.method_353(this.field_851, var10 - 12001, var8 + 1, var9, var8, var9 + 1);
                   if(var4 && class_4.field_532[var10 - 12001] != 0) {
-                     this.field_845[var8][var9] |= 16;
+                     this.objectTileDirections[var8][var9] |= 16;
                   }
 
                   if(var4) {
@@ -1964,15 +1964,15 @@ public class class_14 {
       }
 
       this.field_851.method_371(false, 60, 24, -50, -10, -50);
-      this.field_849[var3] = this.field_851.method_369(0, 0, 1536, 1536, 8, 64, 338, true);
+      this.gameModelArrayArray1[var3] = this.field_851.method_369(0, 0, 1536, 1536, 8, 64, 338, true);
       var9 = 0;
       if(var40 != 0) {
-         this.field_823.method_170(this.field_849[var3][var9]);
+         this.field_823.method_170(this.gameModelArrayArray1[var3][var9]);
          ++var9;
       }
 
       while(var9 < 64) {
-         this.field_823.method_170(this.field_849[var3][var9]);
+         this.field_823.method_170(this.gameModelArrayArray1[var3][var9]);
          ++var9;
       }
 
@@ -2451,19 +2451,19 @@ public class class_14 {
       }
 
       this.field_851.method_371(true, 50, 50, -50, -10, -50);
-      this.field_850[var3] = this.field_851.method_369(0, 0, 1536, 1536, 8, 64, 169, true);
+      this.gameModelArrayArray2[var3] = this.field_851.method_369(0, 0, 1536, 1536, 8, 64, 169, true);
       var13 = 0;
       if(var40 != 0) {
-         this.field_823.method_170(this.field_850[var3][var13]);
+         this.field_823.method_170(this.gameModelArrayArray2[var3][var13]);
          ++var13;
       }
 
       while(var13 < 64) {
-         this.field_823.method_170(this.field_850[var3][var13]);
+         this.field_823.method_170(this.gameModelArrayArray2[var3][var13]);
          ++var13;
       }
 
-      if(this.field_850[var3][0] == null) {
+      if(this.gameModelArrayArray2[var3][0] == null) {
          throw new RuntimeException("null roof!");
       } else {
          var14 = 0;
@@ -2523,7 +2523,7 @@ public class class_14 {
                      class_15 var8 = var1[class_4.field_519[var4]].method_391(false, true, false, false);
                      int var9 = (var2 + var2 + var6) * 128 / 2;
                      int var10 = (var3 + var3 + var7) * 128 / 2;
-                     var8.method_377(var9, -this.method_332(var9, var10), var10);
+                     var8.method_377(var9, -this.getElevation(var9, var10), var10);
                      var8.method_376(0, this.method_341(var2, var3) * 32, 0);
                      this.field_823.method_170(var8);
                      var8.method_372(48, 48, -50, -10, -50);

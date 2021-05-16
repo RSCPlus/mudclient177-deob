@@ -47,7 +47,7 @@ public class class_0 extends Applet implements Runnable {
    // $FF: renamed from: k int
    public int field_11;
    // $FF: renamed from: l int
-   public int field_12;
+   public int lastMouseAction;
    // $FF: renamed from: m int
    public int field_13;
    // $FF: renamed from: n java.lang.String
@@ -89,13 +89,13 @@ public class class_0 extends Applet implements Runnable {
    // $FF: renamed from: F int
    public int field_32;
    // $FF: renamed from: G int
-   public int field_33;
+   public int mouseX;
    // $FF: renamed from: H int
-   public int field_34;
+   public int mouseY;
    // $FF: renamed from: I int
    public int field_35;
    // $FF: renamed from: J int
-   public int field_36;
+   public int lastMouseButtonDown;
    // $FF: renamed from: K int
    public int field_37;
    // $FF: renamed from: L int
@@ -103,9 +103,9 @@ public class class_0 extends Applet implements Runnable {
    // $FF: renamed from: M boolean
    public boolean field_39;
    // $FF: renamed from: N java.lang.String
-   public String field_40;
+   public String inputTextCurrent;
    // $FF: renamed from: O java.lang.String
-   public String field_41;
+   public String inputTextFinal;
    // $FF: renamed from: P java.lang.String
    public String field_42;
    // $FF: renamed from: Q java.lang.String
@@ -130,7 +130,7 @@ public class class_0 extends Applet implements Runnable {
    // $FF: renamed from: a (int, int, java.lang.String, boolean) void
    public final void method_7(int var1, int var2, String var3, boolean var4) {
       this.field_8 = true;
-      System.out.println("Started application");
+      System.out.println("Started application"); // authentic System.out.println
       this.field_1 = var1;
       this.field_2 = var2;
       field_7 = new class_16(this, var1, var2, var3, var4, false);
@@ -167,7 +167,7 @@ public class class_0 extends Applet implements Runnable {
       this.method_11(var2);
       this.field_37 = var2;
       this.field_38 = var2;
-      this.field_12 = 0;
+      this.lastMouseAction = 0;
       if(var2 == 1006) {
          this.field_26 = true;
       }
@@ -223,16 +223,16 @@ public class class_0 extends Applet implements Runnable {
          } while(var4 < field_23.length());
       }
 
-      if(var3 && this.field_40.length() < 20) {
-         this.field_40 = this.field_40 + (char)var2;
+      if(var3 && this.inputTextCurrent.length() < 20) {
+         this.inputTextCurrent = this.inputTextCurrent + (char)var2;
       }
 
       if(var3 && this.field_42.length() < 80) {
          this.field_42 = this.field_42 + (char)var2;
       }
 
-      if(var2 == 8 && this.field_40.length() > 0) {
-         this.field_40 = this.field_40.substring(0, this.field_40.length() - 1);
+      if(var2 == 8 && this.inputTextCurrent.length() > 0) {
+         this.inputTextCurrent = this.inputTextCurrent.substring(0, this.inputTextCurrent.length() - 1);
       }
 
       if(var2 == 8 && this.field_42.length() > 0) {
@@ -240,7 +240,7 @@ public class class_0 extends Applet implements Runnable {
       }
 
       if(var2 == 10 || var2 == 13) {
-         this.field_41 = this.field_40;
+         this.inputTextFinal = this.inputTextCurrent;
          this.field_43 = this.field_42;
       }
 
@@ -292,24 +292,24 @@ public class class_0 extends Applet implements Runnable {
    }
 
    public synchronized boolean mouseMove(Event var1, int var2, int var3) {
-      this.field_33 = var2;
-      this.field_34 = var3 + this.field_11;
+      this.mouseX = var2;
+      this.mouseY = var3 + this.field_11;
       this.field_35 = 0;
-      this.field_12 = 0;
+      this.lastMouseAction = 0;
       return true;
    }
 
    public synchronized boolean mouseUp(Event var1, int var2, int var3) {
-      this.field_33 = var2;
-      this.field_34 = var3 + this.field_11;
+      this.mouseX = var2;
+      this.mouseY = var3 + this.field_11;
       this.field_35 = 0;
       return true;
    }
 
    public synchronized boolean mouseDown(Event var1, int var2, int var3) {
       label11: {
-         this.field_33 = var2;
-         this.field_34 = var3 + this.field_11;
+         this.mouseX = var2;
+         this.mouseY = var3 + this.field_11;
          if(var1.metaDown()) {
             this.field_35 = 2;
             if(!class_9.field_759) {
@@ -320,8 +320,8 @@ public class class_0 extends Applet implements Runnable {
          this.field_35 = 1;
       }
 
-      this.field_36 = this.field_35;
-      this.field_12 = 0;
+      this.lastMouseButtonDown = this.field_35;
+      this.lastMouseAction = 0;
       this.method_12(this.field_35, var2, var3);
       return true;
    }
@@ -330,8 +330,8 @@ public class class_0 extends Applet implements Runnable {
    public void method_12(int var1, int var2, int var3) {}
 
    public synchronized boolean mouseDrag(Event var1, int var2, int var3) {
-      this.field_33 = var2;
-      this.field_34 = var3 + this.field_11;
+      this.mouseX = var2;
+      this.mouseY = var3 + this.field_11;
       if(var1.metaDown()) {
          this.field_35 = 2;
          if(!class_9.field_759) {
@@ -345,7 +345,7 @@ public class class_0 extends Applet implements Runnable {
 
    public final void init() {
       this.field_8 = true;
-      System.out.println("Started applet");
+      System.out.println("Started applet"); // authentic System.out.println
       this.field_1 = 512;
       this.field_2 = 344;
       this.field_13 = 1;
@@ -377,7 +377,7 @@ public class class_0 extends Applet implements Runnable {
       }
 
       if(this.field_9 == -1) {
-         System.out.println("5 seconds expired, forcing kill");
+         System.out.println("5 seconds expired, forcing kill"); // authentic System.out.println
          this.method_13();
          if(this.field_3 != null) {
             this.field_3.stop();
@@ -390,7 +390,7 @@ public class class_0 extends Applet implements Runnable {
    // $FF: renamed from: h () void
    public final void method_13() {
       this.field_9 = -2;
-      System.out.println("Closing program");
+      System.out.println("Closing program"); // authentic System.out.println
       this.method_4();
 
       try {
@@ -724,7 +724,7 @@ public class class_0 extends Applet implements Runnable {
 
    // $FF: renamed from: a (java.lang.String, java.lang.String, int) byte[]
    public byte[] method_19(String var1, String var2, int var3) {
-      System.out.println("Using default load");
+      System.out.println("Using default load"); // authentic System.out.println
       int var4 = 0;
       int var5 = 0;
       byte[] var6 = null;
@@ -838,8 +838,8 @@ public class class_0 extends Applet implements Runnable {
       this.field_31 = false;
       this.field_32 = 1;
       this.field_39 = false;
-      this.field_40 = "";
-      this.field_41 = "";
+      this.inputTextCurrent = "";
+      this.inputTextFinal = "";
       this.field_42 = "";
       this.field_43 = "";
    }

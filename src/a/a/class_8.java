@@ -284,7 +284,7 @@ public class class_8 {
    // $FF: renamed from: a (a.a.f) void
    public void method_170(class_15 var1) {
       if(var1 == null) {
-         System.out.println("Warning tried to add null object!");
+         System.out.println("Warning tried to add null object!"); // authentic System.out.println
       }
 
       if(this.field_676 < this.field_677) {
@@ -295,7 +295,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: b (a.a.f) void
-   public void method_171(class_15 var1) {
+   public void freeModel(class_15 var1) {
       boolean var4 = class_9.field_759;
       int var2 = 0;
       if(var4 || var2 < this.field_676) {
@@ -342,7 +342,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: a (int) void
-   public void method_174(int var1) {
+   public void reduceSprites(int var1) {
       this.field_682 -= var1;
       this.field_690.method_360(var1, var1 * 2);
       if(this.field_682 < 0) {
@@ -352,7 +352,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, int) int
-   public int method_175(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+   public int drawSprite(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
       this.field_683[this.field_682] = var1;
       this.field_684[this.field_682] = var2;
       this.field_685[this.field_682] = var3;
@@ -370,12 +370,12 @@ public class class_8 {
    }
 
    // $FF: renamed from: b (int) void
-   public void method_176(int var1) {
+   public void setFaceSpriteLocalPlayer(int var1) {
       this.field_690.field_885[var1] = 1;
    }
 
    // $FF: renamed from: a (int, int) void
-   public void method_177(int var1, int var2) {
+   public void setCombatXOffset(int var1, int var2) {
       this.field_689[var1] = var2;
    }
 

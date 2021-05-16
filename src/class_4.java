@@ -18,7 +18,7 @@ public class class_4 {
    // $FF: renamed from: g int[]
    public static int[] field_478;
    // $FF: renamed from: h int[]
-   public static int[] field_479;
+   public static int[] itemStackable;
    // $FF: renamed from: i int[]
    public static int[] field_480;
    // $FF: renamed from: j int[]
@@ -270,7 +270,7 @@ public class class_4 {
       field_476 = new String[field_472];
       field_477 = new int[field_472];
       field_478 = new int[field_472];
-      field_479 = new int[field_472];
+      itemStackable = new int[field_472];
       field_480 = new int[field_472];
       field_481 = new int[field_472];
       field_482 = new int[field_472];
@@ -330,12 +330,12 @@ public class class_4 {
 
       int var7 = 0;
       if(var74 != 0) {
-         field_479[var7] = method_136();
+         itemStackable[var7] = method_136();
          ++var7;
       }
 
       while(var7 < field_472) {
-         field_479[var7] = method_136();
+         itemStackable[var7] = method_136();
          ++var7;
       }
 

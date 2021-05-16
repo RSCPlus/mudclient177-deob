@@ -291,7 +291,7 @@ public class class_18 {
          }
 
          if(var0.field_964) {
-            System.out.println("PANIC! RANDOMISED BLOCK!");
+            System.out.println("PANIC! RANDOMISED BLOCK!"); // authentic System.out.println
          }
 
          var0.field_969 = 0;

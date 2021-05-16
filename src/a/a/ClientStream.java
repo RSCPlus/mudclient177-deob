@@ -59,7 +59,7 @@ public class ClientStream extends class_5 implements Runnable {
             this.field_600.close();
          }
       } catch (IOException var5) {
-         System.out.println("Error closing stream");
+         System.out.println("Error closing stream"); // authentic System.out.println
       }
 
       this.field_605 = true;

@@ -71,7 +71,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    // $FF: renamed from: B int
    static int field_750;
    // $FF: renamed from: C boolean
-   public boolean field_751;
+   public boolean loggedIn;
    // $FF: renamed from: D int[]
    int[] field_752;
    // $FF: renamed from: E int[]
@@ -93,7 +93,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    public class_9(int var1, int var2, int var3, Component var4) {
       super();
       this.field_747 = false;
-      this.field_751 = false;
+      this.loggedIn = false;
       this.field_731 = var4;
       this.field_744 = var2;
       this.field_746 = var1;
@@ -157,7 +157,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    }
 
    public void requestTopDownLeftRightResend(ImageConsumer var1) {
-      System.out.println("TDLR");
+      System.out.println("TDLR"); // authentic System.out.println
    }
 
    // $FF: renamed from: a () void
@@ -201,7 +201,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: a (java.awt.Graphics, int, int) void
-   public void method_222(Graphics var1, int var2, int var3) {
+   public void draw(Graphics var1, int var2, int var3) {
       this.method_219();
       var1.drawImage(this.field_732, var2, var3, this);
    }
@@ -544,7 +544,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: d () void
-   public void method_232() {
+   public void fade2black() {
       int var3 = this.field_723 * this.field_724;
       int var2 = 0;
       if(field_759 || var2 < var3) {
@@ -1142,7 +1142,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          this.method_249(this.field_729, this.field_733[var5], 0, var8, var9, var12, var13, var3, var4, var10, var11, var6, var16);
       } catch (Exception var15) {
-         System.out.println("error in sprite clipping routine");
+         System.out.println("error in sprite clipping routine"); // authentic System.out.println
       }
    }
 
@@ -1282,7 +1282,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          this.method_252(this.field_729, this.field_733[var5], 0, var9, var10, var13, var14, var3, var4, var11, var12, var7, var17, var6);
       } catch (Exception var16) {
-         System.out.println("error in sprite clipping routine");
+         System.out.println("error in sprite clipping routine"); // authentic System.out.println
       }
    }
 
@@ -1359,7 +1359,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          this.method_253(this.field_729, this.field_733[var5], 0, var9, var10, var13, var14, var3, var4, var11, var12, var7, var17, var6);
       } catch (Exception var16) {
-         System.out.println("error in sprite clipping routine");
+         System.out.println("error in sprite clipping routine"); // authentic System.out.println
       }
    }
 
@@ -1652,7 +1652,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var19) {
-         System.out.println("error in plot_scale");
+         System.out.println("error in plot_scale"); // authentic System.out.println
       }
    }
 
@@ -1780,7 +1780,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var22) {
-         System.out.println("error in tran_scale");
+         System.out.println("error in tran_scale"); // authentic System.out.println
       }
    }
 
@@ -1840,7 +1840,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var26) {
-         System.out.println("error in plot_scale");
+         System.out.println("error in plot_scale"); // authentic System.out.println
       }
    }
 
@@ -2425,7 +2425,7 @@ public class class_9 implements ImageProducer, ImageObserver {
             this.method_262(this.field_729, this.field_734[var5], this.field_735[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var7, var14, var17, var19);
          }
       } catch (Exception var23) {
-         System.out.println("error in sprite clipping routine");
+         System.out.println("error in sprite clipping routine"); // authentic System.out.println
       }
    }
 
@@ -2494,7 +2494,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var29) {
-         System.out.println("error in transparent sprite plot routine");
+         System.out.println("error in transparent sprite plot routine"); // authentic System.out.println
       }
    }
 
@@ -2573,7 +2573,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var33) {
-         System.out.println("error in transparent sprite plot routine");
+         System.out.println("error in transparent sprite plot routine"); // authentic System.out.println
       }
    }
 
@@ -2643,7 +2643,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var30) {
-         System.out.println("error in transparent sprite plot routine");
+         System.out.println("error in transparent sprite plot routine"); // authentic System.out.println
       }
    }
 
@@ -2723,7 +2723,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var34) {
-         System.out.println("error in transparent sprite plot routine");
+         System.out.println("error in transparent sprite plot routine"); // authentic System.out.println
       }
    }
 
@@ -2739,7 +2739,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: b (java.lang.String, int, int, int, int) void
-   public void method_265(String var1, int var2, int var3, int var4, int var5) {
+   public void drawstringCenter(String var1, int var2, int var3, int var4, int var5) {
       this.method_267(var1, var2 - this.method_271(var1, var4) / 2, var3, var4, var5);
    }
 
@@ -2787,7 +2787,7 @@ public class class_9 implements ImageProducer, ImageObserver {
                      var10 = var11;
                   }
 
-                  this.method_265(var1.substring(var9, var10), var2, var3, var4, var5);
+                  this.drawstringCenter(var1.substring(var9, var10), var2, var3, var4, var5);
                   var7 = 0;
                   var9 = var11 = var10 + 1;
                   var3 += this.method_270(var4);
@@ -2798,11 +2798,11 @@ public class class_9 implements ImageProducer, ImageObserver {
          }
 
          if(var7 > 0) {
-            this.method_265(var1.substring(var9), var2, var3, var4, var5);
+            this.drawstringCenter(var1.substring(var9), var2, var3, var4, var5);
             return;
          }
       } catch (Exception var13) {
-         System.out.println("centrepara: " + var13);
+         System.out.println("centrepara: " + var13); // authentic System.out.println
          var13.printStackTrace();
       }
 
@@ -2965,11 +2965,11 @@ public class class_9 implements ImageProducer, ImageObserver {
                   }
 
                   int var13 = field_749[var1.charAt(var7)];
-                  if(this.field_751 && var5 != 0) {
+                  if(this.loggedIn && var5 != 0) {
                      this.method_268(var13, var2 + 1, var3, 0, var6);
                   }
 
-                  if(this.field_751 && var5 != 0) {
+                  if(this.loggedIn && var5 != 0) {
                      this.method_268(var13, var2, var3 + 1, 0, var6);
                   }
 
@@ -2982,7 +2982,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var12) {
-         System.out.println("drawstring: " + var12);
+         System.out.println("drawstring: " + var12); // authentic System.out.println
          var12.printStackTrace();
       }
    }
@@ -3150,7 +3150,7 @@ public class class_9 implements ImageProducer, ImageObserver {
 
          }
       } catch (Exception var15) {
-         System.out.println("plotletter: " + var15);
+         System.out.println("plotletter: " + var15); // authentic System.out.println
          var15.printStackTrace();
       }
    }
