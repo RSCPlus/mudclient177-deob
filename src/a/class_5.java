@@ -7,6 +7,9 @@ import java.math.BigInteger;
 // $FF: renamed from: a.e
 public class class_5 {
 
+	// inauthentic boolean used for testing; set to true for original behaviour
+	public boolean reenableOpcodeEncryption = false;
+
    // $FF: renamed from: a int
    private static final int field_564;
    // $FF: renamed from: b int
@@ -318,23 +321,29 @@ public class class_5 {
 
    // $FF: renamed from: a (int, int[]) int
    public int method_161(int var1, int[] var2) {
+   	if (reenableOpcodeEncryption) { // Inauthentic If statement
       int var3 = var1 - this.field_568 & 255;
       int var4 = var2[var3];
       this.field_567 = (this.field_567 + var4) % field_564;
       char var5 = "All RuneScape code and data, including this message, are copyright 2003 Jagex Ltd. Unauthorised reproduction in any form is strictly prohibited.  The RuneScape network protocol is copyright 2003 Jagex Ltd and is protected by international copyright laws. The RuneScape network protocol also incorporates a copy protection mechanism to prevent unauthorised access or use of our servers. Attempting to break, bypass or duplicate this mechanism is an infringement of the Digital Millienium Copyright Act and may lead to prosecution. Decompiling, or reverse-engineering the RuneScape code in any way is strictly prohibited. RuneScape and Jagex are registered trademarks of Jagex Ltd. You should not be reading this message, you have been warned...".charAt(this.field_567);
       this.field_568 = this.field_568 * 3 + var5 + var4 & '\uffff';
       return var3;
+		} else {
+			return var1; // inauthentic return statement
+		}
    }
 
    // $FF: renamed from: g () void
    public void flushPacket_() {
       int var6 = field_597;
-      int var1 = this.field_595[this.field_592 + 2] & 255;
-      this.field_595[this.field_592 + 2] = (byte)(var1 + this.field_566);
-      int var2 = this.field_569;
-      this.field_565 = (this.field_565 + var2) % field_564;
+		 if (reenableOpcodeEncryption) { // Inauthentic If statement
+      int var1 = this.outgoingData[this.outgoingDataOffset + 2] & 255;
+      this.outgoingData[this.outgoingDataOffset + 2] = (byte)(var1 + this.field_566);
+      int opcodeFriend = this.opcodeFriend;
+      this.field_565 = (this.field_565 + opcodeFriend) % field_564;
       char var3 = "All RuneScape code and data, including this message, are copyright 2003 Jagex Ltd. Unauthorised reproduction in any form is strictly prohibited.  The RuneScape network protocol is copyright 2003 Jagex Ltd and is protected by international copyright laws. The RuneScape network protocol also incorporates a copy protection mechanism to prevent unauthorised access or use of our servers. Attempting to break, bypass or duplicate this mechanism is an infringement of the Digital Millienium Copyright Act and may lead to prosecution. Decompiling, or reverse-engineering the RuneScape code in any way is strictly prohibited. RuneScape and Jagex are registered trademarks of Jagex Ltd. You should not be reading this message, you have been warned...".charAt(this.field_565);
-      this.field_566 = this.field_566 * 3 + var3 + var2 & '\uffff';
+      this.field_566 = this.field_566 * 3 + var3 + opcodeFriend & '\uffff';
+		 }
       if(this.field_594 != 8) {
          ++this.outgoingOffsetTotal;
       }

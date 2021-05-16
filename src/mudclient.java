@@ -804,6 +804,16 @@ public class mudclient extends GameApplet {
          var1.port = Integer.parseInt(var0[2]);
       }
 
+      // BEGIN INAUTHENTIC COMMAND LINE ARGUMENTS
+		 if(var0.length > 3) {
+			 var1.rsaExponent = new BigInteger(var0[3]);
+		 }
+
+		 if(var0.length > 4) {
+			 var1.rsaModulus = new BigInteger(var0[4]);
+		 }
+		 // END INAUTHENTIC COMMAND LINE ARGUMENTS
+
       var1.method_7(var1.field_96, var1.field_97 + 11, "Runescape by Andrew Gower", false);
       var1.field_32 = 10;
    }
@@ -12649,7 +12659,15 @@ public class mudclient extends GameApplet {
    }
 
    public URL getCodeBase() {
-      return link.mainapp != null?link.mainapp.getCodeBase():super.getCodeBase();
+   		URL codebase = null;
+   		try {
+   			codebase = new URL("http://" + super.address);
+			} catch (Exception e) {
+   			e.printStackTrace();
+			}
+      return codebase;
+   		// Original Function:
+   		// return link.mainapp != null?link.mainapp.getCodeBase():super.getCodeBase();
    }
 
    public URL getDocumentBase() {
