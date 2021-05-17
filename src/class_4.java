@@ -30,7 +30,7 @@ public class class_4 {
    // $FF: renamed from: m int[]
    public static int[] field_484;
    // $FF: renamed from: n int
-   public static int field_485;
+   public static int maxNpcId;
    // $FF: renamed from: o java.lang.String[]
    public static String[] field_486;
    // $FF: renamed from: p java.lang.String[]
@@ -412,31 +412,31 @@ public class class_4 {
          }
       }
 
-      field_485 = method_137();
-      field_486 = new String[field_485];
-      field_487 = new String[field_485];
-      field_488 = new String[field_485];
-      field_489 = new int[field_485];
-      field_490 = new int[field_485];
-      field_491 = new int[field_485];
-      field_492 = new int[field_485];
-      field_493 = new int[field_485];
-      field_494 = new int[field_485][12];
-      field_495 = new int[field_485];
-      field_496 = new int[field_485];
-      field_497 = new int[field_485];
-      field_498 = new int[field_485];
-      field_499 = new int[field_485];
-      field_500 = new int[field_485];
-      field_501 = new int[field_485];
-      field_502 = new int[field_485];
-      field_503 = new int[field_485];
+      maxNpcId = method_137();
+      field_486 = new String[maxNpcId];
+      field_487 = new String[maxNpcId];
+      field_488 = new String[maxNpcId];
+      field_489 = new int[maxNpcId];
+      field_490 = new int[maxNpcId];
+      field_491 = new int[maxNpcId];
+      field_492 = new int[maxNpcId];
+      field_493 = new int[maxNpcId];
+      field_494 = new int[maxNpcId][12];
+      field_495 = new int[maxNpcId];
+      field_496 = new int[maxNpcId];
+      field_497 = new int[maxNpcId];
+      field_498 = new int[maxNpcId];
+      field_499 = new int[maxNpcId];
+      field_500 = new int[maxNpcId];
+      field_501 = new int[maxNpcId];
+      field_502 = new int[maxNpcId];
+      field_503 = new int[maxNpcId];
       int var14 = 0;
-      if(var74 != 0 || var14 < field_485) {
+      if(var74 != 0 || var14 < maxNpcId) {
          do {
             field_486[var14] = method_139();
             ++var14;
-         } while(var14 < field_485);
+         } while(var14 < maxNpcId);
       }
 
       int var15 = 0;
@@ -445,17 +445,17 @@ public class class_4 {
          ++var15;
       }
 
-      while(var15 < field_485) {
+      while(var15 < maxNpcId) {
          field_487[var15] = method_139();
          ++var15;
       }
 
       int var16 = 0;
-      if(var74 != 0 || var16 < field_485) {
+      if(var74 != 0 || var16 < maxNpcId) {
          do {
             field_489[var16] = method_136();
             ++var16;
-         } while(var16 < field_485);
+         } while(var16 < maxNpcId);
       }
 
       int var17 = 0;
@@ -464,17 +464,17 @@ public class class_4 {
          ++var17;
       }
 
-      while(var17 < field_485) {
+      while(var17 < maxNpcId) {
          field_490[var17] = method_136();
          ++var17;
       }
 
       int var18 = 0;
-      if(var74 != 0 || var18 < field_485) {
+      if(var74 != 0 || var18 < maxNpcId) {
          do {
             field_491[var18] = method_136();
             ++var18;
-         } while(var18 < field_485);
+         } while(var18 < maxNpcId);
       }
 
       int var19 = 0;
@@ -483,17 +483,17 @@ public class class_4 {
          ++var19;
       }
 
-      while(var19 < field_485) {
+      while(var19 < maxNpcId) {
          field_492[var19] = method_136();
          ++var19;
       }
 
       int var20 = 0;
-      if(var74 != 0 || var20 < field_485) {
+      if(var74 != 0 || var20 < maxNpcId) {
          do {
             field_493[var20] = method_136();
             ++var20;
-         } while(var20 < field_485);
+         } while(var20 < maxNpcId);
       }
 
       int var21 = 0;
@@ -518,7 +518,7 @@ public class class_4 {
          }
       }
 
-      while(var21 < field_485) {
+      while(var21 < maxNpcId) {
          var22 = 0;
          if(var74 == 0 && var22 >= 12) {
             ++var21;
@@ -537,11 +537,11 @@ public class class_4 {
       }
 
       var22 = 0;
-      if(var74 != 0 || var22 < field_485) {
+      if(var74 != 0 || var22 < maxNpcId) {
          do {
             field_495[var22] = method_138();
             ++var22;
-         } while(var22 < field_485);
+         } while(var22 < maxNpcId);
       }
 
       int var23 = 0;
@@ -550,17 +550,17 @@ public class class_4 {
          ++var23;
       }
 
-      while(var23 < field_485) {
+      while(var23 < maxNpcId) {
          field_496[var23] = method_138();
          ++var23;
       }
 
       int var24 = 0;
-      if(var74 != 0 || var24 < field_485) {
+      if(var74 != 0 || var24 < maxNpcId) {
          do {
             field_497[var24] = method_138();
             ++var24;
-         } while(var24 < field_485);
+         } while(var24 < maxNpcId);
       }
 
       int var25 = 0;
@@ -569,17 +569,17 @@ public class class_4 {
          ++var25;
       }
 
-      while(var25 < field_485) {
+      while(var25 < maxNpcId) {
          field_498[var25] = method_138();
          ++var25;
       }
 
       int var26 = 0;
-      if(var74 != 0 || var26 < field_485) {
+      if(var74 != 0 || var26 < maxNpcId) {
          do {
             field_499[var26] = method_137();
             ++var26;
-         } while(var26 < field_485);
+         } while(var26 < maxNpcId);
       }
 
       int var27 = 0;
@@ -588,17 +588,17 @@ public class class_4 {
          ++var27;
       }
 
-      while(var27 < field_485) {
+      while(var27 < maxNpcId) {
          field_500[var27] = method_137();
          ++var27;
       }
 
       int var28 = 0;
-      if(var74 != 0 || var28 < field_485) {
+      if(var74 != 0 || var28 < maxNpcId) {
          do {
             field_501[var28] = method_136();
             ++var28;
-         } while(var28 < field_485);
+         } while(var28 < maxNpcId);
       }
 
       int var29 = 0;
@@ -607,17 +607,17 @@ public class class_4 {
          ++var29;
       }
 
-      while(var29 < field_485) {
+      while(var29 < maxNpcId) {
          field_502[var29] = method_136();
          ++var29;
       }
 
       int var30 = 0;
-      if(var74 != 0 || var30 < field_485) {
+      if(var74 != 0 || var30 < maxNpcId) {
          do {
             field_503[var30] = method_136();
             ++var30;
-         } while(var30 < field_485);
+         } while(var30 < maxNpcId);
       }
 
       int var31 = 0;
@@ -626,7 +626,7 @@ public class class_4 {
          ++var31;
       }
 
-      while(var31 < field_485) {
+      while(var31 < maxNpcId) {
          field_488[var31] = method_139();
          ++var31;
       }

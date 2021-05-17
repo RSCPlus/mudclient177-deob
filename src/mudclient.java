@@ -136,13 +136,13 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: ct int
    int planeIndex;
    // $FF: renamed from: cu int
-   int field_125;
+   int regionToLoadXNeg;
    // $FF: renamed from: cv int
-   int field_126;
+   int regionToLoadYNeg;
    // $FF: renamed from: cw int
-   int field_127;
+   int regionToLoadXPositive;
    // $FF: renamed from: cx int
-   int field_128;
+   int regionToLoadYPositive;
    // $FF: renamed from: cy int
    int cameraZoom;
    // $FF: renamed from: cz boolean
@@ -4804,7 +4804,7 @@ public class mudclient extends GameApplet {
                }
 
                var22 = 8;
-               updateIndex = class_21.readBits(data, var22, 8);
+               updateIndex = class_21.readBits(data, var22, 8); // number of NPCs
                newIndex = var22 + 8;
                userForIdx = 0;
                if(var19 == 0 && userForIdx >= updateIndex) {
@@ -4813,7 +4813,8 @@ public class mudclient extends GameApplet {
                   }
 
                   do {
-                     var8 = class_21.readBits(data, newIndex, 12);
+                  	// Adding New NPC
+                     var8 = class_21.readBits(data, newIndex, 12); // npc index
                      newIndex += 12;
                      var9 = class_21.readBits(data, newIndex, 5);
                      newIndex += 5;
@@ -4833,7 +4834,7 @@ public class mudclient extends GameApplet {
                      var13 = (this.localRegionY + reuseableVar1) * this.magicLoc + 64;
                      var14 = class_21.readBits(data, newIndex, 10);
                      newIndex += 10;
-                     if(var14 >= class_4.field_485) {
+                     if(var14 >= class_4.maxNpcId) {
                         var14 = 24;
                      }
 
@@ -4927,7 +4928,7 @@ public class mudclient extends GameApplet {
                   var13 = (this.localRegionY + reuseableVar1) * this.magicLoc + 64;
                   var14 = class_21.readBits(data, newIndex, 10);
                   newIndex += 10;
-                  if(var14 >= class_4.field_485) {
+                  if(var14 >= class_4.maxNpcId) {
                      var14 = 24;
                   }
 
@@ -7460,16 +7461,16 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: c (int, int) boolean
-   public boolean loadNextRegion(int var1, int var2) {
+   public boolean loadNextRegion(int localRegionX, int localRegionY) {
       int var19 = class_4.field_563;
       if(this.deathScreenTimeout != 0) {
          this.world.playerAlive = false;
          return false;
       } else {
          this.loadingArea = false;
-         var1 += this.planeWidth;
-         var2 += this.planeHeight;
-         if(this.lastHeightOffset == this.planeIndex && var1 > this.field_125 && var1 < this.field_127 && var2 > this.field_126 && var2 < this.field_128) {
+         localRegionX += this.planeWidth;
+         localRegionY += this.planeHeight;
+         if(this.lastHeightOffset == this.planeIndex && localRegionX > this.regionToLoadXNeg && localRegionX < this.regionToLoadXPositive && localRegionY > this.regionToLoadYNeg && localRegionY < this.regionToLoadYPositive) {
             this.world.playerAlive = true;
             return false;
          } else {
@@ -7478,16 +7479,16 @@ public class mudclient extends GameApplet {
             this.surface.draw(this.graphics, 0, 0);
             int var3 = this.regionX;
             int var4 = this.regionY;
-            int var5 = (var1 + 24) / 48;
-            int var6 = (var2 + 24) / 48;
+            int var5 = (localRegionX + 24) / 48;
+            int var6 = (localRegionY + 24) / 48;
             this.lastHeightOffset = this.planeIndex;
             this.regionX = var5 * 48 - 48;
             this.regionY = var6 * 48 - 48;
-            this.field_125 = var5 * 48 - 32;
-            this.field_126 = var6 * 48 - 32;
-            this.field_127 = var5 * 48 + 32;
-            this.field_128 = var6 * 48 + 32;
-            this.world.method_348(var1, var2, this.lastHeightOffset);
+            this.regionToLoadXNeg = var5 * 48 - 32;
+            this.regionToLoadYNeg = var6 * 48 - 32;
+            this.regionToLoadXPositive = var5 * 48 + 32;
+            this.regionToLoadYPositive = var6 * 48 + 32;
+            this.world.method_348(localRegionX, localRegionY, this.lastHeightOffset);
             this.regionX -= this.planeWidth;
             this.regionY -= this.planeHeight;
             int var7 = this.regionX - var3;
