@@ -1,4 +1,4 @@
-import a.a.class_15;
+import a.a.Scene;
 import a.a.class_8;
 import a.a.class_9;
 
@@ -64,13 +64,13 @@ public class class_14 {
    // $FF: renamed from: B boolean
    boolean playerAlive;
    // $FF: renamed from: C a.a.f[]
-   class_15[] field_848;
+   Scene[] field_848;
    // $FF: renamed from: D a.a.f[][]
-   class_15[][] gameModelArrayArray1;
+   Scene[][] gameModelArrayArray1;
    // $FF: renamed from: E a.a.f[][]
-   class_15[][] gameModelArrayArray2;
+   Scene[][] gameModelArrayArray2;
    // $FF: renamed from: F a.a.f
-   class_15 field_851;
+   Scene field_851;
 
 
    // $FF: renamed from: <init> (a.a.j, a.a.g) void
@@ -99,9 +99,9 @@ public class class_14 {
       this.objectTileDirections = new int[this.field_840][this.field_841];
       this.field_846 = new int[this.field_840][this.field_841];
       this.playerAlive = false;
-      this.field_848 = new class_15[64];
-      this.gameModelArrayArray1 = new class_15[4][64];
-      this.gameModelArrayArray2 = new class_15[4][64];
+      this.field_848 = new Scene[64];
+      this.gameModelArrayArray1 = new Scene[4][64];
+      this.gameModelArrayArray2 = new Scene[4][64];
       this.field_823 = var1;
       this.field_822 = var2;
       int var3 = 0;
@@ -694,7 +694,7 @@ public class class_14 {
 
    // $FF: renamed from: a (int, int, int, int, int) void
    public void method_330(int var1, int var2, int var3, int var4, int var5) {
-      class_15 var6 = this.field_848[var1 + var2 * 8];
+      Scene var6 = this.field_848[var1 + var2 * 8];
       int var7 = 0;
       if(class_4.field_563 != 0 || var7 < var6.field_852) {
          do {
@@ -1425,7 +1425,7 @@ public class class_14 {
       this.method_346(var5, var6, var3, 3);
       this.method_349();
       if(this.field_851 == null) {
-         this.field_851 = new class_15(this.field_840 * this.field_841 * 2 + 256, this.field_840 * this.field_841 * 2 + 256, true, true, false, false, true);
+         this.field_851 = new Scene(this.field_840 * this.field_841 * 2 + 256, this.field_840 * this.field_841 * 2 + 256, true, true, false, false, true);
       }
 
       int var7;
@@ -1461,7 +1461,7 @@ public class class_14 {
             } while(var7 < 96);
          }
 
-         class_15 var41 = this.field_851;
+         Scene var41 = this.field_851;
          var41.method_359();
          var9 = 0;
          if(var40 != 0 || var9 < 96) {
@@ -2490,7 +2490,7 @@ public class class_14 {
    }
 
    // $FF: renamed from: a (a.a.f[]) void
-   public void method_352(class_15[] var1) {
+   public void method_352(Scene[] var1) {
       int var14 = class_4.field_563;
       int var2 = 0;
       if(var14 != 0 || var2 < this.field_840 - 2) {
@@ -2520,7 +2520,7 @@ public class class_14 {
                      }
 
                      this.method_326(var2, var3, var4);
-                     class_15 var8 = var1[class_4.field_519[var4]].method_391(false, true, false, false);
+                     Scene var8 = var1[class_4.field_519[var4]].method_391(false, true, false, false);
                      int var9 = (var2 + var2 + var6) * 128 / 2;
                      int var10 = (var3 + var3 + var7) * 128 / 2;
                      var8.method_377(var9, -this.getElevation(var9, var10), var10);
@@ -2589,7 +2589,7 @@ public class class_14 {
    }
 
    // $FF: renamed from: a (a.a.f, int, int, int, int, int) void
-   public void method_353(class_15 var1, int var2, int var3, int var4, int var5, int var6) {
+   public void method_353(Scene var1, int var2, int var3, int var4, int var5, int var6) {
       this.method_329(var3, var4, 40);
       this.method_329(var5, var6, 40);
       int var7 = class_4.field_529[var2];

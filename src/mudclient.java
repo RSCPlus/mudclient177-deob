@@ -7,7 +7,7 @@ import a.a.class_0;
 import a.a.GameApplet;
 import a.a.class_11;
 import a.a.class_13;
-import a.a.class_15;
+import a.a.Scene;
 import a.a.ClientStream;
 import a.a.class_8;
 import a.a.class_9;
@@ -214,7 +214,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: dg int
    int field_163;
    // $FF: renamed from: dh a.a.f[]
-   class_15[] field_164;
+   Scene[] field_164;
    // $FF: renamed from: di int[]
    int[] field_165;
    // $FF: renamed from: dj int[]
@@ -224,7 +224,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: dl int[]
    int[] field_168;
    // $FF: renamed from: dm a.a.f[]
-   class_15[] field_169;
+   Scene[] field_169;
    // $FF: renamed from: dn boolean[]
    boolean[] field_170;
    // $FF: renamed from: dp int
@@ -232,7 +232,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: dq int
    int field_172;
    // $FF: renamed from: dr a.a.f[]
-   class_15[] field_173;
+   Scene[] field_173;
    // $FF: renamed from: ds int[]
    int[] field_174;
    // $FF: renamed from: dt int[]
@@ -1231,7 +1231,7 @@ public class mudclient extends GameApplet {
       class_4.method_135("clawspell5");
       class_4.method_135("spellcharge2");
       class_4.method_135("spellcharge3");
-      class_15[] var10000;
+      Scene[] var10000;
       if(this.method_8()) {
          byte[] var5 = this.method_19("models" + class_12.field_812 + ".jag", "3d models", 60);
          if(var5 == null) {
@@ -1244,14 +1244,14 @@ public class mudclient extends GameApplet {
                      int var3 = class_21.method_458(class_4.field_558[var2] + ".ob3", var5);
                      if(var3 != 0) {
                         var10000 = this.field_169;
-                        var10000[var2] = new class_15(var5, var3, true);
+                        var10000[var2] = new Scene(var5, var3, true);
                         if(var4 == 0) {
                            break label33;
                         }
                      }
 
                      var10000 = this.field_169;
-                     var10000[var2] = new class_15(1, 1);
+                     var10000[var2] = new Scene(1, 1);
                   }
 
                   if(class_4.field_558[var2].equals("giantcrystal")) {
@@ -1269,7 +1269,7 @@ public class mudclient extends GameApplet {
          if(var4 != 0 || var1 < class_4.field_557) {
             do {
                var10000 = this.field_169;
-               var10000[var1] = new class_15("../gamedata/models/" + class_4.field_558[var1] + ".ob2");
+               var10000[var1] = new Scene("../gamedata/models/" + class_4.field_558[var1] + ".ob2");
                if(class_4.field_558[var1].equals("giantcrystal")) {
                   this.field_169[var1].field_882 = true;
                }
@@ -4425,7 +4425,7 @@ public class mudclient extends GameApplet {
                      var13 = (updateIndex + updateIndex + i) * this.magicLoc / 2;
                      var14 = (userForIdx + userForIdx + j) * this.magicLoc / 2;
                      var15 = class_4.field_519[newIndex];
-                     class_15 var39 = this.field_169[var15].method_390();
+                     Scene var39 = this.field_169[var15].method_390();
                      this.scene.method_170(var39);
                      var39.field_883 = this.field_163;
                      var39.method_375(0, reuseableVar1 * 32, 0);
@@ -4735,7 +4735,7 @@ public class mudclient extends GameApplet {
                   byte var35 = data[updateSize++];
                   var9 = 0;
                   reuseableVar1 = 0;
-                  class_15 var37;
+                  Scene var37;
                   if(var19 == 0 && reuseableVar1 >= this.field_172) {
                      this.field_172 = var9;
                      if(newIndex != '\uffff') {
@@ -6520,7 +6520,7 @@ public class mudclient extends GameApplet {
       if(var3 >= 0 && var4 >= 0 && var3 < 96 && var4 < 96 && var5 > -var7 && var5 < var7 && var6 > -var7 && var6 < var7) {
          this.scene.freeModel(this.field_164[var1]);
          int var8 = class_4.method_135(var2);
-         class_15 var9 = this.field_169[var8].method_390();
+         Scene var9 = this.field_169[var8].method_390();
          this.scene.method_170(var9);
          var9.method_371(true, 48, 48, -50, -10, -50);
          var9.method_392(this.field_164[var1]);
@@ -7497,7 +7497,7 @@ public class mudclient extends GameApplet {
             int var10;
             int var11;
             int var12;
-            class_15 var13;
+            Scene var13;
             int var14;
             int var15;
             int var16;
@@ -7598,7 +7598,7 @@ public class mudclient extends GameApplet {
 
                   try {
                      this.world.method_324(var11, var12, var14, var23);
-                     class_15 var26 = this.method_104(var11, var12, var14, var23, var10);
+                     Scene var26 = this.method_104(var11, var12, var14, var23, var10);
                      this.field_173[var10] = var26;
                   } catch (RuntimeException var20) {
                      System.out.println("Bound Error: " + var20.getMessage()); // authentic System.out.println
@@ -7675,14 +7675,14 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: b (int, int, int, int, int) a.a.f
-   public class_15 method_104(int var1, int var2, int var3, int var4, int var5) {
+   public Scene method_104(int var1, int var2, int var3, int var4, int var5) {
       int var6 = var1;
       int var8 = var1;
       int var9 = var2;
       int var10 = class_4.field_530[var4];
       int var11 = class_4.field_531[var4];
       int var12 = class_4.field_529[var4];
-      class_15 var13 = new class_15(4, 1);
+      Scene var13 = new Scene(4, 1);
       if(var3 == 0) {
          var8 = var1 + 1;
       }
@@ -11583,13 +11583,13 @@ public class mudclient extends GameApplet {
       }
 
       int var5 = this.scene.method_179();
-      class_15[] var6 = this.scene.method_181();
+      Scene[] var6 = this.scene.method_181();
       int[] var7 = this.scene.method_180();
       int var8 = 0;
       if(var18 != 0 || var8 < var5) {
          while(this.field_225 <= 200) {
             int var9 = var7[var8];
-            class_15 var10 = var6[var8];
+            Scene var10 = var6[var8];
             if(var10.field_884[var9] <= '\uffff' || var10.field_884[var9] >= 200000 && var10.field_884[var9] <= 300000) {
                label356: {
                   int var11;
@@ -12777,15 +12777,15 @@ public class mudclient extends GameApplet {
       this.groundItemId = new int[this.field_156];
       this.field_161 = new int[this.field_156];
       this.field_162 = 1500;
-      this.field_164 = new class_15[this.field_162];
+      this.field_164 = new Scene[this.field_162];
       this.field_165 = new int[this.field_162];
       this.field_166 = new int[this.field_162];
       this.field_167 = new int[this.field_162];
       this.field_168 = new int[this.field_162];
-      this.field_169 = new class_15[1000];
+      this.field_169 = new Scene[1000];
       this.field_170 = new boolean[this.field_162];
       this.field_171 = 500;
-      this.field_173 = new class_15[this.field_171];
+      this.field_173 = new Scene[this.field_171];
       this.field_174 = new int[this.field_171];
       this.field_175 = new int[this.field_171];
       this.field_176 = new int[this.field_171];

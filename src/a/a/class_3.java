@@ -1,6 +1,6 @@
 package a.a;
 
-import a.a.class_15;
+import a.a.Scene;
 
 // $FF: renamed from: a.a.h
 public class class_3 {
@@ -18,7 +18,7 @@ public class class_3 {
    // $FF: renamed from: f int
    protected int field_460;
    // $FF: renamed from: g a.a.f
-   protected class_15 field_461;
+   protected Scene field_461;
    // $FF: renamed from: h int
    protected int field_462;
    // $FF: renamed from: i int

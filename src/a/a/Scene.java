@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 // $FF: renamed from: a.a.f
-public class class_15 {
+public class Scene {
 
    // $FF: renamed from: a int
    public int field_852;
@@ -183,7 +183,7 @@ public class class_15 {
 
 
    // $FF: renamed from: <init> (int, int) void
-   public class_15(int var1, int var2) {
+   public Scene(int var1, int var2) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -217,7 +217,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: <init> (int, int, boolean, boolean, boolean, boolean, boolean) void
-   public class_15(int var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6, boolean var7) {
+   public Scene(int var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6, boolean var7) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -345,7 +345,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: <init> (byte[], int, boolean) void
-   public class_15(byte[] var1, int var2, boolean var3) {
+   public Scene(byte[] var1, int var2, boolean var3) {
       super();
       boolean var15 = class_9.field_759;
       this.field_872 = 1;
@@ -506,7 +506,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: <init> (java.lang.String) void
-   public class_15(String var1) {
+   public Scene(String var1) {
       super();
       boolean var22 = class_9.field_759;
       this.field_872 = 1;
@@ -642,7 +642,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: <init> (a.a.f[], int, boolean, boolean, boolean, boolean) void
-   public class_15(class_15[] var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6) {
+   public Scene(Scene[] var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -672,7 +672,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: <init> (a.a.f[], int) void
-   public class_15(class_15[] var1, int var2) {
+   public Scene(Scene[] var1, int var2) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -698,7 +698,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: a (a.a.f[], int, boolean) void
-   public void method_365(class_15[] var1, int var2, boolean var3) {
+   public void method_365(Scene[] var1, int var2, boolean var3) {
       boolean var15 = class_9.field_759;
       int var4 = 0;
       int var5 = 0;
@@ -725,7 +725,7 @@ public class class_15 {
          this.field_872 = 1;
       } else {
          do {
-            class_15 var8 = var1[var7];
+            Scene var8 = var1[var7];
             var8.method_389();
             this.field_934 = var8.field_934;
             this.field_933 = var8.field_933;
@@ -852,7 +852,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, int, boolean) a.a.f[]
-   public class_15[] method_369(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
+   public Scene[] method_369(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
       boolean var22 = class_9.field_759;
       this.method_389();
       int[] var9 = new int[var6];
@@ -901,15 +901,15 @@ public class class_15 {
          } while(var12 < this.field_860);
       }
 
-      class_15[] var23 = new class_15[var6];
+      Scene[] var23 = new Scene[var6];
       var14 = 0;
-      class_15 var10002;
+      Scene var10002;
       if(var22) {
          if(var9[var14] > var7) {
             var9[var14] = var7;
          }
 
-         var23[var14] = new class_15(var9[var14], var10[var14], true, true, true, var8, true);
+         var23[var14] = new Scene(var9[var14], var10[var14], true, true, true, var8, true);
          var23[var14].field_933 = this.field_933;
          var23[var14].field_934 = this.field_934;
          ++var14;
@@ -920,7 +920,7 @@ public class class_15 {
             var9[var14] = var7;
          }
 
-         var23[var14] = new class_15(var9[var14], var10[var14], true, true, true, var8, true);
+         var23[var14] = new Scene(var9[var14], var10[var14], true, true, true, var8, true);
          var23[var14].field_933 = this.field_933;
          var23[var14].field_934 = this.field_934;
          ++var14;
@@ -968,7 +968,7 @@ public class class_15 {
    }
 
    // $FF: renamed from: a (a.a.f, int[], int, int) void
-   public void method_370(class_15 var1, int[] var2, int var3, int var4) {
+   public void method_370(Scene var1, int[] var2, int var3, int var4) {
       int[] var5 = new int[var3];
       int var6 = 0;
       int var7;
@@ -1672,24 +1672,24 @@ public class class_15 {
    }
 
    // $FF: renamed from: i () a.a.f
-   public class_15 method_390() {
-      class_15[] var1 = new class_15[]{this};
-      class_15 var2 = new class_15(var1, 1);
+   public Scene method_390() {
+      Scene[] var1 = new Scene[]{this};
+      Scene var2 = new Scene(var1, 1);
       var2.field_871 = this.field_871;
       var2.field_882 = this.field_882;
       return var2;
    }
 
    // $FF: renamed from: a (boolean, boolean, boolean, boolean) a.a.f
-   public class_15 method_391(boolean var1, boolean var2, boolean var3, boolean var4) {
-      class_15[] var5 = new class_15[]{this};
-      class_15 var6 = new class_15(var5, 1, var1, var2, var3, var4);
+   public Scene method_391(boolean var1, boolean var2, boolean var3, boolean var4) {
+      Scene[] var5 = new Scene[]{this};
+      Scene var6 = new Scene(var5, 1, var1, var2, var3, var4);
       var6.field_871 = this.field_871;
       return var6;
    }
 
    // $FF: renamed from: a (a.a.f) void
-   public void method_392(class_15 var1) {
+   public void method_392(Scene var1) {
       this.field_915 = var1.field_915;
       this.field_916 = var1.field_916;
       this.field_917 = var1.field_917;
