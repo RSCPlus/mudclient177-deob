@@ -1330,18 +1330,18 @@ public class class_14 {
    }
 
    // $FF: renamed from: i (int, int, int) void
-   public void method_348(int var1, int var2, int var3) {
+   public void loadSection(int x, int y, int height) {
       this.method_347();
-      int var4 = (var1 + 24) / 48;
-      int var5 = (var2 + 24) / 48;
-      this.method_351(var1, var2, var3, true);
-      if(var3 == 0) {
-         this.method_351(var1, var2, 1, false);
-         this.method_351(var1, var2, 2, false);
-         this.method_346(var4 - 1, var5 - 1, var3, 0);
-         this.method_346(var4, var5 - 1, var3, 1);
-         this.method_346(var4 - 1, var5, var3, 2);
-         this.method_346(var4, var5, var3, 3);
+      int var4 = (x + 24) / 48;
+      int var5 = (y + 24) / 48;
+      this.method_351(x, y, height, true);
+      if(height == 0) {
+         this.method_351(x, y, 1, false);
+         this.method_351(x, y, 2, false);
+         this.method_346(var4 - 1, var5 - 1, height, 0);
+         this.method_346(var4, var5 - 1, height, 1);
+         this.method_346(var4 - 1, var5, height, 2);
+         this.method_346(var4, var5, height, 3);
          this.method_349();
       }
 

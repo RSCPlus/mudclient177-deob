@@ -2308,7 +2308,7 @@ public class mudclient extends GameApplet {
       byte var1 = 0;
       byte var2 = 50;
       byte var3 = 50;
-      this.world.method_348(var2 * 48 + 23, var3 * 48 + 23, var1);
+      this.world.loadSection(var2 * 48 + 23, var3 * 48 + 23, var1);
       this.world.method_352(this.field_169);
       short var4 = 9728;
       short var5 = 6400;
@@ -7488,7 +7488,7 @@ public class mudclient extends GameApplet {
             this.regionToLoadYNeg = var6 * 48 - 32;
             this.regionToLoadXPositive = var5 * 48 + 32;
             this.regionToLoadYPositive = var6 * 48 + 32;
-            this.world.method_348(localRegionX, localRegionY, this.lastHeightOffset);
+            this.world.loadSection(localRegionX, localRegionY, this.lastHeightOffset);
             this.regionX -= this.planeWidth;
             this.regionY -= this.planeHeight;
             int var7 = this.regionX - var3;
