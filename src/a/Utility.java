@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 // $FF: renamed from: a.f
-public class class_21 {
+public class Utility {
 
    // $FF: renamed from: a java.net.URL
    public static URL field_1007;
@@ -37,7 +37,7 @@ public class class_21 {
    }
 
    // $FF: renamed from: a (java.lang.String, byte[], int) void
-   public static void method_444(String var0, byte[] var1, int var2) throws IOException {
+   public static void readFully(String var0, byte[] var1, int var2) throws IOException {
       InputStream var3 = method_443(var0);
       DataInputStream var4 = new DataInputStream(var3);
 
@@ -406,7 +406,7 @@ public class class_21 {
    }
 
    // $FF: renamed from: a (java.lang.String, int, byte[]) byte[]
-   public static byte[] method_460(String var0, int var1, byte[] var2) {
+   public static byte[] loadData(String var0, int var1, byte[] var2) {
       return method_461(var0, var1, var2, (byte[])null);
    }
 

@@ -1,9 +1,10 @@
 package a.a;
 
 import a.class_18;
-import a.class_21;
+import a.Utility;
 import a.a.class_16;
 import a.a.class_9;
+
 import java.applet.Applet;
 import java.awt.Color;
 import java.awt.Component;
@@ -349,7 +350,7 @@ public class class_0 extends Applet implements Runnable {
       this.field_1 = 512;
       this.field_2 = 344;
       this.field_13 = 1;
-      class_21.field_1007 = this.getCodeBase();
+      Utility.field_1007 = this.getCodeBase();
       this.method_21(this);
    }
 
@@ -559,16 +560,16 @@ public class class_0 extends Applet implements Runnable {
       this.field_22.fillRect(0, 0, this.field_1, this.field_2);
       byte[] var1 = this.method_19("jagex.jag", "Jagex library", 0);
       if(var1 != null) {
-         byte[] var2 = class_21.method_460("logo.tga", 0, var1);
+         byte[] var2 = Utility.loadData("logo.tga", 0, var1);
          this.field_21 = this.method_18(var2);
-         class_9.method_263(class_21.method_460("h11p.jf", 0, var1));
-         class_9.method_263(class_21.method_460("h12b.jf", 0, var1));
-         class_9.method_263(class_21.method_460("h12p.jf", 0, var1));
-         class_9.method_263(class_21.method_460("h13b.jf", 0, var1));
-         class_9.method_263(class_21.method_460("h14b.jf", 0, var1));
-         class_9.method_263(class_21.method_460("h16b.jf", 0, var1));
-         class_9.method_263(class_21.method_460("h20b.jf", 0, var1));
-         class_9.method_263(class_21.method_460("h24b.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h11p.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h12b.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h12p.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h13b.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h14b.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h16b.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h20b.jf", 0, var1));
+         class_9.method_263(Utility.loadData("h24b.jf", 0, var1));
       }
    }
 
@@ -731,7 +732,7 @@ public class class_0 extends Applet implements Runnable {
 
       try {
          this.method_16(var3, "Loading " + var2 + " - 0%");
-         InputStream var7 = class_21.method_443(var1);
+         InputStream var7 = Utility.method_443(var1);
          DataInputStream var8 = new DataInputStream(var7);
          byte[] var9 = new byte[6];
          var8.readFully(var9, 0, 6);

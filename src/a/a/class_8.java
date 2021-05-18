@@ -1,7 +1,7 @@
 package a.a;
 
-import a.class_21;
-import a.a.class_15;
+import a.Utility;
+import a.a.GameModel;
 import a.a.class_2;
 import a.a.class_3;
 import a.a.class_9;
@@ -50,7 +50,7 @@ public class class_8 {
    // $FF: renamed from: t int
    private int field_660;
    // $FF: renamed from: u a.a.f[]
-   private Scene[] field_661;
+   private GameModel[] field_661;
    // $FF: renamed from: v int[]
    private int[] field_662;
    // $FF: renamed from: w int
@@ -84,7 +84,7 @@ public class class_8 {
    // $FF: renamed from: K int
    public int field_677;
    // $FF: renamed from: L a.a.f[]
-   public Scene[] field_678;
+   public GameModel[] field_678;
    // $FF: renamed from: M int[]
    private int[] field_679;
    // $FF: renamed from: N int
@@ -108,7 +108,7 @@ public class class_8 {
    // $FF: renamed from: W int[]
    private int[] field_689;
    // $FF: renamed from: X a.a.f
-   public Scene field_690;
+   public GameModel field_690;
    // $FF: renamed from: Y int
    int field_691;
    // $FF: renamed from: Z byte[][]
@@ -192,7 +192,7 @@ public class class_8 {
       this.field_655 = 1;
       this.field_656 = false;
       this.field_660 = 100;
-      this.field_661 = new Scene[this.field_660];
+      this.field_661 = new GameModel[this.field_660];
       this.field_662 = new int[this.field_660];
       this.field_663 = 512;
       this.field_664 = 256;
@@ -214,7 +214,7 @@ public class class_8 {
       this.field_704 = var1.field_729;
       this.field_676 = 0;
       this.field_677 = var2;
-      this.field_678 = new Scene[this.field_677];
+      this.field_678 = new GameModel[this.field_677];
       this.field_679 = new int[this.field_677];
       this.field_680 = 0;
       this.field_681 = new class_3[var3];
@@ -234,7 +234,7 @@ public class class_8 {
       }
 
       this.field_682 = 0;
-      this.field_690 = new Scene(var4 * 2, var4);
+      this.field_690 = new GameModel(var4 * 2, var4);
       this.field_683 = new int[var4];
       this.field_687 = new int[var4];
       this.field_688 = new int[var4];
@@ -263,7 +263,7 @@ public class class_8 {
 
       int var7 = 0;
       if(!var8 && var7 >= 1024) {
-         if(class_21.field_1009 != 0) {
+         if(Utility.field_1009 != 0) {
             class_9.field_759 = !var8;
          }
 
@@ -274,7 +274,7 @@ public class class_8 {
             ++var7;
          } while(var7 < 1024);
 
-         if(class_21.field_1009 != 0) {
+         if(Utility.field_1009 != 0) {
             class_9.field_759 = !var8;
          }
 
@@ -282,7 +282,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: a (a.a.f) void
-   public void method_170(Scene var1) {
+   public void method_170(GameModel var1) {
       if(var1 == null) {
          System.out.println("Warning tried to add null object!"); // authentic System.out.println
       }
@@ -295,7 +295,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: b (a.a.f) void
-   public void freeModel(Scene var1) {
+   public void freeModel(GameModel var1) {
       boolean var4 = class_9.field_759;
       int var2 = 0;
       if(var4 || var2 < this.field_676) {
@@ -398,7 +398,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: e () a.a.f[]
-   public Scene[] method_181() {
+   public GameModel[] method_181() {
       return this.field_661;
    }
 
@@ -676,7 +676,7 @@ public class class_8 {
       this.field_678[this.field_676].method_388(this.field_670, this.field_671, this.field_672, this.field_673, this.field_674, this.field_675, this.field_668, this.field_646);
       this.field_680 = 0;
       int var9 = 0;
-      Scene var1;
+      GameModel var1;
       int var3;
       boolean var4;
       int var5;
@@ -1130,7 +1130,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int[], int[], int[], a.a.f, int) void
-   private void method_188(int var1, int var2, int var3, int var4, int var5, int[] var6, int[] var7, int[] var8, Scene var9, int var10) {
+   private void method_188(int var1, int var2, int var3, int var4, int var5, int[] var6, int[] var7, int[] var8, GameModel var9, int var10) {
       class_2 var51;
       label575: {
          boolean var50 = class_9.field_759;
@@ -1861,7 +1861,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: a (int, int, int, int[], int[], int[], int, a.a.f) void
-   private void method_189(int var1, int var2, int var3, int[] var4, int[] var5, int[] var6, int var7, Scene var8) {
+   private void method_189(int var1, int var2, int var3, int[] var4, int[] var5, int[] var6, int var7, GameModel var8) {
       boolean var39 = class_9.field_759;
       if(var7 != -2) {
          int var9;
@@ -3645,7 +3645,7 @@ public class class_8 {
    // $FF: renamed from: c (int) void
    private void method_200(int var1) {
       class_3 var2;
-      Scene var3;
+      GameModel var3;
       int[] var5;
       int var6;
       int var9;
@@ -3781,7 +3781,7 @@ public class class_8 {
    // $FF: renamed from: d (int) void
    private void method_201(int var1) {
       class_3 var2;
-      Scene var3;
+      GameModel var3;
       int[] var5;
       int var13;
       int var14;
@@ -3891,8 +3891,8 @@ public class class_8 {
       } else if(var2.field_459 > var1.field_460) {
          return false;
       } else {
-         Scene var3 = var1.field_461;
-         Scene var4 = var2.field_461;
+         GameModel var3 = var1.field_461;
+         GameModel var4 = var2.field_461;
          int var5 = var1.field_462;
          int var6 = var2.field_462;
          int[] var7 = var3.field_862[var5];
@@ -4030,8 +4030,8 @@ public class class_8 {
    // $FF: renamed from: b (a.a.h, a.a.h) boolean
    private boolean method_203(class_3 var1, class_3 var2) {
       boolean var24 = class_9.field_759;
-      Scene var3 = var1.field_461;
-      Scene var4 = var2.field_461;
+      GameModel var3 = var1.field_461;
+      GameModel var4 = var2.field_461;
       int var5 = var1.field_462;
       int var6 = var2.field_462;
       int[] var7 = var3.field_862[var5];

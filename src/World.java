@@ -1,11 +1,11 @@
-import a.a.Scene;
+import a.a.GameModel;
 import a.a.class_8;
 import a.a.class_9;
 
 import java.io.IOException;
 
-// $FF: renamed from: f
-public class class_14 {
+// $FF: renamed from: f / class_14
+public class World {
 
    // $FF: renamed from: a boolean
    boolean field_820;
@@ -24,29 +24,29 @@ public class class_14 {
    // $FF: renamed from: h int[]
    int[] field_827;
    // $FF: renamed from: i byte[]
-   byte[] field_828;
+   byte[] landscapePack;
    // $FF: renamed from: j byte[]
-   byte[] field_829;
+   byte[] mapPack;
    // $FF: renamed from: k byte[]
-   byte[] field_830;
+   byte[] memberLandscapePack;
    // $FF: renamed from: l byte[]
-   byte[] field_831;
+   byte[] memberMapPack;
    // $FF: renamed from: m byte[][]
-   byte[][] field_832;
+   byte[][] terrainHeight;
    // $FF: renamed from: n byte[][]
-   byte[][] field_833;
+   byte[][] terrainColour;
    // $FF: renamed from: o byte[][]
-   byte[][] field_834;
+   byte[][] wallsNorthsouth;
    // $FF: renamed from: p byte[][]
-   byte[][] field_835;
+   byte[][] wallsEastwest;
    // $FF: renamed from: q byte[][]
-   byte[][] field_836;
+   byte[][] wallsRoof;
    // $FF: renamed from: r byte[][]
-   byte[][] field_837;
+   byte[][] tileDecoration;
    // $FF: renamed from: s byte[][]
-   byte[][] field_838;
+   byte[][] tileDirection;
    // $FF: renamed from: t int[][]
-   int[][] field_839;
+   int[][] wallsDiagonal;
    // $FF: renamed from: u int
    int field_840;
    // $FF: renamed from: v int
@@ -64,17 +64,17 @@ public class class_14 {
    // $FF: renamed from: B boolean
    boolean playerAlive;
    // $FF: renamed from: C a.a.f[]
-   Scene[] field_848;
+   GameModel[] field_848;
    // $FF: renamed from: D a.a.f[][]
-   Scene[][] gameModelArrayArray1;
+   GameModel[][] gameModelArrayArray1;
    // $FF: renamed from: E a.a.f[][]
-   Scene[][] gameModelArrayArray2;
+   GameModel[][] gameModelArrayArray2;
    // $FF: renamed from: F a.a.f
-   Scene field_851;
+   GameModel parentModel;
 
 
    // $FF: renamed from: <init> (a.a.j, a.a.g) void
-   public class_14(class_8 var1, class_9 var2) {
+   public World(class_8 var1, class_9 var2) {
       super();
       int var7 = class_4.field_563;
       this.field_820 = false;
@@ -83,14 +83,14 @@ public class class_14 {
       this.field_825 = 12345678;
       this.field_826 = 128;
       this.field_827 = new int[256];
-      this.field_832 = new byte[4][2304];
-      this.field_833 = new byte[4][2304];
-      this.field_834 = new byte[4][2304];
-      this.field_835 = new byte[4][2304];
-      this.field_836 = new byte[4][2304];
-      this.field_837 = new byte[4][2304];
-      this.field_838 = new byte[4][2304];
-      this.field_839 = new int[4][2304];
+      this.terrainHeight = new byte[4][2304];
+      this.terrainColour = new byte[4][2304];
+      this.wallsNorthsouth = new byte[4][2304];
+      this.wallsEastwest = new byte[4][2304];
+      this.wallsRoof = new byte[4][2304];
+      this.tileDecoration = new byte[4][2304];
+      this.tileDirection = new byte[4][2304];
+      this.wallsDiagonal = new int[4][2304];
       this.field_840 = 96;
       this.field_841 = 96;
       this.field_842 = new int[this.field_840 * this.field_841 * 2];
@@ -99,9 +99,9 @@ public class class_14 {
       this.objectTileDirections = new int[this.field_840][this.field_841];
       this.field_846 = new int[this.field_840][this.field_841];
       this.playerAlive = false;
-      this.field_848 = new Scene[64];
-      this.gameModelArrayArray1 = new Scene[4][64];
-      this.gameModelArrayArray2 = new Scene[4][64];
+      this.field_848 = new GameModel[64];
+      this.gameModelArrayArray1 = new GameModel[4][64];
+      this.gameModelArrayArray2 = new GameModel[4][64];
       this.field_823 = var1;
       this.field_822 = var2;
       int var3 = 0;
@@ -694,7 +694,7 @@ public class class_14 {
 
    // $FF: renamed from: a (int, int, int, int, int) void
    public void method_330(int var1, int var2, int var3, int var4, int var5) {
-      Scene var6 = this.field_848[var1 + var2 * 8];
+      GameModel var6 = this.field_848[var1 + var2 * 8];
       int var7 = 0;
       if(class_4.field_563 != 0 || var7 < var6.field_852) {
          do {
@@ -757,7 +757,7 @@ public class class_14 {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
-               return (this.field_832[var3][var1 * 48 + var2] & 255) * 3;
+               return (this.terrainHeight[var3][var1 * 48 + var2] & 255) * 3;
             }
          }
 
@@ -765,7 +765,7 @@ public class class_14 {
             var3 = 2;
             var2 -= 48;
             if(var4 == 0) {
-               return (this.field_832[var3][var1 * 48 + var2] & 255) * 3;
+               return (this.terrainHeight[var3][var1 * 48 + var2] & 255) * 3;
             }
          }
 
@@ -775,7 +775,7 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return (this.field_832[var3][var1 * 48 + var2] & 255) * 3;
+         return (this.terrainHeight[var3][var1 * 48 + var2] & 255) * 3;
       } else {
          return 0;
       }
@@ -790,7 +790,7 @@ public class class_14 {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
-               return this.field_833[var3][var1 * 48 + var2] & 255;
+               return this.terrainColour[var3][var1 * 48 + var2] & 255;
             }
          }
 
@@ -798,7 +798,7 @@ public class class_14 {
             var3 = 2;
             var2 -= 48;
             if(var4 == 0) {
-               return this.field_833[var3][var1 * 48 + var2] & 255;
+               return this.terrainColour[var3][var1 * 48 + var2] & 255;
             }
          }
 
@@ -808,7 +808,7 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return this.field_833[var3][var1 * 48 + var2] & 255;
+         return this.terrainColour[var3][var1 * 48 + var2] & 255;
       } else {
          return 0;
       }
@@ -823,7 +823,7 @@ public class class_14 {
             var4 = 1;
             var1 -= 48;
             if(var5 == 0) {
-               return this.field_837[var4][var1 * 48 + var2] & 255;
+               return this.tileDecoration[var4][var1 * 48 + var2] & 255;
             }
          }
 
@@ -831,7 +831,7 @@ public class class_14 {
             var4 = 2;
             var2 -= 48;
             if(var5 == 0) {
-               return this.field_837[var4][var1 * 48 + var2] & 255;
+               return this.tileDecoration[var4][var1 * 48 + var2] & 255;
             }
          }
 
@@ -841,7 +841,7 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return this.field_837[var4][var1 * 48 + var2] & 255;
+         return this.tileDecoration[var4][var1 * 48 + var2] & 255;
       } else {
          return 0;
       }
@@ -877,7 +877,7 @@ public class class_14 {
             }
          }
 
-         this.field_837[var4][var1 * 48 + var2] = (byte)var3;
+         this.tileDecoration[var4][var1 * 48 + var2] = (byte)var3;
       }
    }
 
@@ -907,7 +907,7 @@ public class class_14 {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
-               return this.field_839[var3][var1 * 48 + var2];
+               return this.wallsDiagonal[var3][var1 * 48 + var2];
             }
          }
 
@@ -915,7 +915,7 @@ public class class_14 {
             var3 = 2;
             var2 -= 48;
             if(var4 == 0) {
-               return this.field_839[var3][var1 * 48 + var2];
+               return this.wallsDiagonal[var3][var1 * 48 + var2];
             }
          }
 
@@ -925,7 +925,7 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return this.field_839[var3][var1 * 48 + var2];
+         return this.wallsDiagonal[var3][var1 * 48 + var2];
       } else {
          return 0;
       }
@@ -940,7 +940,7 @@ public class class_14 {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
-               return this.field_836[var3][var1 * 48 + var2];
+               return this.wallsRoof[var3][var1 * 48 + var2];
             }
          }
 
@@ -948,7 +948,7 @@ public class class_14 {
             var3 = 2;
             var2 -= 48;
             if(var4 == 0) {
-               return this.field_836[var3][var1 * 48 + var2];
+               return this.wallsRoof[var3][var1 * 48 + var2];
             }
          }
 
@@ -958,7 +958,7 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return this.field_836[var3][var1 * 48 + var2];
+         return this.wallsRoof[var3][var1 * 48 + var2];
       } else {
          return 0;
       }
@@ -973,7 +973,7 @@ public class class_14 {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
-               return this.field_838[var3][var1 * 48 + var2];
+               return this.tileDirection[var3][var1 * 48 + var2];
             }
          }
 
@@ -981,7 +981,7 @@ public class class_14 {
             var3 = 2;
             var2 -= 48;
             if(var4 == 0) {
-               return this.field_838[var3][var1 * 48 + var2];
+               return this.tileDirection[var3][var1 * 48 + var2];
             }
          }
 
@@ -991,7 +991,7 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return this.field_838[var3][var1 * 48 + var2];
+         return this.tileDirection[var3][var1 * 48 + var2];
       } else {
          return 0;
       }
@@ -1016,7 +1016,7 @@ public class class_14 {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
-               return this.field_835[var3][var1 * 48 + var2] & 255;
+               return this.wallsEastwest[var3][var1 * 48 + var2] & 255;
             }
          }
 
@@ -1024,7 +1024,7 @@ public class class_14 {
             var3 = 2;
             var2 -= 48;
             if(var4 == 0) {
-               return this.field_835[var3][var1 * 48 + var2] & 255;
+               return this.wallsEastwest[var3][var1 * 48 + var2] & 255;
             }
          }
 
@@ -1034,7 +1034,7 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return this.field_835[var3][var1 * 48 + var2] & 255;
+         return this.wallsEastwest[var3][var1 * 48 + var2] & 255;
       } else {
          return 0;
       }
@@ -1049,7 +1049,7 @@ public class class_14 {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
-               return this.field_834[var3][var1 * 48 + var2] & 255;
+               return this.wallsNorthsouth[var3][var1 * 48 + var2] & 255;
             }
          }
 
@@ -1057,7 +1057,7 @@ public class class_14 {
             var3 = 2;
             var2 -= 48;
             if(var4 == 0) {
-               return this.field_834[var3][var1 * 48 + var2] & 255;
+               return this.wallsNorthsouth[var3][var1 * 48 + var2] & 255;
             }
          }
 
@@ -1067,229 +1067,232 @@ public class class_14 {
             var2 -= 48;
          }
 
-         return this.field_834[var3][var1 * 48 + var2] & 255;
+         return this.wallsNorthsouth[var3][var1 * 48 + var2] & 255;
       } else {
          return 0;
       }
    }
 
    // $FF: renamed from: e (int, int, int, int) void
-   public void method_346(int i, int j, int k, int l) {
-      String s = "m" + k + i / 10 + i % 10 + j / 10 + j % 10;
+   public void loadSection(int regionX, int regionY, int mapPlane, int plane) {
+      String mapname = "m" + mapPlane + regionX / 10 + regionX % 10 + regionY / 10 + regionY % 10;
       try {
-         if (this.field_828 != null) {
-            byte[] file_buf = a.class_21.method_460(s + ".hei", 0, this.field_828);
-            if ((file_buf == null) && (this.field_830 != null))
-               file_buf = a.class_21.method_460(s + ".hei", 0, this.field_830);
-            if ((file_buf != null) && (file_buf.length > 0)) {
-               int j1 = 0;
+         if (this.landscapePack != null) {
+            byte[] mapData = a.Utility.loadData(mapname + ".hei", 0, this.landscapePack);
+            if ((mapData == null) && (this.memberLandscapePack != null))
+               mapData = a.Utility.loadData(mapname + ".hei", 0, this.memberLandscapePack);
+            if ((mapData != null) && (mapData.length > 0)) {
+               int off = 0;
                int prev_val = 0;
-               for (int j3 = 0; j3 < 2304;) {
-                  int height = file_buf[(j1++)] & 0xFF;
+               for (int tile = 0; tile < 2304;) {
+                  int height = mapData[(off++)] & 0xFF;
                   if (height < 128) {
-                     this.field_832[l][(j3++)] = (byte) height;
+                     this.terrainHeight[plane][(tile++)] = (byte) height;
                      prev_val = height;
                   }
                   if (height >= 128) {
                      for (int l5 = 0; l5 < height - 128; l5++) {
-                        this.field_832[l][(j3++)] = (byte) prev_val;
+                        this.terrainHeight[plane][(tile++)] = (byte) prev_val;
                      }
                   }
                }
 
                prev_val = 64;
-               for (int k4 = 0; k4 < 48; k4++) {
-                  for (int i6 = 0; i6 < 48; i6++) {
-                     prev_val = this.field_832[l][(i6 * 48 + k4)]
+               for (int tileY = 0; tileY < 48; tileY++) {
+                  for (int tileX = 0; tileX < 48; tileX++) {
+                     prev_val = this.terrainHeight[plane][(tileX * 48 + tileY)]
                              + prev_val & 0x7F;
-                     this.field_832[l][(i6 * 48 + k4)] = (byte) (prev_val * 2);
+                     this.terrainHeight[plane][(tileX * 48 + tileY)] = (byte) (prev_val * 2);
                   }
 
                }
 
                prev_val = 0;
-               for (int j6 = 0; j6 < 2304;) {
-                  int k7 = file_buf[(j1++)] & 0xFF;
-                  if (k7 < 128) {
-                     this.field_833[l][(j6++)] = (byte) k7;
-                     prev_val = k7;
+               for (int tile = 0; tile < 2304;) {
+                  int val = mapData[(off++)] & 0xFF;
+                  if (val < 128) {
+                     this.terrainColour[plane][(tile++)] = (byte) val;
+                     prev_val = val;
                   }
-                  if (k7 >= 128) {
-                     for (int i9 = 0; i9 < k7 - 128; i9++) {
-                        this.field_833[l][(j6++)] = (byte) prev_val;
+                  if (val >= 128) {
+                     for (int i = 0; i < val - 128; i++) {
+                        this.terrainColour[plane][(tile++)] = (byte) prev_val;
                      }
                   }
                }
 
                prev_val = 35;
-               for (int l7 = 0; l7 < 48; l7++) {
-                  for (int j9 = 0; j9 < 48; j9++) {
-                     prev_val = this.field_833[l][(j9 * 48 + l7)]
+               for (int tileY = 0; tileY < 48; tileY++) {
+                  for (int tileX = 0; tileX < 48; tileX++) {
+                     prev_val = this.terrainColour[plane][(tileX * 48 + tileY)]
                              + prev_val & 0x7F;
-                     this.field_833[l][(j9 * 48 + l7)] = (byte) (prev_val * 2);
+                     this.terrainColour[plane][(tileX * 48 + tileY)] = (byte) (prev_val * 2);
                   }
                }
             } else {
-               for (int k1 = 0; k1 < 2304; k1++) {
-                  this.field_832[l][k1] = 0;
-                  this.field_833[l][k1] = 0;
+               for (int tile = 0; tile < 2304; tile++) {
+                  this.terrainHeight[plane][tile] = 0;
+                  this.terrainColour[plane][tile] = 0;
                }
             }
 
-            file_buf = a.class_21.method_460(s + ".dat", 0, this.field_829);
-            if ((file_buf == null) && (this.field_831 != null))
-               file_buf = a.class_21.method_460(s + ".dat", 0, this.field_831);
-            if ((file_buf == null) || (file_buf.length == 0))
+            mapData = a.Utility.loadData(mapname + ".dat", 0, this.mapPack);
+            if ((mapData == null) && (this.memberMapPack != null))
+               mapData = a.Utility.loadData(mapname + ".dat", 0, this.memberMapPack);
+            if ((mapData == null) || (mapData.length == 0))
                throw new IOException();
-            int l1 = 0;
-            for (int l2 = 0; l2 < 2304;) {
-               int k3 = file_buf[(l1++)] & 0xFF;
-               if (k3 < 128)
-                  this.field_834[l][(l2++)] = (byte) k3;
+            int off = 0;
+            for (int tile = 0; tile < 2304;) {
+               int val = mapData[(off++)] & 0xFF;
+               if (val < 128)
+                  this.wallsNorthsouth[plane][(tile++)] = (byte) val;
                else {
-                  for (int l4 = 0; l4 < k3 - 128; l4++) {
-                     this.field_834[l][(l2++)] = 0;
+                  for (int l4 = 0; l4 < val - 128; l4++) {
+                     this.wallsNorthsouth[plane][(tile++)] = 0;
                   }
                }
             }
 
-            for (int l3 = 0; l3 < 2304;) {
-               int i5 = file_buf[(l1++)] & 0xFF;
-               if (i5 < 128)
-                  this.field_835[l][(l3++)] = (byte) i5;
+            for (int tile = 0; tile < 2304;) {
+               int val = mapData[(off++)] & 0xFF;
+               if (val < 128)
+                  this.wallsEastwest[plane][(tile++)] = (byte) val;
                else {
-                  for (int k6 = 0; k6 < i5 - 128; k6++) {
-                     this.field_835[l][(l3++)] = 0;
+                  for (int k6 = 0; k6 < val - 128; k6++) {
+                     this.wallsEastwest[plane][(tile++)] = 0;
                   }
                }
             }
 
-            for (int j5 = 0; j5 < 2304;) {
-               int l6 = file_buf[(l1++)] & 0xFF;
-               if (l6 < 128)
-                  this.field_839[l][(j5++)] = l6;
+            for (int tile = 0; tile < 2304;) {
+               int val = mapData[(off++)] & 0xFF;
+               if (val < 128)
+                  this.wallsDiagonal[plane][(tile++)] = val;
                else {
-                  for (int i8 = 0; i8 < l6 - 128; i8++) {
-                     this.field_839[l][(j5++)] = 0;
+                  for (int i = 0; i < val - 128; i++) {
+                     this.wallsDiagonal[plane][(tile++)] = 0;
                   }
                }
             }
 
-            for (int i7 = 0; i7 < 2304;) {
-               int j8 = file_buf[(l1++)] & 0xFF;
-               if (j8 < 128)
-                  this.field_839[l][(i7++)] = (j8 + 12000);
+            for (int tile = 0; tile < 2304;) {
+               int val = mapData[(off++)] & 0xFF;
+               if (val < 128)
+               	  // "why??" -- original comment by eXemplar in the 204 deob
+               	  // without the +12000, floor tiles in the corners don't get displayed at 45 degree angle
+               	  // but also legit diagonal walls don't get displayed at a 45 degree angle either.
+                  this.wallsDiagonal[plane][(tile++)] = (val + 12000);
                else {
-                  i7 += j8 - 128;
+                  tile += val - 128;
                }
             }
-            for (int k8 = 0; k8 < 2304;) {
-               int k9 = file_buf[(l1++)] & 0xFF;
-               if (k9 < 128)
-                  this.field_836[l][(k8++)] = (byte) k9;
+            for (int tile = 0; tile < 2304;) {
+               int val = mapData[(off++)] & 0xFF;
+               if (val < 128)
+                  this.wallsRoof[plane][(tile++)] = (byte) val;
                else {
-                  for (int j10 = 0; j10 < k9 - 128; j10++) {
-                     this.field_836[l][(k8++)] = 0;
+                  for (int j10 = 0; j10 < val - 128; j10++) {
+                     this.wallsRoof[plane][(tile++)] = 0;
                   }
                }
             }
 
-            int l9 = 0;
+            int lastVal = 0;
             for (int k10 = 0; k10 < 2304;) {
-               int i11 = file_buf[(l1++)] & 0xFF;
-               if (i11 < 128) {
-                  this.field_837[l][(k10++)] = (byte) i11;
-                  l9 = i11;
+               int val = mapData[(off++)] & 0xFF;
+               if (val < 128) {
+                  this.tileDecoration[plane][(k10++)] = (byte) val;
+                  lastVal = val;
                } else {
-                  for (int l11 = 0; l11 < i11 - 128; l11++) {
-                     this.field_837[l][(k10++)] = (byte) l9;
+                  for (int l11 = 0; l11 < val - 128; l11++) {
+                     this.tileDecoration[plane][(k10++)] = (byte) lastVal;
                   }
                }
             }
 
-            for (int j11 = 0; j11 < 2304;) {
-               int i12 = file_buf[(l1++)] & 0xFF;
-               if (i12 < 128)
-                  this.field_838[l][(j11++)] = (byte) i12;
+            for (int tile = 0; tile < 2304;) {
+               int val = mapData[(off++)] & 0xFF;
+               if (val < 128)
+                  this.tileDirection[plane][(tile++)] = (byte) val;
                else {
-                  for (int l12 = 0; l12 < i12 - 128; l12++) {
-                     this.field_838[l][(j11++)] = 0;
+                  for (int i = 0; i < val - 128; i++) {
+                     this.tileDirection[plane][(tile++)] = 0;
                   }
                }
             }
 
-            file_buf = a.class_21.method_460(s + ".loc", 0, this.field_829);
-            if ((file_buf != null) && (file_buf.length > 0)) {
-               int i2 = 0;
-               for (int j12 = 0; j12 < 2304;) {
-                  int val = file_buf[(i2++)] & 0xFF;
+            mapData = a.Utility.loadData(mapname + ".loc", 0, this.mapPack);
+            if ((mapData != null) && (mapData.length > 0)) {
+               int off_ = 0;
+               for (int tile = 0; tile < 2304;) {
+                  int val = mapData[(off_++)] & 0xFF;
                   if (val < 128) {
-                     this.field_839[l][(j12++)] = (val + 48000);
+                     this.wallsDiagonal[plane][(tile++)] = (val + 48000);
                   } else {
-                     j12 += val - 128;
+                     tile += val - 128;
                   }
                }
             }
          } else {
-            byte[] abyte1 = new byte[20736];
-            a.class_21.method_444("../gamedata/maps/" + s + ".jm", abyte1, 20736);
-            int j2 = 0;
-            int i3 = 0;
-            for (int i4 = 0; i4 < 2304; i4++) {
-               j2 = j2 + abyte1[(i3++)] & 0xFF;
-               this.field_832[l][i4] = (byte) j2;
+            byte[] mapData = new byte[20736];
+            a.Utility.readFully("../gamedata/maps/" + mapname + ".jm", mapData, 20736);
+            int val = 0;
+            int off = 0;
+            for (int tile = 0; tile < 2304; tile++) {
+               val = val + mapData[(off++)] & 0xFF;
+               this.terrainHeight[plane][tile] = (byte) val;
             }
 
-            j2 = 0;
-            for (int k5 = 0; k5 < 2304; k5++) {
-               j2 = j2 + abyte1[(i3++)] & 0xFF;
-               this.field_833[l][k5] = (byte) j2;
+            val = 0;
+            for (int tile = 0; tile < 2304; tile++) {
+               val = val + mapData[(off++)] & 0xFF;
+               this.terrainColour[plane][tile] = (byte) val;
             }
 
-            for (int j7 = 0; j7 < 2304; j7++) {
-               this.field_834[l][j7] = abyte1[(i3++)];
+            for (int tile = 0; tile < 2304; tile++) {
+               this.wallsNorthsouth[plane][tile] = mapData[(off++)];
             }
-            for (int l8 = 0; l8 < 2304; l8++) {
-               this.field_835[l][l8] = abyte1[(i3++)];
+            for (int tile = 0; tile < 2304; tile++) {
+               this.wallsEastwest[plane][tile] = mapData[(off++)];
             }
-            for (int i10 = 0; i10 < 2304; i10++) {
-               this.field_839[l][i10] = ((abyte1[i3] & 0xFF) * 256 + (abyte1[(i3 + 1)] & 0xFF));
-               i3 += 2;
+            for (int tile = 0; tile < 2304; tile++) {
+               this.wallsDiagonal[plane][tile] = ((mapData[off] & 0xFF) * 256 + (mapData[(off + 1)] & 0xFF));
+               off += 2;
             }
 
-            for (int l10 = 0; l10 < 2304; l10++) {
-               this.field_836[l][l10] = abyte1[(i3++)];
+            for (int tile = 0; tile < 2304; tile++) {
+               this.wallsRoof[plane][tile] = mapData[(off++)];
             }
-            for (int k11 = 0; k11 < 2304; k11++) {
-               this.field_837[l][k11] = abyte1[(i3++)];
+            for (int tile = 0; tile < 2304; tile++) {
+               this.tileDecoration[plane][tile] = mapData[(off++)];
             }
-            for (int k12 = 0; k12 < 2304; k12++) {
-               this.field_838[l][k12] = abyte1[(i3++)];
+            for (int tile = 0; tile < 2304; tile++) {
+               this.tileDirection[plane][tile] = mapData[(off++)];
             }
          }
          return;
       } catch (IOException _ex) {
-         int i1 = 0;
+         int tile = 0;
 
-         for (; i1 < 2304; i1++) {
-            this.field_832[l][i1] = 0;
-            this.field_833[l][i1] = 0;
-            this.field_834[l][i1] = 0;
-            this.field_835[l][i1] = 0;
-            this.field_839[l][i1] = 0;
-            this.field_836[l][i1] = 0;
-            this.field_837[l][i1] = 0;
-            if (k == 0)
-               this.field_837[l][i1] = -6;
-            if (k == 3)
-               this.field_837[l][i1] = 8;
-            this.field_838[l][i1] = 0;
+         for (; tile < 2304; tile++) {
+            this.terrainHeight[plane][tile] = 0;
+            this.terrainColour[plane][tile] = 0;
+            this.wallsNorthsouth[plane][tile] = 0;
+            this.wallsEastwest[plane][tile] = 0;
+            this.wallsDiagonal[plane][tile] = 0;
+            this.wallsRoof[plane][tile] = 0;
+            this.tileDecoration[plane][tile] = 0;
+            if (mapPlane == 0)
+               this.tileDecoration[plane][tile] = -6;
+            if (mapPlane == 3)
+               this.tileDecoration[plane][tile] = 8;
+            this.tileDirection[plane][tile] = 0;
          }
       }
    }
 
    // $FF: renamed from: a () void
-   public void method_347() {
+   public void reset() {
       int var4 = class_4.field_563;
       if(this.field_821) {
          this.field_823.method_172();
@@ -1330,25 +1333,25 @@ public class class_14 {
    }
 
    // $FF: renamed from: i (int, int, int) void
-   public void loadSection(int x, int y, int height) {
-      this.method_347();
-      int var4 = (x + 24) / 48;
-      int var5 = (y + 24) / 48;
-      this.method_351(x, y, height, true);
-      if(height == 0) {
+   public void loadSections(int x, int y, int plane) {
+      this.reset();
+      int regionX = (x + 24) / 48;
+      int regionY = (y + 24) / 48;
+      this.method_351(x, y, plane, true);
+      if(plane == 0) {
          this.method_351(x, y, 1, false);
          this.method_351(x, y, 2, false);
-         this.method_346(var4 - 1, var5 - 1, height, 0);
-         this.method_346(var4, var5 - 1, height, 1);
-         this.method_346(var4 - 1, var5, height, 2);
-         this.method_346(var4, var5, height, 3);
-         this.method_349();
+         this.loadSection(regionX - 1, regionY - 1, plane, 0);
+         this.loadSection(regionX, regionY - 1, plane, 1);
+         this.loadSection(regionX - 1, regionY, plane, 2);
+         this.loadSection(regionX, regionY, plane, 3);
+         this.setTiles();
       }
 
    }
 
    // $FF: renamed from: b () void
-   public void method_349() {
+   public void setTiles() {
       int var3 = class_4.field_563;
       int var1 = 0;
       if(var3 != 0 || var1 < 96) {
@@ -1415,17 +1418,17 @@ public class class_14 {
    }
 
    // $FF: renamed from: a (int, int, int, boolean) void
-   public void method_351(int var1, int var2, int var3, boolean var4) {
+   public void method_351(int localRegionX, int localRegionY, int plane, boolean isLocalPlane) {
       int var40 = class_4.field_563;
-      int var5 = (var1 + 24) / 48;
-      int var6 = (var2 + 24) / 48;
-      this.method_346(var5 - 1, var6 - 1, var3, 0);
-      this.method_346(var5, var6 - 1, var3, 1);
-      this.method_346(var5 - 1, var6, var3, 2);
-      this.method_346(var5, var6, var3, 3);
-      this.method_349();
-      if(this.field_851 == null) {
-         this.field_851 = new Scene(this.field_840 * this.field_841 * 2 + 256, this.field_840 * this.field_841 * 2 + 256, true, true, false, false, true);
+      int regionX = (localRegionX + 24) / 48;
+      int regionY = (localRegionY + 24) / 48;
+      this.loadSection(regionX - 1, regionY - 1, plane, 0);
+      this.loadSection(regionX, regionY - 1, plane, 1);
+      this.loadSection(regionX - 1, regionY, plane, 2);
+      this.loadSection(regionX, regionY, plane, 3);
+      this.setTiles();
+      if(this.parentModel == null) {
+         this.parentModel = new GameModel(this.field_840 * this.field_841 * 2 + 256, this.field_840 * this.field_841 * 2 + 256, true, true, false, false, true);
       }
 
       int var7;
@@ -1442,7 +1445,7 @@ public class class_14 {
       int var20;
       int var43;
       int var44;
-      if(var4) {
+      if(isLocalPlane) {
          this.field_822.method_223();
          var7 = 0;
          if(var40 != 0 || var7 < 96) {
@@ -1461,7 +1464,7 @@ public class class_14 {
             } while(var7 < 96);
          }
 
-         Scene var41 = this.field_851;
+         GameModel var41 = this.parentModel;
          var41.method_359();
          var9 = 0;
          if(var40 != 0 || var9 < 96) {
@@ -1472,19 +1475,19 @@ public class class_14 {
                } else {
                   do {
                      var11 = -this.method_333(var9, var10);
-                     if(this.method_335(var9, var10, var3) > 0 && class_4.field_539[this.method_335(var9, var10, var3) - 1] == 4) {
+                     if(this.method_335(var9, var10, plane) > 0 && class_4.field_539[this.method_335(var9, var10, plane) - 1] == 4) {
                         var11 = 0;
                      }
 
-                     if(this.method_335(var9 - 1, var10, var3) > 0 && class_4.field_539[this.method_335(var9 - 1, var10, var3) - 1] == 4) {
+                     if(this.method_335(var9 - 1, var10, plane) > 0 && class_4.field_539[this.method_335(var9 - 1, var10, plane) - 1] == 4) {
                         var11 = 0;
                      }
 
-                     if(this.method_335(var9, var10 - 1, var3) > 0 && class_4.field_539[this.method_335(var9, var10 - 1, var3) - 1] == 4) {
+                     if(this.method_335(var9, var10 - 1, plane) > 0 && class_4.field_539[this.method_335(var9, var10 - 1, plane) - 1] == 4) {
                         var11 = 0;
                      }
 
-                     if(this.method_335(var9 - 1, var10 - 1, var3) > 0 && class_4.field_539[this.method_335(var9 - 1, var10 - 1, var3) - 1] == 4) {
+                     if(this.method_335(var9 - 1, var10 - 1, plane) > 0 && class_4.field_539[this.method_335(var9 - 1, var10 - 1, plane) - 1] == 4) {
                         var11 = 0;
                      }
 
@@ -1513,16 +1516,16 @@ public class class_14 {
                      var14 = var13;
                      var15 = var13;
                      byte var16 = 0;
-                     if(var3 == 1 || var3 == 2) {
+                     if(plane == 1 || plane == 2) {
                         var13 = 12345678;
                         var14 = 12345678;
                         var15 = 12345678;
                      }
 
-                     if(this.method_335(var10, var11, var3) > 0) {
-                        var17 = this.method_335(var10, var11, var3);
+                     if(this.method_335(var10, var11, plane) > 0) {
+                        var17 = this.method_335(var10, var11, plane);
                         var12 = class_4.field_539[var17 - 1];
-                        var18 = this.method_337(var10, var11, var3);
+                        var18 = this.method_337(var10, var11, plane);
                         var13 = var14 = class_4.field_538[var17 - 1];
                         if(var12 == 4) {
                            var13 = 1;
@@ -1539,35 +1542,35 @@ public class class_14 {
                                  break label1123;
                               }
 
-                              if(this.method_338(var10 - 1, var11, var3, var15) != 12345678 && this.method_338(var10, var11 - 1, var3, var15) != 12345678) {
-                                 var13 = this.method_338(var10 - 1, var11, var3, var15);
+                              if(this.method_338(var10 - 1, var11, plane, var15) != 12345678 && this.method_338(var10, var11 - 1, plane, var15) != 12345678) {
+                                 var13 = this.method_338(var10 - 1, var11, plane, var15);
                                  var16 = 0;
                                  if(var40 == 0) {
                                     break label1123;
                                  }
                               }
 
-                              if(this.method_338(var10 + 1, var11, var3, var15) != 12345678 && this.method_338(var10, var11 + 1, var3, var15) != 12345678) {
-                                 var14 = this.method_338(var10 + 1, var11, var3, var15);
+                              if(this.method_338(var10 + 1, var11, plane, var15) != 12345678 && this.method_338(var10, var11 + 1, plane, var15) != 12345678) {
+                                 var14 = this.method_338(var10 + 1, var11, plane, var15);
                                  var16 = 0;
                                  if(var40 == 0) {
                                     break label1123;
                                  }
                               }
 
-                              if(this.method_338(var10 + 1, var11, var3, var15) != 12345678 && this.method_338(var10, var11 - 1, var3, var15) != 12345678) {
-                                 var14 = this.method_338(var10 + 1, var11, var3, var15);
+                              if(this.method_338(var10 + 1, var11, plane, var15) != 12345678 && this.method_338(var10, var11 - 1, plane, var15) != 12345678) {
+                                 var14 = this.method_338(var10 + 1, var11, plane, var15);
                                  var16 = 1;
                                  if(var40 == 0) {
                                     break label1123;
                                  }
                               }
 
-                              if(this.method_338(var10 - 1, var11, var3, var15) == 12345678 || this.method_338(var10, var11 + 1, var3, var15) == 12345678) {
+                              if(this.method_338(var10 - 1, var11, plane, var15) == 12345678 || this.method_338(var10, var11 + 1, plane, var15) == 12345678) {
                                  break label1123;
                               }
 
-                              var13 = this.method_338(var10 - 1, var11, var3, var15);
+                              var13 = this.method_338(var10 - 1, var11, plane, var15);
                               var16 = 1;
                               if(var40 == 0) {
                                  break label1123;
@@ -1576,7 +1579,7 @@ public class class_14 {
 
                            if(var12 != 2 || this.method_339(var10, var11) > 0 && this.method_339(var10, var11) < 24000) {
                               label1175: {
-                                 if(this.method_337(var10 - 1, var11, var3) != var18 && this.method_337(var10, var11 - 1, var3) != var18) {
+                                 if(this.method_337(var10 - 1, var11, plane) != var18 && this.method_337(var10, var11 - 1, plane) != var18) {
                                     var13 = var15;
                                     var16 = 0;
                                     if(var40 == 0) {
@@ -1584,7 +1587,7 @@ public class class_14 {
                                     }
                                  }
 
-                                 if(this.method_337(var10 + 1, var11, var3) != var18 && this.method_337(var10, var11 + 1, var3) != var18) {
+                                 if(this.method_337(var10 + 1, var11, plane) != var18 && this.method_337(var10, var11 + 1, plane) != var18) {
                                     var14 = var15;
                                     var16 = 0;
                                     if(var40 == 0) {
@@ -1592,7 +1595,7 @@ public class class_14 {
                                     }
                                  }
 
-                                 if(this.method_337(var10 + 1, var11, var3) != var18 && this.method_337(var10, var11 - 1, var3) != var18) {
+                                 if(this.method_337(var10 + 1, var11, plane) != var18 && this.method_337(var10, var11 - 1, plane) != var18) {
                                     var14 = var15;
                                     var16 = 1;
                                     if(var40 == 0) {
@@ -1600,7 +1603,7 @@ public class class_14 {
                                     }
                                  }
 
-                                 if(this.method_337(var10 - 1, var11, var3) != var18 && this.method_337(var10, var11 + 1, var3) != var18) {
+                                 if(this.method_337(var10 - 1, var11, plane) != var18 && this.method_337(var10, var11 + 1, plane) != var18) {
                                     var13 = var15;
                                     var16 = 1;
                                  }
@@ -1702,8 +1705,8 @@ public class class_14 {
                } else {
                   do {
                      label1128: {
-                        if(this.method_335(var11, var12, var3) > 0 && class_4.field_539[this.method_335(var11, var12, var3) - 1] == 4) {
-                           var13 = class_4.field_538[this.method_335(var11, var12, var3) - 1];
+                        if(this.method_335(var11, var12, plane) > 0 && class_4.field_539[this.method_335(var11, var12, plane) - 1] == 4) {
+                           var13 = class_4.field_538[this.method_335(var11, var12, plane) - 1];
                            var14 = var41.method_366(var11 * 128, -this.method_333(var11, var12), var12 * 128);
                            var15 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12), var12 * 128);
                            var43 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12 + 1), (var12 + 1) * 128);
@@ -1719,9 +1722,9 @@ public class class_14 {
                            }
                         }
 
-                        if(this.method_335(var11, var12, var3) == 0 || class_4.field_539[this.method_335(var11, var12, var3) - 1] != 3) {
-                           if(this.method_335(var11, var12 + 1, var3) > 0 && class_4.field_539[this.method_335(var11, var12 + 1, var3) - 1] == 4) {
-                              var13 = class_4.field_538[this.method_335(var11, var12 + 1, var3) - 1];
+                        if(this.method_335(var11, var12, plane) == 0 || class_4.field_539[this.method_335(var11, var12, plane) - 1] != 3) {
+                           if(this.method_335(var11, var12 + 1, plane) > 0 && class_4.field_539[this.method_335(var11, var12 + 1, plane) - 1] == 4) {
+                              var13 = class_4.field_538[this.method_335(var11, var12 + 1, plane) - 1];
                               var14 = var41.method_366(var11 * 128, -this.method_333(var11, var12), var12 * 128);
                               var15 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12), var12 * 128);
                               var43 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12 + 1), (var12 + 1) * 128);
@@ -1734,8 +1737,8 @@ public class class_14 {
                               this.method_350(var11, var12, 0, var13, var13);
                            }
 
-                           if(this.method_335(var11, var12 - 1, var3) > 0 && class_4.field_539[this.method_335(var11, var12 - 1, var3) - 1] == 4) {
-                              var13 = class_4.field_538[this.method_335(var11, var12 - 1, var3) - 1];
+                           if(this.method_335(var11, var12 - 1, plane) > 0 && class_4.field_539[this.method_335(var11, var12 - 1, plane) - 1] == 4) {
+                              var13 = class_4.field_538[this.method_335(var11, var12 - 1, plane) - 1];
                               var14 = var41.method_366(var11 * 128, -this.method_333(var11, var12), var12 * 128);
                               var15 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12), var12 * 128);
                               var43 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12 + 1), (var12 + 1) * 128);
@@ -1748,8 +1751,8 @@ public class class_14 {
                               this.method_350(var11, var12, 0, var13, var13);
                            }
 
-                           if(this.method_335(var11 + 1, var12, var3) > 0 && class_4.field_539[this.method_335(var11 + 1, var12, var3) - 1] == 4) {
-                              var13 = class_4.field_538[this.method_335(var11 + 1, var12, var3) - 1];
+                           if(this.method_335(var11 + 1, var12, plane) > 0 && class_4.field_539[this.method_335(var11 + 1, var12, plane) - 1] == 4) {
+                              var13 = class_4.field_538[this.method_335(var11 + 1, var12, plane) - 1];
                               var14 = var41.method_366(var11 * 128, -this.method_333(var11, var12), var12 * 128);
                               var15 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12), var12 * 128);
                               var43 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12 + 1), (var12 + 1) * 128);
@@ -1762,8 +1765,8 @@ public class class_14 {
                               this.method_350(var11, var12, 0, var13, var13);
                            }
 
-                           if(this.method_335(var11 - 1, var12, var3) > 0 && class_4.field_539[this.method_335(var11 - 1, var12, var3) - 1] == 4) {
-                              var13 = class_4.field_538[this.method_335(var11 - 1, var12, var3) - 1];
+                           if(this.method_335(var11 - 1, var12, plane) > 0 && class_4.field_539[this.method_335(var11 - 1, var12, plane) - 1] == 4) {
+                              var13 = class_4.field_538[this.method_335(var11 - 1, var12, plane) - 1];
                               var14 = var41.method_366(var11 * 128, -this.method_333(var11, var12), var12 * 128);
                               var15 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12), var12 * 128);
                               var43 = var41.method_366((var11 + 1) * 128, -this.method_333(var11 + 1, var12 + 1), (var12 + 1) * 128);
@@ -1787,7 +1790,7 @@ public class class_14 {
          }
 
          var41.method_371(true, 40, 48, -50, -10, -50);
-         this.field_848 = this.field_851.method_369(0, 0, 1536, 1536, 8, 64, 233, false);
+         this.field_848 = this.parentModel.method_369(0, 0, 1536, 1536, 8, 64, 233, false);
          var12 = 0;
          if(var40 != 0 || var12 < 64) {
             do {
@@ -1814,7 +1817,7 @@ public class class_14 {
          }
       }
 
-      this.field_851.method_359();
+      this.parentModel.method_359();
       var7 = 6316128;
       var8 = 0;
       if(var40 != 0) {
@@ -1825,42 +1828,42 @@ public class class_14 {
             while(true) {
                var10 = this.method_344(var8, var9);
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9);
-                  if(var4 && class_4.field_532[var10 - 1] != 0) {
+                  this.method_353(this.parentModel, var10 - 1, var8, var9, var8 + 1, var9);
+                  if(isLocalPlane && class_4.field_532[var10 - 1] != 0) {
                      this.objectTileDirections[var8][var9] |= 1;
                      if(var9 > 0) {
                         this.method_322(var8, var9 - 1, 4);
                      }
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_229(var8 * 3, var9 * 3, 3, var7);
                   }
                }
 
                var10 = this.method_345(var8, var9);
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 1, var8, var9, var8, var9 + 1);
-                  if(var4 && class_4.field_532[var10 - 1] != 0) {
+                  this.method_353(this.parentModel, var10 - 1, var8, var9, var8, var9 + 1);
+                  if(isLocalPlane && class_4.field_532[var10 - 1] != 0) {
                      this.objectTileDirections[var8][var9] |= 2;
                      if(var8 > 0) {
                         this.method_322(var8 - 1, var9, 8);
                      }
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_230(var8 * 3, var9 * 3, 3, var7);
                   }
                }
 
                var10 = this.method_339(var8, var9);
                if(var10 > 0 && var10 < 12000 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9 + 1);
-                  if(var4 && class_4.field_532[var10 - 1] != 0) {
+                  this.method_353(this.parentModel, var10 - 1, var8, var9, var8 + 1, var9 + 1);
+                  if(isLocalPlane && class_4.field_532[var10 - 1] != 0) {
                      this.objectTileDirections[var8][var9] |= 32;
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_231(var8 * 3, var9 * 3, var7);
                      this.field_822.method_231(var8 * 3 + 1, var9 * 3 + 1, var7);
                      this.field_822.method_231(var8 * 3 + 2, var9 * 3 + 2, var7);
@@ -1868,12 +1871,12 @@ public class class_14 {
                }
 
                if(var10 > 12000 && var10 < 24000 && (class_4.field_533[var10 - 12001] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 12001, var8 + 1, var9, var8, var9 + 1);
-                  if(var4 && class_4.field_532[var10 - 12001] != 0) {
+                  this.method_353(this.parentModel, var10 - 12001, var8 + 1, var9, var8, var9 + 1);
+                  if(isLocalPlane && class_4.field_532[var10 - 12001] != 0) {
                      this.objectTileDirections[var8][var9] |= 16;
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_231(var8 * 3 + 2, var9 * 3, var7);
                      this.field_822.method_231(var8 * 3 + 1, var9 * 3 + 1, var7);
                      this.field_822.method_231(var8 * 3, var9 * 3 + 2, var7);
@@ -1897,42 +1900,42 @@ public class class_14 {
             do {
                var10 = this.method_344(var8, var9);
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9);
-                  if(var4 && class_4.field_532[var10 - 1] != 0) {
+                  this.method_353(this.parentModel, var10 - 1, var8, var9, var8 + 1, var9);
+                  if(isLocalPlane && class_4.field_532[var10 - 1] != 0) {
                      this.objectTileDirections[var8][var9] |= 1;
                      if(var9 > 0) {
                         this.method_322(var8, var9 - 1, 4);
                      }
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_229(var8 * 3, var9 * 3, 3, var7);
                   }
                }
 
                var10 = this.method_345(var8, var9);
                if(var10 > 0 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 1, var8, var9, var8, var9 + 1);
-                  if(var4 && class_4.field_532[var10 - 1] != 0) {
+                  this.method_353(this.parentModel, var10 - 1, var8, var9, var8, var9 + 1);
+                  if(isLocalPlane && class_4.field_532[var10 - 1] != 0) {
                      this.objectTileDirections[var8][var9] |= 2;
                      if(var8 > 0) {
                         this.method_322(var8 - 1, var9, 8);
                      }
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_230(var8 * 3, var9 * 3, 3, var7);
                   }
                }
 
                var10 = this.method_339(var8, var9);
                if(var10 > 0 && var10 < 12000 && (class_4.field_533[var10 - 1] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 1, var8, var9, var8 + 1, var9 + 1);
-                  if(var4 && class_4.field_532[var10 - 1] != 0) {
+                  this.method_353(this.parentModel, var10 - 1, var8, var9, var8 + 1, var9 + 1);
+                  if(isLocalPlane && class_4.field_532[var10 - 1] != 0) {
                      this.objectTileDirections[var8][var9] |= 32;
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_231(var8 * 3, var9 * 3, var7);
                      this.field_822.method_231(var8 * 3 + 1, var9 * 3 + 1, var7);
                      this.field_822.method_231(var8 * 3 + 2, var9 * 3 + 2, var7);
@@ -1940,12 +1943,12 @@ public class class_14 {
                }
 
                if(var10 > 12000 && var10 < 24000 && (class_4.field_533[var10 - 12001] == 0 || this.field_820)) {
-                  this.method_353(this.field_851, var10 - 12001, var8 + 1, var9, var8, var9 + 1);
-                  if(var4 && class_4.field_532[var10 - 12001] != 0) {
+                  this.method_353(this.parentModel, var10 - 12001, var8 + 1, var9, var8, var9 + 1);
+                  if(isLocalPlane && class_4.field_532[var10 - 12001] != 0) {
                      this.objectTileDirections[var8][var9] |= 16;
                   }
 
-                  if(var4) {
+                  if(isLocalPlane) {
                      this.field_822.method_231(var8 * 3 + 2, var9 * 3, var7);
                      this.field_822.method_231(var8 * 3 + 1, var9 * 3 + 1, var7);
                      this.field_822.method_231(var8 * 3, var9 * 3 + 2, var7);
@@ -1959,20 +1962,20 @@ public class class_14 {
          }
       }
 
-      if(var4) {
+      if(isLocalPlane) {
          this.field_822.method_240(this.field_824 - 1, 0, 0, 285, 285);
       }
 
-      this.field_851.method_371(false, 60, 24, -50, -10, -50);
-      this.gameModelArrayArray1[var3] = this.field_851.method_369(0, 0, 1536, 1536, 8, 64, 338, true);
+      this.parentModel.method_371(false, 60, 24, -50, -10, -50);
+      this.gameModelArrayArray1[plane] = this.parentModel.method_369(0, 0, 1536, 1536, 8, 64, 338, true);
       var9 = 0;
       if(var40 != 0) {
-         this.field_823.method_170(this.gameModelArrayArray1[var3][var9]);
+         this.field_823.method_170(this.gameModelArrayArray1[plane][var9]);
          ++var9;
       }
 
       while(var9 < 64) {
-         this.field_823.method_170(this.gameModelArrayArray1[var3][var9]);
+         this.field_823.method_170(this.gameModelArrayArray1[plane][var9]);
          ++var9;
       }
 
@@ -2230,7 +2233,7 @@ public class class_14 {
          }
       }
 
-      this.field_851.method_359();
+      this.parentModel.method_359();
       var12 = 1;
       if(var40 != 0 || var12 < 95) {
          do {
@@ -2367,48 +2370,48 @@ public class class_14 {
                         var34 = -var34;
                         int[] var37;
                         if(this.method_339(var12, var13) > 12000 && this.method_339(var12, var13) < 24000 && this.method_340(var12 - 1, var13 - 1) == 0) {
-                           var37 = new int[]{this.field_851.method_366(var29, var33, var26), this.field_851.method_366(var27, var34, var30), this.field_851.method_366(var25, var32, var28)};
-                           this.field_851.method_368(3, var37, var14, 12345678);
+                           var37 = new int[]{this.parentModel.method_366(var29, var33, var26), this.parentModel.method_366(var27, var34, var30), this.parentModel.method_366(var25, var32, var28)};
+                           this.parentModel.method_368(3, var37, var14, 12345678);
                            if(var40 == 0) {
                               break label1143;
                            }
                         }
 
                         if(this.method_339(var12, var13) > 12000 && this.method_339(var12, var13) < 24000 && this.method_340(var12 + 1, var13 + 1) == 0) {
-                           var37 = new int[]{this.field_851.method_366(var23, var31, var24), this.field_851.method_366(var25, var32, var28), this.field_851.method_366(var27, var34, var30)};
-                           this.field_851.method_368(3, var37, var14, 12345678);
+                           var37 = new int[]{this.parentModel.method_366(var23, var31, var24), this.parentModel.method_366(var25, var32, var28), this.parentModel.method_366(var27, var34, var30)};
+                           this.parentModel.method_368(3, var37, var14, 12345678);
                            if(var40 == 0) {
                               break label1143;
                            }
                         }
 
                         if(this.method_339(var12, var13) > 0 && this.method_339(var12, var13) < 12000 && this.method_340(var12 + 1, var13 - 1) == 0) {
-                           var37 = new int[]{this.field_851.method_366(var27, var34, var30), this.field_851.method_366(var23, var31, var24), this.field_851.method_366(var29, var33, var26)};
-                           this.field_851.method_368(3, var37, var14, 12345678);
+                           var37 = new int[]{this.parentModel.method_366(var27, var34, var30), this.parentModel.method_366(var23, var31, var24), this.parentModel.method_366(var29, var33, var26)};
+                           this.parentModel.method_368(3, var37, var14, 12345678);
                            if(var40 == 0) {
                               break label1143;
                            }
                         }
 
                         if(this.method_339(var12, var13) > 0 && this.method_339(var12, var13) < 12000 && this.method_340(var12 - 1, var13 + 1) == 0) {
-                           var37 = new int[]{this.field_851.method_366(var25, var32, var28), this.field_851.method_366(var29, var33, var26), this.field_851.method_366(var23, var31, var24)};
-                           this.field_851.method_368(3, var37, var14, 12345678);
+                           var37 = new int[]{this.parentModel.method_366(var25, var32, var28), this.parentModel.method_366(var29, var33, var26), this.parentModel.method_366(var23, var31, var24)};
+                           this.parentModel.method_368(3, var37, var14, 12345678);
                            if(var40 == 0) {
                               break label1143;
                            }
                         }
 
                         if(var31 == var32 && var33 == var34) {
-                           var37 = new int[]{this.field_851.method_366(var23, var31, var24), this.field_851.method_366(var25, var32, var28), this.field_851.method_366(var29, var33, var26), this.field_851.method_366(var27, var34, var30)};
-                           this.field_851.method_368(4, var37, var14, 12345678);
+                           var37 = new int[]{this.parentModel.method_366(var23, var31, var24), this.parentModel.method_366(var25, var32, var28), this.parentModel.method_366(var29, var33, var26), this.parentModel.method_366(var27, var34, var30)};
+                           this.parentModel.method_368(4, var37, var14, 12345678);
                            if(var40 == 0) {
                               break label1143;
                            }
                         }
 
                         if(var31 == var34 && var32 == var33) {
-                           var37 = new int[]{this.field_851.method_366(var27, var34, var30), this.field_851.method_366(var23, var31, var24), this.field_851.method_366(var25, var32, var28), this.field_851.method_366(var29, var33, var26)};
-                           this.field_851.method_368(4, var37, var14, 12345678);
+                           var37 = new int[]{this.parentModel.method_366(var27, var34, var30), this.parentModel.method_366(var23, var31, var24), this.parentModel.method_366(var25, var32, var28), this.parentModel.method_366(var29, var33, var26)};
+                           this.parentModel.method_368(4, var37, var14, 12345678);
                            if(var40 == 0) {
                               break label1143;
                            }
@@ -2426,19 +2429,19 @@ public class class_14 {
                         int[] var38;
                         int[] var39;
                         if(!var45) {
-                           var38 = new int[]{this.field_851.method_366(var25, var32, var28), this.field_851.method_366(var29, var33, var26), this.field_851.method_366(var23, var31, var24)};
-                           this.field_851.method_368(3, var38, var14, 12345678);
-                           var39 = new int[]{this.field_851.method_366(var27, var34, var30), this.field_851.method_366(var23, var31, var24), this.field_851.method_366(var29, var33, var26)};
-                           this.field_851.method_368(3, var39, var14, 12345678);
+                           var38 = new int[]{this.parentModel.method_366(var25, var32, var28), this.parentModel.method_366(var29, var33, var26), this.parentModel.method_366(var23, var31, var24)};
+                           this.parentModel.method_368(3, var38, var14, 12345678);
+                           var39 = new int[]{this.parentModel.method_366(var27, var34, var30), this.parentModel.method_366(var23, var31, var24), this.parentModel.method_366(var29, var33, var26)};
+                           this.parentModel.method_368(3, var39, var14, 12345678);
                            if(var40 == 0) {
                               break label1143;
                            }
                         }
 
-                        var38 = new int[]{this.field_851.method_366(var23, var31, var24), this.field_851.method_366(var25, var32, var28), this.field_851.method_366(var27, var34, var30)};
-                        this.field_851.method_368(3, var38, var14, 12345678);
-                        var39 = new int[]{this.field_851.method_366(var29, var33, var26), this.field_851.method_366(var27, var34, var30), this.field_851.method_366(var25, var32, var28)};
-                        this.field_851.method_368(3, var39, var14, 12345678);
+                        var38 = new int[]{this.parentModel.method_366(var23, var31, var24), this.parentModel.method_366(var25, var32, var28), this.parentModel.method_366(var27, var34, var30)};
+                        this.parentModel.method_368(3, var38, var14, 12345678);
+                        var39 = new int[]{this.parentModel.method_366(var29, var33, var26), this.parentModel.method_366(var27, var34, var30), this.parentModel.method_366(var25, var32, var28)};
+                        this.parentModel.method_368(3, var39, var14, 12345678);
                      }
                   }
 
@@ -2450,20 +2453,20 @@ public class class_14 {
          } while(var12 < 95);
       }
 
-      this.field_851.method_371(true, 50, 50, -50, -10, -50);
-      this.gameModelArrayArray2[var3] = this.field_851.method_369(0, 0, 1536, 1536, 8, 64, 169, true);
+      this.parentModel.method_371(true, 50, 50, -50, -10, -50);
+      this.gameModelArrayArray2[plane] = this.parentModel.method_369(0, 0, 1536, 1536, 8, 64, 169, true);
       var13 = 0;
       if(var40 != 0) {
-         this.field_823.method_170(this.gameModelArrayArray2[var3][var13]);
+         this.field_823.method_170(this.gameModelArrayArray2[plane][var13]);
          ++var13;
       }
 
       while(var13 < 64) {
-         this.field_823.method_170(this.gameModelArrayArray2[var3][var13]);
+         this.field_823.method_170(this.gameModelArrayArray2[plane][var13]);
          ++var13;
       }
 
-      if(this.gameModelArrayArray2[var3][0] == null) {
+      if(this.gameModelArrayArray2[plane][0] == null) {
          throw new RuntimeException("null roof!");
       } else {
          var14 = 0;
@@ -2490,7 +2493,7 @@ public class class_14 {
    }
 
    // $FF: renamed from: a (a.a.f[]) void
-   public void method_352(Scene[] var1) {
+   public void method_352(GameModel[] var1) {
       int var14 = class_4.field_563;
       int var2 = 0;
       if(var14 != 0 || var2 < this.field_840 - 2) {
@@ -2520,7 +2523,7 @@ public class class_14 {
                      }
 
                      this.method_326(var2, var3, var4);
-                     Scene var8 = var1[class_4.field_519[var4]].method_391(false, true, false, false);
+                     GameModel var8 = var1[class_4.field_519[var4]].method_391(false, true, false, false);
                      int var9 = (var2 + var2 + var6) * 128 / 2;
                      int var10 = (var3 + var3 + var7) * 128 / 2;
                      var8.method_377(var9, -this.getElevation(var9, var10), var10);
@@ -2565,7 +2568,7 @@ public class class_14 {
                                           }
                                        }
 
-                                       this.field_839[var13][var9 * 48 + var10] = 0;
+                                       this.wallsDiagonal[var13][var9 * 48 + var10] = 0;
                                     }
 
                                     ++var12;
@@ -2589,7 +2592,7 @@ public class class_14 {
    }
 
    // $FF: renamed from: a (a.a.f, int, int, int, int, int) void
-   public void method_353(Scene var1, int var2, int var3, int var4, int var5, int var6) {
+   public void method_353(GameModel var1, int var2, int var3, int var4, int var5, int var6) {
       this.method_329(var3, var4, 40);
       this.method_329(var5, var6, 40);
       int var7 = class_4.field_529[var2];

@@ -1,14 +1,13 @@
 package a.a;
 
-import a.class_21;
-import a.a.class_8;
-import a.a.class_9;
+import a.Utility;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 // $FF: renamed from: a.a.f
-public class Scene {
+public class GameModel {
 
    // $FF: renamed from: a int
    public int field_852;
@@ -183,7 +182,7 @@ public class Scene {
 
 
    // $FF: renamed from: <init> (int, int) void
-   public Scene(int var1, int var2) {
+   public GameModel(int var1, int var2) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -217,7 +216,7 @@ public class Scene {
    }
 
    // $FF: renamed from: <init> (int, int, boolean, boolean, boolean, boolean, boolean) void
-   public Scene(int var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6, boolean var7) {
+   public GameModel(int var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6, boolean var7) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -345,7 +344,7 @@ public class Scene {
    }
 
    // $FF: renamed from: <init> (byte[], int, boolean) void
-   public Scene(byte[] var1, int var2, boolean var3) {
+   public GameModel(byte[] var1, int var2, boolean var3) {
       super();
       boolean var15 = class_9.field_759;
       this.field_872 = 1;
@@ -368,16 +367,16 @@ public class Scene {
       this.field_932 = 256;
       this.field_933 = 512;
       this.field_934 = 32;
-      int var4 = class_21.readUnsignedShort(var1, var2);
+      int var4 = Utility.readUnsignedShort(var1, var2);
       var2 += 2;
-      int var5 = class_21.readUnsignedShort(var1, var2);
+      int var5 = Utility.readUnsignedShort(var1, var2);
       var2 += 2;
       this.method_357(var4, var5);
       this.field_905 = new int[var5][1];
       int var6 = 0;
       if(var15 || var6 < var4) {
          do {
-            this.field_898[var6] = class_21.method_450(var1, var2);
+            this.field_898[var6] = Utility.method_450(var1, var2);
             var2 += 2;
             ++var6;
          } while(var6 < var4);
@@ -385,13 +384,13 @@ public class Scene {
 
       int var7 = 0;
       if(var15) {
-         this.field_899[var7] = class_21.method_450(var1, var2);
+         this.field_899[var7] = Utility.method_450(var1, var2);
          var2 += 2;
          ++var7;
       }
 
       while(var7 < var4) {
-         this.field_899[var7] = class_21.method_450(var1, var2);
+         this.field_899[var7] = Utility.method_450(var1, var2);
          var2 += 2;
          ++var7;
       }
@@ -399,7 +398,7 @@ public class Scene {
       int var8 = 0;
       if(var15 || var8 < var4) {
          do {
-            this.field_900[var8] = class_21.method_450(var1, var2);
+            this.field_900[var8] = Utility.method_450(var1, var2);
             var2 += 2;
             ++var8;
          } while(var8 < var4);
@@ -420,7 +419,7 @@ public class Scene {
       int var10 = 0;
       if(var15 || var10 < var5) {
          do {
-            this.field_863[var10] = class_21.method_450(var1, var2);
+            this.field_863[var10] = Utility.method_450(var1, var2);
             var2 += 2;
             if(this.field_863[var10] == 32767) {
                this.field_863[var10] = this.field_896;
@@ -432,7 +431,7 @@ public class Scene {
 
       int var11 = 0;
       if(var15) {
-         this.field_864[var11] = class_21.method_450(var1, var2);
+         this.field_864[var11] = Utility.method_450(var1, var2);
          var2 += 2;
          if(this.field_864[var11] == 32767) {
             this.field_864[var11] = this.field_896;
@@ -442,7 +441,7 @@ public class Scene {
       }
 
       for(; var11 < var5; ++var11) {
-         this.field_864[var11] = class_21.method_450(var1, var2);
+         this.field_864[var11] = Utility.method_450(var1, var2);
          var2 += 2;
          if(this.field_864[var11] == 32767) {
             this.field_864[var11] = this.field_896;
@@ -489,7 +488,7 @@ public class Scene {
                         }
                      }
 
-                     this.field_862[var13][var14] = class_21.readUnsignedShort(var1, var2);
+                     this.field_862[var13][var14] = Utility.readUnsignedShort(var1, var2);
                      var2 += 2;
                   }
 
@@ -506,7 +505,7 @@ public class Scene {
    }
 
    // $FF: renamed from: <init> (java.lang.String) void
-   public Scene(String var1) {
+   public GameModel(String var1) {
       super();
       boolean var22 = class_9.field_759;
       this.field_872 = 1;
@@ -535,7 +534,7 @@ public class Scene {
 
       byte[] var26;
       try {
-         InputStream var5 = class_21.method_443(var1);
+         InputStream var5 = Utility.method_443(var1);
          DataInputStream var6 = new DataInputStream(var5);
          var26 = new byte[3];
          this.field_935 = 0;
@@ -642,7 +641,7 @@ public class Scene {
    }
 
    // $FF: renamed from: <init> (a.a.f[], int, boolean, boolean, boolean, boolean) void
-   public Scene(Scene[] var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6) {
+   public GameModel(GameModel[] var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -672,7 +671,7 @@ public class Scene {
    }
 
    // $FF: renamed from: <init> (a.a.f[], int) void
-   public Scene(Scene[] var1, int var2) {
+   public GameModel(GameModel[] var1, int var2) {
       super();
       this.field_872 = 1;
       this.field_873 = true;
@@ -698,7 +697,7 @@ public class Scene {
    }
 
    // $FF: renamed from: a (a.a.f[], int, boolean) void
-   public void method_365(Scene[] var1, int var2, boolean var3) {
+   public void method_365(GameModel[] var1, int var2, boolean var3) {
       boolean var15 = class_9.field_759;
       int var4 = 0;
       int var5 = 0;
@@ -725,7 +724,7 @@ public class Scene {
          this.field_872 = 1;
       } else {
          do {
-            Scene var8 = var1[var7];
+            GameModel var8 = var1[var7];
             var8.method_389();
             this.field_934 = var8.field_934;
             this.field_933 = var8.field_933;
@@ -852,7 +851,7 @@ public class Scene {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, int, boolean) a.a.f[]
-   public Scene[] method_369(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
+   public GameModel[] method_369(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
       boolean var22 = class_9.field_759;
       this.method_389();
       int[] var9 = new int[var6];
@@ -901,15 +900,15 @@ public class Scene {
          } while(var12 < this.field_860);
       }
 
-      Scene[] var23 = new Scene[var6];
+      GameModel[] var23 = new GameModel[var6];
       var14 = 0;
-      Scene var10002;
+      GameModel var10002;
       if(var22) {
          if(var9[var14] > var7) {
             var9[var14] = var7;
          }
 
-         var23[var14] = new Scene(var9[var14], var10[var14], true, true, true, var8, true);
+         var23[var14] = new GameModel(var9[var14], var10[var14], true, true, true, var8, true);
          var23[var14].field_933 = this.field_933;
          var23[var14].field_934 = this.field_934;
          ++var14;
@@ -920,7 +919,7 @@ public class Scene {
             var9[var14] = var7;
          }
 
-         var23[var14] = new Scene(var9[var14], var10[var14], true, true, true, var8, true);
+         var23[var14] = new GameModel(var9[var14], var10[var14], true, true, true, var8, true);
          var23[var14].field_933 = this.field_933;
          var23[var14].field_934 = this.field_934;
          ++var14;
@@ -968,7 +967,7 @@ public class Scene {
    }
 
    // $FF: renamed from: a (a.a.f, int[], int, int) void
-   public void method_370(Scene var1, int[] var2, int var3, int var4) {
+   public void method_370(GameModel var1, int[] var2, int var3, int var4) {
       int[] var5 = new int[var3];
       int var6 = 0;
       int var7;
@@ -1672,24 +1671,24 @@ public class Scene {
    }
 
    // $FF: renamed from: i () a.a.f
-   public Scene method_390() {
-      Scene[] var1 = new Scene[]{this};
-      Scene var2 = new Scene(var1, 1);
+   public GameModel method_390() {
+      GameModel[] var1 = new GameModel[]{this};
+      GameModel var2 = new GameModel(var1, 1);
       var2.field_871 = this.field_871;
       var2.field_882 = this.field_882;
       return var2;
    }
 
    // $FF: renamed from: a (boolean, boolean, boolean, boolean) a.a.f
-   public Scene method_391(boolean var1, boolean var2, boolean var3, boolean var4) {
-      Scene[] var5 = new Scene[]{this};
-      Scene var6 = new Scene(var5, 1, var1, var2, var3, var4);
+   public GameModel method_391(boolean var1, boolean var2, boolean var3, boolean var4) {
+      GameModel[] var5 = new GameModel[]{this};
+      GameModel var6 = new GameModel(var5, 1, var1, var2, var3, var4);
       var6.field_871 = this.field_871;
       return var6;
    }
 
    // $FF: renamed from: a (a.a.f) void
-   public void method_392(Scene var1) {
+   public void method_392(GameModel var1) {
       this.field_915 = var1.field_915;
       this.field_916 = var1.field_916;
       this.field_917 = var1.field_917;

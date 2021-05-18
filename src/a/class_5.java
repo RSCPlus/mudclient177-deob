@@ -1,6 +1,6 @@
 package a;
 
-import a.class_21;
+import a.Utility;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -249,7 +249,7 @@ public class class_5 {
             var7[1] = (byte)((int)(Math.random() * 256.0D));
             var7[2] = (byte)((int)(Math.random() * 256.0D));
             var7[3] = (byte)((int)(Math.random() * 256.0D));
-            class_21.method_445(var7, 4, var2);
+            Utility.method_445(var7, 4, var2);
             int var9 = 0;
             if(var14 != 0) {
                label38: {
@@ -370,7 +370,7 @@ public class class_5 {
       }
 
       this.outgoingDataOffset = this.outgoingOffsetTotal;
-      if(class_21.field_1009 != 0) {
+      if(Utility.field_1009 != 0) {
          ++var6;
          field_597 = var6;
       }

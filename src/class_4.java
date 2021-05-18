@@ -1,4 +1,4 @@
-import a.class_21;
+import a.Utility;
 
 // $FF: renamed from: b
 public class class_4 {
@@ -225,14 +225,14 @@ public class class_4 {
 
    // $FF: renamed from: b () int
    public static int method_137() {
-      int var0 = class_21.readUnsignedShort(field_560, field_562);
+      int var0 = Utility.readUnsignedShort(field_560, field_562);
       field_562 += 2;
       return var0;
    }
 
    // $FF: renamed from: c () int
    public static int method_138() {
-      int var0 = class_21.getUnsignedInt(field_560, field_562);
+      int var0 = Utility.getUnsignedInt(field_560, field_562);
       field_562 += 4;
       if(var0 > 99999999) {
          var0 = 99999999 - var0;
@@ -260,9 +260,9 @@ public class class_4 {
    // $FF: renamed from: a (byte[], boolean) void
    public static void method_140(byte[] var0, boolean var1) {
       int var74 = field_563;
-      field_559 = class_21.method_460("string.dat", 0, var0);
+      field_559 = Utility.loadData("string.dat", 0, var0);
       field_561 = 0;
-      field_560 = class_21.method_460("integer.dat", 0, var0);
+      field_560 = Utility.loadData("integer.dat", 0, var0);
       field_562 = 0;
       field_472 = method_137();
       field_474 = new String[field_472];
@@ -1121,7 +1121,7 @@ public class class_4 {
 
       field_559 = null;
       field_560 = null;
-      if(class_21.field_1009 != 0) {
+      if(Utility.field_1009 != 0) {
          ++var74;
          field_563 = var74;
       }

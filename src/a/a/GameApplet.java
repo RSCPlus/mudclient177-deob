@@ -1,7 +1,7 @@
 package a.a;
 
 import a.class_20;
-import a.class_21;
+import a.Utility;
 import a.class_22;
 import a.a.class_0;
 import a.a.ClientStream;
@@ -95,9 +95,9 @@ public class GameApplet extends class_0 {
       } else {
          try {
             this.username_ = username;
-            username = class_21.method_453(username, 20);
+            username = Utility.method_453(username, 20);
             this.password_ = password;
-            password = class_21.method_453(password, 20);
+            password = Utility.method_453(password, 20);
             if(username.trim().length() == 0) {
                this.method_43(loginResponses[0], loginResponses[1]);
             } else {
@@ -145,7 +145,7 @@ public class GameApplet extends class_0 {
 
                this.clientStream.putShort(clientVersion);
                this.clientStream.putShort(limit30);
-               this.clientStream.putLong(class_21.hashUsername(username));
+               this.clientStream.putLong(Utility.hashUsername(username));
                this.clientStream.putPassword(password, sessionId, this.field_64, this.field_65);
                this.clientStream.putInt(this.getRandomDat());
                this.clientStream.flushPacket();
@@ -268,8 +268,8 @@ public class GameApplet extends class_0 {
          this.method_43(loginResponses[8], loginResponses[9]);
       } else {
          try {
-            var1 = class_21.method_453(var1, 20);
-            var2 = class_21.method_453(var2, 20);
+            var1 = Utility.method_453(var1, 20);
+            var2 = Utility.method_453(var2, 20);
             this.method_43(loginResponses[6], loginResponses[7]);
             this.clientStream = new ClientStream(this.connect(this.address, this.port), this);
             int var3 = this.clientStream.readInt();
@@ -292,7 +292,7 @@ public class GameApplet extends class_0 {
 
             this.clientStream.newPacket(2, 129);
             this.clientStream.putShort(clientVersion);
-            this.clientStream.putLong(class_21.hashUsername(var1));
+            this.clientStream.putLong(Utility.hashUsername(var1));
             this.clientStream.putShort(var4);
             this.clientStream.putPassword(var2, var3, this.field_64, this.field_65);
             this.clientStream.putInt(this.getRandomDat());
@@ -393,42 +393,42 @@ public class GameApplet extends class_0 {
                      this.field_62 = this.incomingBytes[3];
                      this.field_63 = this.incomingBytes[4];
                   } else if(opcode == 28) {
-                     var10 = class_21.getUnsignedLong(this.incomingBytes, 1);
+                     var10 = Utility.getUnsignedLong(this.incomingBytes, 1);
                      String var11 = class_20.formatChat(class_22.readChatString(this.incomingBytes, 9, packetLength - 9));
-                     this.displayMessage("@pri@" + class_21.unhashUsername(var10) + ": tells you " + var11);
+                     this.displayMessage("@pri@" + Utility.unhashUsername(var10) + ": tells you " + var11);
                   } else {
                      this.method_49(opcode, packetLength, this.incomingBytes);
                   }
                } else {
-                  this.ignoreListCount = class_21.getUnsignedByte(this.incomingBytes[1]);
+                  this.ignoreListCount = Utility.getUnsignedByte(this.incomingBytes[1]);
                   var9 = 0;
                   if(var7 || var9 < this.ignoreListCount) {
                      do {
-                        this.ignoreListAccNames[var9] = class_21.getUnsignedLong(this.incomingBytes, 2 + var9 * 8);
+                        this.ignoreListAccNames[var9] = Utility.getUnsignedLong(this.incomingBytes, 2 + var9 * 8);
                         ++var9;
                      } while(var9 < this.ignoreListCount);
 
                   }
                }
             } else {
-               var10 = class_21.getUnsignedLong(this.incomingBytes, 1);
+               var10 = Utility.getUnsignedLong(this.incomingBytes, 1);
                int var5 = this.incomingBytes[9] & 255;
                int var6 = 0;
                if(!var7 && var6 >= this.field_55) {
                   this.field_56[this.field_55] = var10;
                   this.field_57[this.field_55] = var5;
                   ++this.field_55;
-                  this.displayMessage("@pri@" + class_21.unhashUsername(var10) + " has been added to your friends list");
+                  this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has been added to your friends list");
                   this.method_33();
                } else {
                   do {
                      if(this.field_56[var6] == var10) {
                         if(this.field_57[var6] == 0 && var5 != 0) {
-                           this.displayMessage("@pri@" + class_21.unhashUsername(var10) + " has logged in");
+                           this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has logged in");
                         }
 
                         if(this.field_57[var6] != 0 && var5 == 0) {
-                           this.displayMessage("@pri@" + class_21.unhashUsername(var10) + " has logged out");
+                           this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has logged out");
                         }
 
                         this.field_57[var6] = var5;
@@ -443,19 +443,19 @@ public class GameApplet extends class_0 {
                   this.field_56[this.field_55] = var10;
                   this.field_57[this.field_55] = var5;
                   ++this.field_55;
-                  this.displayMessage("@pri@" + class_21.unhashUsername(var10) + " has been added to your friends list");
+                  this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has been added to your friends list");
                   this.method_33();
                }
             }
          } else {
-            this.field_55 = class_21.getUnsignedByte(this.incomingBytes[1]);
+            this.field_55 = Utility.getUnsignedByte(this.incomingBytes[1]);
             var9 = 0;
             if(!var7 && var9 >= this.field_55) {
                this.method_33();
             } else {
                do {
-                  this.field_56[var9] = class_21.getUnsignedLong(this.incomingBytes, 2 + var9 * 9);
-                  this.field_57[var9] = class_21.getUnsignedByte(this.incomingBytes[10 + var9 * 9]);
+                  this.field_56[var9] = Utility.getUnsignedLong(this.incomingBytes, 2 + var9 * 9);
+                  this.field_57[var9] = Utility.getUnsignedByte(this.incomingBytes[10 + var9 * 9]);
                   ++var9;
                } while(var9 < this.field_55);
 
@@ -495,8 +495,8 @@ public class GameApplet extends class_0 {
 
    // $FF: renamed from: c (java.lang.String, java.lang.String) void
    public void changePassword(String var1, String var2) {
-      var1 = class_21.method_453(var1, 20);
-      var2 = class_21.method_453(var2, 20);
+      var1 = Utility.method_453(var1, 20);
+      var2 = Utility.method_453(var2, 20);
       this.clientStream.newPacket(25, 551);
       this.clientStream.putPassword(var1 + var2, this.sessionId, this.field_64, this.field_65);
       this.clientStream.flushPacket_();
@@ -514,7 +514,7 @@ public class GameApplet extends class_0 {
 
    // $FF: renamed from: a (java.lang.String) void
    public void ignoreAdd(String var1) {
-      long var2 = class_21.hashUsername(var1);
+      long var2 = Utility.hashUsername(var1);
       this.clientStream.newPacket(29, 101);
       this.clientStream.putLong(var2);
       this.clientStream.flushPacket_();
@@ -570,7 +570,7 @@ public class GameApplet extends class_0 {
    // $FF: renamed from: b (java.lang.String) void
    public void friendAdd(String var1) {
       this.clientStream.newPacket(26, 622);
-      this.clientStream.putLong(class_21.hashUsername(var1));
+      this.clientStream.putLong(Utility.hashUsername(var1));
       this.clientStream.flushPacket_();
    }
 
@@ -603,7 +603,7 @@ public class GameApplet extends class_0 {
          } while(var3 < this.field_55);
       }
 
-      this.displayMessage("@pri@" + class_21.unhashUsername(var1) + " has been removed from your friends list");
+      this.displayMessage("@pri@" + Utility.unhashUsername(var1) + " has been removed from your friends list");
    }
 
    // $FF: renamed from: a (long, byte[], int) void

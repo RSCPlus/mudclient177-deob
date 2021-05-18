@@ -1,7 +1,7 @@
 package a;
 
-import a.class_21;
 import a.class_5;
+import a.Utility;
 
 // $FF: renamed from: a.c
 class class_17 {
@@ -133,9 +133,9 @@ class class_17 {
       this.field_988 = new int[6][258];
       this.field_989 = new int[6];
       if(var1 != 0) {
-         int var2 = class_21.field_1009;
+         int var2 = Utility.field_1009;
          ++var2;
-         class_21.field_1009 = var2;
+         Utility.field_1009 = var2;
       }
 
    }

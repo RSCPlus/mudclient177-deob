@@ -1,6 +1,6 @@
 package a.a;
 
-import a.class_21;
+import a.Utility;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -634,10 +634,10 @@ public class class_9 implements ImageProducer, ImageObserver {
    // $FF: renamed from: a (int, byte[], byte[], int) void
    public void method_236(int var1, byte[] var2, byte[] var3, int var4) {
       boolean var17 = field_759;
-      int var5 = class_21.readUnsignedShort(var2, 0);
-      int var6 = class_21.readUnsignedShort(var3, var5);
+      int var5 = Utility.readUnsignedShort(var2, 0);
+      int var6 = Utility.readUnsignedShort(var3, var5);
       var5 += 2;
-      int var7 = class_21.readUnsignedShort(var3, var5);
+      int var7 = Utility.readUnsignedShort(var3, var5);
       var5 += 2;
       int var8 = var3[var5++] & 255;
       int[] var9 = new int[var8];
@@ -657,9 +657,9 @@ public class class_9 implements ImageProducer, ImageObserver {
          do {
             this.field_738[var12] = var3[var5++] & 255;
             this.field_739[var12] = var3[var5++] & 255;
-            this.field_736[var12] = class_21.readUnsignedShort(var3, var5);
+            this.field_736[var12] = Utility.readUnsignedShort(var3, var5);
             var5 += 2;
-            this.field_737[var12] = class_21.readUnsignedShort(var3, var5);
+            this.field_737[var12] = Utility.readUnsignedShort(var3, var5);
             var5 += 2;
             int var13 = var3[var5++] & 255;
             int var14 = this.field_736[var12] * this.field_737[var12];
@@ -1855,9 +1855,9 @@ public class class_9 implements ImageProducer, ImageObserver {
             this.field_752 = new int[512];
             var8 = 0;
             if(var52) {
-               int var53 = class_21.field_1009;
+               int var53 = Utility.field_1009;
                ++var53;
-               class_21.field_1009 = var53;
+               Utility.field_1009 = var53;
             } else if(var8 >= 256) {
                break label303;
             }
