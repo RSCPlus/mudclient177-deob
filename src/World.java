@@ -1141,51 +1141,23 @@ public class World {
                mapData = a.Utility.loadData(mapname + ".dat", 0, this.memberMapPack);
             if ((mapData == null) || (mapData.length == 0))
                throw new IOException();
+
             int off = 0;
-            for (int tile = 0; tile < 2304;) {
-               int val = mapData[(off++)] & 0xFF;
-               if (val < 128)
-                  this.wallsNorthsouth[plane][(tile++)] = (byte) val;
-               else {
-                  for (int l4 = 0; l4 < val - 128; l4++) {
-                     this.wallsNorthsouth[plane][(tile++)] = 0;
-                  }
-               }
+            for (int tile = 0; tile < 2304; tile++)
+               wallsNorthsouth[plane][tile] = mapData[off++];
+
+            for (int tile = 0; tile < 2304; tile++)
+               wallsEastwest[plane][tile] = mapData[off++];
+
+            for (int tile = 0; tile < 2304; tile++)
+               wallsDiagonal[plane][tile] = mapData[off++] & 0xff;
+
+            for (int tile = 0; tile < 2304; tile++) {
+               int val = mapData[off++] & 0xff;
+               if (val > 0)
+                  wallsDiagonal[plane][tile] = val + 12000;
             }
 
-            for (int tile = 0; tile < 2304;) {
-               int val = mapData[(off++)] & 0xFF;
-               if (val < 128)
-                  this.wallsEastwest[plane][(tile++)] = (byte) val;
-               else {
-                  for (int k6 = 0; k6 < val - 128; k6++) {
-                     this.wallsEastwest[plane][(tile++)] = 0;
-                  }
-               }
-            }
-
-            for (int tile = 0; tile < 2304;) {
-               int val = mapData[(off++)] & 0xFF;
-               if (val < 128)
-                  this.wallsDiagonal[plane][(tile++)] = val;
-               else {
-                  for (int i = 0; i < val - 128; i++) {
-                     this.wallsDiagonal[plane][(tile++)] = 0;
-                  }
-               }
-            }
-
-            for (int tile = 0; tile < 2304;) {
-               int val = mapData[(off++)] & 0xFF;
-               if (val < 128)
-               	  // "why??" -- original comment by eXemplar in the 204 deob
-               	  // without the +12000, floor tiles in the corners don't get displayed at 45 degree angle
-               	  // but also legit diagonal walls don't get displayed at a 45 degree angle either.
-                  this.wallsDiagonal[plane][(tile++)] = (val + 12000);
-               else {
-                  tile += val - 128;
-               }
-            }
             for (int tile = 0; tile < 2304;) {
                int val = mapData[(off++)] & 0xFF;
                if (val < 128)
