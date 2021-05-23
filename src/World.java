@@ -2297,7 +2297,7 @@ public class World {
                         }
 
                         if(!this.method427(var17, var13 - 1)) {
-                           var28 = var24 - var36;
+                           var28 -= var36;
                         }
 
                         if(!this.method427(var17, var13 + 1)) {
@@ -2305,7 +2305,7 @@ public class World {
                         }
 
                         if(!this.method427(var44 - 1, var20)) {
-                           var29 = var25 - var36;
+                           var29 -= var36;
                         }
 
                         if(!this.method427(var44 + 1, var20)) {
@@ -2321,7 +2321,7 @@ public class World {
                         }
 
                         if(!this.method427(var12 - 1, var22)) {
-                           var27 = var23 - var36;
+                           var27 -= var36;
                         }
 
                         if(!this.method427(var12 + 1, var22)) {
@@ -2329,7 +2329,7 @@ public class World {
                         }
 
                         if(!this.method427(var12, var22 - 1)) {
-                           var30 = var26 - var36;
+                           var30 -= var36;
                         }
 
                         if(!this.method427(var12, var22 + 1)) {
