@@ -1,6 +1,10 @@
 package a.a;
 
 import a.Utility;
+import a.a.GameModel;
+import a.a.class_2;
+import a.a.class_3;
+import a.a.class_9;
 
 // $FF: renamed from: a.a.j
 public class class_8 {

@@ -1,5 +1,7 @@
 package a.a;
 
+import a.a.class_9;
+
 // $FF: renamed from: a.a.e
 public class class_11 {
 
