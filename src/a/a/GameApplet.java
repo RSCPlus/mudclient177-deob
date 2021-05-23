@@ -393,7 +393,7 @@ public class GameApplet extends class_0 {
                      this.field_62 = this.incomingBytes[3];
                      this.field_63 = this.incomingBytes[4];
                   } else if(opcode == 28) {
-                     var10 = Utility.getUnsignedLong(this.incomingBytes, 1);
+                     var10 = Utility.getUnsignedLong(this.incomingBytes, 1); // username hash
                      String var11 = class_20.formatChat(class_22.readChatString(this.incomingBytes, 9, packetLength - 9));
                      this.displayMessage("@pri@" + Utility.unhashUsername(var10) + ": tells you " + var11);
                   } else {
@@ -607,10 +607,10 @@ public class GameApplet extends class_0 {
    }
 
    // $FF: renamed from: a (long, byte[], int) void
-   public void sendPrivateChat(long var1, byte[] var3, int var4) {
+   public void sendPrivateChat(long username, byte[] message, int length) {
       this.clientStream.newPacket(28, 185);
-      this.clientStream.putLong(var1);
-      this.clientStream.put177RSCString(var3, 0, var4);
+      this.clientStream.putLong(username);
+      this.clientStream.put177RSCString(message, 0, length);
       this.clientStream.flushPacket_();
    }
 

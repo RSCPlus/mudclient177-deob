@@ -6,7 +6,7 @@ import a.class_5;
 public class class_22 {
 
    // $FF: renamed from: a byte[]
-   public static byte[] field_1010;
+   public static byte[] pmMessage;
    // $FF: renamed from: b char[]
    public static char[] stringBuilder;
    // $FF: renamed from: c char[]
@@ -100,25 +100,25 @@ public class class_22 {
    }
 
    // $FF: renamed from: a (java.lang.String) int
-   public static int prepareToSendChat(String var0) {
+   public static int prepareToSendChat(String messageToSend) {
       int var7 = class_5.field_597;
-      if(var0.length() > 80) {
-         var0 = var0.substring(0, 80);
+      if(messageToSend.length() > 80) {
+         messageToSend = messageToSend.substring(0, 80);
       }
 
-      var0 = var0.toLowerCase();
-      int var1 = 0;
+      messageToSend = messageToSend.toLowerCase();
+      int messageLength = 0;
       int var2 = -1;
       int var3 = 0;
-      if(var7 == 0 && var3 >= var0.length()) {
+      if(var7 == 0 && var3 >= messageToSend.length()) {
          if(var2 != -1) {
-            field_1010[var1++] = (byte)(var2 << 4);
+            pmMessage[messageLength++] = (byte)(var2 << 4);
          }
 
-         return var1;
+         return messageLength;
       } else {
          do {
-            char var4 = var0.charAt(var3);
+            char var4 = messageToSend.charAt(var3);
             int var5 = 0;
             int var6 = 0;
             if(var7 != 0 || var6 < characterDictionary.length) {
@@ -147,38 +147,38 @@ public class class_22 {
                      }
                   }
 
-                  field_1010[var1++] = (byte)var5;
+                  pmMessage[messageLength++] = (byte)var5;
                   if(var7 == 0) {
                      break label79;
                   }
                }
 
                if(var5 < 13) {
-                  field_1010[var1++] = (byte)((var2 << 4) + var5);
+                  pmMessage[messageLength++] = (byte)((var2 << 4) + var5);
                   var2 = -1;
                   if(var7 == 0) {
                      break label79;
                   }
                }
 
-               field_1010[var1++] = (byte)((var2 << 4) + (var5 >> 4));
+               pmMessage[messageLength++] = (byte)((var2 << 4) + (var5 >> 4));
                var2 = var5 & 15;
             }
 
             ++var3;
-         } while(var3 < var0.length());
+         } while(var3 < messageToSend.length());
 
          if(var2 != -1) {
-            field_1010[var1++] = (byte)(var2 << 4);
+            pmMessage[messageLength++] = (byte)(var2 << 4);
          }
 
-         return var1;
+         return messageLength;
       }
    }
 
    // $FF: renamed from: <clinit> () void
    static {
-      field_1010 = new byte[100];
+      pmMessage = new byte[100];
       stringBuilder = new char[100];
       characterDictionary = new char[]{' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=', '\u00a3', '$', '%', '\"', '[', ']'};
    }

@@ -7,7 +7,7 @@ public class class_7 {
    // $FF: renamed from: b java.lang.String
    public String username;
    // $FF: renamed from: c int
-   public int field_608;
+   public int pid;
    // $FF: renamed from: d int
    public int appearanceId;
    // $FF: renamed from: e int

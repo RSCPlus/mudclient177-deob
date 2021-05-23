@@ -16,7 +16,7 @@ public class class_4 {
    // $FF: renamed from: f int[]
    public static int[] field_477;
    // $FF: renamed from: g int[]
-   public static int[] field_478;
+   public static int[] itemBasePrice;
    // $FF: renamed from: h int[]
    public static int[] itemStackable;
    // $FF: renamed from: i int[]
@@ -269,7 +269,7 @@ public class class_4 {
       field_475 = new String[field_472];
       field_476 = new String[field_472];
       field_477 = new int[field_472];
-      field_478 = new int[field_472];
+      itemBasePrice = new int[field_472];
       itemStackable = new int[field_472];
       field_480 = new int[field_472];
       field_481 = new int[field_472];
@@ -323,7 +323,7 @@ public class class_4 {
       int var6 = 0;
       if(var74 != 0 || var6 < field_472) {
          do {
-            field_478[var6] = method_138();
+            itemBasePrice[var6] = method_138();
             ++var6;
          } while(var6 < field_472);
       }
@@ -390,7 +390,7 @@ public class class_4 {
          if(!var1 && field_484[var13] == 1) {
             field_474[var13] = "Members object";
             field_475[var13] = "You need to be a member to use this object";
-            field_478[var13] = 0;
+            itemBasePrice[var13] = 0;
             field_476[var13] = "";
             field_480[0] = 0;
             field_481[var13] = 0;
@@ -404,7 +404,7 @@ public class class_4 {
          if(!var1 && field_484[var13] == 1) {
             field_474[var13] = "Members object";
             field_475[var13] = "You need to be a member to use this object";
-            field_478[var13] = 0;
+            itemBasePrice[var13] = 0;
             field_476[var13] = "";
             field_480[0] = 0;
             field_481[var13] = 0;

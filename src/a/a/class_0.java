@@ -110,7 +110,7 @@ public class class_0 extends Applet implements Runnable {
    // $FF: renamed from: P java.lang.String
    public String field_42;
    // $FF: renamed from: Q java.lang.String
-   public String field_43;
+   public String pmToSend;
 
 
    // $FF: renamed from: a () void
@@ -242,7 +242,7 @@ public class class_0 extends Applet implements Runnable {
 
       if(var2 == 10 || var2 == 13) {
          this.inputTextFinal = this.inputTextCurrent;
-         this.field_43 = this.field_42;
+         this.pmToSend = this.field_42;
       }
 
       return true;
@@ -842,7 +842,7 @@ public class class_0 extends Applet implements Runnable {
       this.inputTextCurrent = "";
       this.inputTextFinal = "";
       this.field_42 = "";
-      this.field_43 = "";
+      this.pmToSend = "";
    }
 
    // $FF: renamed from: <clinit> () void

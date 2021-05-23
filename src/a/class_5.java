@@ -225,13 +225,13 @@ public class class_5 {
    }
 
    // $FF: renamed from: b (byte[], int, int) void
-   public void put177RSCString(byte[] var1, int var2, int var3) {
-      int var4 = 0;
-      if(field_597 != 0 || var4 < var3) {
+   public void put177RSCString(byte[] message, int begin, int length) {
+      int offset = 0;
+      if(field_597 != 0 || offset < length) {
          do {
-            this.outgoingData[this.outgoingOffsetTotal++] = var1[var2 + var4];
-            ++var4;
-         } while(var4 < var3);
+            this.outgoingData[this.outgoingOffsetTotal++] = message[begin + offset];
+            ++offset;
+         } while(offset < length);
 
       }
    }

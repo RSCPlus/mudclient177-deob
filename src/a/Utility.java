@@ -195,8 +195,8 @@ public class Utility {
    }
 
    // $FF: renamed from: a (int) java.lang.String
-   public static String method_455(int var0) {
-      return (var0 >> 24 & 255) + "." + (var0 >> 16 & 255) + "." + (var0 >> 8 & 255) + "." + (var0 & 255);
+   public static String translateIpAddress(int ipInt) {
+      return (ipInt >> 24 & 255) + "." + (ipInt >> 16 & 255) + "." + (ipInt >> 8 & 255) + "." + (ipInt & 255);
    }
 
    // $FF: renamed from: b (java.lang.String) long

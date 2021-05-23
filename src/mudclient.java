@@ -168,7 +168,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: cJ int
    int spriteCount;
    // $FF: renamed from: cK c[]
-   class_7[] field_141;
+   class_7[] knownPlayers;
    // $FF: renamed from: cL c[]
    class_7[] players;
    // $FF: renamed from: cM c[]
@@ -196,7 +196,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: cX c[]
    class_7[] field_154;
    // $FF: renamed from: cY int[]
-   int[] field_155;
+   int[] knownPlayerIds;
    // $FF: renamed from: cZ int
    int field_156;
    // $FF: renamed from: da int
@@ -302,7 +302,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: dZ int
    int field_207;
    // $FF: renamed from: ea long
-   long field_208;
+   long pmRecipient;
    // $FF: renamed from: eb a.a.e
    class_11 field_209;
    // $FF: renamed from: ec int
@@ -442,11 +442,11 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: fr java.lang.String
    String field_277;
    // $FF: renamed from: fs int
-   int field_278;
+   int tradeItemsCount;
    // $FF: renamed from: ft int[]
-   int[] field_279;
+   int[] tradeItemIds;
    // $FF: renamed from: fu int[]
-   int[] field_280;
+   int[] tradeItemAmounts;
    // $FF: renamed from: fv int
    int field_281;
    // $FF: renamed from: fw int[]
@@ -462,7 +462,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: fB int
    int mouseButtonItemCountIncrement;
    // $FF: renamed from: fC long
-   long field_288;
+   long tradeWithUsername;
    // $FF: renamed from: fD boolean
    boolean field_289;
    // $FF: renamed from: fE boolean
@@ -474,7 +474,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: fH int[]
    int[] field_293;
    // $FF: renamed from: fI int
-   int field_294;
+   int tradeConfirmItemCount;
    // $FF: renamed from: fJ int[]
    int[] field_295;
    // $FF: renamed from: fK int[]
@@ -482,17 +482,17 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: fL boolean
    boolean field_297;
    // $FF: renamed from: fM int
-   int field_298;
+   int sellGenerosity;
    // $FF: renamed from: fN int
-   int field_299;
+   int buyGenerosity;
    // $FF: renamed from: fO int[]
-   int[] field_300;
+   int[] shopItemIds;
    // $FF: renamed from: fP int[]
-   int[] field_301;
+   int[] shopItemCount;
    // $FF: renamed from: fQ int[]
-   int[] field_302;
+   int[] shopItemBaseAmountOffset;
    // $FF: renamed from: fR int
-   int field_303;
+   int selectedShopIndex;
    // $FF: renamed from: fS int
    int field_304;
    // $FF: renamed from: fT boolean
@@ -542,15 +542,15 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: gp boolean
    boolean showDialogServermessage;
    // $FF: renamed from: gq int
-   int field_328;
+   int ipAddressInt;
    // $FF: renamed from: gr java.lang.String
-   String field_329;
+   String formattedIpAddress;
    // $FF: renamed from: gs int
-   int field_330;
+   int daysAgoLoggedIn;
    // $FF: renamed from: gt int
-   int field_331;
+   int recoveryQuestionsSetAgo;
    // $FF: renamed from: gu int
-   int field_332;
+   int tipOfTheDay;
    // $FF: renamed from: gv boolean
    boolean field_333;
    // $FF: renamed from: gw boolean
@@ -1484,7 +1484,7 @@ public class mudclient extends GameApplet {
          this.field_169 = null;
          this.field_164 = null;
          this.field_173 = null;
-         this.field_141 = null;
+         this.knownPlayers = null;
          this.players = null;
          this.field_152 = null;
          this.field_153 = null;
@@ -1609,7 +1609,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: E () void
    public void method_62() {
       super.field_42 = "";
-      super.field_43 = "";
+      super.pmToSend = "";
    }
 
    // $FF: renamed from: F () void
@@ -1689,8 +1689,8 @@ public class mudclient extends GameApplet {
    public void method_66() {
       int var8 = class_4.field_563;
       if(this.field_382 != -1) {
-         if(super.field_43.length() > 0) {
-            this.field_388[this.field_382] = super.field_43;
+         if(super.pmToSend.length() > 0) {
+            this.field_388[this.field_382] = super.pmToSend;
             this.field_379.updateText(this.field_383[this.field_382], this.field_382 + 1 + ": " + this.field_388[this.field_382]);
             this.field_379.updateText(this.field_384[this.field_382], "");
             this.field_382 = -1;
@@ -1735,7 +1735,7 @@ public class mudclient extends GameApplet {
             if(this.field_379.method_276(this.field_386[var9])) {
                this.field_382 = var9;
                super.field_42 = "";
-               super.field_43 = "";
+               super.pmToSend = "";
             }
 
             ++var9;
@@ -1745,7 +1745,7 @@ public class mudclient extends GameApplet {
             if(this.field_379.method_276(this.field_386[var9])) {
                this.field_382 = var9;
                super.field_42 = "";
-               super.field_43 = "";
+               super.pmToSend = "";
             }
          }
 
@@ -2776,12 +2776,12 @@ public class mudclient extends GameApplet {
       this.playerCount = 0;
       int var3 = 0;
       if(var8 != 0) {
-         this.field_141[var3] = null;
+         this.knownPlayers[var3] = null;
          ++var3;
       }
 
       while(var3 < this.field_136) {
-         this.field_141[var3] = null;
+         this.knownPlayers[var3] = null;
          ++var3;
       }
 
@@ -3511,8 +3511,8 @@ public class mudclient extends GameApplet {
                      }
 
                      var5 = class_22.prepareToSendChat(var16);
-                     this.sendChat(class_22.field_1010, var5);
-                     var16 = class_22.readChatString(class_22.field_1010, 0, var5);
+                     this.sendChat(class_22.pmMessage, var5);
+                     var16 = class_22.readChatString(class_22.pmMessage, 0, var5);
                      var16 = class_20.formatChat(var16);
                      this.localPlayer.messageTimer = 150;
                      this.localPlayer.messageSent = var16;
@@ -3927,19 +3927,19 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: b (int, int, int, int) c
    public class_7 method_81(int var1, int var2, int var3, int var4) {
       int var9 = class_4.field_563;
-      if(this.field_141[var1] == null) {
-         class_7[] var10000 = this.field_141;
+      if(this.knownPlayers[var1] == null) {
+         class_7[] var10000 = this.knownPlayers;
          var10000[var1] = new class_7();
-         this.field_141[var1].field_608 = var1;
-         this.field_141[var1].appearanceId = 0;
+         this.knownPlayers[var1].pid = var1;
+         this.knownPlayers[var1].appearanceId = 0;
       }
 
-      class_7 var5 = this.field_141[var1];
+      class_7 var5 = this.knownPlayers[var1];
       boolean var6 = false;
       int var7 = 0;
       if(var9 != 0 || var7 < this.field_139) {
          do {
-            if(this.field_143[var7].field_608 == var1) {
+            if(this.field_143[var7].pid == var1) {
                var6 = true;
                if(var9 == 0) {
                   break;
@@ -3966,7 +3966,7 @@ public class mudclient extends GameApplet {
             }
          }
 
-         var5.field_608 = var1;
+         var5.pid = var1;
          var5.movingStep = 0;
          var5.waypointCurrent = 0;
          var5.waypointsX[0] = var5.currentX = var2;
@@ -3985,7 +3985,7 @@ public class mudclient extends GameApplet {
       if(this.field_152[var1] == null) {
          class_7[] var10000 = this.field_152;
          var10000[var1] = new class_7();
-         this.field_152[var1].field_608 = var1;
+         this.field_152[var1].pid = var1;
       }
 
       class_7 var6 = this.field_152[var1];
@@ -3993,7 +3993,7 @@ public class mudclient extends GameApplet {
       int var8 = 0;
       if(var10 != 0 || var8 < this.field_151) {
          do {
-            if(this.field_154[var8].field_608 == var1) {
+            if(this.field_154[var8].pid == var1) {
                var7 = true;
                if(var10 == 0) {
                   break;
@@ -4021,7 +4021,7 @@ public class mudclient extends GameApplet {
             }
          }
 
-         var6.field_608 = var1;
+         var6.pid = var1;
          var6.movingStep = 0;
          var6.waypointCurrent = 0;
          var6.waypointsX[0] = var6.currentX = var2;
@@ -4042,7 +4042,7 @@ public class mudclient extends GameApplet {
       int updateIndex;
       try {
          int updateSize;
-         int var8;
+         int pid;
          int var9;
          int reuseableVar1;
          int i;
@@ -4074,17 +4074,17 @@ public class mudclient extends GameApplet {
             boolean var7 = this.loadNextRegion(this.localRegionX, this.localRegionY);
             this.localRegionX -= this.regionX;
             this.localRegionY -= this.regionY;
-            var8 = this.localRegionX * this.magicLoc + 64;
+            pid = this.localRegionX * this.magicLoc + 64;
             var9 = this.localRegionY * this.magicLoc + 64;
             if(var7) {
                this.localPlayer.waypointCurrent = 0;
                this.localPlayer.movingStep = 0;
-               this.localPlayer.currentX = this.localPlayer.waypointsX[0] = var8;
+               this.localPlayer.currentX = this.localPlayer.waypointsX[0] = pid;
                this.localPlayer.currentY = this.localPlayer.waypointsY[0] = var9;
             }
 
             this.playerCount = 0;
-            this.localPlayer = this.method_81(this.localPlayerServerIndex, var8, var9, updateIndex);
+            this.localPlayer = this.method_81(this.localPlayerServerIndex, pid, var9, updateIndex);
             reuseableVar1 = Utility.readBits(data, newIndex, 8); // number of players
             newIndex += 8;
             i = 0;
@@ -4130,9 +4130,10 @@ public class mudclient extends GameApplet {
                               }
                            }
 
+                           // updateType 1
                            // mob removal
                            var15 = Utility.readBits(data, newIndex, 4);
-                           if((var15 & 12) == 12) {
+                           if((var15 & 12) == 12) { // first 2 bits are true, next 2 bits don't matter
                               newIndex += 2;
                               if(var19 == 0) {
                                  break label1467;
@@ -4170,20 +4171,20 @@ public class mudclient extends GameApplet {
 
                   updateIndex = Utility.readBits(data, newIndex, 4);
                   newIndex += 4;
-                  var16 = Utility.readBits(data, newIndex, 1);
+                  var16 = Utility.readBits(data, newIndex, 1); // new player (need to add to known players)
                   ++newIndex;
-                  var8 = (this.localRegionX + var14) * this.magicLoc + 64;
+                  pid = (this.localRegionX + var14) * this.magicLoc + 64;
                   var9 = (this.localRegionY + var15) * this.magicLoc + 64;
-                  this.method_81(var13, var8, var9, updateIndex);
+                  this.method_81(var13, pid, var9, updateIndex);
                   if(var16 == 0) {
-                     this.field_155[j++] = var13;
+                     this.knownPlayerIds[j++] = var13;
                   }
                } while(newIndex + 24 < var2 * 8);
             }
 
             if(j > 0) {
                super.clientStream.newPacket(254, 120);
-               super.clientStream.putShort(j);
+               super.clientStream.putShort(j); // number of known players
                var13 = 0;
                if(var19 == 0 && var13 >= j) {
                   super.clientStream.flushPacket_();
@@ -4192,9 +4193,9 @@ public class mudclient extends GameApplet {
                }
 
                do {
-                  class_7 var32 = this.field_141[this.field_155[var13]];
-                  super.clientStream.putShort(var32.field_608);
-                  super.clientStream.putShort(var32.appearanceId);
+                  class_7 player = this.knownPlayers[this.knownPlayerIds[var13]];
+                  super.clientStream.putShort(player.pid);
+                  super.clientStream.putShort(player.appearanceId);
                   ++var13;
                } while(var13 < j);
 
@@ -4216,24 +4217,24 @@ public class mudclient extends GameApplet {
                      updateIndex = this.localRegionX + data[updateSize + 1] >> 3;
                      userForIdx = this.localRegionY + data[updateSize + 2] >> 3;
                      updateSize += 3;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.psize) {
+                     pid = 0;
+                     if(var19 != 0 || pid < this.psize) {
                         do {
-                           var9 = (this.groundItemX[var8] >> 3) - updateIndex;
-                           reuseableVar1 = (this.groundItemY[var8] >> 3) - userForIdx;
+                           var9 = (this.groundItemX[pid] >> 3) - updateIndex;
+                           reuseableVar1 = (this.groundItemY[pid] >> 3) - userForIdx;
                            if(var9 != 0 || reuseableVar1 != 0) {
-                              if(var8 != newIndex) {
-                                 this.groundItemX[newIndex] = this.groundItemX[var8];
-                                 this.groundItemY[newIndex] = this.groundItemY[var8];
-                                 this.groundItemId[newIndex] = this.groundItemId[var8];
-                                 this.field_161[newIndex] = this.field_161[var8];
+                              if(pid != newIndex) {
+                                 this.groundItemX[newIndex] = this.groundItemX[pid];
+                                 this.groundItemY[newIndex] = this.groundItemY[pid];
+                                 this.groundItemId[newIndex] = this.groundItemId[pid];
+                                 this.field_161[newIndex] = this.field_161[pid];
                               }
 
                               ++newIndex;
                            }
 
-                           ++var8;
-                        } while(var8 < this.psize);
+                           ++pid;
+                        } while(pid < this.psize);
                      }
 
                      this.psize = newIndex;
@@ -4251,18 +4252,18 @@ public class mudclient extends GameApplet {
                      this.groundItemY[this.psize] = userForIdx;
                      this.groundItemId[this.psize] = newIndex;
                      this.field_161[this.psize] = 0;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.field_163) {
+                     pid = 0;
+                     if(var19 != 0 || pid < this.field_163) {
                         do {
-                           if(this.field_165[var8] == updateIndex && this.field_166[var8] == userForIdx) {
-                              this.field_161[this.psize] = class_4.field_523[this.field_167[var8]];
+                           if(this.field_165[pid] == updateIndex && this.field_166[pid] == userForIdx) {
+                              this.field_161[this.psize] = class_4.field_523[this.field_167[pid]];
                               if(var19 == 0) {
                                  break;
                               }
                            }
 
-                           ++var8;
-                        } while(var8 < this.field_163);
+                           ++pid;
+                        } while(pid < this.field_163);
                      }
 
                      ++this.psize;
@@ -4272,22 +4273,22 @@ public class mudclient extends GameApplet {
                   }
 
                   newIndex &= 32767;
-                  var8 = 0;
+                  pid = 0;
                   var9 = 0;
                   if(var19 == 0 && var9 >= this.psize) {
-                     this.psize = var8;
+                     this.psize = pid;
                   } else {
                      do {
                         label1703: {
                            if(this.groundItemX[var9] != updateIndex || this.groundItemY[var9] != userForIdx || this.groundItemId[var9] != newIndex) {
-                              if(var9 != var8) {
-                                 this.groundItemX[var8] = this.groundItemX[var9];
-                                 this.groundItemY[var8] = this.groundItemY[var9];
-                                 this.groundItemId[var8] = this.groundItemId[var9];
-                                 this.field_161[var8] = this.field_161[var9];
+                              if(var9 != pid) {
+                                 this.groundItemX[pid] = this.groundItemX[var9];
+                                 this.groundItemY[pid] = this.groundItemY[var9];
+                                 this.groundItemId[pid] = this.groundItemId[var9];
+                                 this.field_161[pid] = this.field_161[var9];
                               }
 
-                              ++var8;
+                              ++pid;
                               if(var19 == 0) {
                                  break label1703;
                               }
@@ -4299,7 +4300,7 @@ public class mudclient extends GameApplet {
                         ++var9;
                      } while(var9 < this.psize);
 
-                     this.psize = var8;
+                     this.psize = pid;
                   }
                } while(updateSize < var2);
 
@@ -4318,20 +4319,20 @@ public class mudclient extends GameApplet {
                      updateIndex = this.localRegionX + data[updateSize + 1] >> 3;
                      userForIdx = this.localRegionY + data[updateSize + 2] >> 3;
                      updateSize += 3;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.field_163) {
+                     pid = 0;
+                     if(var19 != 0 || pid < this.field_163) {
                         do {
                            label1683: {
-                              var9 = (this.field_165[var8] >> 3) - updateIndex;
-                              reuseableVar1 = (this.field_166[var8] >> 3) - userForIdx;
+                              var9 = (this.field_165[pid] >> 3) - updateIndex;
+                              reuseableVar1 = (this.field_166[pid] >> 3) - userForIdx;
                               if(var9 != 0 || reuseableVar1 != 0) {
-                                 if(var8 != newIndex) {
-                                    this.field_164[newIndex] = this.field_164[var8];
+                                 if(pid != newIndex) {
+                                    this.field_164[newIndex] = this.field_164[pid];
                                     this.field_164[newIndex].field_883 = newIndex;
-                                    this.field_165[newIndex] = this.field_165[var8];
-                                    this.field_166[newIndex] = this.field_166[var8];
-                                    this.field_167[newIndex] = this.field_167[var8];
-                                    this.field_168[newIndex] = this.field_168[var8];
+                                    this.field_165[newIndex] = this.field_165[pid];
+                                    this.field_166[newIndex] = this.field_166[pid];
+                                    this.field_167[newIndex] = this.field_167[pid];
+                                    this.field_168[newIndex] = this.field_168[pid];
                                  }
 
                                  ++newIndex;
@@ -4340,12 +4341,12 @@ public class mudclient extends GameApplet {
                                  }
                               }
 
-                              this.scene.freeModel(this.field_164[var8]);
-                              this.world.method_327(this.field_165[var8], this.field_166[var8], this.field_167[var8]);
+                              this.scene.freeModel(this.field_164[pid]);
+                              this.world.method_327(this.field_165[pid], this.field_166[pid], this.field_167[pid]);
                            }
 
-                           ++var8;
-                        } while(var8 < this.field_163);
+                           ++pid;
+                        } while(pid < this.field_163);
                      }
 
                      this.field_163 = newIndex;
@@ -4358,21 +4359,21 @@ public class mudclient extends GameApplet {
                   updateSize += 2;
                   updateIndex = this.localRegionX + data[updateSize++];
                   userForIdx = this.localRegionY + data[updateSize++];
-                  var8 = 0;
+                  pid = 0;
                   var9 = 0;
                   if(var19 != 0) {
                      label1704: {
                         if(this.field_165[var9] != updateIndex || this.field_166[var9] != userForIdx) {
-                           if(var9 != var8) {
-                              this.field_164[var8] = this.field_164[var9];
-                              this.field_164[var8].field_883 = var8;
-                              this.field_165[var8] = this.field_165[var9];
-                              this.field_166[var8] = this.field_166[var9];
-                              this.field_167[var8] = this.field_167[var9];
-                              this.field_168[var8] = this.field_168[var9];
+                           if(var9 != pid) {
+                              this.field_164[pid] = this.field_164[var9];
+                              this.field_164[pid].field_883 = pid;
+                              this.field_165[pid] = this.field_165[var9];
+                              this.field_166[pid] = this.field_166[var9];
+                              this.field_167[pid] = this.field_167[var9];
+                              this.field_168[pid] = this.field_168[var9];
                            }
 
-                           ++var8;
+                           ++pid;
                            if(var19 == 0) {
                               break label1704;
                            }
@@ -4387,16 +4388,16 @@ public class mudclient extends GameApplet {
 
                   for(; var9 < this.field_163; ++var9) {
                      if(this.field_165[var9] != updateIndex || this.field_166[var9] != userForIdx) {
-                        if(var9 != var8) {
-                           this.field_164[var8] = this.field_164[var9];
-                           this.field_164[var8].field_883 = var8;
-                           this.field_165[var8] = this.field_165[var9];
-                           this.field_166[var8] = this.field_166[var9];
-                           this.field_167[var8] = this.field_167[var9];
-                           this.field_168[var8] = this.field_168[var9];
+                        if(var9 != pid) {
+                           this.field_164[pid] = this.field_164[var9];
+                           this.field_164[pid].field_883 = pid;
+                           this.field_165[pid] = this.field_165[var9];
+                           this.field_166[pid] = this.field_166[var9];
+                           this.field_167[pid] = this.field_167[var9];
+                           this.field_168[pid] = this.field_168[var9];
                         }
 
-                        ++var8;
+                        ++pid;
                         if(var19 == 0) {
                            continue;
                         }
@@ -4406,7 +4407,7 @@ public class mudclient extends GameApplet {
                      this.world.method_327(this.field_165[var9], this.field_166[var9], this.field_167[var9]);
                   }
 
-                  this.field_163 = var8;
+                  this.field_163 = pid;
                   if(newIndex != '\uea60') {
                      label1684: {
                         reuseableVar1 = this.world.method_341(updateIndex, userForIdx);
@@ -4500,7 +4501,7 @@ public class mudclient extends GameApplet {
                   label1618: {
                      userForIdx = Utility.readUnsignedShort(data, newIndex);
                      newIndex += 2;
-                     mob = this.field_141[userForIdx];
+                     mob = this.knownPlayers[userForIdx];
                      byte updateType = data[newIndex];
                      ++newIndex;
                      if(updateType == 0) { // Bubble overhead
@@ -4692,20 +4693,20 @@ public class mudclient extends GameApplet {
                      updateIndex = this.localRegionX + data[updateSize + 1] >> 3;
                      userForIdx = this.localRegionY + data[updateSize + 2] >> 3;
                      updateSize += 3;
-                     var8 = 0;
-                     if(var19 != 0 || var8 < this.field_172) {
+                     pid = 0;
+                     if(var19 != 0 || pid < this.field_172) {
                         do {
                            label1688: {
-                              var9 = (this.field_174[var8] >> 3) - updateIndex;
-                              reuseableVar1 = (this.field_175[var8] >> 3) - userForIdx;
+                              var9 = (this.field_174[pid] >> 3) - updateIndex;
+                              reuseableVar1 = (this.field_175[pid] >> 3) - userForIdx;
                               if(var9 != 0 || reuseableVar1 != 0) {
-                                 if(var8 != newIndex) {
-                                    this.field_173[newIndex] = this.field_173[var8];
+                                 if(pid != newIndex) {
+                                    this.field_173[newIndex] = this.field_173[pid];
                                     this.field_173[newIndex].field_883 = newIndex + 10000;
-                                    this.field_174[newIndex] = this.field_174[var8];
-                                    this.field_175[newIndex] = this.field_175[var8];
-                                    this.field_176[newIndex] = this.field_176[var8];
-                                    this.field_177[newIndex] = this.field_177[var8];
+                                    this.field_174[newIndex] = this.field_174[pid];
+                                    this.field_175[newIndex] = this.field_175[pid];
+                                    this.field_176[newIndex] = this.field_176[pid];
+                                    this.field_177[newIndex] = this.field_177[pid];
                                  }
 
                                  ++newIndex;
@@ -4714,12 +4715,12 @@ public class mudclient extends GameApplet {
                                  }
                               }
 
-                              this.scene.freeModel(this.field_173[var8]);
-                              this.world.method_325(this.field_174[var8], this.field_175[var8], this.field_176[var8], this.field_177[var8]);
+                              this.scene.freeModel(this.field_173[pid]);
+                              this.world.method_325(this.field_174[pid], this.field_175[pid], this.field_176[pid], this.field_177[pid]);
                            }
 
-                           ++var8;
-                        } while(var8 < this.field_172);
+                           ++pid;
+                        } while(pid < this.field_172);
                      }
 
                      this.field_172 = newIndex;
@@ -4814,7 +4815,7 @@ public class mudclient extends GameApplet {
 
                   do {
                   	// Adding New NPC
-                     var8 = Utility.readBits(data, newIndex, 12); // npc index
+                     pid = Utility.readBits(data, newIndex, 12); // npc index
                      newIndex += 12;
                      var9 = Utility.readBits(data, newIndex, 5);
                      newIndex += 5;
@@ -4838,7 +4839,7 @@ public class mudclient extends GameApplet {
                         var14 = 24;
                      }
 
-                     this.method_82(var8, j, var13, i, var14);
+                     this.method_82(pid, j, var13, i, var14);
                   } while(newIndex + 34 < var2 * 8);
 
                   return;
@@ -4908,7 +4909,7 @@ public class mudclient extends GameApplet {
                }
 
                do {
-                  var8 = Utility.readBits(data, newIndex, 12);
+                  pid = Utility.readBits(data, newIndex, 12);
                   newIndex += 12;
                   var9 = Utility.readBits(data, newIndex, 5);
                   newIndex += 5;
@@ -4932,7 +4933,7 @@ public class mudclient extends GameApplet {
                      var14 = 24;
                   }
 
-                  this.method_82(var8, j, var13, i, var14);
+                  this.method_82(pid, j, var13, i, var14);
                } while(newIndex + 34 < var2 * 8);
 
                return;
@@ -4953,7 +4954,7 @@ public class mudclient extends GameApplet {
                      mob = this.field_152[userForIdx];
                      var9 = Utility.getUnsignedByte(data[newIndex]);
                      ++newIndex;
-                     if(var9 == 1) {
+                     if(var9 == 1) { //update type
                         reuseableVar1 = Utility.readUnsignedShort(data, newIndex);
                         newIndex += 2;
                         byte var31 = data[newIndex];
@@ -4962,7 +4963,7 @@ public class mudclient extends GameApplet {
                            String var33 = class_22.readChatString(data, newIndex, var31);
                            mob.messageTimer = 150;
                            mob.messageSent = var33;
-                           if(reuseableVar1 == this.localPlayer.field_608) {
+                           if(reuseableVar1 == this.localPlayer.pid) {
                               this.displayMessage("@yel@" + class_4.field_486[mob.field_612] + ": " + mob.messageSent, 5);
                            }
                         }
@@ -4997,7 +4998,7 @@ public class mudclient extends GameApplet {
 
             if(opcode == 246) {
                this.field_316 = true;
-               updateSize = Utility.getUnsignedByte(data[1]);
+               updateSize = Utility.getUnsignedByte(data[1]); // how many options
                this.field_317 = updateSize;
                newIndex = 2;
                updateIndex = 0;
@@ -5006,9 +5007,9 @@ public class mudclient extends GameApplet {
                }
 
                do {
-                  userForIdx = Utility.getUnsignedByte(data[newIndex]);
+                  userForIdx = Utility.getUnsignedByte(data[newIndex]); // string length
                   ++newIndex;
-                  this.field_318[updateIndex] = new String(data, newIndex, userForIdx);
+                  this.field_318[updateIndex] = new String(data, newIndex, userForIdx); // unterminated string
                   newIndex += userForIdx;
                   ++updateIndex;
                } while(updateIndex < updateSize);
@@ -5102,20 +5103,20 @@ public class mudclient extends GameApplet {
                do {
                   updateIndex = this.localRegionX + Utility.method_450(data, 1 + newIndex * 4) >> 3;
                   userForIdx = this.localRegionY + Utility.method_450(data, 3 + newIndex * 4) >> 3;
-                  var8 = 0;
+                  pid = 0;
                   var9 = 0;
                   if(var19 != 0) {
                      reuseableVar1 = (this.groundItemX[var9] >> 3) - updateIndex;
                      i = (this.groundItemY[var9] >> 3) - userForIdx;
                      if(reuseableVar1 != 0 || i != 0) {
-                        if(var9 != var8) {
-                           this.groundItemX[var8] = this.groundItemX[var9];
-                           this.groundItemY[var8] = this.groundItemY[var9];
-                           this.groundItemId[var8] = this.groundItemId[var9];
-                           this.field_161[var8] = this.field_161[var9];
+                        if(var9 != pid) {
+                           this.groundItemX[pid] = this.groundItemX[var9];
+                           this.groundItemY[pid] = this.groundItemY[var9];
+                           this.groundItemId[pid] = this.groundItemId[var9];
+                           this.field_161[pid] = this.field_161[var9];
                         }
 
-                        ++var8;
+                        ++pid;
                      }
 
                      ++var9;
@@ -5125,19 +5126,19 @@ public class mudclient extends GameApplet {
                      reuseableVar1 = (this.groundItemX[var9] >> 3) - updateIndex;
                      i = (this.groundItemY[var9] >> 3) - userForIdx;
                      if(reuseableVar1 != 0 || i != 0) {
-                        if(var9 != var8) {
-                           this.groundItemX[var8] = this.groundItemX[var9];
-                           this.groundItemY[var8] = this.groundItemY[var9];
-                           this.groundItemId[var8] = this.groundItemId[var9];
-                           this.field_161[var8] = this.field_161[var9];
+                        if(var9 != pid) {
+                           this.groundItemX[pid] = this.groundItemX[var9];
+                           this.groundItemY[pid] = this.groundItemY[var9];
+                           this.groundItemId[pid] = this.groundItemId[var9];
+                           this.field_161[pid] = this.field_161[var9];
                         }
 
-                        ++var8;
+                        ++pid;
                      }
                   }
 
-                  this.psize = var8;
-                  var8 = 0;
+                  this.psize = pid;
+                  pid = 0;
                   reuseableVar1 = 0;
                   if(var19 != 0 || reuseableVar1 < this.field_163) {
                      do {
@@ -5145,16 +5146,16 @@ public class mudclient extends GameApplet {
                            i = (this.field_165[reuseableVar1] >> 3) - updateIndex;
                            j = (this.field_166[reuseableVar1] >> 3) - userForIdx;
                            if(i != 0 || j != 0) {
-                              if(reuseableVar1 != var8) {
-                                 this.field_164[var8] = this.field_164[reuseableVar1];
-                                 this.field_164[var8].field_883 = var8;
-                                 this.field_165[var8] = this.field_165[reuseableVar1];
-                                 this.field_166[var8] = this.field_166[reuseableVar1];
-                                 this.field_167[var8] = this.field_167[reuseableVar1];
-                                 this.field_168[var8] = this.field_168[reuseableVar1];
+                              if(reuseableVar1 != pid) {
+                                 this.field_164[pid] = this.field_164[reuseableVar1];
+                                 this.field_164[pid].field_883 = pid;
+                                 this.field_165[pid] = this.field_165[reuseableVar1];
+                                 this.field_166[pid] = this.field_166[reuseableVar1];
+                                 this.field_167[pid] = this.field_167[reuseableVar1];
+                                 this.field_168[pid] = this.field_168[reuseableVar1];
                               }
 
-                              ++var8;
+                              ++pid;
                               if(var19 == 0) {
                                  break label1693;
                               }
@@ -5168,11 +5169,11 @@ public class mudclient extends GameApplet {
                      } while(reuseableVar1 < this.field_163);
                   }
 
-                  this.field_163 = var8;
-                  var8 = 0;
+                  this.field_163 = pid;
+                  pid = 0;
                   i = 0;
                   if(var19 == 0 && i >= this.field_172) {
-                     this.field_172 = var8;
+                     this.field_172 = pid;
                      ++newIndex;
                   } else {
                      do {
@@ -5180,16 +5181,16 @@ public class mudclient extends GameApplet {
                            j = (this.field_174[i] >> 3) - updateIndex;
                            var13 = (this.field_175[i] >> 3) - userForIdx;
                            if(j != 0 || var13 != 0) {
-                              if(i != var8) {
-                                 this.field_173[var8] = this.field_173[i];
-                                 this.field_173[var8].field_883 = var8 + 10000;
-                                 this.field_174[var8] = this.field_174[i];
-                                 this.field_175[var8] = this.field_175[i];
-                                 this.field_176[var8] = this.field_176[i];
-                                 this.field_177[var8] = this.field_177[i];
+                              if(i != pid) {
+                                 this.field_173[pid] = this.field_173[i];
+                                 this.field_173[pid].field_883 = pid + 10000;
+                                 this.field_174[pid] = this.field_174[i];
+                                 this.field_175[pid] = this.field_175[i];
+                                 this.field_176[pid] = this.field_176[i];
+                                 this.field_177[pid] = this.field_177[i];
                               }
 
-                              ++var8;
+                              ++pid;
                               if(var19 == 0) {
                                  break label1694;
                               }
@@ -5202,7 +5203,7 @@ public class mudclient extends GameApplet {
                         ++i;
                      } while(i < this.field_172);
 
-                     this.field_172 = var8;
+                     this.field_172 = pid;
                      ++newIndex;
                   }
                } while(newIndex < updateSize);
@@ -5217,14 +5218,14 @@ public class mudclient extends GameApplet {
 
             if(opcode == 238) {
                updateSize = Utility.readUnsignedShort(data, 1);
-               if(this.field_141[updateSize] != null) {
-                  this.field_277 = this.field_141[updateSize].username;
+               if(this.knownPlayers[updateSize] != null) {
+                  this.field_277 = this.knownPlayers[updateSize].username;
                }
 
                this.field_276 = true;
                this.field_284 = false;
                this.field_285 = false;
-               this.field_278 = 0;
+               this.tradeItemsCount = 0;
                this.field_281 = 0;
                return;
             }
@@ -5274,41 +5275,41 @@ public class mudclient extends GameApplet {
                this.field_297 = true;
                var21 = 1;
                updateSize = var21 + 1;
-               newIndex = data[var21] & 255;
-               byte var24 = data[updateSize++];
-               this.field_298 = data[updateSize++] & 255;
-               this.field_299 = data[updateSize++] & 255;
+               newIndex = data[var21] & 255; // shop item count
+               byte shopType = data[updateSize++];
+               this.sellGenerosity = data[updateSize++] & 255;
+               this.buyGenerosity = data[updateSize++] & 255;
                userForIdx = 0;
                if(var19 != 0 || userForIdx < 40) {
                   do {
-                     this.field_300[userForIdx] = -1;
+                     this.shopItemIds[userForIdx] = -1;
                      ++userForIdx;
                   } while(userForIdx < 40);
                }
 
-               var8 = 0;
-               if(var19 != 0 || var8 < newIndex) {
+               pid = 0;
+               if(var19 != 0 || pid < newIndex) {
                   do {
-                     this.field_300[var8] = Utility.readUnsignedShort(data, updateSize);
+                     this.shopItemIds[pid] = Utility.readUnsignedShort(data, updateSize);
                      updateSize += 2;
-                     this.field_301[var8] = Utility.readUnsignedShort(data, updateSize);
+                     this.shopItemCount[pid] = Utility.readUnsignedShort(data, updateSize);
                      updateSize += 2;
-                     this.field_302[var8] = data[updateSize++];
-                     ++var8;
-                  } while(var8 < newIndex);
+                     this.shopItemBaseAmountOffset[pid] = data[updateSize++];
+                     ++pid;
+                  } while(pid < newIndex);
                }
 
-               if(var24 == 1) {
+               if(shopType == 1) {
                   var9 = 39;
                   reuseableVar1 = 0;
                   if(var19 != 0 || reuseableVar1 < this.inventorySize) {
                      while(var9 >= newIndex) {
-                        boolean var27 = false;
+                        boolean ignoredItem = false;
                         j = 0;
                         if(var19 != 0 || j < 40) {
                            do {
-                              if(this.field_300[j] == this.inventoryItemId[reuseableVar1]) {
-                                 var27 = true;
+                              if(this.shopItemIds[j] == this.inventoryItemId[reuseableVar1]) {
+                                 ignoredItem = true;
                                  if(var19 == 0) {
                                     break;
                                  }
@@ -5319,13 +5320,13 @@ public class mudclient extends GameApplet {
                         }
 
                         if(this.inventoryItemId[reuseableVar1] == 10) {
-                           var27 = true;
+                           ignoredItem = true;
                         }
 
-                        if(!var27) {
-                           this.field_300[var9] = this.inventoryItemId[reuseableVar1] & 32767;
-                           this.field_301[var9] = 0;
-                           this.field_302[var9] = 0;
+                        if(!ignoredItem) {
+                           this.shopItemIds[var9] = this.inventoryItemId[reuseableVar1] & 32767;
+                           this.shopItemCount[var9] = 0;
+                           this.shopItemBaseAmountOffset[var9] = 0;
                            --var9;
                         }
 
@@ -5337,8 +5338,8 @@ public class mudclient extends GameApplet {
                   }
                }
 
-               if(this.field_303 >= 0 && this.field_303 < 40 && this.field_300[this.field_303] != this.field_304) {
-                  this.field_303 = -1;
+               if(this.selectedShopIndex >= 0 && this.selectedShopIndex < 40 && this.shopItemIds[this.selectedShopIndex] != this.field_304) {
+                  this.selectedShopIndex = -1;
                   this.field_304 = -2;
                   return;
                }
@@ -5477,8 +5478,8 @@ public class mudclient extends GameApplet {
 
                if(opcode == 219) {
                   updateSize = Utility.readUnsignedShort(data, 1);
-                  if(this.field_141[updateSize] != null) {
-                     this.field_250 = this.field_141[updateSize].username;
+                  if(this.knownPlayers[updateSize] != null) {
+                     this.field_250 = this.knownPlayers[updateSize].username;
                   }
 
                   this.field_249 = true;
@@ -5504,9 +5505,9 @@ public class mudclient extends GameApplet {
                   this.field_290 = false;
                   this.field_276 = false;
                   var21 = 1;
-                  this.field_288 = Utility.getUnsignedLong(data, var21);
+                  this.tradeWithUsername = Utility.getUnsignedLong(data, var21);
                   updateSize = var21 + 8;
-                  this.field_294 = data[updateSize++] & 255;
+                  this.tradeConfirmItemCount = data[updateSize++] & 255;
                   newIndex = 0;
                   if(var19 != 0) {
                      this.field_295[newIndex] = Utility.readUnsignedShort(data, updateSize);
@@ -5516,7 +5517,7 @@ public class mudclient extends GameApplet {
                      ++newIndex;
                   }
 
-                  while(newIndex < this.field_294) {
+                  while(newIndex < this.tradeConfirmItemCount) {
                      this.field_295[newIndex] = Utility.readUnsignedShort(data, updateSize);
                      updateSize += 2;
                      this.field_296[newIndex] = Utility.getUnsignedInt(data, updateSize);
@@ -5635,13 +5636,13 @@ public class mudclient extends GameApplet {
                   label692: {
                      if(userForIdx == 0) {
                         --this.field_306;
-                        var8 = newIndex;
+                        pid = newIndex;
                         if(var19 != 0 || newIndex < this.field_306) {
                            do {
-                              this.field_307[var8] = this.field_307[var8 + 1];
-                              this.field_308[var8] = this.field_308[var8 + 1];
-                              ++var8;
-                           } while(var8 < this.field_306);
+                              this.field_307[pid] = this.field_307[pid + 1];
+                              this.field_308[pid] = this.field_308[pid + 1];
+                              ++pid;
+                           } while(pid < this.field_306);
                         }
 
                         if(var19 == 0) {
@@ -5810,13 +5811,13 @@ public class mudclient extends GameApplet {
                      }
                   } else if(opcode == 205) {
                      if(!this.field_326) {
-                        this.field_330 = Utility.getUnsignedInt(data, 1);
-                        this.field_331 = Utility.getUnsignedInt(data, 5);
-                        this.field_328 = Utility.getUnsignedInt(data, 9);
-                        this.field_332 = (int)(Math.random() * 6.0D);
+                        this.daysAgoLoggedIn = Utility.getUnsignedInt(data, 1);
+                        this.recoveryQuestionsSetAgo = Utility.getUnsignedInt(data, 5);
+                        this.ipAddressInt = Utility.getUnsignedInt(data, 9);
+                        this.tipOfTheDay = (int)(Math.random() * 6.0D);
                         this.showDialogServermessage = true;
                         this.field_326 = true;
-                        this.field_329 = null;
+                        this.formattedIpAddress = null;
                         return;
                      }
                   } else {
@@ -6268,7 +6269,7 @@ public class mudclient extends GameApplet {
                   if(var17.field_636 != -1) {
                      var18 = this.field_152[var17.field_636];
                   } else if(var17.field_635 != -1) {
-                     var18 = this.field_141[var17.field_635];
+                     var18 = this.knownPlayers[var17.field_635];
                   }
 
                   if(var18 != null) {
@@ -7984,7 +7985,7 @@ public class mudclient extends GameApplet {
       int var5;
       label113: {
          var5 = class_4.field_563;
-         if(this.field_331 > 0) {
+         if(this.recoveryQuestionsSetAgo > 0) {
             var1 = 180;
             if(var5 == 0) {
                break label113;
@@ -8003,51 +8004,51 @@ public class mudclient extends GameApplet {
          var2 += 20;
          this.surface.drawstringCenter("Welcome to RuneScape " + this.username, 256, var2, 4, 16776960);
          var2 += 30;
-         if(this.field_330 <= 0) {
+         if(this.daysAgoLoggedIn <= 0) {
             var3 = "earlier today";
             if(var5 == 0) {
                break label116;
             }
          }
 
-         if(this.field_330 == 1) {
+         if(this.daysAgoLoggedIn == 1) {
             var3 = "yesterday";
             if(var5 == 0) {
                break label116;
             }
          }
 
-         var3 = this.field_330 + " days ago";
+         var3 = this.daysAgoLoggedIn + " days ago";
       }
 
       this.surface.drawstringCenter("You last logged in " + var3, 256, var2, 1, 16777215);
       var2 += 15;
-      if(this.field_329 == null) {
-         this.field_329 = this.method_132(this.field_328);
+      if(this.formattedIpAddress == null) {
+         this.formattedIpAddress = this.translateIpAddress(this.ipAddressInt);
       }
 
       label117: {
-         this.surface.drawstringCenter("from: " + this.field_329, 256, var2, 1, 16777215);
+         this.surface.drawstringCenter("from: " + this.formattedIpAddress, 256, var2, 1, 16777215);
          var2 += 15;
          var2 += 15;
          int var4;
-         if(this.field_331 > 0) {
+         if(this.recoveryQuestionsSetAgo > 0) {
             label119: {
-               if(this.field_331 == 14) {
+               if(this.recoveryQuestionsSetAgo == 14) {
                   var3 = "Earlier today";
                   if(var5 == 0) {
                      break label119;
                   }
                }
 
-               if(this.field_331 == 13) {
+               if(this.recoveryQuestionsSetAgo == 13) {
                   var3 = "Yesterday";
                   if(var5 == 0) {
                      break label119;
                   }
                }
 
-               var3 = 14 - this.field_331 + " days ago";
+               var3 = 14 - this.recoveryQuestionsSetAgo + " days ago";
             }
 
             this.surface.drawstringCenter(var3 + " you changed your recovery questions", 256, var2, 1, 16744448);
@@ -8075,7 +8076,7 @@ public class mudclient extends GameApplet {
                var4 = 16711680;
             }
 
-            this.surface.drawstringCenter("That\'s ok, activate the new questions in " + this.field_331 + " days time.", 256, var2, 1, var4);
+            this.surface.drawstringCenter("That\'s ok, activate the new questions in " + this.recoveryQuestionsSetAgo + " days time.", 256, var2, 1, var4);
             if(var4 != 16711680 || this.mouseButtonClick != 1) {
                break label117;
             }
@@ -8530,7 +8531,7 @@ public class mudclient extends GameApplet {
       }
 
       int var1 = 145;
-      String var2;
+      String messageSent;
       if(this.field_320 == 1) {
          this.surface.method_227(106, var1, 300, 70, 0);
          this.surface.method_228(106, var1, 300, 70, 16777215);
@@ -8539,12 +8540,12 @@ public class mudclient extends GameApplet {
          var1 += 20;
          this.surface.drawstringCenter(super.inputTextCurrent + "*", 256, var1, 4, 16777215);
          if(super.inputTextFinal.length() > 0) {
-            var2 = super.inputTextFinal.trim();
+            messageSent = super.inputTextFinal.trim();
             super.inputTextCurrent = "";
             super.inputTextFinal = "";
             this.field_320 = 0;
-            if(var2.length() > 0 && Utility.hashUsername(var2) != this.localPlayer.usernameHash) {
-               this.friendAdd(var2);
+            if(messageSent.length() > 0 && Utility.hashUsername(messageSent) != this.localPlayer.usernameHash) {
+               this.friendAdd(messageSent);
             }
          }
       }
@@ -8553,19 +8554,20 @@ public class mudclient extends GameApplet {
          this.surface.method_227(6, var1, 500, 70, 0);
          this.surface.method_228(6, var1, 500, 70, 16777215);
          var1 += 20;
-         this.surface.drawstringCenter("Enter message to send to " + Utility.unhashUsername(this.field_208), 256, var1, 4, 16777215);
+         this.surface.drawstringCenter("Enter message to send to " + Utility.unhashUsername(this.pmRecipient), 256, var1, 4, 16777215);
          var1 += 20;
          this.surface.drawstringCenter(super.field_42 + "*", 256, var1, 4, 16777215);
-         if(super.field_43.length() > 0) {
-            var2 = super.field_43;
+         if(super.pmToSend.length() > 0) {
+            messageSent = super.pmToSend;
             super.field_42 = "";
-            super.field_43 = "";
+            super.pmToSend = "";
             this.field_320 = 0;
-            int var3 = class_22.prepareToSendChat(var2);
-            this.sendPrivateChat(this.field_208, class_22.field_1010, var3);
-            var2 = class_22.readChatString(class_22.field_1010, 0, var3);
-            var2 = class_20.formatChat(var2);
-            this.displayMessage("@pri@You tell " + Utility.unhashUsername(this.field_208) + ": " + var2);
+            int length = class_22.prepareToSendChat(messageSent);
+            this.sendPrivateChat(this.pmRecipient, class_22.pmMessage, length);
+            messageSent = class_22.readChatString(class_22.pmMessage, 0, length);
+            messageSent = class_20.formatChat(messageSent);
+
+            this.displayMessage("@pri@You tell " + Utility.unhashUsername(this.pmRecipient) + ": " + messageSent);
          }
       }
 
@@ -8577,12 +8579,12 @@ public class mudclient extends GameApplet {
          var1 += 20;
          this.surface.drawstringCenter(super.inputTextCurrent + "*", 256, var1, 4, 16777215);
          if(super.inputTextFinal.length() > 0) {
-            var2 = super.inputTextFinal.trim();
+            messageSent = super.inputTextFinal.trim();
             super.inputTextCurrent = "";
             super.inputTextFinal = "";
             this.field_320 = 0;
-            if(var2.length() > 0 && Utility.hashUsername(var2) != this.localPlayer.usernameHash) {
-               this.ignoreAdd(var2);
+            if(messageSent.length() > 0 && Utility.hashUsername(messageSent) != this.localPlayer.usernameHash) {
+               this.ignoreAdd(messageSent);
             }
          }
       }
@@ -9111,8 +9113,8 @@ public class mudclient extends GameApplet {
       int var11 = class_4.field_563;
       int var3;
       int var4;
-      int var5;
-      int var6;
+      int itemId;
+      int stockSensitivity;
       int expectedPrice;
       if(this.mouseButtonClick != 0) {
          label229: {
@@ -9124,61 +9126,63 @@ public class mudclient extends GameApplet {
                var4 = 0;
                if(var11 != 0 || var4 < 5) {
                   do {
-                     var5 = 0;
-                     if(var11 == 0 && var5 >= 8) {
+                     itemId = 0;
+                     if(var11 == 0 && itemId >= 8) {
                         ++var4;
                      } else {
                         do {
-                           var6 = 7 + var5 * 49;
+                           stockSensitivity = 7 + itemId * 49;
                            expectedPrice = 28 + var4 * 34;
-                           if(var1 > var6 && var1 < var6 + 49 && var2 > expectedPrice && var2 < expectedPrice + 34 && this.field_300[var3] != -1) {
-                              this.field_303 = var3;
-                              this.field_304 = this.field_300[var3];
+                           if(var1 > stockSensitivity && var1 < stockSensitivity + 49 && var2 > expectedPrice && var2 < expectedPrice + 34 && this.shopItemIds[var3] != -1) {
+                              this.selectedShopIndex = var3;
+                              this.field_304 = this.shopItemIds[var3];
                            }
 
                            ++var3;
-                           ++var5;
-                        } while(var5 < 8);
+                           ++itemId;
+                        } while(itemId < 8);
 
                         ++var4;
                      }
                   } while(var4 < 5);
                }
 
-               if(this.field_303 < 0) {
+               if(this.selectedShopIndex < 0) {
                   break label229;
                }
 
-               var5 = this.field_300[this.field_303];
-               if(var5 == -1) {
+               itemId = this.shopItemIds[this.selectedShopIndex];
+               if(itemId == -1) {
                   break label229;
                }
 
-               if(this.field_301[this.field_303] > 0 && var1 > 298 && var2 >= 204 && var1 < 408 && var2 <= 215) {
-                  var6 = this.field_299 + this.field_302[this.field_303];
-                  if(var6 < 10) {
-                     var6 = 10;
+               if(this.shopItemCount[this.selectedShopIndex] > 0 && var1 > 298 && var2 >= 204 && var1 < 408 && var2 <= 215) {
+                  stockSensitivity = this.buyGenerosity + this.shopItemBaseAmountOffset[this.selectedShopIndex];
+                  if(stockSensitivity < 10) {
+                     stockSensitivity = 10;
                   }
 
-                  expectedPrice = var6 * class_4.field_478[var5] / 100;
+                  // shop buy
+                  expectedPrice = stockSensitivity * class_4.itemBasePrice[itemId] / 100;
                   super.clientStream.newPacket(217, 666);
-                  super.clientStream.putShort(this.field_300[this.field_303]);
+                  super.clientStream.putShort(this.shopItemIds[this.selectedShopIndex]);
                   super.clientStream.putInt(expectedPrice);
                   super.clientStream.flushPacket_();
                }
 
-               if(this.method_94(var5) <= 0 || var1 <= 2 || var2 < 229 || var1 >= 112 || var2 > 240) {
+               if(this.method_94(itemId) <= 0 || var1 <= 2 || var2 < 229 || var1 >= 112 || var2 > 240) {
                   break label229;
                }
 
-               var6 = this.field_298 + this.field_302[this.field_303];
-               if(var6 < 10) {
-                  var6 = 10;
+               stockSensitivity = this.sellGenerosity + this.shopItemBaseAmountOffset[this.selectedShopIndex];
+               if(stockSensitivity < 10) {
+                  stockSensitivity = 10;
                }
 
-               expectedPrice = var6 * class_4.field_478[var5] / 100;
+               // sell
+               expectedPrice = stockSensitivity * class_4.itemBasePrice[itemId] / 100;
                super.clientStream.newPacket(216, 665);
-               super.clientStream.putShort(this.field_300[this.field_303]);
+               super.clientStream.putShort(this.shopItemIds[this.selectedShopIndex]);
                super.clientStream.putInt(expectedPrice);
                super.clientStream.flushPacket_();
                if(var11 == 0) {
@@ -9186,6 +9190,7 @@ public class mudclient extends GameApplet {
                }
             }
 
+            // close shop
             super.clientStream.newPacket(218, 312);
             super.clientStream.flushPacket_();
             this.field_297 = false;
@@ -9211,8 +9216,8 @@ public class mudclient extends GameApplet {
       this.surface.method_267("Shops stock in green", var12 + 2, var13 + 24, 1, '\uff00');
       this.surface.method_267("Number you own in blue", var12 + 135, var13 + 24, 1, '\uffff');
       this.surface.method_267("Your money: " + this.method_94(10) + "gp", var12 + 280, var13 + 24, 1, 16776960);
-      var5 = 13684944;
-      var6 = 0;
+      itemId = 13684944;
+      stockSensitivity = 0;
       expectedPrice = 0;
       int var8;
       int var9;
@@ -9226,24 +9231,24 @@ public class mudclient extends GameApplet {
                label160: {
                   var9 = var12 + 7 + var8 * 49;
                   var10 = var13 + 28 + expectedPrice * 34;
-                  if(this.field_303 == var6) {
+                  if(this.selectedShopIndex == stockSensitivity) {
                      this.surface.method_225(var9, var10, 49, 34, 16711680, 160);
                      if(var11 == 0) {
                         break label160;
                      }
                   }
 
-                  this.surface.method_225(var9, var10, 49, 34, var5, 160);
+                  this.surface.method_225(var9, var10, 49, 34, itemId, 160);
                }
 
                this.surface.method_228(var9, var10, 50, 35, 0);
-               if(this.field_300[var6] != -1) {
-                  this.surface.method_258(var9, var10, 48, 32, this.field_101 + class_4.field_477[this.field_300[var6]], class_4.field_482[this.field_300[var6]], 0, 0, false);
-                  this.surface.method_267(String.valueOf(this.field_301[var6]), var9 + 1, var10 + 10, 1, '\uff00');
-                  this.surface.method_264(String.valueOf(this.method_94(this.field_300[var6])), var9 + 47, var10 + 10, 1, '\uffff');
+               if(this.shopItemIds[stockSensitivity] != -1) {
+                  this.surface.method_258(var9, var10, 48, 32, this.field_101 + class_4.field_477[this.shopItemIds[stockSensitivity]], class_4.field_482[this.shopItemIds[stockSensitivity]], 0, 0, false);
+                  this.surface.method_267(String.valueOf(this.shopItemCount[stockSensitivity]), var9 + 1, var10 + 10, 1, '\uff00');
+                  this.surface.method_264(String.valueOf(this.method_94(this.shopItemIds[stockSensitivity])), var9 + 47, var10 + 10, 1, '\uffff');
                }
 
-               ++var6;
+               ++stockSensitivity;
                ++var8;
                if(var8 >= 8) {
                   ++expectedPrice;
@@ -9262,24 +9267,24 @@ public class mudclient extends GameApplet {
                label132: {
                   var9 = var12 + 7 + var8 * 49;
                   var10 = var13 + 28 + expectedPrice * 34;
-                  if(this.field_303 == var6) {
+                  if(this.selectedShopIndex == stockSensitivity) {
                      this.surface.method_225(var9, var10, 49, 34, 16711680, 160);
                      if(var11 == 0) {
                         break label132;
                      }
                   }
 
-                  this.surface.method_225(var9, var10, 49, 34, var5, 160);
+                  this.surface.method_225(var9, var10, 49, 34, itemId, 160);
                }
 
                this.surface.method_228(var9, var10, 50, 35, 0);
-               if(this.field_300[var6] != -1) {
-                  this.surface.method_258(var9, var10, 48, 32, this.field_101 + class_4.field_477[this.field_300[var6]], class_4.field_482[this.field_300[var6]], 0, 0, false);
-                  this.surface.method_267(String.valueOf(this.field_301[var6]), var9 + 1, var10 + 10, 1, '\uff00');
-                  this.surface.method_264(String.valueOf(this.method_94(this.field_300[var6])), var9 + 47, var10 + 10, 1, '\uffff');
+               if(this.shopItemIds[stockSensitivity] != -1) {
+                  this.surface.method_258(var9, var10, 48, 32, this.field_101 + class_4.field_477[this.shopItemIds[stockSensitivity]], class_4.field_482[this.shopItemIds[stockSensitivity]], 0, 0, false);
+                  this.surface.method_267(String.valueOf(this.shopItemCount[stockSensitivity]), var9 + 1, var10 + 10, 1, '\uff00');
+                  this.surface.method_264(String.valueOf(this.method_94(this.shopItemIds[stockSensitivity])), var9 + 47, var10 + 10, 1, '\uffff');
                }
 
-               ++var6;
+               ++stockSensitivity;
                ++var8;
             } while(var8 < 8);
 
@@ -9288,19 +9293,19 @@ public class mudclient extends GameApplet {
       }
 
       this.surface.method_229(var12 + 5, var13 + 222, 398, 0);
-      if(this.field_303 == -1) {
+      if(this.selectedShopIndex == -1) {
          this.surface.drawstringCenter("Select an object to buy or sell", var12 + 204, var13 + 214, 3, 16776960);
       } else {
-         var8 = this.field_300[this.field_303];
+         var8 = this.shopItemIds[this.selectedShopIndex];
          if(var8 != -1) {
             label122: {
-               if(this.field_301[this.field_303] > 0) {
-                  var9 = this.field_299 + this.field_302[this.field_303];
+               if(this.shopItemCount[this.selectedShopIndex] > 0) {
+                  var9 = this.buyGenerosity + this.shopItemBaseAmountOffset[this.selectedShopIndex];
                   if(var9 < 10) {
                      var9 = 10;
                   }
 
-                  var10 = var9 * class_4.field_478[var8] / 100;
+                  var10 = var9 * class_4.itemBasePrice[var8] / 100;
                   this.surface.method_267("Buy a new " + class_4.field_474[var8] + " for " + var10 + "gp", var12 + 2, var13 + 214, 1, 16776960);
                   var4 = 16777215;
                   if(super.mouseX > var12 + 298 && super.mouseY >= var13 + 204 && super.mouseX < var12 + 408 && super.mouseY <= var13 + 215) {
@@ -9317,12 +9322,12 @@ public class mudclient extends GameApplet {
             }
 
             if(this.method_94(var8) > 0) {
-               var9 = this.field_298 + this.field_302[this.field_303];
+               var9 = this.sellGenerosity + this.shopItemBaseAmountOffset[this.selectedShopIndex];
                if(var9 < 10) {
                   var9 = 10;
                }
 
-               var10 = var9 * class_4.field_478[var8] / 100;
+               var10 = var9 * class_4.itemBasePrice[var8] / 100;
                this.surface.method_264("Sell your " + class_4.field_474[var8] + " for " + var10 + "gp", var12 + 405, var13 + 239, 1, 16776960);
                var4 = 16777215;
                if(super.mouseX > var12 + 2 && super.mouseY >= var13 + 229 && super.mouseX < var12 + 112 && super.mouseY <= var13 + 240) {
@@ -9347,7 +9352,7 @@ public class mudclient extends GameApplet {
       this.surface.method_227(var1, var2, 468, 16, 192);
       int var3 = 10000536;
       this.surface.method_225(var1, var2 + 16, 468, 246, var3, 160);
-      this.surface.drawstringCenter("Please confirm your trade with @yel@" + Utility.unhashUsername(this.field_288), var1 + 234, var2 + 12, 1, 16777215);
+      this.surface.drawstringCenter("Please confirm your trade with @yel@" + Utility.unhashUsername(this.tradeWithUsername), var1 + 234, var2 + 12, 1, 16777215);
       this.surface.drawstringCenter("You are about to give:", var1 + 117, var2 + 30, 1, 16776960);
       int var4 = 0;
       String var5;
@@ -9388,7 +9393,7 @@ public class mudclient extends GameApplet {
          ++var8;
       }
 
-      while(var8 < this.field_294) {
+      while(var8 < this.tradeConfirmItemCount) {
          var6 = class_4.field_474[this.field_295[var8]];
          if(class_4.itemStackable[this.field_295[var8]] == 0) {
             var6 = var6 + " (" + this.field_296[var8] + ")";
@@ -9398,7 +9403,7 @@ public class mudclient extends GameApplet {
          ++var8;
       }
 
-      if(this.field_294 == 0) {
+      if(this.tradeConfirmItemCount == 0) {
          this.surface.drawstringCenter("Nothing!", var1 + 351, var2 + 42, 1, 16777215);
       }
 
@@ -9466,16 +9471,16 @@ public class mudclient extends GameApplet {
                      var5 = 0;
                      var6 = this.inventoryItemId[var3];
                      var7 = 0;
-                     if(var14 != 0 || var7 < this.field_278) {
+                     if(var14 != 0 || var7 < this.tradeItemsCount) {
                         do {
-                           if(this.field_279[var7] == var6) {
+                           if(this.tradeItemIds[var7] == var6) {
                               label327: {
                                  if(class_4.itemStackable[var6] == 0) {
                                     var8 = 0;
                                     if(var14 != 0 || var8 < this.mouseButtonItemCountIncrement) {
                                        do {
-                                          if(this.field_280[var7] < this.inventoryAmounts[var3]) {
-                                             ++this.field_280[var7];
+                                          if(this.tradeItemAmounts[var7] < this.inventoryAmounts[var3]) {
+                                             ++this.tradeItemAmounts[var7];
                                           }
 
                                           var4 = true;
@@ -9493,7 +9498,7 @@ public class mudclient extends GameApplet {
                            }
 
                            ++var7;
-                        } while(var7 < this.field_278);
+                        } while(var7 < this.tradeItemsCount);
                      }
 
                      if(this.method_94(var6) <= var5) {
@@ -9505,23 +9510,23 @@ public class mudclient extends GameApplet {
                         var4 = true;
                      }
 
-                     if(!var4 && this.field_278 < 12) {
-                        this.field_279[this.field_278] = var6;
-                        this.field_280[this.field_278] = 1;
-                        ++this.field_278;
+                     if(!var4 && this.tradeItemsCount < 12) {
+                        this.tradeItemIds[this.tradeItemsCount] = var6;
+                        this.tradeItemAmounts[this.tradeItemsCount] = 1;
+                        ++this.tradeItemsCount;
                         var4 = true;
                      }
 
                      if(var4) {
                         super.clientStream.newPacket(234, 500);
-                        super.clientStream.putByte(this.field_278);
+                        super.clientStream.putByte(this.tradeItemsCount);
                         var8 = 0;
-                        if(var14 != 0 || var8 < this.field_278) {
+                        if(var14 != 0 || var8 < this.tradeItemsCount) {
                            do {
-                              super.clientStream.putShort(this.field_279[var8]);
-                              super.clientStream.putInt(this.field_280[var8]);
+                              super.clientStream.putShort(this.tradeItemIds[var8]);
+                              super.clientStream.putInt(this.tradeItemAmounts[var8]);
                               ++var8;
-                           } while(var8 < this.field_278);
+                           } while(var8 < this.tradeItemsCount);
                         }
 
                         super.clientStream.flushPacket_();
@@ -9533,28 +9538,28 @@ public class mudclient extends GameApplet {
 
                if(var1 > 8 && var2 > 30 && var1 < 205 && var2 < 133) {
                   var3 = (var1 - 9) / 49 + (var2 - 31) / 34 * 4;
-                  if(var3 >= 0 && var3 < this.field_278) {
-                     var17 = this.field_279[var3];
+                  if(var3 >= 0 && var3 < this.tradeItemsCount) {
+                     var17 = this.tradeItemIds[var3];
                      var5 = 0;
                      if(var14 != 0 || var5 < this.mouseButtonItemCountIncrement) {
                         do {
                            label391: {
-                              if(class_4.itemStackable[var17] == 0 && this.field_280[var3] > 1) {
-                                 --this.field_280[var3];
+                              if(class_4.itemStackable[var17] == 0 && this.tradeItemAmounts[var3] > 1) {
+                                 --this.tradeItemAmounts[var3];
                                  if(var14 == 0) {
                                     break label391;
                                  }
                               }
 
-                              --this.field_278;
+                              --this.tradeItemsCount;
                               this.mouseButtonDownTime = 0;
                               var6 = var3;
-                              if(var14 != 0 || var3 < this.field_278) {
+                              if(var14 != 0 || var3 < this.tradeItemsCount) {
                                  do {
-                                    this.field_279[var6] = this.field_279[var6 + 1];
-                                    this.field_280[var6] = this.field_280[var6 + 1];
+                                    this.tradeItemIds[var6] = this.tradeItemIds[var6 + 1];
+                                    this.tradeItemAmounts[var6] = this.tradeItemAmounts[var6 + 1];
                                     ++var6;
-                                 } while(var6 < this.field_278);
+                                 } while(var6 < this.tradeItemsCount);
                               }
 
                               if(var14 == 0) {
@@ -9567,14 +9572,14 @@ public class mudclient extends GameApplet {
                      }
 
                      super.clientStream.newPacket(234, 500);
-                     super.clientStream.putByte(this.field_278);
+                     super.clientStream.putByte(this.tradeItemsCount);
                      var6 = 0;
-                     if(var14 != 0 || var6 < this.field_278) {
+                     if(var14 != 0 || var6 < this.tradeItemsCount) {
                         do {
-                           super.clientStream.putShort(this.field_279[var6]);
-                           super.clientStream.putInt(this.field_280[var6]);
+                           super.clientStream.putShort(this.tradeItemIds[var6]);
+                           super.clientStream.putInt(this.tradeItemAmounts[var6]);
                            ++var6;
-                        } while(var6 < this.field_278);
+                        } while(var6 < this.tradeItemsCount);
                      }
 
                      super.clientStream.flushPacket_();
@@ -9726,21 +9731,21 @@ public class mudclient extends GameApplet {
 
          var10 = 0;
          int var12;
-         if(var14 != 0 || var10 < this.field_278) {
+         if(var14 != 0 || var10 < this.tradeItemsCount) {
             do {
                var11 = 9 + var15 + var10 % 4 * 49;
                var12 = 31 + var16 + var10 / 4 * 34;
-               this.surface.method_258(var11, var12, 48, 32, this.field_101 + class_4.field_477[this.field_279[var10]], class_4.field_482[this.field_279[var10]], 0, 0, false);
-               if(class_4.itemStackable[this.field_279[var10]] == 0) {
-                  this.surface.method_267(String.valueOf(this.field_280[var10]), var11 + 1, var12 + 10, 1, 16776960);
+               this.surface.method_258(var11, var12, 48, 32, this.field_101 + class_4.field_477[this.tradeItemIds[var10]], class_4.field_482[this.tradeItemIds[var10]], 0, 0, false);
+               if(class_4.itemStackable[this.tradeItemIds[var10]] == 0) {
+                  this.surface.method_267(String.valueOf(this.tradeItemAmounts[var10]), var11 + 1, var12 + 10, 1, 16776960);
                }
 
                if(super.mouseX > var11 && super.mouseX < var11 + 48 && super.mouseY > var12 && super.mouseY < var12 + 32) {
-                  this.surface.method_267(class_4.field_474[this.field_279[var10]] + ": @whi@" + class_4.field_475[this.field_279[var10]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.method_267(class_4.field_474[this.tradeItemIds[var10]] + ": @whi@" + class_4.field_475[this.tradeItemIds[var10]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var10;
-            } while(var10 < this.field_278);
+            } while(var10 < this.tradeItemsCount);
          }
 
          var11 = 0;
@@ -11278,9 +11283,9 @@ public class mudclient extends GameApplet {
 
                      if(super.field_57[var8] != 0) {
                         this.field_320 = 2;
-                        this.field_208 = super.field_56[var8];
+                        this.pmRecipient = super.field_56[var8];
                         super.field_42 = "";
-                        super.field_43 = "";
+                        super.pmToSend = "";
                      }
                   }
                }
@@ -11649,7 +11654,7 @@ public class mudclient extends GameApplet {
                            this.field_229[this.field_225] = 800;
                            this.field_230[this.field_225] = this.players[var11].currentX;
                            this.field_231[this.field_225] = this.players[var11].currentY;
-                           this.field_232[this.field_225] = this.players[var11].field_608;
+                           this.field_232[this.field_225] = this.players[var11].pid;
                            this.field_233[this.field_225] = this.field_204;
                            ++this.field_225;
                            if(var18 == 0) {
@@ -11663,7 +11668,7 @@ public class mudclient extends GameApplet {
                            this.field_229[this.field_225] = 810;
                            this.field_230[this.field_225] = this.players[var11].currentX;
                            this.field_231[this.field_225] = this.players[var11].currentY;
-                           this.field_232[this.field_225] = this.players[var11].field_608;
+                           this.field_232[this.field_225] = this.players[var11].pid;
                            this.field_233[this.field_225] = this.field_185;
                            ++this.field_225;
                            if(var18 == 0) {
@@ -11688,7 +11693,7 @@ public class mudclient extends GameApplet {
 
                               this.field_230[this.field_225] = this.players[var11].currentX;
                               this.field_231[this.field_225] = this.players[var11].currentY;
-                              this.field_232[this.field_225] = this.players[var11].field_608;
+                              this.field_232[this.field_225] = this.players[var11].pid;
                               ++this.field_225;
                               if(var18 == 0) {
                                  break label237;
@@ -11701,7 +11706,7 @@ public class mudclient extends GameApplet {
                               this.field_230[this.field_225] = this.players[var11].currentX;
                               this.field_231[this.field_225] = this.players[var11].currentY;
                               this.field_229[this.field_225] = 2806;
-                              this.field_232[this.field_225] = this.players[var11].field_608;
+                              this.field_232[this.field_225] = this.players[var11].pid;
                               ++this.field_225;
                            }
                         }
@@ -11709,12 +11714,12 @@ public class mudclient extends GameApplet {
                         this.field_228[this.field_225] = "Trade with";
                         this.field_227[this.field_225] = "@whi@" + this.players[var11].username + var13;
                         this.field_229[this.field_225] = 2810;
-                        this.field_232[this.field_225] = this.players[var11].field_608;
+                        this.field_232[this.field_225] = this.players[var11].pid;
                         ++this.field_225;
                         this.field_228[this.field_225] = "Follow";
                         this.field_227[this.field_225] = "@whi@" + this.players[var11].username + var13;
                         this.field_229[this.field_225] = 2820;
-                        this.field_232[this.field_225] = this.players[var11].field_608;
+                        this.field_232[this.field_225] = this.players[var11].pid;
                         ++this.field_225;
                         if(var18 == 0) {
                            break label356;
@@ -11828,7 +11833,7 @@ public class mudclient extends GameApplet {
                         this.field_229[this.field_225] = 700;
                         this.field_230[this.field_225] = this.field_153[var11].currentX;
                         this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].field_608;
+                        this.field_232[this.field_225] = this.field_153[var11].pid;
                         this.field_233[this.field_225] = this.field_204;
                         ++this.field_225;
                         if(var18 == 0) {
@@ -11842,7 +11847,7 @@ public class mudclient extends GameApplet {
                         this.field_229[this.field_225] = 710;
                         this.field_230[this.field_225] = this.field_153[var11].currentX;
                         this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].field_608;
+                        this.field_232[this.field_225] = this.field_153[var11].pid;
                         this.field_233[this.field_225] = this.field_185;
                         ++this.field_225;
                         if(var18 == 0) {
@@ -11866,7 +11871,7 @@ public class mudclient extends GameApplet {
 
                         this.field_230[this.field_225] = this.field_153[var11].currentX;
                         this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].field_608;
+                        this.field_232[this.field_225] = this.field_153[var11].pid;
                         ++this.field_225;
                      }
 
@@ -11875,7 +11880,7 @@ public class mudclient extends GameApplet {
                      this.field_229[this.field_225] = 720;
                      this.field_230[this.field_225] = this.field_153[var11].currentX;
                      this.field_231[this.field_225] = this.field_153[var11].currentY;
-                     this.field_232[this.field_225] = this.field_153[var11].field_608;
+                     this.field_232[this.field_225] = this.field_153[var11].pid;
                      ++this.field_225;
                      if(!class_4.field_488[var15].equals("")) {
                         this.field_228[this.field_225] = class_4.field_488[var15];
@@ -11883,7 +11888,7 @@ public class mudclient extends GameApplet {
                         this.field_229[this.field_225] = 725;
                         this.field_230[this.field_225] = this.field_153[var11].currentX;
                         this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].field_608;
+                        this.field_232[this.field_225] = this.field_153[var11].pid;
                         ++this.field_225;
                      }
 
@@ -12721,8 +12726,8 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: g (int) java.lang.String
-   public String method_132(int var1) {
-      return link.mainapp != null?link.gethostname(Utility.method_455(var1)): Utility.method_455(var1);
+   public String translateIpAddress(int var1) {
+      return link.mainapp != null?link.gethostname(Utility.translateIpAddress(var1)): Utility.translateIpAddress(var1);
    }
 
    // $FF: renamed from: <init> () void
@@ -12760,7 +12765,7 @@ public class mudclient extends GameApplet {
       this.field_135 = 128;
       this.field_136 = 4000;
       this.field_137 = 500;
-      this.field_141 = new class_7[this.field_136];
+      this.knownPlayers = new class_7[this.field_136];
       this.players = new class_7[this.field_137];
       this.field_143 = new class_7[this.field_137];
       this.localPlayer = new class_7();
@@ -12770,7 +12775,7 @@ public class mudclient extends GameApplet {
       this.field_152 = new class_7[this.field_148];
       this.field_153 = new class_7[this.field_149];
       this.field_154 = new class_7[this.field_149];
-      this.field_155 = new int[500];
+      this.knownPlayerIds = new int[500];
       this.field_156 = 5000;
       this.groundItemX = new int[this.field_156];
       this.groundItemY = new int[this.field_156];
@@ -12849,8 +12854,8 @@ public class mudclient extends GameApplet {
       this.field_271 = new int[8];
       this.field_276 = false;
       this.field_277 = "";
-      this.field_279 = new int[14];
-      this.field_280 = new int[14];
+      this.tradeItemIds = new int[14];
+      this.tradeItemAmounts = new int[14];
       this.field_282 = new int[14];
       this.field_283 = new int[14];
       this.field_284 = false;
@@ -12862,10 +12867,10 @@ public class mudclient extends GameApplet {
       this.field_295 = new int[14];
       this.field_296 = new int[14];
       this.field_297 = false;
-      this.field_300 = new int[256];
-      this.field_301 = new int[256];
-      this.field_302 = new int[256];
-      this.field_303 = -1;
+      this.shopItemIds = new int[256];
+      this.shopItemCount = new int[256];
+      this.shopItemBaseAmountOffset = new int[256];
+      this.selectedShopIndex = -1;
       this.field_304 = -2;
       this.field_305 = false;
       this.field_307 = new int[256];
