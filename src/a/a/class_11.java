@@ -1,7 +1,5 @@
 package a.a;
 
-import a.a.class_9;
-
 // $FF: renamed from: a.a.e
 public class class_11 {
 
@@ -359,16 +357,16 @@ public class class_11 {
    // $FF: renamed from: a (int, int, int, int, int) void
    protected void method_279(int var1, int var2, int var3, int var4, int var5) {
       this.field_761.method_227(var2, var3, var4, var5, 16777215);
-      this.field_761.method_229(var2, var3, var4, this.field_796);
+      this.field_761.drawLineHoriz(var2, var3, var4, this.field_796);
       this.field_761.method_230(var2, var3, var5, this.field_796);
-      this.field_761.method_229(var2, var3 + var5 - 1, var4, this.field_799);
+      this.field_761.drawLineHoriz(var2, var3 + var5 - 1, var4, this.field_799);
       this.field_761.method_230(var2 + var4 - 1, var3, var5, this.field_799);
       if(this.field_770[var1] == 1) {
          int var6 = 0;
          if(class_9.field_759 || var6 < var5) {
             do {
-               this.field_761.method_229(var2 + var6, var3 + var6, 1, 0);
-               this.field_761.method_229(var2 + var4 - 1 - var6, var3 + var6, 1, 0);
+               this.field_761.drawLineHoriz(var2 + var6, var3 + var6, 1, 0);
+               this.field_761.drawLineHoriz(var2 + var4 - 1 - var6, var3 + var6, 1, 0);
                ++var6;
             } while(var6 < var5);
          }
@@ -468,15 +466,15 @@ public class class_11 {
          }
       }
 
-      this.field_761.method_229(var1, var2, var3, this.field_796);
-      this.field_761.method_229(var1 + 1, var2 + 1, var3 - 2, this.field_796);
-      this.field_761.method_229(var1 + 2, var2 + 2, var3 - 4, this.field_797);
+      this.field_761.drawLineHoriz(var1, var2, var3, this.field_796);
+      this.field_761.drawLineHoriz(var1 + 1, var2 + 1, var3 - 2, this.field_796);
+      this.field_761.drawLineHoriz(var1 + 2, var2 + 2, var3 - 4, this.field_797);
       this.field_761.method_230(var1, var2, var4, this.field_796);
       this.field_761.method_230(var1 + 1, var2 + 1, var4 - 2, this.field_796);
       this.field_761.method_230(var1 + 2, var2 + 2, var4 - 4, this.field_797);
-      this.field_761.method_229(var1, var2 + var4 - 1, var3, this.field_799);
-      this.field_761.method_229(var1 + 1, var2 + var4 - 2, var3 - 2, this.field_799);
-      this.field_761.method_229(var1 + 2, var2 + var4 - 3, var3 - 4, this.field_798);
+      this.field_761.drawLineHoriz(var1, var2 + var4 - 1, var3, this.field_799);
+      this.field_761.drawLineHoriz(var1 + 1, var2 + var4 - 2, var3 - 2, this.field_799);
+      this.field_761.drawLineHoriz(var1 + 2, var2 + var4 - 3, var3 - 4, this.field_798);
       this.field_761.method_230(var1 + var3 - 1, var2, var4, this.field_799);
       this.field_761.method_230(var1 + var3 - 2, var2 + 1, var4 - 2, this.field_799);
       this.field_761.method_230(var1 + var3 - 3, var2 + 2, var4 - 4, this.field_798);
@@ -502,7 +500,7 @@ public class class_11 {
 
    // $FF: renamed from: c (int, int, int) void
    protected void method_286(int var1, int var2, int var3) {
-      this.field_761.method_229(var1, var2, var3, 0);
+      this.field_761.drawLineHoriz(var1, var2, var3, 0);
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, java.lang.String[], int, int) void
@@ -594,8 +592,8 @@ public class class_11 {
       this.field_761.method_228(var7, var2, 12, var4, 0);
       this.field_761.method_242(var7 + 1, var2 + 1, field_802);
       this.field_761.method_242(var7 + 1, var2 + var4 - 12, 1 + field_802);
-      this.field_761.method_229(var7, var2 + 13, 12, 0);
-      this.field_761.method_229(var7, var2 + var4 - 13, 12, 0);
+      this.field_761.drawLineHoriz(var7, var2 + 13, 12, 0);
+      this.field_761.drawLineHoriz(var7, var2 + var4 - 13, 12, 0);
       this.field_761.method_226(var7 + 1, var2 + 14, 11, var4 - 27, this.field_788, this.field_789);
       this.field_761.method_227(var7 + 3, var5 + var2 + 14, 7, var6, this.field_791);
       this.field_761.method_230(var7 + 2, var5 + var2 + 14, var6, this.field_790);

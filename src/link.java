@@ -24,7 +24,7 @@ public class link {
 
    public static final byte[] getjag(String var0) {
       int var1 = 0;
-      if(class_4.field_563 == 0 && var1 >= numfile) {
+      if(GameData.field_563 == 0 && var1 >= numfile) {
          return null;
       } else {
          do {
@@ -41,7 +41,7 @@ public class link {
 
    public static final Socket opensocket(int var0) {
       socketport = var0;
-      if(class_4.field_563 != 0) {
+      if(GameData.field_563 != 0) {
          try {
             Thread.sleep(100L);
          } catch (Exception var2) {
@@ -62,7 +62,7 @@ public class link {
 
    public static final void startthread(Runnable var0) {
       runme = var0;
-      if(class_4.field_563 != 0 || runme != null) {
+      if(GameData.field_563 != 0 || runme != null) {
          do {
             try {
                Thread.sleep(100L);
@@ -76,7 +76,7 @@ public class link {
 
    public static final String gethostname(String var0) {
       iplookup = var0;
-      if(class_4.field_563 != 0) {
+      if(GameData.field_563 != 0) {
          try {
             Thread.sleep(100L);
          } catch (Exception var2) {

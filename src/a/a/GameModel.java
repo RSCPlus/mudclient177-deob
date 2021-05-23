@@ -74,7 +74,7 @@ public class GameModel {
    // $FF: renamed from: F int
    public int field_883;
    // $FF: renamed from: G int[]
-   public int[] field_884;
+   public int[] faceTag;
    // $FF: renamed from: H byte[]
    public byte[] field_885;
    // $FF: renamed from: I boolean
@@ -270,7 +270,7 @@ public class GameModel {
 
       if(!this.field_889) {
          this.field_885 = new byte[var2];
-         this.field_884 = new int[var2];
+         this.faceTag = new int[var2];
       }
 
       label28: {
@@ -324,7 +324,7 @@ public class GameModel {
    }
 
    // $FF: renamed from: b () void
-   public void method_359() {
+   public void clear() {
       this.field_860 = 0;
       this.field_852 = 0;
    }
@@ -579,7 +579,7 @@ public class GameModel {
             int var7 = this.method_393(var26);
             int var8 = this.method_393(var26);
             int var9 = this.method_393(var26);
-            this.method_366(var7, var8, var9);
+            this.vertexAt(var7, var8, var9);
             ++var15;
          } while(var15 < var27);
       }
@@ -621,7 +621,7 @@ public class GameModel {
             }
 
             label37: {
-               int var21 = this.method_368(var10, var17, var11, var12);
+               int var21 = this.createFace(var10, var17, var11, var12);
                this.field_905[var16] = var19;
                if(var29 == 0) {
                   this.field_867[var21] = 0;
@@ -741,16 +741,16 @@ public class GameModel {
                   int[] var11 = var8.field_862[var9];
                   int var12 = 0;
                   if(var15) {
-                     var10[var12] = this.method_366(var8.field_898[var11[var12]], var8.field_899[var11[var12]], var8.field_900[var11[var12]]);
+                     var10[var12] = this.vertexAt(var8.field_898[var11[var12]], var8.field_899[var11[var12]], var8.field_900[var11[var12]]);
                      ++var12;
                   }
 
                   while(var12 < var8.field_861[var9]) {
-                     var10[var12] = this.method_366(var8.field_898[var11[var12]], var8.field_899[var11[var12]], var8.field_900[var11[var12]]);
+                     var10[var12] = this.vertexAt(var8.field_898[var11[var12]], var8.field_899[var11[var12]], var8.field_900[var11[var12]]);
                      ++var12;
                   }
 
-                  int var13 = this.method_368(var8.field_861[var9], var10, var8.field_863[var9], var8.field_864[var9]);
+                  int var13 = this.createFace(var8.field_861[var9], var10, var8.field_863[var9], var8.field_864[var9]);
                   this.field_867[var13] = var8.field_867[var9];
                   this.field_866[var13] = var8.field_866[var9];
                   this.field_865[var13] = var8.field_865[var9];
@@ -796,7 +796,7 @@ public class GameModel {
    }
 
    // $FF: renamed from: a (int, int, int) int
-   public int method_366(int var1, int var2, int var3) {
+   public int vertexAt(int var1, int var2, int var3) {
       int var4 = 0;
       if(class_9.field_759) {
          if(this.field_898[var4] == var1 && this.field_899[var4] == var2 && this.field_900[var4] == var3) {
@@ -837,7 +837,7 @@ public class GameModel {
    }
 
    // $FF: renamed from: a (int, int[], int, int) int
-   public int method_368(int var1, int[] var2, int var3, int var4) {
+   public int createFace(int var1, int[] var2, int var3, int var4) {
       if(this.field_860 >= this.field_904) {
          return -1;
       } else {
@@ -851,7 +851,7 @@ public class GameModel {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, int, boolean) a.a.f[]
-   public GameModel[] method_369(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
+   public GameModel[] split(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
       boolean var22 = class_9.field_759;
       this.method_389();
       int[] var9 = new int[var6];
@@ -972,22 +972,22 @@ public class GameModel {
       int var6 = 0;
       int var7;
       if(class_9.field_759) {
-         var7 = var5[var6] = var1.method_366(this.field_898[var2[var6]], this.field_899[var2[var6]], this.field_900[var2[var6]]);
+         var7 = var5[var6] = var1.vertexAt(this.field_898[var2[var6]], this.field_899[var2[var6]], this.field_900[var2[var6]]);
          var1.field_858[var7] = this.field_858[var2[var6]];
          var1.field_859[var7] = this.field_859[var2[var6]];
          ++var6;
       }
 
       while(var6 < var3) {
-         var7 = var5[var6] = var1.method_366(this.field_898[var2[var6]], this.field_899[var2[var6]], this.field_900[var2[var6]]);
+         var7 = var5[var6] = var1.vertexAt(this.field_898[var2[var6]], this.field_899[var2[var6]], this.field_900[var2[var6]]);
          var1.field_858[var7] = this.field_858[var2[var6]];
          var1.field_859[var7] = this.field_859[var2[var6]];
          ++var6;
       }
 
-      var7 = var1.method_368(var3, var5, this.field_863[var4], this.field_864[var4]);
+      var7 = var1.createFace(var3, var5, this.field_863[var4], this.field_864[var4]);
       if(!var1.field_889 && !this.field_889) {
-         var1.field_884[var7] = this.field_884[var4];
+         var1.faceTag[var7] = this.faceTag[var4];
       }
 
       var1.field_867[var7] = this.field_867[var4];
@@ -996,7 +996,7 @@ public class GameModel {
    }
 
    // $FF: renamed from: a (boolean, int, int, int, int, int) void
-   public void method_371(boolean var1, int var2, int var3, int var4, int var5, int var6) {
+   public void setLight(boolean var1, int var2, int var3, int var4, int var5, int var6) {
       boolean var8 = class_9.field_759;
       this.field_934 = 256 - var2 * 4;
       this.field_933 = (64 - var3) * 16 + 128;
@@ -1061,7 +1061,7 @@ public class GameModel {
    }
 
    // $FF: renamed from: c (int, int) void
-   public void method_374(int var1, int var2) {
+   public void setVertexAmbience(int var1, int var2) {
       this.field_859[var1] = (byte)var2;
    }
 

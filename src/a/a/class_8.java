@@ -1,10 +1,6 @@
 package a.a;
 
 import a.Utility;
-import a.a.GameModel;
-import a.a.class_2;
-import a.a.class_3;
-import a.a.class_9;
 
 // $FF: renamed from: a.a.j
 public class class_8 {
@@ -282,7 +278,7 @@ public class class_8 {
    }
 
    // $FF: renamed from: a (a.a.f) void
-   public void method_170(GameModel var1) {
+   public void addModel(GameModel var1) {
       if(var1 == null) {
          System.out.println("Warning tried to add null object!"); // authentic System.out.println
       }
@@ -338,7 +334,7 @@ public class class_8 {
    // $FF: renamed from: b () void
    public void method_173() {
       this.field_682 = 0;
-      this.field_690.method_359();
+      this.field_690.clear();
    }
 
    // $FF: renamed from: a (int) void
@@ -363,8 +359,8 @@ public class class_8 {
       int var8 = this.field_690.method_367(var2, var3, var4);
       int var9 = this.field_690.method_367(var2, var3 - var6, var4);
       int[] var10 = new int[]{var8, var9};
-      this.field_690.method_368(2, var10, 0, 0);
-      this.field_690.field_884[this.field_682] = var7;
+      this.field_690.createFace(2, var10, 0, 0);
+      this.field_690.faceTag[this.field_682] = var7;
       this.field_690.field_885[this.field_682++] = 0;
       return this.field_682 - 1;
    }

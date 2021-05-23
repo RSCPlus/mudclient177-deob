@@ -482,14 +482,14 @@ public class class_9 implements ImageProducer, ImageObserver {
 
    // $FF: renamed from: c (int, int, int, int, int) void
    public void method_228(int var1, int var2, int var3, int var4, int var5) {
-      this.method_229(var1, var2, var3, var5);
-      this.method_229(var1, var2 + var4 - 1, var3, var5);
+      this.drawLineHoriz(var1, var2, var3, var5);
+      this.drawLineHoriz(var1, var2 + var4 - 1, var3, var5);
       this.method_230(var1, var2, var4, var5);
       this.method_230(var1 + var3 - 1, var2, var4, var5);
    }
 
    // $FF: renamed from: b (int, int, int, int) void
-   public void method_229(int var1, int var2, int var3, int var4) {
+   public void drawLineHoriz(int var1, int var2, int var3, int var4) {
       if(var2 >= this.field_743 && var2 < this.field_744) {
          if(var1 < this.field_745) {
             var3 -= this.field_745 - var1;
@@ -537,7 +537,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: a (int, int, int) void
-   public void method_231(int var1, int var2, int var3) {
+   public void setPixel(int var1, int var2, int var3) {
       if(var1 >= this.field_745 && var2 >= this.field_743 && var1 < this.field_746 && var2 < this.field_744) {
          this.field_729[var1 + var2 * this.field_723] = var3;
       }
@@ -943,7 +943,7 @@ public class class_9 implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: d (int, int, int, int, int) void
-   public void method_240(int var1, int var2, int var3, int var4, int var5) {
+   public void drawSpriteMinimap(int var1, int var2, int var3, int var4, int var5) {
       boolean var10 = field_759;
       this.field_736[var1] = var4;
       this.field_737[var1] = var5;
