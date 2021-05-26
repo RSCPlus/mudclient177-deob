@@ -1008,7 +1008,7 @@ public class World {
    }
 
    // $FF: renamed from: j (int, int) int
-   public int getWallEastwest(int var1, int var2) {
+   public int getWallNorthsouth(int var1, int var2) {
       int var4 = GameData.field_563;
       if(var1 >= 0 && var1 < 96 && var2 >= 0 && var2 < 96) {
          byte var3 = 0;
@@ -1041,7 +1041,7 @@ public class World {
    }
 
    // $FF: renamed from: k (int, int) int
-   public int getWallNorthsouth(int var1, int var2) {
+   public int getWallEastwest(int var1, int var2) {
       int var4 = GameData.field_563;
       if(var1 >= 0 && var1 < 96 && var2 >= 0 && var2 < 96) {
          byte var3 = 0;
@@ -1798,7 +1798,7 @@ public class World {
             ++var8;
          } else {
             while(true) {
-               var10 = this.getWallEastwest(var8, var9);
+               var10 = this.getWallNorthsouth(var8, var9);
                if(var10 > 0 && (GameData.wallObjectInvisible[var10 - 1] == 0 || this.field_820)) {
                   this.method422(this.parentModel, var10 - 1, var8, var9, var8 + 1, var9);
                   if(isLocalPlane && GameData.objectTileDirection[var10 - 1] != 0) {
@@ -1813,7 +1813,7 @@ public class World {
                   }
                }
 
-               var10 = this.getWallNorthsouth(var8, var9);
+               var10 = this.getWallEastwest(var8, var9);
                if(var10 > 0 && (GameData.wallObjectInvisible[var10 - 1] == 0 || this.field_820)) {
                   this.method422(this.parentModel, var10 - 1, var8, var9, var8, var9 + 1);
                   if(isLocalPlane && GameData.objectTileDirection[var10 - 1] != 0) {
@@ -1870,7 +1870,7 @@ public class World {
             ++var8;
          } else {
             do {
-               var10 = this.getWallEastwest(var8, var9);
+               var10 = this.getWallNorthsouth(var8, var9);
                if(var10 > 0 && (GameData.wallObjectInvisible[var10 - 1] == 0 || this.field_820)) {
                   this.method422(this.parentModel, var10 - 1, var8, var9, var8 + 1, var9);
                   if(isLocalPlane && GameData.objectTileDirection[var10 - 1] != 0) {
@@ -1885,7 +1885,7 @@ public class World {
                   }
                }
 
-               var10 = this.getWallNorthsouth(var8, var9);
+               var10 = this.getWallEastwest(var8, var9);
                if(var10 > 0 && (GameData.wallObjectInvisible[var10 - 1] == 0 || this.field_820)) {
                   this.method422(this.parentModel, var10 - 1, var8, var9, var8, var9 + 1);
                   if(isLocalPlane && GameData.objectTileDirection[var10 - 1] != 0) {
@@ -1959,12 +1959,12 @@ public class World {
                ++var10;
             } else {
                do {
-                  var12 = this.getWallEastwest(var10, var11);
+                  var12 = this.getWallNorthsouth(var10, var11);
                   if(var12 > 0) {
                      this.method428(var12 - 1, var10, var11, var10 + 1, var11);
                   }
 
-                  var12 = this.getWallNorthsouth(var10, var11);
+                  var12 = this.getWallEastwest(var10, var11);
                   if(var12 > 0) {
                      this.method428(var12 - 1, var10, var11, var10, var11 + 1);
                   }
