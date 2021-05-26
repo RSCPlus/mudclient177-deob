@@ -9,7 +9,7 @@ import a.a.class_11;
 import a.a.class_13;
 import a.a.GameModel;
 import a.a.ClientStream;
-import a.a.class_8;
+import a.a.Scene;
 import a.a.Surface;
 import java.awt.Color;
 import java.awt.Font;
@@ -70,7 +70,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: bM java.awt.Graphics
    Graphics graphics;
    // $FF: renamed from: bN a.a.j
-   class_8 scene;
+   Scene scene;
    // $FF: renamed from: bO d
    SurfaceSprite surface;
    // $FF: renamed from: bP int
@@ -909,9 +909,9 @@ public class mudclient extends GameApplet {
          if(!this.field_74) {
             this.method_54();
             if(!this.field_74) {
-               this.scene = new class_8(this.surface, 15000, 15000, 1000);
-               this.scene.method_182(this.field_96 / 2, this.gameHeight / 2, this.field_96 / 2, this.gameHeight / 2, this.field_96, this.field_98);
-               this.scene.field_647 = 2400;
+               this.scene = new Scene(this.surface, 15000, 15000, 1000);
+               this.scene.setBounds(this.field_96 / 2, this.gameHeight / 2, this.field_96 / 2, this.gameHeight / 2, this.field_96, this.field_98);
+               this.scene.clipFar3d = 2400;
                this.scene.field_648 = 2400;
                this.scene.field_649 = 1;
                this.scene.field_650 = 2300;
@@ -1836,7 +1836,7 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: I () void
    public void method_67() {
-      this.surface.field_747 = false;
+      this.surface.interlace = false;
       this.surface.method_223();
       this.field_379.method_278();
       if(this.field_382 != -1) {
@@ -1940,7 +1940,7 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: L () void
    public void method_70() {
-      this.surface.field_747 = false;
+      this.surface.interlace = false;
       this.surface.method_223();
       this.field_401.method_278();
       this.surface.drawSprite(0, this.gameHeight, this.spriteMedia + 22);
@@ -2057,7 +2057,7 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: O () void
    public void handleAppearancePanelControls() {
-      this.surface.field_747 = false;
+      this.surface.interlace = false;
       this.surface.method_223();
       this.field_364.method_278();
       short var1 = 140;
@@ -2250,7 +2250,7 @@ public class mudclient extends GameApplet {
    public void method_76() {
       int var2 = GameData.field_563;
       this.field_326 = false;
-      this.surface.field_747 = false;
+      this.surface.interlace = false;
       this.surface.method_223();
       if(this.field_341 == 0 || this.field_341 == 2) {
          label51: {
@@ -2318,12 +2318,12 @@ public class mudclient extends GameApplet {
       short var5 = 6400;
       short var6 = 1100;
       short var7 = 888;
-      this.scene.field_647 = 4100;
+      this.scene.clipFar3d = 4100;
       this.scene.field_648 = 4100;
       this.scene.field_649 = 1;
       this.scene.field_650 = 4000;
       this.scene.method_199(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
-      this.scene.method_187();
+      this.scene.render();
       this.surface.fade2black();
       this.surface.fade2black();
       this.surface.drawBox(0, 0, 512, 6, 0);
@@ -2354,12 +2354,12 @@ public class mudclient extends GameApplet {
       var5 = 9216;
       var6 = 1100;
       var7 = 888;
-      this.scene.field_647 = 4100;
+      this.scene.clipFar3d = 4100;
       this.scene.field_648 = 4100;
       this.scene.field_649 = 1;
       this.scene.field_650 = 4000;
       this.scene.method_199(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
-      this.scene.method_187();
+      this.scene.render();
       this.surface.fade2black();
       this.surface.fade2black();
       this.surface.drawBox(0, 0, 512, 6, 0);
@@ -2409,12 +2409,12 @@ public class mudclient extends GameApplet {
       var5 = 10368;
       var6 = 500;
       var7 = 376;
-      this.scene.field_647 = 4100;
+      this.scene.clipFar3d = 4100;
       this.scene.field_648 = 4100;
       this.scene.field_649 = 1;
       this.scene.field_650 = 4000;
       this.scene.method_199(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
-      this.scene.method_187();
+      this.scene.render();
       this.surface.fade2black();
       this.surface.fade2black();
       this.surface.drawBox(0, 0, 512, 6, 0);
@@ -6378,9 +6378,9 @@ public class mudclient extends GameApplet {
             }
          }
 
-         this.surface.field_747 = false;
+         this.surface.interlace = false;
          this.surface.method_223();
-         this.surface.field_747 = super.field_39;
+         this.surface.interlace = super.field_39;
          if(this.lastHeightOffset == 3) {
             var7 = 40 + (int)(Math.random() * 3.0D);
             var8 = 40 + (int)(Math.random() * 7.0D);
@@ -6401,7 +6401,7 @@ public class mudclient extends GameApplet {
                   }
                }
 
-               this.scene.field_647 = 3000;
+               this.scene.clipFar3d = 3000;
                this.scene.field_648 = 3000;
                this.scene.field_649 = 1;
                this.scene.field_650 = 2800;
@@ -6420,7 +6420,7 @@ public class mudclient extends GameApplet {
 
             label242: {
                if(!super.field_39) {
-                  this.scene.field_647 = 2400;
+                  this.scene.clipFar3d = 2400;
                   this.scene.field_648 = 2400;
                   this.scene.field_649 = 1;
                   this.scene.field_650 = 2300;
@@ -6429,7 +6429,7 @@ public class mudclient extends GameApplet {
                   }
                }
 
-               this.scene.field_647 = 2200;
+               this.scene.clipFar3d = 2200;
                this.scene.field_648 = 2200;
                this.scene.field_649 = 1;
                this.scene.field_650 = 2100;
@@ -6440,7 +6440,7 @@ public class mudclient extends GameApplet {
             this.scene.method_199(var7, -this.world.getElevation(var7, var8), var8, 912, this.field_135 * 4, 0, this.cameraZoom * 2);
          }
 
-         this.scene.method_187();
+         this.scene.render();
          this.method_93();
          if(this.field_114 > 0) {
             this.surface.drawSprite(this.field_115 - 8, this.field_116 - 8, this.spriteMedia + 14 + (24 - this.field_114) / 6);
@@ -10555,8 +10555,8 @@ public class mudclient extends GameApplet {
       int var6 = this.field_135 + this.field_199 & 255;
       int var7 = (this.localPlayer.currentX - 6040) * 3 * var5 / 2048;
       int var8 = (this.localPlayer.currentY - 6040) * 3 * var5 / 2048;
-      int var9 = class_8.field_651[1024 - var6 * 4 & 1023];
-      int var10 = class_8.field_651[(1024 - var6 * 4 & 1023) + 1024];
+      int var9 = Scene.field_651[1024 - var6 * 4 & 1023];
+      int var10 = Scene.field_651[(1024 - var6 * 4 & 1023) + 1024];
       int var11 = var8 * var9 + var7 * var10 >> 18;
       var8 = var8 * var10 - var7 * var9 >> 18;
       this.surface.method_254(var2 + var3 / 2 - var11, 36 + var4 / 2 + var8, this.spriteMedia - 1, var6 + 64 & 255, var5);
@@ -10673,8 +10673,8 @@ public class mudclient extends GameApplet {
             var2 += 40;
             var7 = (super.mouseX - (var2 + var3 / 2)) * 16384 / (3 * var5);
             var8 = (super.mouseY - (36 + var4 / 2)) * 16384 / (3 * var5);
-            var9 = class_8.field_651[1024 - var6 * 4 & 1023];
-            var10 = class_8.field_651[(1024 - var6 * 4 & 1023) + 1024];
+            var9 = Scene.field_651[1024 - var6 * 4 & 1023];
+            var10 = Scene.field_651[(1024 - var6 * 4 & 1023) + 1024];
             var11 = var8 * var9 + var7 * var10 >> 15;
             var8 = var8 * var10 - var7 * var9 >> 15;
             var7 = var11 + this.localPlayer.currentX;
@@ -11607,7 +11607,7 @@ public class mudclient extends GameApplet {
                label356: {
                   int var11;
                   int var12;
-                  if(var10 == this.scene.field_690) {
+                  if(var10 == this.scene.view) {
                      var11 = var10.faceTag[var9] % 10000;
                      var12 = var10.faceTag[var9] / 10000;
                      String var13;

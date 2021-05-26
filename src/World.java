@@ -1,5 +1,5 @@
 import a.a.GameModel;
-import a.a.class_8;
+import a.a.Scene;
 import a.a.Surface;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class World {
    // $FF: renamed from: c a.a.g
    Surface surface;
    // $FF: renamed from: d a.a.j
-   class_8 field_823;
+   Scene field_823;
    // $FF: renamed from: e int
    int baseMediaSprite;
    // $FF: renamed from: f int
@@ -74,7 +74,7 @@ public class World {
 
 
    // $FF: renamed from: <init> (a.a.j, a.a.g) void
-   public World(class_8 var1, Surface var2) {
+   public World(Scene var1, Surface var2) {
       super();
       int var7 = GameData.field_563;
       this.field_820 = false;
@@ -107,26 +107,26 @@ public class World {
       int var3 = 0;
       if(var7 != 0 || var3 < 64) {
          do {
-            this.terrainColours[var3] = class_8.method_212(255 - var3 * 4, 255 - (int)((double)var3 * 1.75D), 255 - var3 * 4);
+            this.terrainColours[var3] = Scene.method_212(255 - var3 * 4, 255 - (int)((double)var3 * 1.75D), 255 - var3 * 4);
             ++var3;
          } while(var3 < 64);
       }
 
       int var4 = 0;
       if(var7 != 0) {
-         this.terrainColours[var4 + 64] = class_8.method_212(var4 * 3, 144, 0);
+         this.terrainColours[var4 + 64] = Scene.method_212(var4 * 3, 144, 0);
          ++var4;
       }
 
       while(var4 < 64) {
-         this.terrainColours[var4 + 64] = class_8.method_212(var4 * 3, 144, 0);
+         this.terrainColours[var4 + 64] = Scene.method_212(var4 * 3, 144, 0);
          ++var4;
       }
 
       int var5 = 0;
       if(var7 != 0 || var5 < 64) {
          do {
-            this.terrainColours[var5 + 128] = class_8.method_212(192 - (int)((double)var5 * 1.5D), 144 - (int)((double)var5 * 1.5D), 0);
+            this.terrainColours[var5 + 128] = Scene.method_212(192 - (int)((double)var5 * 1.5D), 144 - (int)((double)var5 * 1.5D), 0);
             ++var5;
          } while(var5 < 64);
       }
@@ -134,7 +134,7 @@ public class World {
       int var6 = 0;
       if(var7 != 0 || var6 < 64) {
          do {
-            this.terrainColours[var6 + 192] = class_8.method_212(96 - (int)((double)var6 * 1.5D), 48 + (int)((double)var6 * 1.5D), 0);
+            this.terrainColours[var6 + 192] = Scene.method_212(96 - (int)((double)var6 * 1.5D), 48 + (int)((double)var6 * 1.5D), 0);
             ++var6;
          } while(var6 < 64);
 

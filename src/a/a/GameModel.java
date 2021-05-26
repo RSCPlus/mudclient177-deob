@@ -16,11 +16,11 @@ public class GameModel {
    // $FF: renamed from: c int[]
    public int[] field_854;
    // $FF: renamed from: d int[]
-   public int[] field_855;
+   public int[] projectVertexZ;
    // $FF: renamed from: e int[]
-   public int[] field_856;
+   public int[] vertexViewX;
    // $FF: renamed from: f int[]
-   public int[] field_857;
+   public int[] vertexViewY;
    // $FF: renamed from: g int[]
    public int[] field_858;
    // $FF: renamed from: h byte[]
@@ -28,13 +28,13 @@ public class GameModel {
    // $FF: renamed from: i int
    public int field_860;
    // $FF: renamed from: j int[]
-   public int[] field_861;
+   public int[] faceNumVertices;
    // $FF: renamed from: k int[][]
-   public int[][] field_862;
+   public int[][] faceVertices;
    // $FF: renamed from: l int[]
-   public int[] field_863;
+   public int[] faceFillFront;
    // $FF: renamed from: m int[]
-   public int[] field_864;
+   public int[] faceFillBack;
    // $FF: renamed from: n int[]
    public int[] field_865;
    // $FF: renamed from: o int[]
@@ -50,9 +50,9 @@ public class GameModel {
    // $FF: renamed from: t int
    public int field_871;
    // $FF: renamed from: u int
-   public int field_872;
+   public int transformState;
    // $FF: renamed from: v boolean
-   public boolean field_873;
+   public boolean visible;
    // $FF: renamed from: w int
    public int field_874;
    // $FF: renamed from: x int
@@ -184,8 +184,8 @@ public class GameModel {
    // $FF: renamed from: <init> (int, int) void
    public GameModel(int var1, int var2) {
       super();
-      this.field_872 = 1;
-      this.field_873 = true;
+      this.transformState = 1;
+      this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
       this.field_882 = false;
@@ -218,8 +218,8 @@ public class GameModel {
    // $FF: renamed from: <init> (int, int, boolean, boolean, boolean, boolean, boolean) void
    public GameModel(int var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6, boolean var7) {
       super();
-      this.field_872 = 1;
-      this.field_873 = true;
+      this.transformState = 1;
+      this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
       this.field_882 = false;
@@ -253,19 +253,19 @@ public class GameModel {
       this.field_900 = new int[var1];
       this.field_858 = new int[var1];
       this.field_859 = new byte[var1];
-      this.field_861 = new int[var2];
-      this.field_862 = new int[var2][];
-      this.field_863 = new int[var2];
-      this.field_864 = new int[var2];
+      this.faceNumVertices = new int[var2];
+      this.faceVertices = new int[var2][];
+      this.faceFillFront = new int[var2];
+      this.faceFillBack = new int[var2];
       this.field_867 = new int[var2];
       this.field_866 = new int[var2];
       this.field_865 = new int[var2];
       if(!this.field_890) {
          this.field_853 = new int[var1];
          this.field_854 = new int[var1];
-         this.field_855 = new int[var1];
-         this.field_856 = new int[var1];
-         this.field_857 = new int[var1];
+         this.projectVertexZ = new int[var1];
+         this.vertexViewX = new int[var1];
+         this.vertexViewY = new int[var1];
       }
 
       if(!this.field_889) {
@@ -318,9 +318,9 @@ public class GameModel {
    public void method_358() {
       this.field_853 = new int[this.field_852];
       this.field_854 = new int[this.field_852];
-      this.field_855 = new int[this.field_852];
-      this.field_856 = new int[this.field_852];
-      this.field_857 = new int[this.field_852];
+      this.projectVertexZ = new int[this.field_852];
+      this.vertexViewX = new int[this.field_852];
+      this.vertexViewY = new int[this.field_852];
    }
 
    // $FF: renamed from: b () void
@@ -347,8 +347,8 @@ public class GameModel {
    public GameModel(byte[] var1, int var2, boolean var3) {
       super();
       boolean var15 = Surface.field_759;
-      this.field_872 = 1;
-      this.field_873 = true;
+      this.transformState = 1;
+      this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
       this.field_882 = false;
@@ -407,22 +407,22 @@ public class GameModel {
       this.field_852 = var4;
       int var9 = 0;
       if(var15) {
-         this.field_861[var9] = var1[var2++] & 255;
+         this.faceNumVertices[var9] = var1[var2++] & 255;
          ++var9;
       }
 
       while(var9 < var5) {
-         this.field_861[var9] = var1[var2++] & 255;
+         this.faceNumVertices[var9] = var1[var2++] & 255;
          ++var9;
       }
 
       int var10 = 0;
       if(var15 || var10 < var5) {
          do {
-            this.field_863[var10] = Utility.method_450(var1, var2);
+            this.faceFillFront[var10] = Utility.method_450(var1, var2);
             var2 += 2;
-            if(this.field_863[var10] == 32767) {
-               this.field_863[var10] = this.field_896;
+            if(this.faceFillFront[var10] == 32767) {
+               this.faceFillFront[var10] = this.field_896;
             }
 
             ++var10;
@@ -431,20 +431,20 @@ public class GameModel {
 
       int var11 = 0;
       if(var15) {
-         this.field_864[var11] = Utility.method_450(var1, var2);
+         this.faceFillBack[var11] = Utility.method_450(var1, var2);
          var2 += 2;
-         if(this.field_864[var11] == 32767) {
-            this.field_864[var11] = this.field_896;
+         if(this.faceFillBack[var11] == 32767) {
+            this.faceFillBack[var11] = this.field_896;
          }
 
          ++var11;
       }
 
       for(; var11 < var5; ++var11) {
-         this.field_864[var11] = Utility.method_450(var1, var2);
+         this.faceFillBack[var11] = Utility.method_450(var1, var2);
          var2 += 2;
-         if(this.field_864[var11] == 32767) {
-            this.field_864[var11] = this.field_896;
+         if(this.faceFillBack[var11] == 32767) {
+            this.faceFillBack[var11] = this.field_896;
          }
       }
 
@@ -471,36 +471,36 @@ public class GameModel {
       var13 = 0;
       if(!var15 && var13 >= var5) {
          this.field_860 = var5;
-         this.field_872 = 1;
+         this.transformState = 1;
       } else {
          do {
-            this.field_862[var13] = new int[this.field_861[var13]];
+            this.faceVertices[var13] = new int[this.faceNumVertices[var13]];
             int var14 = 0;
-            if(!var15 && var14 >= this.field_861[var13]) {
+            if(!var15 && var14 >= this.faceNumVertices[var13]) {
                ++var13;
             } else {
                do {
                   label51: {
                      if(var4 < 256) {
-                        this.field_862[var13][var14] = var1[var2++] & 255;
+                        this.faceVertices[var13][var14] = var1[var2++] & 255;
                         if(!var15) {
                            break label51;
                         }
                      }
 
-                     this.field_862[var13][var14] = Utility.readUnsignedShort(var1, var2);
+                     this.faceVertices[var13][var14] = Utility.readUnsignedShort(var1, var2);
                      var2 += 2;
                   }
 
                   ++var14;
-               } while(var14 < this.field_861[var13]);
+               } while(var14 < this.faceNumVertices[var13]);
 
                ++var13;
             }
          } while(var13 < var5);
 
          this.field_860 = var5;
-         this.field_872 = 1;
+         this.transformState = 1;
       }
    }
 
@@ -508,8 +508,8 @@ public class GameModel {
    public GameModel(String var1) {
       super();
       boolean var22 = Surface.field_759;
-      this.field_872 = 1;
-      this.field_873 = true;
+      this.transformState = 1;
+      this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
       this.field_882 = false;
@@ -586,7 +586,7 @@ public class GameModel {
 
       int var16 = 0;
       if(!var22 && var16 >= var28) {
-         this.field_872 = 1;
+         this.transformState = 1;
       } else {
          do {
             int var10 = this.method_393(var26);
@@ -636,15 +636,15 @@ public class GameModel {
             ++var16;
          } while(var16 < var28);
 
-         this.field_872 = 1;
+         this.transformState = 1;
       }
    }
 
    // $FF: renamed from: <init> (a.a.f[], int, boolean, boolean, boolean, boolean) void
    public GameModel(GameModel[] var1, int var2, boolean var3, boolean var4, boolean var5, boolean var6) {
       super();
-      this.field_872 = 1;
-      this.field_873 = true;
+      this.transformState = 1;
+      this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
       this.field_882 = false;
@@ -673,8 +673,8 @@ public class GameModel {
    // $FF: renamed from: <init> (a.a.f[], int) void
    public GameModel(GameModel[] var1, int var2) {
       super();
-      this.field_872 = 1;
-      this.field_873 = true;
+      this.transformState = 1;
+      this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
       this.field_882 = false;
@@ -721,7 +721,7 @@ public class GameModel {
 
       int var7 = 0;
       if(!var15 && var7 >= var2) {
-         this.field_872 = 1;
+         this.transformState = 1;
       } else {
          do {
             GameModel var8 = var1[var7];
@@ -737,20 +737,20 @@ public class GameModel {
                ++var7;
             } else {
                do {
-                  int[] var10 = new int[var8.field_861[var9]];
-                  int[] var11 = var8.field_862[var9];
+                  int[] var10 = new int[var8.faceNumVertices[var9]];
+                  int[] var11 = var8.faceVertices[var9];
                   int var12 = 0;
                   if(var15) {
                      var10[var12] = this.vertexAt(var8.field_898[var11[var12]], var8.field_899[var11[var12]], var8.field_900[var11[var12]]);
                      ++var12;
                   }
 
-                  while(var12 < var8.field_861[var9]) {
+                  while(var12 < var8.faceNumVertices[var9]) {
                      var10[var12] = this.vertexAt(var8.field_898[var11[var12]], var8.field_899[var11[var12]], var8.field_900[var11[var12]]);
                      ++var12;
                   }
 
-                  int var13 = this.createFace(var8.field_861[var9], var10, var8.field_863[var9], var8.field_864[var9]);
+                  int var13 = this.createFace(var8.faceNumVertices[var9], var10, var8.faceFillFront[var9], var8.faceFillBack[var9]);
                   this.field_867[var13] = var8.field_867[var9];
                   this.field_866[var13] = var8.field_866[var9];
                   this.field_865[var13] = var8.field_865[var9];
@@ -791,7 +791,7 @@ public class GameModel {
             }
          } while(var7 < var2);
 
-         this.field_872 = 1;
+         this.transformState = 1;
       }
    }
 
@@ -841,11 +841,11 @@ public class GameModel {
       if(this.field_860 >= this.field_904) {
          return -1;
       } else {
-         this.field_861[this.field_860] = var1;
-         this.field_862[this.field_860] = var2;
-         this.field_863[this.field_860] = var3;
-         this.field_864[this.field_860] = var4;
-         this.field_872 = 1;
+         this.faceNumVertices[this.field_860] = var1;
+         this.faceVertices[this.field_860] = var2;
+         this.faceFillFront[this.field_860] = var3;
+         this.faceFillBack[this.field_860] = var4;
+         this.transformState = 1;
          return this.field_860++;
       }
    }
@@ -878,8 +878,8 @@ public class GameModel {
          do {
             int var13 = 0;
             var14 = 0;
-            var15 = this.field_861[var12];
-            int[] var16 = this.field_862[var12];
+            var15 = this.faceNumVertices[var12];
+            int[] var16 = this.faceVertices[var12];
             var17 = 0;
             if(var22) {
                var13 += this.field_898[var16[var17]];
@@ -931,8 +931,8 @@ public class GameModel {
          do {
             var24 = 0;
             var17 = 0;
-            var18 = this.field_861[var15];
-            int[] var19 = this.field_862[var15];
+            var18 = this.faceNumVertices[var15];
+            int[] var19 = this.faceVertices[var15];
             int var20 = 0;
             if(var22) {
                var24 += this.field_898[var19[var20]];
@@ -985,7 +985,7 @@ public class GameModel {
          ++var6;
       }
 
-      var7 = var1.createFace(var3, var5, this.field_863[var4], this.field_864[var4]);
+      var7 = var1.createFace(var3, var5, this.faceFillFront[var4], this.faceFillBack[var4]);
       if(!var1.field_889 && !this.field_889) {
          var1.faceTag[var7] = this.faceTag[var4];
       }
@@ -1071,7 +1071,7 @@ public class GameModel {
       this.field_916 = this.field_916 + var2 & 255;
       this.field_917 = this.field_917 + var3 & 255;
       this.method_379();
-      this.field_872 = 1;
+      this.transformState = 1;
    }
 
    // $FF: renamed from: e (int, int, int) void
@@ -1080,7 +1080,7 @@ public class GameModel {
       this.field_916 = var2 & 255;
       this.field_917 = var3 & 255;
       this.method_379();
-      this.field_872 = 1;
+      this.transformState = 1;
    }
 
    // $FF: renamed from: f (int, int, int) void
@@ -1089,7 +1089,7 @@ public class GameModel {
       this.field_913 += var2;
       this.field_914 += var3;
       this.method_379();
-      this.field_872 = 1;
+      this.transformState = 1;
    }
 
    // $FF: renamed from: g (int, int, int) void
@@ -1098,7 +1098,7 @@ public class GameModel {
       this.field_913 = var2;
       this.field_914 = var3;
       this.method_379();
-      this.field_872 = 1;
+      this.transformState = 1;
    }
 
    // $FF: renamed from: c () void
@@ -1231,9 +1231,9 @@ public class GameModel {
       int var2 = 0;
       if(var12 || var2 < this.field_860) {
          do {
-            int[] var1 = this.field_862[var2];
+            int[] var1 = this.faceVertices[var2];
             int var4 = var1[0];
-            int var5 = this.field_861[var2];
+            int var5 = this.faceNumVertices[var2];
             int var6;
             int var7 = var6 = this.field_901[var4];
             int var8;
@@ -1419,15 +1419,15 @@ public class GameModel {
             do {
                if(this.field_867[var8] == this.field_896) {
                   var9 = 0;
-                  if(var11 || var9 < this.field_861[var8]) {
+                  if(var11 || var9 < this.faceNumVertices[var8]) {
                      do {
-                        int var10 = this.field_862[var8][var9];
+                        int var10 = this.faceVertices[var8][var9];
                         var3[var10] += this.field_868[var8];
                         var4[var10] += this.field_869[var8];
                         var5[var10] += this.field_870[var8];
                         ++var6[var10];
                         ++var9;
-                     } while(var9 < this.field_861[var8]);
+                     } while(var9 < this.faceNumVertices[var8]);
                   }
                }
 
@@ -1458,7 +1458,7 @@ public class GameModel {
             this.method_385();
          } else {
             do {
-               int[] var2 = this.field_862[var1];
+               int[] var2 = this.faceVertices[var1];
                int var3 = this.field_901[var2[0]];
                int var4 = this.field_902[var2[0]];
                int var5 = this.field_903[var2[0]];
@@ -1504,9 +1504,9 @@ public class GameModel {
    public void method_387() {
       boolean var2 = Surface.field_759;
       int var1;
-      if(this.field_872 != 2) {
-         if(this.field_872 == 1) {
-            this.field_872 = 0;
+      if(this.transformState != 2) {
+         if(this.transformState == 1) {
+            this.transformState = 0;
             var1 = 0;
             if(var2 || var1 < this.field_852) {
                do {
@@ -1538,7 +1538,7 @@ public class GameModel {
          }
 
       } else {
-         this.field_872 = 0;
+         this.transformState = 0;
          var1 = 0;
          if(var2) {
             this.field_901[var1] = this.field_898[var1];
@@ -1560,11 +1560,11 @@ public class GameModel {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, int, int) void
-   public void method_388(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+   public void project(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
       boolean var20 = Surface.field_759;
       this.method_387();
-      if(this.field_878 <= class_8.field_720 && this.field_879 >= class_8.field_719 && this.field_874 <= class_8.field_716 && this.field_875 >= class_8.field_715 && this.field_876 <= class_8.field_718 && this.field_877 >= class_8.field_717) {
-         this.field_873 = true;
+      if(this.field_878 <= Scene.frustumNearZ && this.field_879 >= Scene.frustumFarZ && this.field_874 <= Scene.frustumMinX && this.field_875 >= Scene.frustumMaxX && this.field_876 <= Scene.frustumMinY && this.field_877 >= Scene.frustumMaxY) {
+         this.visible = true;
          int var10 = 0;
          int var11 = 0;
          int var12 = 0;
@@ -1613,35 +1613,35 @@ public class GameModel {
 
                label50: {
                   if(var19 >= var8) {
-                     this.field_856[var16] = (var17 << var7) / var19;
+                     this.vertexViewX[var16] = (var17 << var7) / var19;
                      if(!var20) {
                         break label50;
                      }
                   }
 
-                  this.field_856[var16] = var17 << var7;
+                  this.vertexViewX[var16] = var17 << var7;
                }
 
                label45: {
                   if(var19 >= var8) {
-                     this.field_857[var16] = (var18 << var7) / var19;
+                     this.vertexViewY[var16] = (var18 << var7) / var19;
                      if(!var20) {
                         break label45;
                      }
                   }
 
-                  this.field_857[var16] = var18 << var7;
+                  this.vertexViewY[var16] = var18 << var7;
                }
 
                this.field_853[var16] = var17;
                this.field_854[var16] = var18;
-               this.field_855[var16] = var19;
+               this.projectVertexZ[var16] = var19;
                ++var16;
             } while(var16 < this.field_852);
 
          }
       } else {
-         this.field_873 = false;
+         this.visible = false;
       }
    }
 
@@ -1696,7 +1696,7 @@ public class GameModel {
       this.field_913 = var1.field_913;
       this.field_914 = var1.field_914;
       this.method_379();
-      this.field_872 = 1;
+      this.transformState = 1;
    }
 
    // $FF: renamed from: a (byte[]) int

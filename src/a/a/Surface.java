@@ -63,7 +63,7 @@ public class Surface implements ImageProducer, ImageObserver {
    // $FF: renamed from: x int
    private int field_746;
    // $FF: renamed from: y boolean
-   public boolean field_747;
+   public boolean interlace;
    // $FF: renamed from: z byte[][]
    static byte[][] field_748;
    // $FF: renamed from: A int[]
@@ -92,7 +92,7 @@ public class Surface implements ImageProducer, ImageObserver {
    // $FF: renamed from: <init> (int, int, int, java.awt.Component) void
    public Surface(int var1, int var2, int var3, Component var4) {
       super();
-      this.field_747 = false;
+      this.interlace = false;
       this.loggedIn = false;
       this.field_731 = var4;
       this.field_744 = var2;
@@ -211,7 +211,7 @@ public class Surface implements ImageProducer, ImageObserver {
       boolean var5 = field_759;
       int var1 = this.field_723 * this.field_724;
       int var2;
-      if(this.field_747) {
+      if(this.interlace) {
          var2 = 0;
          int var3 = -this.field_724;
          if(var5 || var3 < 0) {
@@ -262,7 +262,7 @@ public class Surface implements ImageProducer, ImageObserver {
       }
 
       byte var15 = 1;
-      if(this.field_747) {
+      if(this.interlace) {
          var15 = 2;
          if((var13 & 1) != 0) {
             ++var13;
@@ -332,7 +332,7 @@ public class Surface implements ImageProducer, ImageObserver {
       int var10 = (var5 & 255) * var6;
       int var14 = this.field_723 - var3;
       byte var15 = 1;
-      if(this.field_747) {
+      if(this.interlace) {
          var15 = 2;
          var14 += this.field_723;
          if((var2 & 1) != 0) {
@@ -387,7 +387,7 @@ public class Surface implements ImageProducer, ImageObserver {
       int var12 = var5 & 255;
       int var13 = this.field_723 - var3;
       byte var14 = 1;
-      if(this.field_747) {
+      if(this.interlace) {
          var14 = 2;
          var13 += this.field_723;
          if((var2 & 1) != 0) {
@@ -449,7 +449,7 @@ public class Surface implements ImageProducer, ImageObserver {
 
       int var6 = this.field_723 - var3;
       byte var7 = 1;
-      if(this.field_747) {
+      if(this.interlace) {
          var7 = 2;
          var6 += this.field_723;
          if((var2 & 1) != 0) {
@@ -1051,7 +1051,7 @@ public class Surface implements ImageProducer, ImageObserver {
 
       if(var7 > 0 && var6 > 0) {
          byte var11 = 1;
-         if(this.field_747) {
+         if(this.interlace) {
             var11 = 2;
             var8 += this.field_723;
             var9 += this.field_736[var3];
@@ -1130,7 +1130,7 @@ public class Surface implements ImageProducer, ImageObserver {
          }
 
          byte var16 = 1;
-         if(this.field_747) {
+         if(this.interlace) {
             var16 = 2;
             var13 += this.field_723;
             var11 += var11;
@@ -1191,7 +1191,7 @@ public class Surface implements ImageProducer, ImageObserver {
 
       if(var8 > 0 && var7 > 0) {
          byte var12 = 1;
-         if(this.field_747) {
+         if(this.interlace) {
             var12 = 2;
             var9 += this.field_723;
             var10 += this.field_736[var3];
@@ -1270,7 +1270,7 @@ public class Surface implements ImageProducer, ImageObserver {
          }
 
          byte var17 = 1;
-         if(this.field_747) {
+         if(this.interlace) {
             var17 = 2;
             var14 += this.field_723;
             var12 += var12;
@@ -1347,7 +1347,7 @@ public class Surface implements ImageProducer, ImageObserver {
          }
 
          byte var17 = 1;
-         if(this.field_747) {
+         if(this.interlace) {
             var17 = 2;
             var14 += this.field_723;
             var12 += var12;
@@ -2266,7 +2266,7 @@ public class Surface implements ImageProducer, ImageObserver {
                   var47 = this.field_746;
                }
 
-               if(!this.field_747 || (var45 & 1) == 0) {
+               if(!this.interlace || (var45 & 1) == 0) {
                   label319: {
                      if(!this.field_742[var3]) {
                         this.method_255(this.field_729, var44, 0, var43 + var46, var48, var50, var49, var51, var46 - var47, var37);
@@ -2397,7 +2397,7 @@ public class Surface implements ImageProducer, ImageObserver {
          }
 
          var19 = var18 / this.field_723 & 1;
-         if(!this.field_747) {
+         if(!this.interlace) {
             var19 = 2;
          }
 
