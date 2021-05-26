@@ -812,6 +812,10 @@ public class mudclient extends GameApplet {
 		 if(var0.length > 4) {
 			 var1.rsaModulus = new BigInteger(var0[4]);
 		 }
+
+		 if (var0.length > 5) {
+		 	 a.class_5.reenableOpcodeEncryption = false;
+		 }
 		 // END INAUTHENTIC COMMAND LINE ARGUMENTS
 
       var1.method_7(var1.field_96, var1.gameHeight + 11, "Runescape by Andrew Gower", false);

@@ -8,7 +8,7 @@ import java.math.BigInteger;
 public class class_5 {
 
 	// inauthentic boolean used for testing; set to true for original behaviour
-	public boolean reenableOpcodeEncryption = false;
+	public static boolean reenableOpcodeEncryption = true;
 
    // $FF: renamed from: a int
    private static final int field_564;
