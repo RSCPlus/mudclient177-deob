@@ -3,9 +3,6 @@ package a.a;
 import a.class_20;
 import a.Utility;
 import a.class_22;
-import a.a.class_0;
-import a.a.ClientStream;
-import a.a.class_9;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,7 +11,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 // $FF: renamed from: a.a.b
-public class GameApplet extends class_0 {
+public class GameApplet extends GameShell {
 
    // $FF: renamed from: R java.lang.String[]
    public static String[] loginResponses;

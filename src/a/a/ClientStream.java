@@ -1,8 +1,7 @@
 package a.a;
 
 import a.class_5;
-import a.a.class_0;
-import a.a.class_9;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -14,29 +13,29 @@ public class ClientStream extends class_5 implements Runnable {
    // $FF: renamed from: I java.io.InputStream
    private InputStream field_598;
    // $FF: renamed from: J java.io.OutputStream
-   private OutputStream field_599;
+   private OutputStream outstream;
    // $FF: renamed from: K java.net.Socket
    private Socket field_600;
    // $FF: renamed from: L boolean
    private boolean field_601;
    // $FF: renamed from: M byte[]
-   private byte[] field_602;
+   private byte[] buffer;
    // $FF: renamed from: N int
-   private int field_603;
+   private int endOffset;
    // $FF: renamed from: O int
-   private int field_604;
+   private int offset;
    // $FF: renamed from: P boolean
    private boolean field_605;
 
 
    // $FF: renamed from: <init> (java.net.Socket, a.a.a) void
-   public ClientStream(Socket var1, class_0 var2) throws IOException {
+   public ClientStream(Socket var1, GameShell var2) throws IOException {
       super();
       this.field_601 = false;
       this.field_605 = true;
       this.field_600 = var1;
       this.field_598 = var1.getInputStream();
-      this.field_599 = var1.getOutputStream();
+      this.outstream = var1.getOutputStream();
       this.field_605 = false;
       var2.method_21(this);
    }
@@ -51,8 +50,8 @@ public class ClientStream extends class_5 implements Runnable {
             this.field_598.close();
          }
 
-         if(this.field_599 != null) {
-            this.field_599.close();
+         if(this.outstream != null) {
+            this.outstream.close();
          }
 
          if(this.field_600 != null) {
@@ -72,7 +71,7 @@ public class ClientStream extends class_5 implements Runnable {
 				}
 			}
 
-      this.field_602 = null;
+      this.buffer = null;
    }
 
    // $FF: renamed from: b () int
@@ -86,7 +85,7 @@ public class ClientStream extends class_5 implements Runnable {
    }
 
    // $FF: renamed from: a (int, int, byte[]) void
-   public void method_146(int var1, int var2, byte[] var3) throws IOException {
+   public void readStreamBytes(int var1, int var2, byte[] var3) throws IOException {
       if(!this.field_601) {
          int var4 = 0;
          boolean var5 = false;
@@ -105,10 +104,10 @@ public class ClientStream extends class_5 implements Runnable {
    }
 
    // $FF: renamed from: a (byte[], int, int) void
-   public void method_147(byte[] var1, int var2, int var3) throws IOException {
+   public void writeStreamBytes(byte[] var1, int var2, int var3) throws IOException {
       if(!this.field_601) {
-         if(this.field_602 == null) {
-            this.field_602 = new byte[5000];
+         if(this.buffer == null) {
+            this.buffer = new byte[5000];
          }
 
          synchronized(this) {
@@ -117,9 +116,9 @@ public class ClientStream extends class_5 implements Runnable {
 						 int var6 = 0;
 						 if (class_9.field_759 || var6 < var3) {
 							 do {
-								 this.field_602[this.field_604] = var1[var6 + var2];
-								 this.field_604 = (this.field_604 + 1) % 5000;
-								 if (this.field_604 == (this.field_603 + 4900) % 5000) {
+								 this.buffer[this.offset] = var1[var6 + var2];
+								 this.offset = (this.offset + 1) % 5000;
+								 if (this.offset == (this.endOffset + 4900) % 5000) {
 									 throw new IOException("buffer overflow");
 								 }
 
@@ -143,13 +142,13 @@ public class ClientStream extends class_5 implements Runnable {
          do {
 
 
-							int var1;
-							int var2;
+							int len;
+							int off;
 					 synchronized(this) {
 							try {
 								label126:
 								{
-									if (this.field_604 == this.field_603) {
+									if (this.offset == this.endOffset) {
 										try {
 											this.wait();
 										} catch (InterruptedException var10) {
@@ -161,37 +160,37 @@ public class ClientStream extends class_5 implements Runnable {
 										return;
 									}
 
-									var2 = this.field_603;
-									if (this.field_604 >= this.field_603) {
-										var1 = this.field_604 - this.field_603;
+									off = this.endOffset;
+									if (this.offset >= this.endOffset) {
+										len = this.offset - this.endOffset;
 										if (!var5) {
 											break label126;
 										}
 									}
 
-									var1 = 5000 - this.field_603;
+									len = 5000 - this.endOffset;
 								}
 							} catch (Throwable var13) {
 								throw var13;
 							}
 						}
-							if (var1 > 0) {
+							if (len > 0) {
 								try {
-									this.field_599.write(this.field_602, var2, var1);
+									this.outstream.write(this.buffer, off, len);
 								} catch (IOException var12) {
-									super.field_573 = true;
-									super.field_574 = "Twriter:" + var12;
+									super.socketException = true;
+									super.socketExceptionMessage = "Twriter:" + var12;
 								}
 
-								this.field_603 = (this.field_603 + var1) % 5000;
+								this.endOffset = (this.endOffset + len) % 5000;
 
 								try {
-									if (this.field_604 == this.field_603) {
-										this.field_599.flush();
+									if (this.offset == this.endOffset) {
+										this.outstream.flush();
 									}
 								} catch (IOException var11) {
-									super.field_573 = true;
-									super.field_574 = "Twriter:" + var11;
+									super.socketException = true;
+									super.socketExceptionMessage = "Twriter:" + var11;
 								}
 							}
 

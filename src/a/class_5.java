@@ -1,6 +1,5 @@
 package a;
 
-import a.Utility;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -29,9 +28,9 @@ public class class_5 {
    // $FF: renamed from: i int
    protected int maxOutgoingDataSize;
    // $FF: renamed from: j boolean
-   protected boolean field_573;
+   protected boolean socketException;
    // $FF: renamed from: k java.lang.String
-   protected String field_574;
+   protected String socketExceptionMessage;
    // $FF: renamed from: l int
    protected int field_575;
    // $FF: renamed from: m int
@@ -86,8 +85,8 @@ public class class_5 {
       this.field_566 = 3141592;
       this.field_568 = 3141592;
       this.maxOutgoingDataSize = 5000;
-      this.field_573 = false;
-      this.field_574 = "";
+      this.socketException = false;
+      this.socketExceptionMessage = "";
       this.field_576 = 61;
       this.field_577 = 59;
       this.field_578 = 42;
@@ -118,10 +117,10 @@ public class class_5 {
    }
 
    // $FF: renamed from: a (int, int, byte[]) void
-   public void method_146(int var1, int var2, byte[] var3) throws IOException {}
+   public void readStreamBytes(int var1, int var2, byte[] var3) throws IOException {}
 
    // $FF: renamed from: a (byte[], int, int) void
-   public void method_147(byte[] var1, int var2, int var3) throws IOException {}
+   public void writeStreamBytes(byte[] var1, int var2, int var3) throws IOException {}
 
    // $FF: renamed from: d () int
    public int method_148() throws IOException {
@@ -144,7 +143,7 @@ public class class_5 {
 
    // $FF: renamed from: a (int, byte[]) void
    public void method_151(int var1, byte[] var2) throws IOException {
-      this.method_146(var1, 0, var2);
+      this.readStreamBytes(var1, 0, var2);
    }
 
    // $FF: renamed from: a (byte[]) int
@@ -152,8 +151,8 @@ public class class_5 {
       try {
          ++this.field_590;
          if(this.field_591 > 0 && this.field_590 > this.field_591) {
-            this.field_573 = true;
-            this.field_574 = "time-out";
+            this.socketException = true;
+            this.socketExceptionMessage = "time-out";
             this.field_591 += this.field_591;
             return 0;
          }
@@ -186,8 +185,8 @@ public class class_5 {
             return var2;
          }
       } catch (IOException var3) {
-         this.field_573 = true;
-         this.field_574 = var3.getMessage();
+         this.socketException = true;
+         this.socketExceptionMessage = var3.getMessage();
       }
 
       return 0;
@@ -304,8 +303,8 @@ public class class_5 {
          try {
             this.newPacket_(0);
          } catch (IOException var4) {
-            this.field_573 = true;
-            this.field_574 = var4.getMessage();
+            this.socketException = true;
+            this.socketExceptionMessage = var4.getMessage();
          }
       }
 
@@ -385,17 +384,17 @@ public class class_5 {
 
    // $FF: renamed from: d (int) void
    public void newPacket_(int var1) throws IOException {
-      if(this.field_573) {
+      if(this.socketException) {
          this.outgoingDataOffset = 0;
          this.outgoingOffsetTotal = 3;
-         this.field_573 = false;
-         throw new IOException(this.field_574);
+         this.socketException = false;
+         throw new IOException(this.socketExceptionMessage);
       } else {
          ++this.field_575;
          if(this.field_575 >= var1) {
             if(this.outgoingDataOffset > 0) {
                this.field_575 = 0;
-               this.method_147(this.outgoingData, 0, this.outgoingDataOffset);
+               this.writeStreamBytes(this.outgoingData, 0, this.outgoingDataOffset);
             }
 
             this.outgoingDataOffset = 0;

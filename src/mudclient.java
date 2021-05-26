@@ -3,7 +3,7 @@ import a.class_19;
 import a.class_20;
 import a.Utility;
 import a.class_22;
-import a.a.class_0;
+import a.a.GameShell;
 import a.a.GameApplet;
 import a.a.class_11;
 import a.a.class_13;
@@ -168,13 +168,13 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: cJ int
    int spriteCount;
    // $FF: renamed from: cK c[]
-   class_7[] knownPlayers;
+   GameCharacter[] knownPlayers;
    // $FF: renamed from: cL c[]
-   class_7[] players;
+   GameCharacter[] players;
    // $FF: renamed from: cM c[]
-   class_7[] field_143;
+   GameCharacter[] field_143;
    // $FF: renamed from: cN c
-   class_7 localPlayer;
+   GameCharacter localPlayer;
    // $FF: renamed from: cO int
    int localRegionX;
    // $FF: renamed from: cP int
@@ -190,11 +190,11 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: cU int
    int field_151;
    // $FF: renamed from: cV c[]
-   class_7[] field_152;
+   GameCharacter[] field_152;
    // $FF: renamed from: cW c[]
-   class_7[] field_153;
+   GameCharacter[] field_153;
    // $FF: renamed from: cX c[]
-   class_7[] field_154;
+   GameCharacter[] field_154;
    // $FF: renamed from: cY int[]
    int[] knownPlayerIds;
    // $FF: renamed from: cZ int
@@ -870,7 +870,7 @@ public class mudclient extends GameApplet {
 
       super.field_11 = 0;
       GameApplet.field_46 = 1000;
-      GameApplet.clientVersion = class_12.clientVer;
+      GameApplet.clientVersion = Version.clientVer;
 
       try {
          readParam = this.getParameter("poff");
@@ -950,12 +950,12 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: u () void
    public void method_52() {
-      byte[] var1 = this.method_19("config" + class_12.field_809 + ".jag", "Configuration", 10);
+      byte[] var1 = this.method_19("config" + Version.configVer + ".jag", "Configuration", 10);
       if(var1 == null) {
          this.field_74 = true;
       } else {
          GameData.method_140(var1, this.field_69);
-         byte[] var2 = this.method_19("filter" + class_12.field_816 + ".jag", "Chat system", 15);
+         byte[] var2 = this.method_19("filter" + Version.filterVer + ".jag", "Chat system", 15);
          if(var2 == null) {
             this.field_74 = true;
          } else {
@@ -975,7 +975,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: v () void
    public void method_53() {
       int var8 = GameData.field_563;
-      byte[] var1 = this.method_19("media" + class_12.field_811 + ".jag", "2d graphics", 20);
+      byte[] var1 = this.method_19("media" + Version.mediaVer + ".jag", "2d graphics", 20);
       if(var1 == null) {
          this.field_74 = true;
       } else {
@@ -1047,7 +1047,7 @@ public class mudclient extends GameApplet {
       int var12 = GameData.field_563;
       Object var1 = null;
       Object var2 = null;
-      byte[] var13 = this.method_19("entity" + class_12.field_814 + ".jag", "people and monsters", 30);
+      byte[] var13 = this.method_19("entity" + Version.entityVer + ".jag", "people and monsters", 30);
       if(var13 == null) {
          this.field_74 = true;
       } else {
@@ -1055,7 +1055,7 @@ public class mudclient extends GameApplet {
          byte[] var3 = null;
          byte[] var4 = null;
          if(this.field_69) {
-            var3 = this.method_19("entity" + class_12.field_814 + ".mem", "member graphics", 45);
+            var3 = this.method_19("entity" + Version.entityVer + ".mem", "member graphics", 45);
             if(var3 == null) {
                this.field_74 = true;
                return;
@@ -1164,7 +1164,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: x () void
    public void method_55() {
       int var10 = GameData.field_563;
-      byte[] var1 = this.method_19("textures" + class_12.field_813 + ".jag", "Textures", 50);
+      byte[] var1 = this.method_19("textures" + Version.texturesVer + ".jag", "Textures", 50);
       if(var1 == null) {
          this.field_74 = true;
       } else {
@@ -1237,7 +1237,7 @@ public class mudclient extends GameApplet {
       GameData.method_135("spellcharge3");
       GameModel[] var10000;
       if(this.method_8()) {
-         byte[] var5 = this.method_19("models" + class_12.field_812 + ".jag", "3d models", 60);
+         byte[] var5 = this.method_19("models" + Version.modelsVer + ".jag", "3d models", 60);
          if(var5 == null) {
             this.field_74 = true;
          } else {
@@ -1287,14 +1287,14 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: z () void
    public void method_57() {
-      this.world.mapPack = this.method_19("maps" + class_12.field_810 + ".jag", "map", 70);
+      this.world.mapPack = this.method_19("maps" + Version.mapsVer + ".jag", "map", 70);
       if(this.field_69) {
-         this.world.memberMapPack = this.method_19("maps" + class_12.field_810 + ".mem", "members map", 75);
+         this.world.memberMapPack = this.method_19("maps" + Version.mapsVer + ".mem", "members map", 75);
       }
 
-      this.world.landscapePack = this.method_19("land" + class_12.field_810 + ".jag", "landscape", 80);
+      this.world.landscapePack = this.method_19("land" + Version.mapsVer + ".jag", "landscape", 80);
       if(this.field_69) {
-         this.world.memberLandscapePack = this.method_19("land" + class_12.field_810 + ".mem", "members landscape", 85);
+         this.world.memberLandscapePack = this.method_19("land" + Version.mapsVer + ".mem", "members landscape", 85);
       }
 
    }
@@ -1302,7 +1302,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: A () void
    public void method_58() {
       try {
-         this.field_441 = this.method_19("sounds" + class_12.field_815 + ".mem", "Sound effects", 90);
+         this.field_441 = this.method_19("sounds" + Version.soundsVer + ".mem", "Sound effects", 90);
          this.field_442 = new class_13();
       } catch (Throwable var2) {
          System.out.println("Unable to init sounds:" + var2); // authentic System.out.println
@@ -2877,7 +2877,7 @@ public class mudclient extends GameApplet {
             this.method_71();
          } else {
             int var1 = 0;
-            class_7 mob;
+            GameCharacter mob;
             int var3;
             byte var4;
             int var5;
@@ -3181,7 +3181,7 @@ public class mudclient extends GameApplet {
             int var14;
             if(var9 != 0 || var10 < this.field_150) {
                do {
-                  class_7 var11;
+                  GameCharacter var11;
                   label642: {
                      var11 = this.field_153[var10];
                      var14 = (var11.waypointCurrent + 1) % 10;
@@ -3324,7 +3324,7 @@ public class mudclient extends GameApplet {
             }
 
             var3 = 0;
-            class_7 var15;
+            GameCharacter var15;
             if(var9 != 0) {
                var15 = this.players[var3];
                if(var15.field_637 > 0) {
@@ -3929,16 +3929,16 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: b (int, int, int, int) c
-   public class_7 method_81(int var1, int var2, int var3, int var4) {
+   public GameCharacter method_81(int var1, int var2, int var3, int var4) {
       int var9 = GameData.field_563;
       if(this.knownPlayers[var1] == null) {
-         class_7[] var10000 = this.knownPlayers;
-         var10000[var1] = new class_7();
+         GameCharacter[] var10000 = this.knownPlayers;
+         var10000[var1] = new GameCharacter();
          this.knownPlayers[var1].pid = var1;
          this.knownPlayers[var1].appearanceId = 0;
       }
 
-      class_7 var5 = this.knownPlayers[var1];
+      GameCharacter var5 = this.knownPlayers[var1];
       boolean var6 = false;
       int var7 = 0;
       if(var9 != 0 || var7 < this.field_139) {
@@ -3984,15 +3984,15 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: a (int, int, int, int, int) c
-   public class_7 method_82(int var1, int var2, int var3, int var4, int var5) {
+   public GameCharacter method_82(int var1, int var2, int var3, int var4, int var5) {
       int var10 = GameData.field_563;
       if(this.field_152[var1] == null) {
-         class_7[] var10000 = this.field_152;
-         var10000[var1] = new class_7();
+         GameCharacter[] var10000 = this.field_152;
+         var10000[var1] = new GameCharacter();
          this.field_152[var1].pid = var1;
       }
 
-      class_7 var6 = this.field_152[var1];
+      GameCharacter var6 = this.field_152[var1];
       boolean var7 = false;
       int var8 = 0;
       if(var10 != 0 || var8 < this.field_151) {
@@ -4096,7 +4096,7 @@ public class mudclient extends GameApplet {
             if(var19 != 0 || i < reuseableVar1) {
                do {
                   label1467: {
-                     class_7 var12 = this.field_143[i + 1];
+                     GameCharacter var12 = this.field_143[i + 1];
                      var13 = Utility.readBits(data, newIndex, 1); // needs update
                      ++newIndex;
                      if(var13 != 0) {
@@ -4198,7 +4198,7 @@ public class mudclient extends GameApplet {
                }
 
                do {
-                  class_7 player = this.knownPlayers[this.knownPlayerIds[var13]];
+                  GameCharacter player = this.knownPlayers[this.knownPlayerIds[var13]];
                   super.clientStream.putShort(player.pid);
                   super.clientStream.putShort(player.appearanceId);
                   ++var13;
@@ -4493,7 +4493,7 @@ public class mudclient extends GameApplet {
                return;
             }
 
-            class_7 mob;
+            GameCharacter mob;
             if(opcode == 250) { // SEND_UPDATE_PLAYERS
                updateSize = Utility.readUnsignedShort(data, 1);
                newIndex = 3;
@@ -6214,7 +6214,7 @@ public class mudclient extends GameApplet {
          this.scene.reduceSprites(this.spriteCount);
          this.spriteCount = 0;
          var2 = 0;
-         class_7 var3;
+         GameCharacter var3;
          int var4;
          int var5;
          int var6;
@@ -6268,10 +6268,10 @@ public class mudclient extends GameApplet {
          int var16 = 0;
          int var8;
          int var9;
-         class_7 var18;
+         GameCharacter var18;
          if(var15 != 0 || var16 < this.playerCount) {
             do {
-               class_7 var17 = this.players[var16];
+               GameCharacter var17 = this.players[var16];
                if(var17.field_637 > 0) {
                   var18 = null;
                   if(var17.field_636 != -1) {
@@ -6611,7 +6611,7 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: c (int, int, int, int, int, int, int) void
    public void method_91(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-      class_7 var8;
+      GameCharacter var8;
       int var9;
       boolean var10;
       int var11;
@@ -6834,7 +6834,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: d (int, int, int, int, int, int, int) void
    public void method_92(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
       int var23 = GameData.field_563;
-      class_7 var8 = this.players[var5];
+      GameCharacter var8 = this.players[var5];
       if(var8.trouserColour != 255) {
          int var9;
          boolean var10;
@@ -7634,7 +7634,7 @@ public class mudclient extends GameApplet {
             var12 = 0;
             if(var19 != 0 || var12 < this.playerCount) {
                do {
-                  class_7 var24 = this.players[var12];
+                  GameCharacter var24 = this.players[var12];
                   var24.currentX -= var7 * this.magicLoc;
                   var24.currentY -= var8 * this.magicLoc;
 
@@ -7659,7 +7659,7 @@ public class mudclient extends GameApplet {
                return true;
             } else {
                do {
-                  class_7 var25 = this.field_153[var23];
+                  GameCharacter var25 = this.field_153[var23];
                   var25.currentX -= var7 * this.magicLoc;
                   var25.currentY -= var8 * this.magicLoc;
                   var15 = 0;
@@ -10594,7 +10594,7 @@ public class mudclient extends GameApplet {
       int var14 = 0;
       if(var19 != 0 || var14 < this.field_150) {
          do {
-            class_7 var15 = this.field_153[var14];
+            GameCharacter var15 = this.field_153[var14];
             var7 = (var15.currentX - this.localPlayer.currentX) * 3 * var5 / 2048;
             var8 = (var15.currentY - this.localPlayer.currentY) * 3 * var5 / 2048;
             var11 = var8 * var9 + var7 * var10 >> 18;
@@ -10605,7 +10605,7 @@ public class mudclient extends GameApplet {
       }
 
       int var20 = 0;
-      class_7 var16;
+      GameCharacter var16;
       int var17;
       int var18;
       if(var19 != 0) {
@@ -12667,11 +12667,11 @@ public class mudclient extends GameApplet {
    }
 
    public Graphics getGraphics() {
-      return class_0.field_7 != null?class_0.field_7.getGraphics():(link.mainapp != null?link.mainapp.getGraphics():super.getGraphics());
+      return GameShell.field_7 != null? GameShell.field_7.getGraphics():(link.mainapp != null?link.mainapp.getGraphics():super.getGraphics());
    }
 
    public Image createImage(int var1, int var2) {
-      return class_0.field_7 != null?class_0.field_7.createImage(var1, var2):(link.mainapp != null?link.mainapp.createImage(var1, var2):super.createImage(var1, var2));
+      return GameShell.field_7 != null? GameShell.field_7.createImage(var1, var2):(link.mainapp != null?link.mainapp.createImage(var1, var2):super.createImage(var1, var2));
    }
 
    public URL getCodeBase() {
@@ -12773,16 +12773,16 @@ public class mudclient extends GameApplet {
       this.field_135 = 128;
       this.field_136 = 4000;
       this.field_137 = 500;
-      this.knownPlayers = new class_7[this.field_136];
-      this.players = new class_7[this.field_137];
-      this.field_143 = new class_7[this.field_137];
-      this.localPlayer = new class_7();
+      this.knownPlayers = new GameCharacter[this.field_136];
+      this.players = new GameCharacter[this.field_137];
+      this.field_143 = new GameCharacter[this.field_137];
+      this.localPlayer = new GameCharacter();
       this.localPlayerServerIndex = -1;
       this.field_148 = 5000;
       this.field_149 = 500;
-      this.field_152 = new class_7[this.field_148];
-      this.field_153 = new class_7[this.field_149];
-      this.field_154 = new class_7[this.field_149];
+      this.field_152 = new GameCharacter[this.field_148];
+      this.field_153 = new GameCharacter[this.field_149];
+      this.field_154 = new GameCharacter[this.field_149];
       this.knownPlayerIds = new int[500];
       this.field_156 = 5000;
       this.groundItemX = new int[this.field_156];
