@@ -84,11 +84,11 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: bT int
    int field_98;
    // $FF: renamed from: bU int
-   int field_99;
+   int spriteMedia;
    // $FF: renamed from: bV int
    int field_100;
    // $FF: renamed from: bW int
-   int field_101;
+   int spriteItem;
    // $FF: renamed from: bX int
    int field_102;
    // $FF: renamed from: bY int
@@ -440,7 +440,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: fq boolean
    boolean field_276;
    // $FF: renamed from: fr java.lang.String
-   String field_277;
+   String tradeRecipientName;
    // $FF: renamed from: fs int
    int tradeItemsCount;
    // $FF: renamed from: ft int[]
@@ -883,10 +883,10 @@ public class mudclient extends GameApplet {
 
       this.method_52();
       if(!this.field_74) {
-         this.field_99 = 2000;
-         this.field_100 = this.field_99 + 100;
-         this.field_101 = this.field_100 + 50;
-         this.field_105 = this.field_101 + 1000;
+         this.spriteMedia = 2000;
+         this.field_100 = this.spriteMedia + 100;
+         this.spriteItem = this.field_100 + 50;
+         this.field_105 = this.spriteItem + 1000;
          this.field_102 = this.field_105 + 10;
          this.field_103 = this.field_102 + 50;
          this.field_104 = this.field_103 + 10;
@@ -917,7 +917,7 @@ public class mudclient extends GameApplet {
                this.scene.field_650 = 2300;
                this.scene.method_210(-50, -10, -50);
                this.world = new World(this.scene, this.surface);
-               this.world.baseMediaSprite = this.field_99;
+               this.world.baseMediaSprite = this.spriteMedia;
                this.method_55();
                if(!this.field_74) {
                   this.method_56();
@@ -980,16 +980,16 @@ public class mudclient extends GameApplet {
          this.field_74 = true;
       } else {
          byte[] var2 = Utility.loadData("index.dat", 0, var1);
-         this.surface.method_236(this.field_99, Utility.loadData("inv1.dat", 0, var1), var2, 1);
-         this.surface.method_236(this.field_99 + 1, Utility.loadData("inv2.dat", 0, var1), var2, 6);
-         this.surface.method_236(this.field_99 + 9, Utility.loadData("bubble.dat", 0, var1), var2, 1);
-         this.surface.method_236(this.field_99 + 10, Utility.loadData("runescape.dat", 0, var1), var2, 1);
-         this.surface.method_236(this.field_99 + 11, Utility.loadData("splat.dat", 0, var1), var2, 3);
-         this.surface.method_236(this.field_99 + 14, Utility.loadData("icon.dat", 0, var1), var2, 8);
-         this.surface.method_236(this.field_99 + 22, Utility.loadData("hbar.dat", 0, var1), var2, 1);
-         this.surface.method_236(this.field_99 + 23, Utility.loadData("hbar2.dat", 0, var1), var2, 1);
-         this.surface.method_236(this.field_99 + 24, Utility.loadData("compass.dat", 0, var1), var2, 1);
-         this.surface.method_236(this.field_99 + 25, Utility.loadData("buttons.dat", 0, var1), var2, 2);
+         this.surface.method_236(this.spriteMedia, Utility.loadData("inv1.dat", 0, var1), var2, 1);
+         this.surface.method_236(this.spriteMedia + 1, Utility.loadData("inv2.dat", 0, var1), var2, 6);
+         this.surface.method_236(this.spriteMedia + 9, Utility.loadData("bubble.dat", 0, var1), var2, 1);
+         this.surface.method_236(this.spriteMedia + 10, Utility.loadData("runescape.dat", 0, var1), var2, 1);
+         this.surface.method_236(this.spriteMedia + 11, Utility.loadData("splat.dat", 0, var1), var2, 3);
+         this.surface.method_236(this.spriteMedia + 14, Utility.loadData("icon.dat", 0, var1), var2, 8);
+         this.surface.method_236(this.spriteMedia + 22, Utility.loadData("hbar.dat", 0, var1), var2, 1);
+         this.surface.method_236(this.spriteMedia + 23, Utility.loadData("hbar2.dat", 0, var1), var2, 1);
+         this.surface.method_236(this.spriteMedia + 24, Utility.loadData("compass.dat", 0, var1), var2, 1);
+         this.surface.method_236(this.spriteMedia + 25, Utility.loadData("buttons.dat", 0, var1), var2, 2);
          this.surface.method_236(this.field_100, Utility.loadData("scrollbar.dat", 0, var1), var2, 2);
          this.surface.method_236(this.field_100 + 2, Utility.loadData("corners.dat", 0, var1), var2, 4);
          this.surface.method_236(this.field_100 + 6, Utility.loadData("arrows.dat", 0, var1), var2, 2);
@@ -1005,21 +1005,21 @@ public class mudclient extends GameApplet {
                   var5 = 30;
                }
 
-               this.surface.method_236(this.field_101 + (var4 - 1) * 30, Utility.loadData("objects" + var4 + ".dat", 0, var1), var2, var5);
+               this.surface.method_236(this.spriteItem + (var4 - 1) * 30, Utility.loadData("objects" + var4 + ".dat", 0, var1), var2, var5);
                ++var4;
             } while(var3 > 0);
          }
 
-         this.surface.method_239(this.field_99);
-         this.surface.method_239(this.field_99 + 9);
+         this.surface.method_239(this.spriteMedia);
+         this.surface.method_239(this.spriteMedia + 9);
          var5 = 11;
          if(var8 != 0) {
-            this.surface.method_239(this.field_99 + var5);
+            this.surface.method_239(this.spriteMedia + var5);
             ++var5;
          }
 
          while(var5 <= 26) {
-            this.surface.method_239(this.field_99 + var5);
+            this.surface.method_239(this.spriteMedia + var5);
             ++var5;
          }
 
@@ -1034,7 +1034,7 @@ public class mudclient extends GameApplet {
          int var7 = 0;
          if(var8 != 0 || var7 < GameData.field_473) {
             do {
-               this.surface.method_239(this.field_101 + var7);
+               this.surface.method_239(this.spriteItem + var7);
                ++var7;
             } while(var7 < GameData.field_473);
 
@@ -1177,13 +1177,13 @@ public class mudclient extends GameApplet {
                byte[] var5 = Utility.loadData(var4 + ".dat", 0, var1);
                this.surface.method_236(this.field_103, var5, var2, 1);
                this.surface.drawBox(0, 0, 128, 128, 16711935);
-               this.surface.method_242(0, 0, this.field_103);
+               this.surface.drawSprite(0, 0, this.field_103);
                int var6 = this.surface.field_740[this.field_103];
                String var7 = GameData.field_506[var3];
                if(var7 != null && var7.length() > 0) {
                   var5 = Utility.loadData(var7 + ".dat", 0, var1);
                   this.surface.method_236(this.field_103, var5, var2, 1);
-                  this.surface.method_242(0, 0, this.field_103);
+                  this.surface.drawSprite(0, 0, this.field_103);
                }
 
                this.surface.method_241(this.field_104 + var3, 0, 0, var6, var6);
@@ -1849,7 +1849,7 @@ public class mudclient extends GameApplet {
          this.surface.drawstringCenter(super.field_42 + "*", 256, var2, 4, 16777215);
       }
 
-      this.surface.method_242(0, this.gameHeight, this.field_99 + 22);
+      this.surface.drawSprite(0, this.gameHeight, this.spriteMedia + 22);
       this.surface.draw(this.graphics, 0, 0);
    }
 
@@ -1943,7 +1943,7 @@ public class mudclient extends GameApplet {
       this.surface.field_747 = false;
       this.surface.method_223();
       this.field_401.method_278();
-      this.surface.method_242(0, this.gameHeight, this.field_99 + 22);
+      this.surface.drawSprite(0, this.gameHeight, this.spriteMedia + 22);
       this.surface.draw(this.graphics, 0, 0);
    }
 
@@ -2073,7 +2073,7 @@ public class mudclient extends GameApplet {
       this.surface.method_246(var3 - 32 + 55, var4, 64, 102, GameData.field_513[this.field_429] + 12, this.field_435[this.field_432]);
       this.surface.method_258(var3 - 32 + 55, var4, 64, 102, GameData.field_513[this.field_428] + 12, this.field_435[this.field_431], this.field_437[this.field_433], 0, false);
       this.surface.method_258(var3 - 32 + 55, var4, 64, 102, GameData.field_513[this.field_427] + 12, this.field_436[this.field_430], this.field_437[this.field_433], 0, false);
-      this.surface.method_242(0, this.gameHeight, this.field_99 + 22);
+      this.surface.drawSprite(0, this.gameHeight, this.spriteMedia + 22);
       this.surface.draw(this.graphics, 0, 0);
    }
 
@@ -2256,7 +2256,7 @@ public class mudclient extends GameApplet {
          label51: {
             int var1 = this.field_76 * 2 % 3072;
             if(var1 < 1024) {
-               this.surface.method_242(0, 10, this.field_105);
+               this.surface.drawSprite(0, 10, this.field_105);
                if(var1 <= 768) {
                   break label51;
                }
@@ -2268,18 +2268,18 @@ public class mudclient extends GameApplet {
             }
 
             if(var1 < 2048) {
-               this.surface.method_242(0, 10, this.field_105 + 1);
+               this.surface.drawSprite(0, 10, this.field_105 + 1);
                if(var1 <= 1792) {
                   break label51;
                }
 
-               this.surface.method_244(0, 10, this.field_99 + 10, var1 - 1792);
+               this.surface.method_244(0, 10, this.spriteMedia + 10, var1 - 1792);
                if(var2 == 0) {
                   break label51;
                }
             }
 
-            this.surface.method_242(0, 10, this.field_99 + 10);
+            this.surface.drawSprite(0, 10, this.spriteMedia + 10);
             if(var1 > 2816) {
                this.surface.method_244(0, 10, this.field_105, var1 - 2816);
             }
@@ -2302,7 +2302,7 @@ public class mudclient extends GameApplet {
          this.field_390.method_278();
       }
 
-      this.surface.method_242(0, this.gameHeight, this.field_99 + 22);
+      this.surface.drawSprite(0, this.gameHeight, this.spriteMedia + 22);
       this.surface.draw(this.graphics, 0, 0);
    }
 
@@ -2347,7 +2347,7 @@ public class mudclient extends GameApplet {
          } while(var9 >= 1);
       }
 
-      this.surface.method_242(15, 15, this.field_99 + 10);
+      this.surface.drawSprite(15, 15, this.spriteMedia + 10);
       this.surface.method_241(this.field_105, 0, 0, 512, 200);
       this.surface.method_238(this.field_105);
       var4 = 9216;
@@ -2383,7 +2383,7 @@ public class mudclient extends GameApplet {
          } while(var11 >= 1);
       }
 
-      this.surface.method_242(15, 15, this.field_99 + 10);
+      this.surface.drawSprite(15, 15, this.spriteMedia + 10);
       this.surface.method_241(this.field_105 + 1, 0, 0, 512, 200);
       this.surface.method_238(this.field_105 + 1);
       int var12 = 0;
@@ -2438,9 +2438,9 @@ public class mudclient extends GameApplet {
          --var14;
       }
 
-      this.surface.method_242(15, 15, this.field_99 + 10);
-      this.surface.method_241(this.field_99 + 10, 0, 0, 512, 200);
-      this.surface.method_238(this.field_99 + 10);
+      this.surface.drawSprite(15, 15, this.spriteMedia + 10);
+      this.surface.method_241(this.spriteMedia + 10, 0, 0, 512, 200);
+      this.surface.method_238(this.spriteMedia + 10);
    }
 
    // $FF: renamed from: T () void
@@ -5227,7 +5227,7 @@ public class mudclient extends GameApplet {
             if(opcode == 238) {
                updateSize = Utility.readUnsignedShort(data, 1);
                if(this.knownPlayers[updateSize] != null) {
-                  this.field_277 = this.knownPlayers[updateSize].username;
+                  this.tradeRecipientName = this.knownPlayers[updateSize].username;
                }
 
                this.field_276 = true;
@@ -6085,7 +6085,7 @@ public class mudclient extends GameApplet {
             this.surface.drawstringCenter("keyboard to type the word in the box below", this.field_96 / 2, 160, 5, 16777215);
             this.surface.drawstringCenter(super.inputTextCurrent + "*", this.field_96 / 2, 180, 5, '\uffff');
             if(this.sleepingStatusText == null) {
-               this.surface.method_242(this.field_96 / 2 - 127, 230, this.field_103 + 1);
+               this.surface.drawSprite(this.field_96 / 2 - 127, 230, this.field_103 + 1);
                if(var15 == 0) {
                   break label210;
                }
@@ -6443,11 +6443,11 @@ public class mudclient extends GameApplet {
          this.scene.method_187();
          this.method_93();
          if(this.field_114 > 0) {
-            this.surface.method_242(this.field_115 - 8, this.field_116 - 8, this.field_99 + 14 + (24 - this.field_114) / 6);
+            this.surface.drawSprite(this.field_115 - 8, this.field_116 - 8, this.spriteMedia + 14 + (24 - this.field_114) / 6);
          }
 
          if(this.field_114 < 0) {
-            this.surface.method_242(this.field_115 - 8, this.field_116 - 8, this.field_99 + 18 + (24 + this.field_114) / 6);
+            this.surface.drawSprite(this.field_115 - 8, this.field_116 - 8, this.spriteMedia + 18 + (24 + this.field_114) / 6);
          }
 
          if(!this.loadingArea) {
@@ -6458,7 +6458,7 @@ public class mudclient extends GameApplet {
 
             if(var7 > 0) {
                var8 = 1 + var7 / 6;
-               this.surface.method_242(453, this.gameHeight - 56, this.field_99 + 13);
+               this.surface.drawSprite(453, this.gameHeight - 56, this.spriteMedia + 13);
                this.surface.drawstringCenter("Wilderness", 465, this.gameHeight - 20, 1, 16776960);
                this.surface.drawstringCenter("Level: " + var8, 465, this.gameHeight - 7, 1, 16776960);
                if(this.showUiWildWarn == 0) {
@@ -6477,7 +6477,7 @@ public class mudclient extends GameApplet {
                do {
                   if(this.field_248[var7] > 0) {
                      String var19 = this.field_247[var7];
-                     this.surface.method_267(var19, 7, this.gameHeight - 18 - var7 * 12, 1, 16776960);
+                     this.surface.drawString(var19, 7, this.gameHeight - 18 - var7 * 12, 1, 16776960);
                   }
 
                   ++var7;
@@ -6511,7 +6511,7 @@ public class mudclient extends GameApplet {
          class_11.field_806 = 2;
          this.panelMessageTabs.method_278();
          class_11.field_806 = 0;
-         this.surface.method_244(this.surface.field_723 - 3 - 197, 3, this.field_99, 128);
+         this.surface.method_244(this.surface.field_723 - 3 - 197, 3, this.spriteMedia, 128);
          this.method_105();
          this.surface.loggedIn = false;
          this.drawChatMessageTabs();
@@ -6541,7 +6541,7 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: Y () void
    public void drawChatMessageTabs() {
-      this.surface.method_242(0, this.gameHeight - 4, this.field_99 + 23);
+      this.surface.drawSprite(0, this.gameHeight - 4, this.spriteMedia + 23);
       int var1 = Surface.method_234(200, 200, 255);
       if(this.messageTabSelected == 0) {
          var1 = Surface.method_234(255, 200, 50);
@@ -6604,8 +6604,8 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: b (int, int, int, int, int, int, int) void
    public void drawItem(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-      int var8 = GameData.field_477[var5] + this.field_101;
-      int var9 = GameData.field_482[var5];
+      int var8 = GameData.itemTexture[var5] + this.spriteItem;
+      int var9 = GameData.itemMask[var5];
       this.surface.method_258(var1, var2, var3, var4, var8, var9, 0, 0, false);
    }
 
@@ -6824,7 +6824,7 @@ public class mudclient extends GameApplet {
                }
             }
 
-            this.surface.method_242(var14 + var3 / 2 - 12, var2 + var4 / 2 - 12, this.field_99 + 12);
+            this.surface.drawSprite(var14 + var3 / 2 - 12, var2 + var4 / 2 - 12, this.spriteMedia + 12);
             this.surface.drawstringCenter(String.valueOf(var8.damageTaken), var14 + var3 / 2 - 1, var2 + var4 / 2 + 5, 3, 16777215);
          }
       }
@@ -7162,7 +7162,7 @@ public class mudclient extends GameApplet {
                   }
                }
 
-               this.surface.method_242(var14 + var3 / 2 - 12, var2 + var4 / 2 - 12, this.field_99 + 11);
+               this.surface.drawSprite(var14 + var3 / 2 - 12, var2 + var4 / 2 - 12, this.spriteMedia + 11);
                this.surface.drawstringCenter(String.valueOf(var8.damageTaken), var14 + var3 / 2 - 1, var2 + var4 / 2 + 5, 3, 16777215);
             }
          }
@@ -7184,7 +7184,7 @@ public class mudclient extends GameApplet {
 
             var15 = 16 * var7 / 100;
             var24 = 16 * var7 / 100;
-            this.surface.spriteClipping(var14 - var15 / 2, var2 - var24 / 2 - 10 * var7 / 100, var15, var24, this.field_99 + 13);
+            this.surface.spriteClipping(var14 - var15 / 2, var2 - var24 / 2 - 10 * var7 / 100, var15, var24, this.spriteMedia + 13);
          }
 
       }
@@ -7280,10 +7280,10 @@ public class mudclient extends GameApplet {
             int var13 = 39 * var5 / 100;
             var8 = 27 * var5 / 100;
             int var9 = var4 - var8;
-            this.surface.method_245(var3 - var13 / 2, var9, var13, var8, this.field_99 + 9, 85);
+            this.surface.method_245(var3 - var13 / 2, var9, var13, var8, this.spriteMedia + 9, 85);
             int var10 = 36 * var5 / 100;
             int var11 = 24 * var5 / 100;
-            this.surface.method_258(var3 - var10 / 2, var9 + var8 / 2 - var11 / 2, var10, var11, GameData.field_477[var6] + this.field_101, GameData.field_482[var6], 0, 0, false);
+            this.surface.method_258(var3 - var10 / 2, var9 + var8 / 2 - var11 / 2, var10, var11, GameData.itemTexture[var6] + this.spriteItem, GameData.itemMask[var6], 0, 0, false);
             ++var2;
          } while(var2 < this.field_414);
       }
@@ -7294,8 +7294,8 @@ public class mudclient extends GameApplet {
             var4 = this.field_420[var3];
             var5 = this.field_421[var3];
             var6 = this.field_422[var3];
-            this.surface.method_225(var4 - 15, var5 - 3, var6, 5, '\uff00', 192);
-            this.surface.method_225(var4 - 15 + var6, var5 - 3, 30 - var6, 5, 16711680, 192);
+            this.surface.drawBoxAlpha(var4 - 15, var5 - 3, var6, 5, '\uff00', 192);
+            this.surface.drawBoxAlpha(var4 - 15 + var6, var5 - 3, 30 - var6, 5, 16711680, 192);
             ++var3;
          } while(var3 < this.field_419);
 
@@ -7776,14 +7776,14 @@ public class mudclient extends GameApplet {
          }
 
          if(this.field_289) {
-            this.method_117();
+            this.drawDialogTradeConfirm();
             if(var2 == 0) {
                break label157;
             }
          }
 
          if(this.field_276) {
-            this.method_118();
+            this.drawDialogTrade();
             if(var2 == 0) {
                break label157;
             }
@@ -7910,7 +7910,7 @@ public class mudclient extends GameApplet {
                   var2 = 16711680;
                }
 
-               this.surface.method_267(this.field_318[var1], 6, 12 + var1 * 12, 1, var2);
+               this.surface.drawString(this.field_318[var1], 6, 12 + var1 * 12, 1, var2);
                ++var1;
             } while(var1 < this.field_317);
 
@@ -7949,13 +7949,13 @@ public class mudclient extends GameApplet {
       if(var5 != 0) {
          label47: {
             if(var4 == this.field_319 + 1) {
-               this.surface.method_225(var1, var2 + var4 * 20, var3, 20, Surface.method_234(255, 0, 0), 128);
+               this.surface.drawBoxAlpha(var1, var2 + var4 * 20, var3, 20, Surface.method_234(255, 0, 0), 128);
                if(var5 == 0) {
                   break label47;
                }
             }
 
-            this.surface.method_225(var1, var2 + var4 * 20, var3, 20, Surface.method_234(190, 190, 190), 128);
+            this.surface.drawBoxAlpha(var1, var2 + var4 * 20, var3, 20, Surface.method_234(190, 190, 190), 128);
          }
 
          this.surface.drawLineHoriz(var1, var2 + var4 * 20, var3, 0);
@@ -7966,13 +7966,13 @@ public class mudclient extends GameApplet {
       while(var4 < 5) {
          label26: {
             if(var4 == this.field_319 + 1) {
-               this.surface.method_225(var1, var2 + var4 * 20, var3, 20, Surface.method_234(255, 0, 0), 128);
+               this.surface.drawBoxAlpha(var1, var2 + var4 * 20, var3, 20, Surface.method_234(255, 0, 0), 128);
                if(var5 == 0) {
                   break label26;
                }
             }
 
-            this.surface.method_225(var1, var2 + var4 * 20, var3, 20, Surface.method_234(190, 190, 190), 128);
+            this.surface.drawBoxAlpha(var1, var2 + var4 * 20, var3, 20, Surface.method_234(190, 190, 190), 128);
          }
 
          this.surface.drawLineHoriz(var1, var2 + var4 * 20, var3, 0);
@@ -8820,11 +8820,11 @@ public class mudclient extends GameApplet {
       var4 = 170 - var2 / 2;
       this.surface.drawBox(var3, var4, 408, 12, 192);
       var5 = 10000536;
-      this.surface.method_225(var3, var4 + 12, 408, 17, var5, 160);
-      this.surface.method_225(var3, var4 + 29, 8, 204, var5, 160);
-      this.surface.method_225(var3 + 399, var4 + 29, 9, 204, var5, 160);
-      this.surface.method_225(var3, var4 + 233, 408, 47, var5, 160);
-      this.surface.method_267("Bank", var3 + 1, var4 + 10, 1, 16777215);
+      this.surface.drawBoxAlpha(var3, var4 + 12, 408, 17, var5, 160);
+      this.surface.drawBoxAlpha(var3, var4 + 29, 8, 204, var5, 160);
+      this.surface.drawBoxAlpha(var3 + 399, var4 + 29, 9, 204, var5, 160);
+      this.surface.drawBoxAlpha(var3, var4 + 233, 408, 47, var5, 160);
+      this.surface.drawString("Bank", var3 + 1, var4 + 10, 1, 16777215);
       var6 = 50;
       if(this.bankItemCount > 48) {
          label545: {
@@ -8842,7 +8842,7 @@ public class mudclient extends GameApplet {
          }
 
          label540: {
-            this.surface.method_267("<page 1>", var3 + var6, var4 + 10, 1, var7);
+            this.surface.drawString("<page 1>", var3 + var6, var4 + 10, 1, var7);
             var6 += 65;
             var7 = 16777215;
             if(this.field_315 == 1) {
@@ -8857,7 +8857,7 @@ public class mudclient extends GameApplet {
             }
          }
 
-         this.surface.method_267("<page 2>", var3 + var6, var4 + 10, 1, var7);
+         this.surface.drawString("<page 2>", var3 + var6, var4 + 10, 1, var7);
          var6 += 65;
       }
 
@@ -8876,7 +8876,7 @@ public class mudclient extends GameApplet {
             }
          }
 
-         this.surface.method_267("<page 3>", var3 + var6, var4 + 10, 1, var7);
+         this.surface.drawString("<page 3>", var3 + var6, var4 + 10, 1, var7);
          var6 += 65;
       }
 
@@ -8895,7 +8895,7 @@ public class mudclient extends GameApplet {
             }
          }
 
-         this.surface.method_267("<page 4>", var3 + var6, var4 + 10, 1, var7);
+         this.surface.drawString("<page 4>", var3 + var6, var4 + 10, 1, var7);
          var6 += 65;
       }
 
@@ -8905,8 +8905,8 @@ public class mudclient extends GameApplet {
       }
 
       this.surface.method_264("Close window", var3 + 406, var4 + 10, 1, var7);
-      this.surface.method_267("Number in bank in green", var3 + 7, var4 + 24, 1, '\uff00');
-      this.surface.method_267("Number held in blue", var3 + 289, var4 + 24, 1, '\uffff');
+      this.surface.drawString("Number in bank in green", var3 + 7, var4 + 24, 1, '\uff00');
+      this.surface.drawString("Number held in blue", var3 + 289, var4 + 24, 1, '\uffff');
       var8 = 13684944;
       var9 = this.field_315 * 48;
       int var10 = 0;
@@ -8923,19 +8923,19 @@ public class mudclient extends GameApplet {
                   var12 = var3 + 7 + var11 * 49;
                   var13 = var4 + 28 + var10 * 34;
                   if(this.field_312 == var9) {
-                     this.surface.method_225(var12, var13, 49, 34, 16711680, 160);
+                     this.surface.drawBoxAlpha(var12, var13, 49, 34, 16711680, 160);
                      if(var14 == 0) {
                         break label494;
                      }
                   }
 
-                  this.surface.method_225(var12, var13, 49, 34, var8, 160);
+                  this.surface.drawBoxAlpha(var12, var13, 49, 34, var8, 160);
                }
 
                this.surface.drawBoxEdge(var12, var13, 50, 35, 0);
                if(var9 < this.bankItemCount && this.bankItems[var9] != -1) {
-                  this.surface.method_258(var12, var13, 48, 32, this.field_101 + GameData.field_477[this.bankItems[var9]], GameData.field_482[this.bankItems[var9]], 0, 0, false);
-                  this.surface.method_267(String.valueOf(this.bankItemsCount[var9]), var12 + 1, var13 + 10, 1, '\uff00');
+                  this.surface.method_258(var12, var13, 48, 32, this.spriteItem + GameData.itemTexture[this.bankItems[var9]], GameData.itemMask[this.bankItems[var9]], 0, 0, false);
+                  this.surface.drawString(String.valueOf(this.bankItemsCount[var9]), var12 + 1, var13 + 10, 1, '\uff00');
                   this.surface.method_264(String.valueOf(this.getInventoryCount(this.bankItems[var9])), var12 + 47, var13 + 29, 1, '\uffff');
                }
 
@@ -8959,19 +8959,19 @@ public class mudclient extends GameApplet {
                   var12 = var3 + 7 + var11 * 49;
                   var13 = var4 + 28 + var10 * 34;
                   if(this.field_312 == var9) {
-                     this.surface.method_225(var12, var13, 49, 34, 16711680, 160);
+                     this.surface.drawBoxAlpha(var12, var13, 49, 34, 16711680, 160);
                      if(var14 == 0) {
                         break label466;
                      }
                   }
 
-                  this.surface.method_225(var12, var13, 49, 34, var8, 160);
+                  this.surface.drawBoxAlpha(var12, var13, 49, 34, var8, 160);
                }
 
                this.surface.drawBoxEdge(var12, var13, 50, 35, 0);
                if(var9 < this.bankItemCount && this.bankItems[var9] != -1) {
-                  this.surface.method_258(var12, var13, 48, 32, this.field_101 + GameData.field_477[this.bankItems[var9]], GameData.field_482[this.bankItems[var9]], 0, 0, false);
-                  this.surface.method_267(String.valueOf(this.bankItemsCount[var9]), var12 + 1, var13 + 10, 1, '\uff00');
+                  this.surface.method_258(var12, var13, 48, 32, this.spriteItem + GameData.itemTexture[this.bankItems[var9]], GameData.itemMask[this.bankItems[var9]], 0, 0, false);
+                  this.surface.drawString(String.valueOf(this.bankItemsCount[var9]), var12 + 1, var13 + 10, 1, '\uff00');
                   this.surface.method_264(String.valueOf(this.getInventoryCount(this.bankItems[var9])), var12 + 47, var13 + 29, 1, '\uffff');
                }
 
@@ -9005,20 +9005,20 @@ public class mudclient extends GameApplet {
             }
 
             if(var9 > 0) {
-               this.surface.method_267("Withdraw " + GameData.field_474[var11], var3 + 2, var4 + 248, 1, 16777215);
+               this.surface.drawString("Withdraw " + GameData.field_474[var11], var3 + 2, var4 + 248, 1, 16777215);
                var7 = 16777215;
                if(super.mouseX >= var3 + 220 && super.mouseY >= var4 + 238 && super.mouseX < var3 + 250 && super.mouseY <= var4 + 249) {
                   var7 = 16711680;
                }
 
-               this.surface.method_267("One", var3 + 222, var4 + 248, 1, var7);
+               this.surface.drawString("One", var3 + 222, var4 + 248, 1, var7);
                if(var9 >= 5) {
                   var7 = 16777215;
                   if(super.mouseX >= var3 + 250 && super.mouseY >= var4 + 238 && super.mouseX < var3 + 280 && super.mouseY <= var4 + 249) {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("Five", var3 + 252, var4 + 248, 1, var7);
+                  this.surface.drawString("Five", var3 + 252, var4 + 248, 1, var7);
                }
 
                if(var9 >= 25) {
@@ -9027,7 +9027,7 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("25", var3 + 282, var4 + 248, 1, var7);
+                  this.surface.drawString("25", var3 + 282, var4 + 248, 1, var7);
                }
 
                if(var9 >= 100) {
@@ -9036,7 +9036,7 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("100", var3 + 307, var4 + 248, 1, var7);
+                  this.surface.drawString("100", var3 + 307, var4 + 248, 1, var7);
                }
 
                if(var9 >= 500) {
@@ -9045,7 +9045,7 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("500", var3 + 337, var4 + 248, 1, var7);
+                  this.surface.drawString("500", var3 + 337, var4 + 248, 1, var7);
                }
 
                if(var9 >= 2500) {
@@ -9054,25 +9054,25 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("2500", var3 + 370, var4 + 248, 1, var7);
+                  this.surface.drawString("2500", var3 + 370, var4 + 248, 1, var7);
                }
             }
 
             if(this.getInventoryCount(var11) > 0) {
-               this.surface.method_267("Deposit " + GameData.field_474[var11], var3 + 2, var4 + 273, 1, 16777215);
+               this.surface.drawString("Deposit " + GameData.field_474[var11], var3 + 2, var4 + 273, 1, 16777215);
                var7 = 16777215;
                if(super.mouseX >= var3 + 220 && super.mouseY >= var4 + 263 && super.mouseX < var3 + 250 && super.mouseY <= var4 + 274) {
                   var7 = 16711680;
                }
 
-               this.surface.method_267("One", var3 + 222, var4 + 273, 1, var7);
+               this.surface.drawString("One", var3 + 222, var4 + 273, 1, var7);
                if(this.getInventoryCount(var11) >= 5) {
                   var7 = 16777215;
                   if(super.mouseX >= var3 + 250 && super.mouseY >= var4 + 263 && super.mouseX < var3 + 280 && super.mouseY <= var4 + 274) {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("Five", var3 + 252, var4 + 273, 1, var7);
+                  this.surface.drawString("Five", var3 + 252, var4 + 273, 1, var7);
                }
 
                if(this.getInventoryCount(var11) >= 25) {
@@ -9081,7 +9081,7 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("25", var3 + 282, var4 + 273, 1, var7);
+                  this.surface.drawString("25", var3 + 282, var4 + 273, 1, var7);
                }
 
                if(this.getInventoryCount(var11) >= 100) {
@@ -9090,7 +9090,7 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("100", var3 + 307, var4 + 273, 1, var7);
+                  this.surface.drawString("100", var3 + 307, var4 + 273, 1, var7);
                }
 
                if(this.getInventoryCount(var11) >= 500) {
@@ -9099,7 +9099,7 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("500", var3 + 337, var4 + 273, 1, var7);
+                  this.surface.drawString("500", var3 + 337, var4 + 273, 1, var7);
                }
 
                if(this.getInventoryCount(var11) >= 2500) {
@@ -9108,7 +9108,7 @@ public class mudclient extends GameApplet {
                      var7 = 16711680;
                   }
 
-                  this.surface.method_267("2500", var3 + 370, var4 + 273, 1, var7);
+                  this.surface.drawString("2500", var3 + 370, var4 + 273, 1, var7);
                }
             }
          }
@@ -9210,20 +9210,20 @@ public class mudclient extends GameApplet {
       byte var13 = 44;
       this.surface.drawBox(var12, var13, 408, 12, 192);
       var3 = 10000536;
-      this.surface.method_225(var12, var13 + 12, 408, 17, var3, 160);
-      this.surface.method_225(var12, var13 + 29, 8, 170, var3, 160);
-      this.surface.method_225(var12 + 399, var13 + 29, 9, 170, var3, 160);
-      this.surface.method_225(var12, var13 + 199, 408, 47, var3, 160);
-      this.surface.method_267("Buying and selling items", var12 + 1, var13 + 10, 1, 16777215);
+      this.surface.drawBoxAlpha(var12, var13 + 12, 408, 17, var3, 160);
+      this.surface.drawBoxAlpha(var12, var13 + 29, 8, 170, var3, 160);
+      this.surface.drawBoxAlpha(var12 + 399, var13 + 29, 9, 170, var3, 160);
+      this.surface.drawBoxAlpha(var12, var13 + 199, 408, 47, var3, 160);
+      this.surface.drawString("Buying and selling items", var12 + 1, var13 + 10, 1, 16777215);
       var4 = 16777215;
       if(super.mouseX > var12 + 320 && super.mouseY >= var13 && super.mouseX < var12 + 408 && super.mouseY < var13 + 12) {
          var4 = 16711680;
       }
 
       this.surface.method_264("Close window", var12 + 406, var13 + 10, 1, var4);
-      this.surface.method_267("Shops stock in green", var12 + 2, var13 + 24, 1, '\uff00');
-      this.surface.method_267("Number you own in blue", var12 + 135, var13 + 24, 1, '\uffff');
-      this.surface.method_267("Your money: " + this.getInventoryCount(10) + "gp", var12 + 280, var13 + 24, 1, 16776960);
+      this.surface.drawString("Shops stock in green", var12 + 2, var13 + 24, 1, '\uff00');
+      this.surface.drawString("Number you own in blue", var12 + 135, var13 + 24, 1, '\uffff');
+      this.surface.drawString("Your money: " + this.getInventoryCount(10) + "gp", var12 + 280, var13 + 24, 1, 16776960);
       itemId = 13684944;
       stockSensitivity = 0;
       expectedPrice = 0;
@@ -9240,19 +9240,19 @@ public class mudclient extends GameApplet {
                   var9 = var12 + 7 + var8 * 49;
                   var10 = var13 + 28 + expectedPrice * 34;
                   if(this.selectedShopIndex == stockSensitivity) {
-                     this.surface.method_225(var9, var10, 49, 34, 16711680, 160);
+                     this.surface.drawBoxAlpha(var9, var10, 49, 34, 16711680, 160);
                      if(var11 == 0) {
                         break label160;
                      }
                   }
 
-                  this.surface.method_225(var9, var10, 49, 34, itemId, 160);
+                  this.surface.drawBoxAlpha(var9, var10, 49, 34, itemId, 160);
                }
 
                this.surface.drawBoxEdge(var9, var10, 50, 35, 0);
                if(this.shopItemIds[stockSensitivity] != -1) {
-                  this.surface.method_258(var9, var10, 48, 32, this.field_101 + GameData.field_477[this.shopItemIds[stockSensitivity]], GameData.field_482[this.shopItemIds[stockSensitivity]], 0, 0, false);
-                  this.surface.method_267(String.valueOf(this.shopItemCount[stockSensitivity]), var9 + 1, var10 + 10, 1, '\uff00');
+                  this.surface.method_258(var9, var10, 48, 32, this.spriteItem + GameData.itemTexture[this.shopItemIds[stockSensitivity]], GameData.itemMask[this.shopItemIds[stockSensitivity]], 0, 0, false);
+                  this.surface.drawString(String.valueOf(this.shopItemCount[stockSensitivity]), var9 + 1, var10 + 10, 1, '\uff00');
                   this.surface.method_264(String.valueOf(this.getInventoryCount(this.shopItemIds[stockSensitivity])), var9 + 47, var10 + 10, 1, '\uffff');
                }
 
@@ -9276,19 +9276,19 @@ public class mudclient extends GameApplet {
                   var9 = var12 + 7 + var8 * 49;
                   var10 = var13 + 28 + expectedPrice * 34;
                   if(this.selectedShopIndex == stockSensitivity) {
-                     this.surface.method_225(var9, var10, 49, 34, 16711680, 160);
+                     this.surface.drawBoxAlpha(var9, var10, 49, 34, 16711680, 160);
                      if(var11 == 0) {
                         break label132;
                      }
                   }
 
-                  this.surface.method_225(var9, var10, 49, 34, itemId, 160);
+                  this.surface.drawBoxAlpha(var9, var10, 49, 34, itemId, 160);
                }
 
                this.surface.drawBoxEdge(var9, var10, 50, 35, 0);
                if(this.shopItemIds[stockSensitivity] != -1) {
-                  this.surface.method_258(var9, var10, 48, 32, this.field_101 + GameData.field_477[this.shopItemIds[stockSensitivity]], GameData.field_482[this.shopItemIds[stockSensitivity]], 0, 0, false);
-                  this.surface.method_267(String.valueOf(this.shopItemCount[stockSensitivity]), var9 + 1, var10 + 10, 1, '\uff00');
+                  this.surface.method_258(var9, var10, 48, 32, this.spriteItem + GameData.itemTexture[this.shopItemIds[stockSensitivity]], GameData.itemMask[this.shopItemIds[stockSensitivity]], 0, 0, false);
+                  this.surface.drawString(String.valueOf(this.shopItemCount[stockSensitivity]), var9 + 1, var10 + 10, 1, '\uff00');
                   this.surface.method_264(String.valueOf(this.getInventoryCount(this.shopItemIds[stockSensitivity])), var9 + 47, var10 + 10, 1, '\uffff');
                }
 
@@ -9314,7 +9314,7 @@ public class mudclient extends GameApplet {
                   }
 
                   var10 = var9 * GameData.itemBasePrice[var8] / 100;
-                  this.surface.method_267("Buy a new " + GameData.field_474[var8] + " for " + var10 + "gp", var12 + 2, var13 + 214, 1, 16776960);
+                  this.surface.drawString("Buy a new " + GameData.field_474[var8] + " for " + var10 + "gp", var12 + 2, var13 + 214, 1, 16776960);
                   var4 = 16777215;
                   if(super.mouseX > var12 + 298 && super.mouseY >= var13 + 204 && super.mouseX < var12 + 408 && super.mouseY <= var13 + 215) {
                      var4 = 16711680;
@@ -9342,7 +9342,7 @@ public class mudclient extends GameApplet {
                   var4 = 16711680;
                }
 
-               this.surface.method_267("Click here to sell", var12 + 2, var13 + 239, 3, var4);
+               this.surface.drawString("Click here to sell", var12 + 2, var13 + 239, 3, var4);
                return;
             }
 
@@ -9353,13 +9353,13 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: bm () void
-   public void method_117() {
+   public void drawDialogTradeConfirm() {
       int var7 = GameData.field_563;
       byte var1 = 22;
       byte var2 = 36;
       this.surface.drawBox(var1, var2, 468, 16, 192);
       int var3 = 10000536;
-      this.surface.method_225(var1, var2 + 16, 468, 246, var3, 160);
+      this.surface.drawBoxAlpha(var1, var2 + 16, 468, 246, var3, 160);
       this.surface.drawstringCenter("Please confirm your trade with @yel@" + Utility.unhashUsername(this.tradeWithUsername), var1 + 234, var2 + 12, 1, 16777215);
       this.surface.drawstringCenter("You are about to give:", var1 + 117, var2 + 30, 1, 16776960);
       int var4 = 0;
@@ -9420,8 +9420,8 @@ public class mudclient extends GameApplet {
          this.surface.drawstringCenter("There is NO WAY to reverse a trade if you change your mind.", var1 + 234, var2 + 215, 1, 16777215);
          this.surface.drawstringCenter("Remember that not all players are trustworthy", var1 + 234, var2 + 230, 1, 16777215);
          if(!this.field_290) {
-            this.surface.method_242(var1 + 118 - 35, var2 + 238, this.field_99 + 25);
-            this.surface.method_242(var1 + 352 - 35, var2 + 238, this.field_99 + 26);
+            this.surface.drawSprite(var1 + 118 - 35, var2 + 238, this.spriteMedia + 25);
+            this.surface.drawSprite(var1 + 352 - 35, var2 + 238, this.spriteMedia + 26);
             if(var7 == 0) {
                break label67;
             }
@@ -9455,7 +9455,7 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: bn () void
-   public void method_118() {
+   public void drawDialogTrade() {
       int var14 = GameData.field_563;
       if(this.mouseButtonClick != 0 && this.mouseButtonItemCountIncrement == 0) {
          this.mouseButtonItemCountIncrement = 1;
@@ -9513,7 +9513,7 @@ public class mudclient extends GameApplet {
                         var4 = true;
                      }
 
-                     if(GameData.field_483[var6] == 1) {
+                     if(GameData.itemTradable[var6] == 1) {
                         this.displayMessage("This object cannot be traded with other players", 3);
                         var4 = true;
                      }
@@ -9630,17 +9630,17 @@ public class mudclient extends GameApplet {
          byte var16 = 36;
          this.surface.drawBox(var15, var16, 468, 12, 192);
          var3 = 10000536;
-         this.surface.method_225(var15, var16 + 12, 468, 18, var3, 160);
-         this.surface.method_225(var15, var16 + 30, 8, 248, var3, 160);
-         this.surface.method_225(var15 + 205, var16 + 30, 11, 248, var3, 160);
-         this.surface.method_225(var15 + 462, var16 + 30, 6, 248, var3, 160);
-         this.surface.method_225(var15 + 8, var16 + 133, 197, 22, var3, 160);
-         this.surface.method_225(var15 + 8, var16 + 258, 197, 20, var3, 160);
-         this.surface.method_225(var15 + 216, var16 + 235, 246, 43, var3, 160);
+         this.surface.drawBoxAlpha(var15, var16 + 12, 468, 18, var3, 160);
+         this.surface.drawBoxAlpha(var15, var16 + 30, 8, 248, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 205, var16 + 30, 11, 248, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 462, var16 + 30, 6, 248, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 133, 197, 22, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 258, 197, 20, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 216, var16 + 235, 246, 43, var3, 160);
          var17 = 13684944;
-         this.surface.method_225(var15 + 8, var16 + 30, 197, 103, var17, 160);
-         this.surface.method_225(var15 + 8, var16 + 155, 197, 103, var17, 160);
-         this.surface.method_225(var15 + 216, var16 + 30, 246, 205, var17, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 30, 197, 103, var17, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 155, 197, 103, var17, 160);
+         this.surface.drawBoxAlpha(var15 + 216, var16 + 30, 246, 205, var17, 160);
          var5 = 0;
          if(var14 != 0 || var5 < 4) {
             do {
@@ -9671,39 +9671,39 @@ public class mudclient extends GameApplet {
          var8 = 0;
          if(var14 != 0) {
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 30, 103, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 30, 103, 0);
             }
 
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 155, 103, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 155, 103, 0);
             }
 
-            this.surface.method_230(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
+            this.surface.drawLineVert(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
             ++var8;
          }
 
          while(var8 < 6) {
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 30, 103, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 30, 103, 0);
             }
 
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 155, 103, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 155, 103, 0);
             }
 
-            this.surface.method_230(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
+            this.surface.drawLineVert(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
             ++var8;
          }
 
-         this.surface.method_267("Trading with: " + this.field_277, var15 + 1, var16 + 10, 1, 16777215);
-         this.surface.method_267("Your Offer", var15 + 9, var16 + 27, 4, 16777215);
-         this.surface.method_267("Opponent\'s Offer", var15 + 9, var16 + 152, 4, 16777215);
-         this.surface.method_267("Your Inventory", var15 + 216, var16 + 27, 4, 16777215);
+         this.surface.drawString("Trading with: " + this.tradeRecipientName, var15 + 1, var16 + 10, 1, 16777215);
+         this.surface.drawString("Your Offer", var15 + 9, var16 + 27, 4, 16777215);
+         this.surface.drawString("Opponent\'s Offer", var15 + 9, var16 + 152, 4, 16777215);
+         this.surface.drawString("Your Inventory", var15 + 216, var16 + 27, 4, 16777215);
          if(!this.tradeAccepted) {
-            this.surface.method_242(var15 + 217, var16 + 238, this.field_99 + 25);
+            this.surface.drawSprite(var15 + 217, var16 + 238, this.spriteMedia + 25);
          }
 
-         this.surface.method_242(var15 + 394, var16 + 238, this.field_99 + 26);
+         this.surface.drawSprite(var15 + 394, var16 + 238, this.spriteMedia + 26);
          if(this.tradeRecipientAccepted) {
             this.surface.drawstringCenter("Other player", var15 + 341, var16 + 246, 1, 16777215);
             this.surface.drawstringCenter("has accepted", var15 + 341, var16 + 256, 1, 16777215);
@@ -9720,9 +9720,9 @@ public class mudclient extends GameApplet {
          if(var14 != 0) {
             var10 = 217 + var15 + var9 % 5 * 49;
             var11 = 31 + var16 + var9 / 5 * 34;
-            this.surface.method_258(var10, var11, 48, 32, this.field_101 + GameData.field_477[this.inventoryItemId[var9]], GameData.field_482[this.inventoryItemId[var9]], 0, 0, false);
+            this.surface.method_258(var10, var11, 48, 32, this.spriteItem + GameData.itemTexture[this.inventoryItemId[var9]], GameData.itemMask[this.inventoryItemId[var9]], 0, 0, false);
             if(GameData.itemStackable[this.inventoryItemId[var9]] == 0) {
-               this.surface.method_267(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
+               this.surface.drawString(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
             }
 
             ++var9;
@@ -9731,9 +9731,9 @@ public class mudclient extends GameApplet {
          for(; var9 < this.inventorySize; ++var9) {
             var10 = 217 + var15 + var9 % 5 * 49;
             var11 = 31 + var16 + var9 / 5 * 34;
-            this.surface.method_258(var10, var11, 48, 32, this.field_101 + GameData.field_477[this.inventoryItemId[var9]], GameData.field_482[this.inventoryItemId[var9]], 0, 0, false);
+            this.surface.method_258(var10, var11, 48, 32, this.spriteItem + GameData.itemTexture[this.inventoryItemId[var9]], GameData.itemMask[this.inventoryItemId[var9]], 0, 0, false);
             if(GameData.itemStackable[this.inventoryItemId[var9]] == 0) {
-               this.surface.method_267(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
+               this.surface.drawString(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
             }
          }
 
@@ -9743,13 +9743,13 @@ public class mudclient extends GameApplet {
             do {
                var11 = 9 + var15 + var10 % 4 * 49;
                var12 = 31 + var16 + var10 / 4 * 34;
-               this.surface.method_258(var11, var12, 48, 32, this.field_101 + GameData.field_477[this.tradeItemIds[var10]], GameData.field_482[this.tradeItemIds[var10]], 0, 0, false);
+               this.surface.method_258(var11, var12, 48, 32, this.spriteItem + GameData.itemTexture[this.tradeItemIds[var10]], GameData.itemMask[this.tradeItemIds[var10]], 0, 0, false);
                if(GameData.itemStackable[this.tradeItemIds[var10]] == 0) {
-                  this.surface.method_267(String.valueOf(this.tradeItemAmounts[var10]), var11 + 1, var12 + 10, 1, 16776960);
+                  this.surface.drawString(String.valueOf(this.tradeItemAmounts[var10]), var11 + 1, var12 + 10, 1, 16776960);
                }
 
                if(super.mouseX > var11 && super.mouseX < var11 + 48 && super.mouseY > var12 && super.mouseY < var12 + 32) {
-                  this.surface.method_267(GameData.field_474[this.tradeItemIds[var10]] + ": @whi@" + GameData.field_475[this.tradeItemIds[var10]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.field_474[this.tradeItemIds[var10]] + ": @whi@" + GameData.field_475[this.tradeItemIds[var10]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var10;
@@ -9761,13 +9761,13 @@ public class mudclient extends GameApplet {
             do {
                var12 = 9 + var15 + var11 % 4 * 49;
                int var13 = 156 + var16 + var11 / 4 * 34;
-               this.surface.method_258(var12, var13, 48, 32, this.field_101 + GameData.field_477[this.field_282[var11]], GameData.field_482[this.field_282[var11]], 0, 0, false);
+               this.surface.method_258(var12, var13, 48, 32, this.spriteItem + GameData.itemTexture[this.field_282[var11]], GameData.itemMask[this.field_282[var11]], 0, 0, false);
                if(GameData.itemStackable[this.field_282[var11]] == 0) {
-                  this.surface.method_267(String.valueOf(this.field_283[var11]), var12 + 1, var13 + 10, 1, 16776960);
+                  this.surface.drawString(String.valueOf(this.field_283[var11]), var12 + 1, var13 + 10, 1, 16776960);
                }
 
                if(super.mouseX > var12 && super.mouseX < var12 + 48 && super.mouseY > var13 && super.mouseY < var13 + 32) {
-                  this.surface.method_267(GameData.field_474[this.field_282[var11]] + ": @whi@" + GameData.field_475[this.field_282[var11]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.field_474[this.field_282[var11]] + ": @whi@" + GameData.field_475[this.field_282[var11]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var11;
@@ -9784,7 +9784,7 @@ public class mudclient extends GameApplet {
       byte var2 = 36;
       this.surface.drawBox(var1, var2, 468, 16, 192);
       int var3 = 10000536;
-      this.surface.method_225(var1, var2 + 16, 468, 246, var3, 160);
+      this.surface.drawBoxAlpha(var1, var2 + 16, 468, 246, var3, 160);
       this.surface.drawstringCenter("Please confirm your duel with @yel@" + Utility.unhashUsername(this.field_265), var1 + 234, var2 + 12, 1, 16777215);
       this.surface.drawstringCenter("Your stake:", var1 + 117, var2 + 30, 1, 16776960);
       int var4 = 0;
@@ -9887,8 +9887,8 @@ public class mudclient extends GameApplet {
       label79: {
          this.surface.drawstringCenter("If you are sure click \'Accept\' to begin the duel", var1 + 234, var2 + 230, 1, 16777215);
          if(!this.field_264) {
-            this.surface.method_242(var1 + 118 - 35, var2 + 238, this.field_99 + 25);
-            this.surface.method_242(var1 + 352 - 35, var2 + 238, this.field_99 + 26);
+            this.surface.drawSprite(var1 + 118 - 35, var2 + 238, this.spriteMedia + 25);
+            this.surface.drawSprite(var1 + 352 - 35, var2 + 238, this.spriteMedia + 26);
             if(var7 == 0) {
                break label79;
             }
@@ -9980,7 +9980,7 @@ public class mudclient extends GameApplet {
                         var4 = true;
                      }
 
-                     if(GameData.field_483[var6] == 1) {
+                     if(GameData.itemTradable[var6] == 1) {
                         this.displayMessage("This object cannot be added to a duel offer", 3);
                         var4 = true;
                      }
@@ -10129,19 +10129,19 @@ public class mudclient extends GameApplet {
          byte var16 = 36;
          this.surface.drawBox(var15, var16, 468, 12, 13175581);
          var3 = 10000536;
-         this.surface.method_225(var15, var16 + 12, 468, 18, var3, 160);
-         this.surface.method_225(var15, var16 + 30, 8, 248, var3, 160);
-         this.surface.method_225(var15 + 205, var16 + 30, 11, 248, var3, 160);
-         this.surface.method_225(var15 + 462, var16 + 30, 6, 248, var3, 160);
-         this.surface.method_225(var15 + 8, var16 + 99, 197, 24, var3, 160);
-         this.surface.method_225(var15 + 8, var16 + 192, 197, 23, var3, 160);
-         this.surface.method_225(var15 + 8, var16 + 258, 197, 20, var3, 160);
-         this.surface.method_225(var15 + 216, var16 + 235, 246, 43, var3, 160);
+         this.surface.drawBoxAlpha(var15, var16 + 12, 468, 18, var3, 160);
+         this.surface.drawBoxAlpha(var15, var16 + 30, 8, 248, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 205, var16 + 30, 11, 248, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 462, var16 + 30, 6, 248, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 99, 197, 24, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 192, 197, 23, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 258, 197, 20, var3, 160);
+         this.surface.drawBoxAlpha(var15 + 216, var16 + 235, 246, 43, var3, 160);
          var18 = 13684944;
-         this.surface.method_225(var15 + 8, var16 + 30, 197, 69, var18, 160);
-         this.surface.method_225(var15 + 8, var16 + 123, 197, 69, var18, 160);
-         this.surface.method_225(var15 + 8, var16 + 215, 197, 43, var18, 160);
-         this.surface.method_225(var15 + 216, var16 + 30, 246, 205, var18, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 30, 197, 69, var18, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 123, 197, 69, var18, 160);
+         this.surface.drawBoxAlpha(var15 + 8, var16 + 215, 197, 43, var18, 160);
+         this.surface.drawBoxAlpha(var15 + 216, var16 + 30, 246, 205, var18, 160);
          var5 = 0;
          if(var14 != 0 || var5 < 3) {
             do {
@@ -10172,43 +10172,43 @@ public class mudclient extends GameApplet {
          var8 = 0;
          if(var14 != 0) {
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 30, 69, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 30, 69, 0);
             }
 
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 123, 69, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 123, 69, 0);
             }
 
-            this.surface.method_230(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
+            this.surface.drawLineVert(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
             ++var8;
          }
 
          while(var8 < 6) {
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 30, 69, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 30, 69, 0);
             }
 
             if(var8 < 5) {
-               this.surface.method_230(var15 + 8 + var8 * 49, var16 + 123, 69, 0);
+               this.surface.drawLineVert(var15 + 8 + var8 * 49, var16 + 123, 69, 0);
             }
 
-            this.surface.method_230(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
+            this.surface.drawLineVert(var15 + 216 + var8 * 49, var16 + 30, 205, 0);
             ++var8;
          }
 
          this.surface.drawLineHoriz(var15 + 8, var16 + 215, 197, 0);
          this.surface.drawLineHoriz(var15 + 8, var16 + 257, 197, 0);
-         this.surface.method_230(var15 + 8, var16 + 215, 43, 0);
-         this.surface.method_230(var15 + 204, var16 + 215, 43, 0);
-         this.surface.method_267("Preparing to duel with: " + this.field_250, var15 + 1, var16 + 10, 1, 16777215);
-         this.surface.method_267("Your Stake", var15 + 9, var16 + 27, 4, 16777215);
-         this.surface.method_267("Opponent\'s Stake", var15 + 9, var16 + 120, 4, 16777215);
-         this.surface.method_267("Duel Options", var15 + 9, var16 + 212, 4, 16777215);
-         this.surface.method_267("Your Inventory", var15 + 216, var16 + 27, 4, 16777215);
-         this.surface.method_267("No retreating", var15 + 8 + 1, var16 + 215 + 16, 3, 16776960);
-         this.surface.method_267("No magic", var15 + 8 + 1, var16 + 215 + 35, 3, 16776960);
-         this.surface.method_267("No prayer", var15 + 8 + 102, var16 + 215 + 16, 3, 16776960);
-         this.surface.method_267("No weapons", var15 + 8 + 102, var16 + 215 + 35, 3, 16776960);
+         this.surface.drawLineVert(var15 + 8, var16 + 215, 43, 0);
+         this.surface.drawLineVert(var15 + 204, var16 + 215, 43, 0);
+         this.surface.drawString("Preparing to duel with: " + this.field_250, var15 + 1, var16 + 10, 1, 16777215);
+         this.surface.drawString("Your Stake", var15 + 9, var16 + 27, 4, 16777215);
+         this.surface.drawString("Opponent\'s Stake", var15 + 9, var16 + 120, 4, 16777215);
+         this.surface.drawString("Duel Options", var15 + 9, var16 + 212, 4, 16777215);
+         this.surface.drawString("Your Inventory", var15 + 216, var16 + 27, 4, 16777215);
+         this.surface.drawString("No retreating", var15 + 8 + 1, var16 + 215 + 16, 3, 16776960);
+         this.surface.drawString("No magic", var15 + 8 + 1, var16 + 215 + 35, 3, 16776960);
+         this.surface.drawString("No prayer", var15 + 8 + 102, var16 + 215 + 16, 3, 16776960);
+         this.surface.drawString("No weapons", var15 + 8 + 102, var16 + 215 + 35, 3, 16776960);
          this.surface.drawBoxEdge(var15 + 93, var16 + 215 + 6, 11, 11, 16776960);
          if(this.field_259) {
             this.surface.drawBox(var15 + 95, var16 + 215 + 8, 7, 7, 16776960);
@@ -10230,10 +10230,10 @@ public class mudclient extends GameApplet {
          }
 
          if(!this.field_258) {
-            this.surface.method_242(var15 + 217, var16 + 238, this.field_99 + 25);
+            this.surface.drawSprite(var15 + 217, var16 + 238, this.spriteMedia + 25);
          }
 
-         this.surface.method_242(var15 + 394, var16 + 238, this.field_99 + 26);
+         this.surface.drawSprite(var15 + 394, var16 + 238, this.spriteMedia + 26);
          if(this.field_257) {
             this.surface.drawstringCenter("Other player", var15 + 341, var16 + 246, 1, 16777215);
             this.surface.drawstringCenter("has accepted", var15 + 341, var16 + 256, 1, 16777215);
@@ -10250,9 +10250,9 @@ public class mudclient extends GameApplet {
          if(var14 != 0) {
             var10 = 217 + var15 + var9 % 5 * 49;
             var11 = 31 + var16 + var9 / 5 * 34;
-            this.surface.method_258(var10, var11, 48, 32, this.field_101 + GameData.field_477[this.inventoryItemId[var9]], GameData.field_482[this.inventoryItemId[var9]], 0, 0, false);
+            this.surface.method_258(var10, var11, 48, 32, this.spriteItem + GameData.itemTexture[this.inventoryItemId[var9]], GameData.itemMask[this.inventoryItemId[var9]], 0, 0, false);
             if(GameData.itemStackable[this.inventoryItemId[var9]] == 0) {
-               this.surface.method_267(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
+               this.surface.drawString(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
             }
 
             ++var9;
@@ -10261,9 +10261,9 @@ public class mudclient extends GameApplet {
          for(; var9 < this.inventorySize; ++var9) {
             var10 = 217 + var15 + var9 % 5 * 49;
             var11 = 31 + var16 + var9 / 5 * 34;
-            this.surface.method_258(var10, var11, 48, 32, this.field_101 + GameData.field_477[this.inventoryItemId[var9]], GameData.field_482[this.inventoryItemId[var9]], 0, 0, false);
+            this.surface.method_258(var10, var11, 48, 32, this.spriteItem + GameData.itemTexture[this.inventoryItemId[var9]], GameData.itemMask[this.inventoryItemId[var9]], 0, 0, false);
             if(GameData.itemStackable[this.inventoryItemId[var9]] == 0) {
-               this.surface.method_267(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
+               this.surface.drawString(String.valueOf(this.inventoryAmounts[var9]), var10 + 1, var11 + 10, 1, 16776960);
             }
          }
 
@@ -10273,13 +10273,13 @@ public class mudclient extends GameApplet {
             do {
                var11 = 9 + var15 + var10 % 4 * 49;
                var12 = 31 + var16 + var10 / 4 * 34;
-               this.surface.method_258(var11, var12, 48, 32, this.field_101 + GameData.field_477[this.field_252[var10]], GameData.field_482[this.field_252[var10]], 0, 0, false);
+               this.surface.method_258(var11, var12, 48, 32, this.spriteItem + GameData.itemTexture[this.field_252[var10]], GameData.itemMask[this.field_252[var10]], 0, 0, false);
                if(GameData.itemStackable[this.field_252[var10]] == 0) {
-                  this.surface.method_267(String.valueOf(this.field_253[var10]), var11 + 1, var12 + 10, 1, 16776960);
+                  this.surface.drawString(String.valueOf(this.field_253[var10]), var11 + 1, var12 + 10, 1, 16776960);
                }
 
                if(super.mouseX > var11 && super.mouseX < var11 + 48 && super.mouseY > var12 && super.mouseY < var12 + 32) {
-                  this.surface.method_267(GameData.field_474[this.field_252[var10]] + ": @whi@" + GameData.field_475[this.field_252[var10]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.field_474[this.field_252[var10]] + ": @whi@" + GameData.field_475[this.field_252[var10]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var10;
@@ -10291,13 +10291,13 @@ public class mudclient extends GameApplet {
             do {
                var12 = 9 + var15 + var11 % 4 * 49;
                int var13 = 124 + var16 + var11 / 4 * 34;
-               this.surface.method_258(var12, var13, 48, 32, this.field_101 + GameData.field_477[this.field_255[var11]], GameData.field_482[this.field_255[var11]], 0, 0, false);
+               this.surface.method_258(var12, var13, 48, 32, this.spriteItem + GameData.itemTexture[this.field_255[var11]], GameData.itemMask[this.field_255[var11]], 0, 0, false);
                if(GameData.itemStackable[this.field_255[var11]] == 0) {
-                  this.surface.method_267(String.valueOf(this.field_256[var11]), var12 + 1, var13 + 10, 1, 16776960);
+                  this.surface.drawString(String.valueOf(this.field_256[var11]), var12 + 1, var13 + 10, 1, 16776960);
                }
 
                if(super.mouseX > var12 && super.mouseX < var12 + 48 && super.mouseY > var13 && super.mouseY < var13 + 32) {
-                  this.surface.method_267(GameData.field_474[this.field_255[var11]] + ": @whi@" + GameData.field_475[this.field_255[var11]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.field_474[this.field_255[var11]] + ": @whi@" + GameData.field_475[this.field_255[var11]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var11;
@@ -10383,7 +10383,7 @@ public class mudclient extends GameApplet {
    public void method_122(boolean var1) {
       int var9 = GameData.field_563;
       int var2 = this.surface.field_723 - 248;
-      this.surface.method_242(var2, 3, this.field_99 + 1);
+      this.surface.drawSprite(var2, 3, this.spriteMedia + 1);
       int var3 = 0;
       int var4;
       int var5;
@@ -10392,19 +10392,19 @@ public class mudclient extends GameApplet {
             var4 = var2 + var3 % 5 * 49;
             var5 = 36 + var3 / 5 * 34;
             if(var3 < this.inventorySize && this.inventoryEquipped[var3] == 1) {
-               this.surface.method_225(var4, var5, 49, 34, 16711680, 128);
+               this.surface.drawBoxAlpha(var4, var5, 49, 34, 16711680, 128);
                if(var9 == 0) {
                   break label99;
                }
             }
 
-            this.surface.method_225(var4, var5, 49, 34, Surface.method_234(181, 181, 181), 128);
+            this.surface.drawBoxAlpha(var4, var5, 49, 34, Surface.method_234(181, 181, 181), 128);
          }
 
          if(var3 < this.inventorySize) {
-            this.surface.method_258(var4, var5, 48, 32, this.field_101 + GameData.field_477[this.inventoryItemId[var3]], GameData.field_482[this.inventoryItemId[var3]], 0, 0, false);
+            this.surface.method_258(var4, var5, 48, 32, this.spriteItem + GameData.itemTexture[this.inventoryItemId[var3]], GameData.itemMask[this.inventoryItemId[var3]], 0, 0, false);
             if(GameData.itemStackable[this.inventoryItemId[var3]] == 0) {
-               this.surface.method_267(String.valueOf(this.inventoryAmounts[var3]), var4 + 1, var5 + 10, 1, 16776960);
+               this.surface.drawString(String.valueOf(this.inventoryAmounts[var3]), var4 + 1, var5 + 10, 1, 16776960);
             }
          }
 
@@ -10416,19 +10416,19 @@ public class mudclient extends GameApplet {
             var4 = var2 + var3 % 5 * 49;
             var5 = 36 + var3 / 5 * 34;
             if(var3 < this.inventorySize && this.inventoryEquipped[var3] == 1) {
-               this.surface.method_225(var4, var5, 49, 34, 16711680, 128);
+               this.surface.drawBoxAlpha(var4, var5, 49, 34, 16711680, 128);
                if(var9 == 0) {
                   break label96;
                }
             }
 
-            this.surface.method_225(var4, var5, 49, 34, Surface.method_234(181, 181, 181), 128);
+            this.surface.drawBoxAlpha(var4, var5, 49, 34, Surface.method_234(181, 181, 181), 128);
          }
 
          if(var3 < this.inventorySize) {
-            this.surface.method_258(var4, var5, 48, 32, this.field_101 + GameData.field_477[this.inventoryItemId[var3]], GameData.field_482[this.inventoryItemId[var3]], 0, 0, false);
+            this.surface.method_258(var4, var5, 48, 32, this.spriteItem + GameData.itemTexture[this.inventoryItemId[var3]], GameData.itemMask[this.inventoryItemId[var3]], 0, 0, false);
             if(GameData.itemStackable[this.inventoryItemId[var3]] == 0) {
-               this.surface.method_267(String.valueOf(this.inventoryAmounts[var3]), var4 + 1, var5 + 10, 1, 16776960);
+               this.surface.drawString(String.valueOf(this.inventoryAmounts[var3]), var4 + 1, var5 + 10, 1, 16776960);
             }
          }
       }
@@ -10436,7 +10436,7 @@ public class mudclient extends GameApplet {
       var4 = 1;
       if(var9 != 0 || var4 <= 4) {
          do {
-            this.surface.method_230(var2 + var4 * 49, 36, this.field_180 / 5 * 34, 0);
+            this.surface.drawLineVert(var2 + var4 * 49, 36, this.field_180 / 5 * 34, 0);
             ++var4;
          } while(var4 <= 4);
       }
@@ -10547,7 +10547,7 @@ public class mudclient extends GameApplet {
       int var2 = this.surface.field_723 - 199;
       short var3 = 156;
       short var4 = 152;
-      this.surface.method_242(var2 - 49, 3, this.field_99 + 2);
+      this.surface.drawSprite(var2 - 49, 3, this.spriteMedia + 2);
       var2 += 40;
       this.surface.drawBox(var2, 36, var3, var4, 0);
       this.surface.method_220(var2, 36, var2 + var3, 36 + var4);
@@ -10559,7 +10559,7 @@ public class mudclient extends GameApplet {
       int var10 = class_8.field_651[(1024 - var6 * 4 & 1023) + 1024];
       int var11 = var8 * var9 + var7 * var10 >> 18;
       var8 = var8 * var10 - var7 * var9 >> 18;
-      this.surface.method_254(var2 + var3 / 2 - var11, 36 + var4 / 2 + var8, this.field_99 - 1, var6 + 64 & 255, var5);
+      this.surface.method_254(var2 + var3 / 2 - var11, 36 + var4 / 2 + var8, this.spriteMedia - 1, var6 + 64 & 255, var5);
       int var12 = 0;
       if(var19 != 0 || var12 < this.field_163) {
          do {
@@ -10659,7 +10659,7 @@ public class mudclient extends GameApplet {
       }
 
       this.surface.method_224(var2 + var3 / 2, 36 + var4 / 2, 2, 16777215, 255);
-      this.surface.method_254(var2 + 19, 55, this.field_99 + 24, this.field_135 + 128 & 255, 128);
+      this.surface.method_254(var2 + 19, 55, this.spriteMedia + 24, this.field_135 + 128 & 255, 128);
       this.surface.method_220(0, 0, this.field_96, this.gameHeight + 12);
       if(var1) {
          var2 = super.mouseX - (this.surface.field_723 - 199);
@@ -10702,7 +10702,7 @@ public class mudclient extends GameApplet {
          var14 = GameData.field_563;
          var2 = this.surface.field_723 - 199;
          var3 = 36;
-         this.surface.method_242(var2 - 49, 3, this.field_99 + 3);
+         this.surface.drawSprite(var2 - 49, 3, this.spriteMedia + 3);
          var4 = 196;
          var5 = 275;
          var6 = var7 = Surface.method_234(160, 160, 160);
@@ -10716,11 +10716,11 @@ public class mudclient extends GameApplet {
          var7 = Surface.method_234(220, 220, 220);
       }
 
-      this.surface.method_225(var2, var3, var4 / 2, 24, var6, 128);
-      this.surface.method_225(var2 + var4 / 2, var3, var4 / 2, 24, var7, 128);
-      this.surface.method_225(var2, var3 + 24, var4, var5 - 24, Surface.method_234(220, 220, 220), 128);
+      this.surface.drawBoxAlpha(var2, var3, var4 / 2, 24, var6, 128);
+      this.surface.drawBoxAlpha(var2 + var4 / 2, var3, var4 / 2, 24, var7, 128);
+      this.surface.drawBoxAlpha(var2, var3 + 24, var4, var5 - 24, Surface.method_234(220, 220, 220), 128);
       this.surface.drawLineHoriz(var2, var3 + 24, var4, 0);
-      this.surface.method_230(var2 + var4 / 2, var3, 24, 0);
+      this.surface.drawLineVert(var2 + var4 / 2, var3, 24, 0);
       this.surface.drawstringCenter("Stats", var2 + var4 / 4, var3 + 16, 4, 0);
       this.surface.drawstringCenter("Quests", var2 + var4 / 4 + var4 / 2, var3 + 16, 4, 0);
       int var16;
@@ -10728,7 +10728,7 @@ public class mudclient extends GameApplet {
          label162: {
             byte var8 = 72;
             int var9 = -1;
-            this.surface.method_267("Skills", var2 + 5, var8, 3, 16776960);
+            this.surface.drawString("Skills", var2 + 5, var8, 3, 16776960);
             var16 = var8 + 13;
             int var10 = 0;
             int var11;
@@ -10740,31 +10740,31 @@ public class mudclient extends GameApplet {
                      var9 = var10;
                   }
 
-                  this.surface.method_267(this.field_196[var10] + ":@yel@" + this.playerStatCurrent[var10] + "/" + this.playerStatBase[var10], var2 + 5, var16, 1, var11);
+                  this.surface.drawString(this.field_196[var10] + ":@yel@" + this.playerStatCurrent[var10] + "/" + this.playerStatBase[var10], var2 + 5, var16, 1, var11);
                   var11 = 16777215;
                   if(super.mouseX >= var2 + 90 && super.mouseY >= var16 - 13 - 11 && super.mouseY < var16 - 13 + 2 && super.mouseX < var2 + 196) {
                      var11 = 16711680;
                      var9 = var10 + 9;
                   }
 
-                  this.surface.method_267(this.field_196[var10 + 9] + ":@yel@" + this.playerStatCurrent[var10 + 9] + "/" + this.playerStatBase[var10 + 9], var2 + var4 / 2 - 5, var16 - 13, 1, var11);
+                  this.surface.drawString(this.field_196[var10 + 9] + ":@yel@" + this.playerStatCurrent[var10 + 9] + "/" + this.playerStatBase[var10 + 9], var2 + var4 / 2 - 5, var16 - 13, 1, var11);
                   var16 += 13;
                   ++var10;
                } while(var10 < 9);
             }
 
-            this.surface.method_267("Quest Points:@yel@" + this.field_193, var2 + var4 / 2 - 5, var16 - 13, 1, 16777215);
+            this.surface.drawString("Quest Points:@yel@" + this.field_193, var2 + var4 / 2 - 5, var16 - 13, 1, 16777215);
             var16 += 12;
-            this.surface.method_267("Fatigue: @yel@" + this.field_194 * 100 / 750 + "%", var2 + 5, var16 - 13, 1, 16777215);
+            this.surface.drawString("Fatigue: @yel@" + this.field_194 * 100 / 750 + "%", var2 + 5, var16 - 13, 1, 16777215);
             var16 += 8;
-            this.surface.method_267("Equipment Status", var2 + 5, var16, 3, 16776960);
+            this.surface.drawString("Equipment Status", var2 + 5, var16, 3, 16776960);
             var16 += 12;
             var11 = 0;
             if(var14 != 0 || var11 < 3) {
                do {
-                  this.surface.method_267(this.field_198[var11] + ":@yel@" + this.field_192[var11], var2 + 5, var16, 1, 16777215);
+                  this.surface.drawString(this.field_198[var11] + ":@yel@" + this.field_192[var11], var2 + 5, var16, 1, 16777215);
                   if(var11 < 2) {
-                     this.surface.method_267(this.field_198[var11 + 3] + ":@yel@" + this.field_192[var11 + 3], var2 + var4 / 2 + 25, var16, 1, 16777215);
+                     this.surface.drawString(this.field_198[var11 + 3] + ":@yel@" + this.field_192[var11 + 3], var2 + var4 / 2 + 25, var16, 1, 16777215);
                   }
 
                   var16 += 13;
@@ -10777,7 +10777,7 @@ public class mudclient extends GameApplet {
             int var12;
             int var13;
             if(var9 != -1) {
-               this.surface.method_267(this.field_197[var9] + " skill", var2 + 5, var16, 1, 16776960);
+               this.surface.drawString(this.field_197[var9] + " skill", var2 + 5, var16, 1, 16776960);
                var16 += 12;
                var12 = this.field_187[0];
                var13 = 0;
@@ -10791,15 +10791,15 @@ public class mudclient extends GameApplet {
                   } while(var13 < 98);
                }
 
-               this.surface.method_267("Total xp: " + this.field_191[var9] / 4, var2 + 5, var16, 1, 16777215);
+               this.surface.drawString("Total xp: " + this.field_191[var9] / 4, var2 + 5, var16, 1, 16777215);
                var16 += 12;
-               this.surface.method_267("Next level at: " + var12 / 4, var2 + 5, var16, 1, 16777215);
+               this.surface.drawString("Next level at: " + var12 / 4, var2 + 5, var16, 1, 16777215);
                if(var14 == 0) {
                   break label162;
                }
             }
 
-            this.surface.method_267("Overall levels", var2 + 5, var16, 1, 16776960);
+            this.surface.drawString("Overall levels", var2 + 5, var16, 1, 16776960);
             var16 += 12;
             var12 = 0;
             var13 = 0;
@@ -10810,9 +10810,9 @@ public class mudclient extends GameApplet {
                } while(var13 < 18);
             }
 
-            this.surface.method_267("Skill total: " + var12, var2 + 5, var16, 1, 16777215);
+            this.surface.drawString("Skill total: " + var12, var2 + 5, var16, 1, 16777215);
             var16 += 12;
-            this.surface.method_267("Combat level: " + this.localPlayer.combatLevel, var2 + 5, var16, 1, 16777215);
+            this.surface.drawString("Combat level: " + this.localPlayer.combatLevel, var2 + 5, var16, 1, 16777215);
             var16 += 12;
          }
       }
@@ -10867,7 +10867,7 @@ public class mudclient extends GameApplet {
          var16 = GameData.field_563;
          var2 = this.surface.field_723 - 199;
          var3 = 36;
-         this.surface.method_242(var2 - 49, 3, this.field_99 + 4);
+         this.surface.drawSprite(var2 - 49, 3, this.spriteMedia + 4);
          var4 = 196;
          var5 = 182;
          var6 = var7 = Surface.method_234(160, 160, 160);
@@ -10881,12 +10881,12 @@ public class mudclient extends GameApplet {
          var7 = Surface.method_234(220, 220, 220);
       }
 
-      this.surface.method_225(var2, var3, var4 / 2, 24, var6, 128);
-      this.surface.method_225(var2 + var4 / 2, var3, var4 / 2, 24, var7, 128);
-      this.surface.method_225(var2, var3 + 24, var4, 90, Surface.method_234(220, 220, 220), 128);
-      this.surface.method_225(var2, var3 + 24 + 90, var4, var5 - 90 - 24, Surface.method_234(160, 160, 160), 128);
+      this.surface.drawBoxAlpha(var2, var3, var4 / 2, 24, var6, 128);
+      this.surface.drawBoxAlpha(var2 + var4 / 2, var3, var4 / 2, 24, var7, 128);
+      this.surface.drawBoxAlpha(var2, var3 + 24, var4, 90, Surface.method_234(220, 220, 220), 128);
+      this.surface.drawBoxAlpha(var2, var3 + 24 + 90, var4, var5 - 90 - 24, Surface.method_234(160, 160, 160), 128);
       this.surface.drawLineHoriz(var2, var3 + 24, var4, 0);
-      this.surface.method_230(var2 + var4 / 2, var3, 24, 0);
+      this.surface.drawLineVert(var2 + var4 / 2, var3, 24, 0);
       this.surface.drawLineHoriz(var2, var3 + 113, var4, 0);
       this.surface.drawstringCenter("Magic", var2 + var4 / 4, var3 + 16, 4, 0);
       this.surface.drawstringCenter("Prayers", var2 + var4 / 4 + var4 / 2, var3 + 16, 4, 0);
@@ -10932,13 +10932,13 @@ public class mudclient extends GameApplet {
             this.field_201.method_278();
             var18 = this.field_201.method_313(this.field_202);
             if(var18 != -1) {
-               this.surface.method_267("Level " + GameData.field_545[var18] + ": " + GameData.field_543[var18], var2 + 2, var3 + 124, 1, 16776960);
-               this.surface.method_267(GameData.field_544[var18], var2 + 2, var3 + 136, 0, 16777215);
+               this.surface.drawString("Level " + GameData.field_545[var18] + ": " + GameData.field_543[var18], var2 + 2, var3 + 124, 1, 16776960);
+               this.surface.drawString(GameData.field_544[var18], var2 + 2, var3 + 136, 0, 16777215);
                var11 = 0;
                if(var16 != 0 || var11 < GameData.field_546[var18]) {
                   do {
                      var12 = GameData.field_548[var18][var11];
-                     this.surface.method_242(var2 + 2 + var11 * 44, var3 + 150, this.field_101 + GameData.field_477[var12]);
+                     this.surface.drawSprite(var2 + 2 + var11 * 44, var3 + 150, this.spriteItem + GameData.itemTexture[var12]);
                      int var13 = this.getInventoryCount(var12);
                      int var14 = GameData.field_549[var18][var11];
                      String var15 = "@red@";
@@ -10946,7 +10946,7 @@ public class mudclient extends GameApplet {
                         var15 = "@gre@";
                      }
 
-                     this.surface.method_267(var15 + var13 + "/" + var14, var2 + 2 + var11 * 44, var3 + 150, 1, 16777215);
+                     this.surface.drawString(var15 + var13 + "/" + var14, var2 + 2 + var11 * 44, var3 + 150, 1, 16777215);
                      ++var11;
                   } while(var11 < GameData.field_546[var18]);
                }
@@ -10956,7 +10956,7 @@ public class mudclient extends GameApplet {
                }
             }
 
-            this.surface.method_267("Point at a spell for a description", var2 + 2, var3 + 124, 1, 0);
+            this.surface.drawString("Point at a spell for a description", var2 + 2, var3 + 124, 1, 0);
          }
       }
 
@@ -10992,7 +10992,7 @@ public class mudclient extends GameApplet {
                }
             }
 
-            this.surface.method_267("Point at a prayer for a description", var2 + 2, var3 + 124, 1, 0);
+            this.surface.drawString("Point at a prayer for a description", var2 + 2, var3 + 124, 1, 0);
          }
       }
 
@@ -11112,7 +11112,7 @@ public class mudclient extends GameApplet {
          var10 = GameData.field_563;
          var2 = this.surface.field_723 - 199;
          var3 = 36;
-         this.surface.method_242(var2 - 49, 3, this.field_99 + 5);
+         this.surface.drawSprite(var2 - 49, 3, this.spriteMedia + 5);
          var4 = 196;
          var5 = 182;
          var6 = var7 = Surface.method_234(160, 160, 160);
@@ -11126,11 +11126,11 @@ public class mudclient extends GameApplet {
          var7 = Surface.method_234(220, 220, 220);
       }
 
-      this.surface.method_225(var2, var3, var4 / 2, 24, var6, 128);
-      this.surface.method_225(var2 + var4 / 2, var3, var4 / 2, 24, var7, 128);
-      this.surface.method_225(var2, var3 + 24, var4, var5 - 24, Surface.method_234(220, 220, 220), 128);
+      this.surface.drawBoxAlpha(var2, var3, var4 / 2, 24, var6, 128);
+      this.surface.drawBoxAlpha(var2 + var4 / 2, var3, var4 / 2, 24, var7, 128);
+      this.surface.drawBoxAlpha(var2, var3 + 24, var4, var5 - 24, Surface.method_234(220, 220, 220), 128);
       this.surface.drawLineHoriz(var2, var3 + 24, var4, 0);
-      this.surface.method_230(var2 + var4 / 2, var3, 24, 0);
+      this.surface.drawLineVert(var2 + var4 / 2, var3, 24, 0);
       this.surface.drawLineHoriz(var2, var3 + var5 - 16, var4, 0);
       this.surface.drawstringCenter("Friends", var2 + var4 / 4, var3 + 16, 4, 0);
       this.surface.drawstringCenter("Ignore", var2 + var4 / 4 + var4 / 2, var3 + 16, 4, 0);
@@ -11335,69 +11335,69 @@ public class mudclient extends GameApplet {
          var11 = GameData.field_563;
          var2 = this.surface.field_723 - 199;
          byte var3 = 36;
-         this.surface.method_242(var2 - 49, 3, this.field_99 + 6);
+         this.surface.drawSprite(var2 - 49, 3, this.spriteMedia + 6);
          var4 = 196;
-         this.surface.method_225(var2, 36, var4, 65, Surface.method_234(181, 181, 181), 160);
-         this.surface.method_225(var2, 101, var4, 65, Surface.method_234(201, 201, 201), 160);
-         this.surface.method_225(var2, 166, var4, 95, Surface.method_234(181, 181, 181), 160);
-         this.surface.method_225(var2, 261, var4, 40, Surface.method_234(201, 201, 201), 160);
+         this.surface.drawBoxAlpha(var2, 36, var4, 65, Surface.method_234(181, 181, 181), 160);
+         this.surface.drawBoxAlpha(var2, 101, var4, 65, Surface.method_234(201, 201, 201), 160);
+         this.surface.drawBoxAlpha(var2, 166, var4, 95, Surface.method_234(181, 181, 181), 160);
+         this.surface.drawBoxAlpha(var2, 261, var4, 40, Surface.method_234(201, 201, 201), 160);
          var5 = var2 + 3;
          var6 = var3 + 15;
-         this.surface.method_267("Game options - click to toggle", var5, var6, 1, 0);
+         this.surface.drawString("Game options - click to toggle", var5, var6, 1, 0);
          var6 += 15;
          if(this.optionCAmeraModeAuto) {
-            this.surface.method_267("Camera angle mode - @gre@Auto", var5, var6, 1, 16777215);
+            this.surface.drawString("Camera angle mode - @gre@Auto", var5, var6, 1, 16777215);
             if(var11 == 0) {
                break label287;
             }
          }
 
-         this.surface.method_267("Camera angle mode - @red@Manual", var5, var6, 1, 16777215);
+         this.surface.drawString("Camera angle mode - @red@Manual", var5, var6, 1, 16777215);
       }
 
       label282: {
          var6 += 15;
          if(this.field_218) {
-            this.surface.method_267("Mouse buttons - @red@One", var5, var6, 1, 16777215);
+            this.surface.drawString("Mouse buttons - @red@One", var5, var6, 1, 16777215);
             if(var11 == 0) {
                break label282;
             }
          }
 
-         this.surface.method_267("Mouse buttons - @gre@Two", var5, var6, 1, 16777215);
+         this.surface.drawString("Mouse buttons - @gre@Two", var5, var6, 1, 16777215);
       }
 
       var6 += 15;
       if(this.field_69) {
          label276: {
             if(this.field_219) {
-               this.surface.method_267("Sound effects - @red@off", var5, var6, 1, 16777215);
+               this.surface.drawString("Sound effects - @red@off", var5, var6, 1, 16777215);
                if(var11 == 0) {
                   break label276;
                }
             }
 
-            this.surface.method_267("Sound effects - @gre@on", var5, var6, 1, 16777215);
+            this.surface.drawString("Sound effects - @gre@on", var5, var6, 1, 16777215);
          }
       }
 
       var6 += 15;
       var6 += 5;
-      this.surface.method_267("Security settings", var5, var6, 1, 0);
+      this.surface.drawString("Security settings", var5, var6, 1, 0);
       var6 += 15;
       int var7 = 16777215;
       if(super.mouseX > var5 && super.mouseX < var5 + var4 && super.mouseY > var6 - 12 && super.mouseY < var6 + 4) {
          var7 = 16776960;
       }
 
-      this.surface.method_267("Change password", var5, var6, 1, var7);
+      this.surface.drawString("Change password", var5, var6, 1, var7);
       var6 += 15;
       var7 = 16777215;
       if(super.mouseX > var5 && super.mouseX < var5 + var4 && super.mouseY > var6 - 12 && super.mouseY < var6 + 4) {
          var7 = 16776960;
       }
 
-      this.surface.method_267("Change recovery questions", var5, var6, 1, var7);
+      this.surface.drawString("Change recovery questions", var5, var6, 1, var7);
       var6 += 15;
       var7 = 16777215;
       if(super.mouseX > var5 && super.mouseX < var5 + var4 && super.mouseY > var6 - 12 && super.mouseY < var6 + 4) {
@@ -11405,71 +11405,71 @@ public class mudclient extends GameApplet {
       }
 
       label267: {
-         this.surface.method_267("Change contact details", var5, var6, 1, var7);
+         this.surface.drawString("Change contact details", var5, var6, 1, var7);
          var6 += 15;
          var6 += 5;
-         this.surface.method_267("Privacy settings. Will be applied to", var2 + 3, var6, 1, 0);
+         this.surface.drawString("Privacy settings. Will be applied to", var2 + 3, var6, 1, 0);
          var6 += 15;
-         this.surface.method_267("all people not on your friends list", var2 + 3, var6, 1, 0);
+         this.surface.drawString("all people not on your friends list", var2 + 3, var6, 1, 0);
          var6 += 15;
          if(super.field_60 == 0) {
-            this.surface.method_267("Block chat messages: @red@<off>", var2 + 3, var6, 1, 16777215);
+            this.surface.drawString("Block chat messages: @red@<off>", var2 + 3, var6, 1, 16777215);
             if(var11 == 0) {
                break label267;
             }
          }
 
-         this.surface.method_267("Block chat messages: @gre@<on>", var2 + 3, var6, 1, 16777215);
+         this.surface.drawString("Block chat messages: @gre@<on>", var2 + 3, var6, 1, 16777215);
       }
 
       label262: {
          var6 += 15;
          if(super.field_61 == 0) {
-            this.surface.method_267("Block private messages: @red@<off>", var2 + 3, var6, 1, 16777215);
+            this.surface.drawString("Block private messages: @red@<off>", var2 + 3, var6, 1, 16777215);
             if(var11 == 0) {
                break label262;
             }
          }
 
-         this.surface.method_267("Block private messages: @gre@<on>", var2 + 3, var6, 1, 16777215);
+         this.surface.drawString("Block private messages: @gre@<on>", var2 + 3, var6, 1, 16777215);
       }
 
       label257: {
          var6 += 15;
          if(super.field_62 == 0) {
-            this.surface.method_267("Block trade requests: @red@<off>", var2 + 3, var6, 1, 16777215);
+            this.surface.drawString("Block trade requests: @red@<off>", var2 + 3, var6, 1, 16777215);
             if(var11 == 0) {
                break label257;
             }
          }
 
-         this.surface.method_267("Block trade requests: @gre@<on>", var2 + 3, var6, 1, 16777215);
+         this.surface.drawString("Block trade requests: @gre@<on>", var2 + 3, var6, 1, 16777215);
       }
 
       var6 += 15;
       if(this.field_69) {
          label251: {
             if(super.field_63 == 0) {
-               this.surface.method_267("Block duel requests: @red@<off>", var2 + 3, var6, 1, 16777215);
+               this.surface.drawString("Block duel requests: @red@<off>", var2 + 3, var6, 1, 16777215);
                if(var11 == 0) {
                   break label251;
                }
             }
 
-            this.surface.method_267("Block duel requests: @gre@<on>", var2 + 3, var6, 1, 16777215);
+            this.surface.drawString("Block duel requests: @gre@<on>", var2 + 3, var6, 1, 16777215);
          }
       }
 
       var6 += 15;
       var6 += 5;
-      this.surface.method_267("Always logout when you finish", var5, var6, 1, 0);
+      this.surface.drawString("Always logout when you finish", var5, var6, 1, 0);
       var6 += 15;
       var7 = 16777215;
       if(super.mouseX > var5 && super.mouseX < var5 + var4 && super.mouseY > var6 - 12 && super.mouseY < var6 + 4) {
          var7 = 16776960;
       }
 
-      this.surface.method_267("Click here to logout", var2 + 3, var6, 1, var7);
+      this.surface.drawString("Click here to logout", var2 + 3, var6, 1, var7);
       if(var1) {
          var2 = super.mouseX - (this.surface.field_723 - 199);
          int var12 = super.mouseY - 36;
@@ -12135,8 +12135,8 @@ public class mudclient extends GameApplet {
          this.mouseButtonClick = 0;
          this.field_220 = false;
       } else if(super.mouseX >= this.field_221 - 10 && super.mouseY >= this.field_222 - 10 && super.mouseX <= this.field_221 + this.field_223 + 10 && super.mouseY <= this.field_222 + this.field_224 + 10) {
-         this.surface.method_225(this.field_221, this.field_222, this.field_223, this.field_224, 13684944, 160);
-         this.surface.method_267("Choose option", this.field_221 + 2, this.field_222 + 12, 1, '\uffff');
+         this.surface.drawBoxAlpha(this.field_221, this.field_222, this.field_223, this.field_224, 13684944, 160);
+         this.surface.drawString("Choose option", this.field_221 + 2, this.field_222 + 12, 1, '\uffff');
          var1 = 0;
          if(var5 != 0 || var1 < this.field_225) {
             do {
@@ -12147,7 +12147,7 @@ public class mudclient extends GameApplet {
                   var4 = 16776960;
                }
 
-               this.surface.method_267(this.field_228[this.field_235[var1]] + " " + this.field_227[this.field_235[var1]], var2, var3, 1, var4);
+               this.surface.drawString(this.field_228[this.field_235[var1]] + " " + this.field_227[this.field_235[var1]], var2, var3, 1, var4);
                ++var1;
             } while(var1 < this.field_225);
 
@@ -12255,7 +12255,7 @@ public class mudclient extends GameApplet {
          }
 
          if(var9 != null) {
-            this.surface.method_267(var9, 6, 14, 1, 16776960);
+            this.surface.drawString(var9, 6, 14, 1, 16776960);
          }
 
          if(!this.field_218 && this.mouseButtonClick == 1 || this.field_218 && this.mouseButtonClick == 1 && this.field_225 == 1) {
@@ -12861,7 +12861,7 @@ public class mudclient extends GameApplet {
       this.field_270 = new int[8];
       this.field_271 = new int[8];
       this.field_276 = false;
-      this.field_277 = "";
+      this.tradeRecipientName = "";
       this.tradeItemIds = new int[14];
       this.tradeItemAmounts = new int[14];
       this.field_282 = new int[14];

@@ -14,7 +14,7 @@ public class GameData {
    // $FF: renamed from: e java.lang.String[]
    public static String[] field_476;
    // $FF: renamed from: f int[]
-   public static int[] field_477;
+   public static int[] itemTexture;
    // $FF: renamed from: g int[]
    public static int[] itemBasePrice;
    // $FF: renamed from: h int[]
@@ -24,9 +24,9 @@ public class GameData {
    // $FF: renamed from: j int[]
    public static int[] field_481;
    // $FF: renamed from: k int[]
-   public static int[] field_482;
+   public static int[] itemMask;
    // $FF: renamed from: l int[]
-   public static int[] field_483;
+   public static int[] itemTradable;
    // $FF: renamed from: m int[]
    public static int[] field_484;
    // $FF: renamed from: n int
@@ -268,13 +268,13 @@ public class GameData {
       field_474 = new String[field_472];
       field_475 = new String[field_472];
       field_476 = new String[field_472];
-      field_477 = new int[field_472];
+      itemTexture = new int[field_472];
       itemBasePrice = new int[field_472];
       itemStackable = new int[field_472];
       field_480 = new int[field_472];
       field_481 = new int[field_472];
-      field_482 = new int[field_472];
-      field_483 = new int[field_472];
+      itemMask = new int[field_472];
+      itemTradable = new int[field_472];
       field_484 = new int[field_472];
       int var2 = 0;
       if(var74 != 0 || var2 < field_472) {
@@ -305,18 +305,18 @@ public class GameData {
 
       int var5 = 0;
       if(var74 != 0) {
-         field_477[var5] = method_137();
-         if(field_477[var5] + 1 > field_473) {
-            field_473 = field_477[var5] + 1;
+         itemTexture[var5] = method_137();
+         if(itemTexture[var5] + 1 > field_473) {
+            field_473 = itemTexture[var5] + 1;
          }
 
          ++var5;
       }
 
       for(; var5 < field_472; ++var5) {
-         field_477[var5] = method_137();
-         if(field_477[var5] + 1 > field_473) {
-            field_473 = field_477[var5] + 1;
+         itemTexture[var5] = method_137();
+         if(itemTexture[var5] + 1 > field_473) {
+            field_473 = itemTexture[var5] + 1;
          }
       }
 
@@ -361,19 +361,19 @@ public class GameData {
       int var10 = 0;
       if(var74 != 0 || var10 < field_472) {
          do {
-            field_482[var10] = method_138();
+            itemMask[var10] = method_138();
             ++var10;
          } while(var10 < field_472);
       }
 
       int var11 = 0;
       if(var74 != 0) {
-         field_483[var11] = method_136();
+         itemTradable[var11] = method_136();
          ++var11;
       }
 
       while(var11 < field_472) {
-         field_483[var11] = method_136();
+         itemTradable[var11] = method_136();
          ++var11;
       }
 
@@ -394,7 +394,7 @@ public class GameData {
             field_476[var13] = "";
             field_480[0] = 0;
             field_481[var13] = 0;
-            field_483[var13] = 1;
+            itemTradable[var13] = 1;
          }
 
          ++var13;
@@ -408,7 +408,7 @@ public class GameData {
             field_476[var13] = "";
             field_480[0] = 0;
             field_481[var13] = 0;
-            field_483[var13] = 1;
+            itemTradable[var13] = 1;
          }
       }
 

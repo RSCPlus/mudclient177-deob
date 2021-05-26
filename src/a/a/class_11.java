@@ -358,9 +358,9 @@ public class class_11 {
    protected void method_279(int var1, int var2, int var3, int var4, int var5) {
       this.field_761.drawBox(var2, var3, var4, var5, 16777215);
       this.field_761.drawLineHoriz(var2, var3, var4, this.field_796);
-      this.field_761.method_230(var2, var3, var5, this.field_796);
+      this.field_761.drawLineVert(var2, var3, var5, this.field_796);
       this.field_761.drawLineHoriz(var2, var3 + var5 - 1, var4, this.field_799);
-      this.field_761.method_230(var2 + var4 - 1, var3, var5, this.field_799);
+      this.field_761.drawLineVert(var2 + var4 - 1, var3, var5, this.field_799);
       if(this.field_770[var1] == 1) {
          int var6 = 0;
          if(Surface.field_759 || var6 < var5) {
@@ -394,7 +394,7 @@ public class class_11 {
          var6 = 0;
       }
 
-      this.field_761.method_267(var4, var2, var3, var5, var6);
+      this.field_761.drawString(var4, var2, var3, var5, var6);
    }
 
    // $FF: renamed from: a (int, int, int, int, int, java.lang.String, int) void
@@ -469,15 +469,15 @@ public class class_11 {
       this.field_761.drawLineHoriz(var1, var2, var3, this.field_796);
       this.field_761.drawLineHoriz(var1 + 1, var2 + 1, var3 - 2, this.field_796);
       this.field_761.drawLineHoriz(var1 + 2, var2 + 2, var3 - 4, this.field_797);
-      this.field_761.method_230(var1, var2, var4, this.field_796);
-      this.field_761.method_230(var1 + 1, var2 + 1, var4 - 2, this.field_796);
-      this.field_761.method_230(var1 + 2, var2 + 2, var4 - 4, this.field_797);
+      this.field_761.drawLineVert(var1, var2, var4, this.field_796);
+      this.field_761.drawLineVert(var1 + 1, var2 + 1, var4 - 2, this.field_796);
+      this.field_761.drawLineVert(var1 + 2, var2 + 2, var4 - 4, this.field_797);
       this.field_761.drawLineHoriz(var1, var2 + var4 - 1, var3, this.field_799);
       this.field_761.drawLineHoriz(var1 + 1, var2 + var4 - 2, var3 - 2, this.field_799);
       this.field_761.drawLineHoriz(var1 + 2, var2 + var4 - 3, var3 - 4, this.field_798);
-      this.field_761.method_230(var1 + var3 - 1, var2, var4, this.field_799);
-      this.field_761.method_230(var1 + var3 - 2, var2 + 1, var4 - 2, this.field_799);
-      this.field_761.method_230(var1 + var3 - 3, var2 + 2, var4 - 4, this.field_798);
+      this.field_761.drawLineVert(var1 + var3 - 1, var2, var4, this.field_799);
+      this.field_761.drawLineVert(var1 + var3 - 2, var2 + 1, var4 - 2, this.field_799);
+      this.field_761.drawLineVert(var1 + var3 - 3, var2 + 2, var4 - 4, this.field_798);
       this.field_761.method_221();
    }
 
@@ -487,15 +487,15 @@ public class class_11 {
       this.field_761.drawBoxEdge(var1, var2, var3, var4, this.field_793);
       this.field_761.drawBoxEdge(var1 + 1, var2 + 1, var3 - 2, var4 - 2, this.field_794);
       this.field_761.drawBoxEdge(var1 + 2, var2 + 2, var3 - 4, var4 - 4, this.field_795);
-      this.field_761.method_242(var1, var2, 2 + field_802);
-      this.field_761.method_242(var1 + var3 - 7, var2, 3 + field_802);
-      this.field_761.method_242(var1, var2 + var4 - 7, 4 + field_802);
-      this.field_761.method_242(var1 + var3 - 7, var2 + var4 - 7, 5 + field_802);
+      this.field_761.drawSprite(var1, var2, 2 + field_802);
+      this.field_761.drawSprite(var1 + var3 - 7, var2, 3 + field_802);
+      this.field_761.drawSprite(var1, var2 + var4 - 7, 4 + field_802);
+      this.field_761.drawSprite(var1 + var3 - 7, var2 + var4 - 7, 5 + field_802);
    }
 
    // $FF: renamed from: b (int, int, int) void
    protected void method_285(int var1, int var2, int var3) {
-      this.field_761.method_242(var1, var2, var3);
+      this.field_761.drawSprite(var1, var2, var3);
    }
 
    // $FF: renamed from: c (int, int, int) void
@@ -590,14 +590,14 @@ public class class_11 {
    protected void method_288(int var1, int var2, int var3, int var4, int var5, int var6) {
       int var7 = var1 + var3 - 12;
       this.field_761.drawBoxEdge(var7, var2, 12, var4, 0);
-      this.field_761.method_242(var7 + 1, var2 + 1, field_802);
-      this.field_761.method_242(var7 + 1, var2 + var4 - 12, 1 + field_802);
+      this.field_761.drawSprite(var7 + 1, var2 + 1, field_802);
+      this.field_761.drawSprite(var7 + 1, var2 + var4 - 12, 1 + field_802);
       this.field_761.drawLineHoriz(var7, var2 + 13, 12, 0);
       this.field_761.drawLineHoriz(var7, var2 + var4 - 13, 12, 0);
       this.field_761.method_226(var7 + 1, var2 + 14, 11, var4 - 27, this.field_788, this.field_789);
       this.field_761.drawBox(var7 + 3, var5 + var2 + 14, 7, var6, this.field_791);
-      this.field_761.method_230(var7 + 2, var5 + var2 + 14, var6, this.field_790);
-      this.field_761.method_230(var7 + 2 + 8, var5 + var2 + 14, var6, this.field_792);
+      this.field_761.drawLineVert(var7 + 2, var5 + var2 + 14, var6, this.field_790);
+      this.field_761.drawLineVert(var7 + 2 + 8, var5 + var2 + 14, var6, this.field_792);
    }
 
    // $FF: renamed from: a (int, int, int, int, java.lang.String[]) void
@@ -665,7 +665,7 @@ public class class_11 {
                }
             }
 
-            this.field_761.method_267(var5[var11], var9, var10, var4, var12);
+            this.field_761.drawString(var5[var11], var9, var10, var4, var12);
             var9 += this.field_761.method_271(var5[var11] + "  ", var4);
             ++var11;
          } while(var11 < var7);
@@ -725,7 +725,7 @@ public class class_11 {
                }
             }
 
-            this.field_761.method_267(var5[var8], var2 - var10 / 2, var7, var4, var9);
+            this.field_761.drawString(var5[var8], var2 - var10 / 2, var7, var4, var9);
             var7 += this.field_761.method_270(var4);
             ++var8;
          } while(var8 < var6);
@@ -841,7 +841,7 @@ public class class_11 {
                var14 = 16711680;
             }
 
-            this.field_761.method_267(var7[var13], var2 + 2, var12, var6, var14);
+            this.field_761.drawString(var7[var13], var2 + 2, var12, var6, var14);
             var12 += this.field_761.method_270(var6);
             if(var12 >= var3 + var5) {
                return;

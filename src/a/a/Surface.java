@@ -306,7 +306,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int) void
-   public void method_225(int var1, int var2, int var3, int var4, int var5, int var6) {
+   public void drawBoxAlpha(int var1, int var2, int var3, int var4, int var5, int var6) {
       boolean var20 = field_759;
       if(var1 < this.field_745) {
          var3 -= this.field_745 - var1;
@@ -484,8 +484,8 @@ public class Surface implements ImageProducer, ImageObserver {
    public void drawBoxEdge(int var1, int var2, int var3, int var4, int var5) {
       this.drawLineHoriz(var1, var2, var3, var5);
       this.drawLineHoriz(var1, var2 + var4 - 1, var3, var5);
-      this.method_230(var1, var2, var4, var5);
-      this.method_230(var1 + var3 - 1, var2, var4, var5);
+      this.drawLineVert(var1, var2, var4, var5);
+      this.drawLineVert(var1 + var3 - 1, var2, var4, var5);
    }
 
    // $FF: renamed from: b (int, int, int, int) void
@@ -513,7 +513,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: c (int, int, int, int) void
-   public void method_230(int var1, int var2, int var3, int var4) {
+   public void drawLineVert(int var1, int var2, int var3, int var4) {
       if(var1 >= this.field_745 && var1 < this.field_746) {
          if(var2 < this.field_743) {
             var3 -= this.field_743 - var2;
@@ -1007,7 +1007,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: c (int, int, int) void
-   public void method_242(int var1, int var2, int var3) {
+   public void drawSprite(int var1, int var2, int var3) {
       if(this.field_742[var3]) {
          var1 += this.field_738[var3];
          var2 += this.field_739[var3];
@@ -2735,12 +2735,12 @@ public class Surface implements ImageProducer, ImageObserver {
 
    // $FF: renamed from: a (java.lang.String, int, int, int, int) void
    public void method_264(String var1, int var2, int var3, int var4, int var5) {
-      this.method_267(var1, var2 - this.method_271(var1, var4), var3, var4, var5);
+      this.drawString(var1, var2 - this.method_271(var1, var4), var3, var4, var5);
    }
 
    // $FF: renamed from: b (java.lang.String, int, int, int, int) void
    public void drawstringCenter(String var1, int var2, int var3, int var4, int var5) {
-      this.method_267(var1, var2 - this.method_271(var1, var4) / 2, var3, var4, var5);
+      this.drawString(var1, var2 - this.method_271(var1, var4) / 2, var3, var4, var5);
    }
 
    // $FF: renamed from: a (java.lang.String, int, int, int, int, int) void
@@ -2809,7 +2809,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: c (java.lang.String, int, int, int, int) void
-   public void method_267(String var1, int var2, int var3, int var4, int var5) {
+   public void drawString(String var1, int var2, int var3, int var4, int var5) {
       boolean var11 = field_759;
 
       try {

@@ -1824,7 +1824,7 @@ public class World {
                   }
 
                   if(isLocalPlane) {
-                     this.surface.method_230(var8 * 3, var9 * 3, 3, var7);
+                     this.surface.drawLineVert(var8 * 3, var9 * 3, 3, var7);
                   }
                }
 
@@ -1896,7 +1896,7 @@ public class World {
                   }
 
                   if(isLocalPlane) {
-                     this.surface.method_230(var8 * 3, var9 * 3, 3, var7);
+                     this.surface.drawLineVert(var8 * 3, var9 * 3, 3, var7);
                   }
                }
 
