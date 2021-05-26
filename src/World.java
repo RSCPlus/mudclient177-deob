@@ -36,9 +36,9 @@ public class World {
    // $FF: renamed from: n byte[][]
    byte[][] terrainColour;
    // $FF: renamed from: o byte[][]
-   byte[][] wallsNorthsouth;
-   // $FF: renamed from: p byte[][]
    byte[][] wallsEastwest;
+   // $FF: renamed from: p byte[][]
+   byte[][] wallsNorthSouth;
    // $FF: renamed from: q byte[][]
    byte[][] wallsRoof;
    // $FF: renamed from: r byte[][]
@@ -85,8 +85,8 @@ public class World {
       this.terrainColours = new int[256];
       this.terrainHeight = new byte[4][2304];
       this.terrainColour = new byte[4][2304];
-      this.wallsNorthsouth = new byte[4][2304];
       this.wallsEastwest = new byte[4][2304];
+      this.wallsNorthSouth = new byte[4][2304];
       this.wallsRoof = new byte[4][2304];
       this.tileDecoration = new byte[4][2304];
       this.tileDirection = new byte[4][2304];
@@ -1016,6 +1016,39 @@ public class World {
             var3 = 1;
             var1 -= 48;
             if(var4 == 0) {
+               return this.wallsNorthSouth[var3][var1 * 48 + var2] & 255;
+            }
+         }
+
+         if(var1 < 48 && var2 >= 48) {
+            var3 = 2;
+            var2 -= 48;
+            if(var4 == 0) {
+               return this.wallsNorthSouth[var3][var1 * 48 + var2] & 255;
+            }
+         }
+
+         if(var1 >= 48 && var2 >= 48) {
+            var3 = 3;
+            var1 -= 48;
+            var2 -= 48;
+         }
+
+         return this.wallsNorthSouth[var3][var1 * 48 + var2] & 255;
+      } else {
+         return 0;
+      }
+   }
+
+   // $FF: renamed from: k (int, int) int
+   public int getWallNorthsouth(int var1, int var2) {
+      int var4 = GameData.field_563;
+      if(var1 >= 0 && var1 < 96 && var2 >= 0 && var2 < 96) {
+         byte var3 = 0;
+         if(var1 >= 48 && var2 < 48) {
+            var3 = 1;
+            var1 -= 48;
+            if(var4 == 0) {
                return this.wallsEastwest[var3][var1 * 48 + var2] & 255;
             }
          }
@@ -1035,39 +1068,6 @@ public class World {
          }
 
          return this.wallsEastwest[var3][var1 * 48 + var2] & 255;
-      } else {
-         return 0;
-      }
-   }
-
-   // $FF: renamed from: k (int, int) int
-   public int getWallNorthsouth(int var1, int var2) {
-      int var4 = GameData.field_563;
-      if(var1 >= 0 && var1 < 96 && var2 >= 0 && var2 < 96) {
-         byte var3 = 0;
-         if(var1 >= 48 && var2 < 48) {
-            var3 = 1;
-            var1 -= 48;
-            if(var4 == 0) {
-               return this.wallsNorthsouth[var3][var1 * 48 + var2] & 255;
-            }
-         }
-
-         if(var1 < 48 && var2 >= 48) {
-            var3 = 2;
-            var2 -= 48;
-            if(var4 == 0) {
-               return this.wallsNorthsouth[var3][var1 * 48 + var2] & 255;
-            }
-         }
-
-         if(var1 >= 48 && var2 >= 48) {
-            var3 = 3;
-            var1 -= 48;
-            var2 -= 48;
-         }
-
-         return this.wallsNorthsouth[var3][var1 * 48 + var2] & 255;
       } else {
          return 0;
       }
@@ -1144,10 +1144,10 @@ public class World {
 
             int off = 0;
             for (int tile = 0; tile < 2304; tile++)
-               wallsNorthsouth[plane][tile] = mapData[off++];
+               wallsEastwest[plane][tile] = mapData[off++];
 
             for (int tile = 0; tile < 2304; tile++)
-               wallsEastwest[plane][tile] = mapData[off++];
+               wallsNorthSouth[plane][tile] = mapData[off++];
 
             for (int tile = 0; tile < 2304; tile++)
                wallsDiagonal[plane][tile] = mapData[off++] & 0xff;
@@ -1222,10 +1222,10 @@ public class World {
             }
 
             for (int tile = 0; tile < 2304; tile++) {
-               this.wallsNorthsouth[plane][tile] = mapData[(off++)];
+               this.wallsEastwest[plane][tile] = mapData[(off++)];
             }
             for (int tile = 0; tile < 2304; tile++) {
-               this.wallsEastwest[plane][tile] = mapData[(off++)];
+               this.wallsNorthSouth[plane][tile] = mapData[(off++)];
             }
             for (int tile = 0; tile < 2304; tile++) {
                this.wallsDiagonal[plane][tile] = ((mapData[off] & 0xFF) * 256 + (mapData[(off + 1)] & 0xFF));
@@ -1249,8 +1249,8 @@ public class World {
          for (; tile < 2304; tile++) {
             this.terrainHeight[plane][tile] = 0;
             this.terrainColour[plane][tile] = 0;
-            this.wallsNorthsouth[plane][tile] = 0;
             this.wallsEastwest[plane][tile] = 0;
+            this.wallsNorthSouth[plane][tile] = 0;
             this.wallsDiagonal[plane][tile] = 0;
             this.wallsRoof[plane][tile] = 0;
             this.tileDecoration[plane][tile] = 0;
