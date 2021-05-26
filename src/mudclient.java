@@ -530,7 +530,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: gj int
    int showDialogReportAbuseStep;
    // $FF: renamed from: gk int
-   int field_322;
+   int reportReason;
    // $FF: renamed from: gl int
    int field_323;
    // $FF: renamed from: gm java.lang.String
@@ -2442,8 +2442,8 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: T () void
    public void method_78() {
       int var8 = GameData.field_563;
-      if(super.field_67 > 0) {
-         --super.field_67;
+      if(super.loginCooldown > 0) {
+         --super.loginCooldown;
       }
 
       if(this.field_341 == 0) {
@@ -2467,8 +2467,8 @@ public class mudclient extends GameApplet {
             return;
          }
       } else {
-         String var1;
-         String var2;
+         String userName;
+         String password;
          if(this.field_341 == 1) {
             this.field_345.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
             if(this.field_345.method_276(this.field_349)) {
@@ -2512,9 +2512,9 @@ public class mudclient extends GameApplet {
                   this.field_345.updateText(this.field_346, "Please wait... Creating new account");
                   this.method_76();
                   this.method_10();
-                  var1 = this.field_345.method_308(this.field_349);
-                  var2 = this.field_345.method_308(this.field_350);
-                  this.method_30(var1, var2);
+                  userName = this.field_345.method_308(this.field_349);
+                  password = this.field_345.method_308(this.field_350);
+                  this.registerAccount(userName, password);
                   return;
                }
 
@@ -2561,7 +2561,7 @@ public class mudclient extends GameApplet {
                      super.clientStream.read();
                      super.clientStream.read();
                      int var11 = super.clientStream.read();
-                     var11 = super.clientStream.method_161(var11, GameApplet.field_68);
+                     var11 = super.clientStream.method_161(var11, GameApplet.opcodeEncryptionArray);
                      System.out.println("Getpq response: " + var11); // authentic System.out.println
                      if(var11 == 0) {
                         this.method_43("Sorry, the recovery questions for this user have not been set", "");
@@ -2619,14 +2619,14 @@ public class mudclient extends GameApplet {
             } else if(this.field_341 == 3) {
                this.field_390.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
                if(this.field_390.method_276(this.field_396)) {
-                  var1 = this.field_390.method_308(this.field_394);
-                  var2 = this.field_390.method_308(this.field_395);
-                  if(!var1.equalsIgnoreCase(var2)) {
+                  userName = this.field_390.method_308(this.field_394);
+                  password = this.field_390.method_308(this.field_395);
+                  if(!userName.equalsIgnoreCase(password)) {
                      this.method_43("@yel@The two new passwords entered are not the same as each other!", "");
                      return;
                   }
 
-                  if(var1.length() < 5) {
+                  if(userName.length() < 5) {
                      this.method_43("@yel@Your new password must be at least 5 letters long", "");
                      return;
                   }
@@ -2664,7 +2664,7 @@ public class mudclient extends GameApplet {
                      super.clientStream.flushPacket();
                      super.clientStream.read();
                      int var14 = super.clientStream.read();
-                     var14 = super.clientStream.method_161(var14, GameApplet.field_68);
+                     var14 = super.clientStream.method_161(var14, GameApplet.opcodeEncryptionArray);
                      System.out.println("Recover response: " + var14); // authentic System.out.println
                      if(var14 == 0) {
                         this.field_341 = 2;
@@ -2833,7 +2833,7 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: s () void
-   public void method_48() {
+   public void newPlayerRegistrationLogin() {
       String username = this.field_345.method_308(this.field_349);
       String password = this.field_345.method_308(this.field_350);
       this.field_341 = 2;
@@ -3416,7 +3416,7 @@ public class mudclient extends GameApplet {
                if(super.inputTextFinal.length() > 0) {
                   label928: {
                      if(super.inputTextFinal.equalsIgnoreCase("::lostcon") && !this.appletMode) {
-                        super.clientStream.method_143();
+                        super.clientStream.closeStream();
                         if(var9 == 0) {
                            break label928;
                         }
@@ -3471,7 +3471,7 @@ public class mudclient extends GameApplet {
 
                   if(super.mouseX > 417 && super.mouseX < 497 && super.lastMouseButtonDown == 1) {
                      this.showDialogReportAbuseStep = 1;
-                     this.field_322 = 0;
+                     this.reportReason = 0;
                      super.inputTextCurrent = "";
                      super.inputTextFinal = "";
                   }
@@ -3491,7 +3491,7 @@ public class mudclient extends GameApplet {
                      this.panelMessageTabs.updateText(this.field_242, "");
                      if(var16.startsWith("::")) {
                         if(var16.equalsIgnoreCase("::lostcon") && !this.appletMode) {
-                           super.clientStream.method_143();
+                           super.clientStream.closeStream();
                            if(var9 == 0) {
                               break label544;
                            }
@@ -4155,24 +4155,25 @@ public class mudclient extends GameApplet {
             j = 0;
             if(var19 != 0 || newIndex + 24 < var2 * 8) {
                do {
-                  var13 = Utility.readBits(data, newIndex, 11);
+                  var13 = Utility.readBits(data, newIndex, 11); // pid
                   newIndex += 11;
-                  var14 = Utility.readBits(data, newIndex, 5);
+                  var14 = Utility.readBits(data, newIndex, 5); // x coord
                   newIndex += 5;
                   if(var14 > 15) {
                      var14 -= 32;
                   }
 
-                  var15 = Utility.readBits(data, newIndex, 5);
+                  var15 = Utility.readBits(data, newIndex, 5); // y coord
                   newIndex += 5;
                   if(var15 > 15) {
                      var15 -= 32;
                   }
 
-                  updateIndex = Utility.readBits(data, newIndex, 4);
+                  updateIndex = Utility.readBits(data, newIndex, 4); //animation
                   newIndex += 4;
                   var16 = Utility.readBits(data, newIndex, 1); // new player (need to add to known players)
                   ++newIndex;
+                  // System.out.println(String.format("NEW PLAYER: pid: %d ;; x: %d ;; y: %d ;; anim: %d ;; known: %d", var13, var14, var15, updateIndex, var16));
                   pid = (this.localRegionX + var14) * this.magicLoc + 64;
                   var9 = (this.localRegionY + var15) * this.magicLoc + 64;
                   this.method_81(var13, pid, var9, updateIndex);
@@ -4646,14 +4647,17 @@ public class mudclient extends GameApplet {
                            mob.skinColour = data[newIndex++] & 255;
                            mob.combatLevel = data[newIndex++] & 255;
                            mob.skullType = data[newIndex++] & 255;
+													// System.out.println(String.format("PLAYER UPDATE: username: %s ;; appearanceId: %d ;; itemsWorn: %d ;; cmbLevel: %d ;; var19: %d", mob.username, mob.appearanceId, reuseableVar1, mob.combatLevel, var19));
                            if(var19 == 0) {
                               break label1618;
                            }
+
                         }
 
-                        newIndex += 14; // ???? what was skipped
-                        reuseableVar1 = Utility.getUnsignedByte(data[newIndex]);
-                        newIndex += reuseableVar1 + 1; // ...???? why
+                        // This is error handling code that pretty much doesn't get called, in case the Mob is null somehow
+                        newIndex += 14; // skip the update packet
+                        reuseableVar1 = Utility.getUnsignedByte(data[newIndex]); // probably how many items are worn
+                        newIndex += reuseableVar1 + 1;
                         if(var19 == 0) {
                            break label1618;
                         }
@@ -8204,7 +8208,7 @@ public class mudclient extends GameApplet {
          if(var4 != 0 || var2 < 9) {
             do {
                if(super.mouseX > 66 && super.mouseX < 446 && super.mouseY >= var1 - 12 && super.mouseY < var1 + 3) {
-                  this.field_322 = var2;
+                  this.reportReason = var2;
                }
 
                var1 += 15;
@@ -8227,7 +8231,7 @@ public class mudclient extends GameApplet {
             long var7 = Utility.hashUsername(var6);
             super.clientStream.newPacket(51, 277);
             super.clientStream.putLong(var7);
-            super.clientStream.putByte(this.field_322);
+            super.clientStream.putByte(this.reportReason);
             super.clientStream.flushPacket_();
          }
 
@@ -8248,7 +8252,7 @@ public class mudclient extends GameApplet {
             var1 += 15;
             this.surface.drawstringCenter("First indicate the type of abuse", 256, var1, 1, 16776960);
             var1 += 15;
-            if(this.field_322 == 0) {
+            if(this.reportReason == 0) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8262,7 +8266,7 @@ public class mudclient extends GameApplet {
          label115: {
             this.surface.drawstringCenter("Non-vulgar insult such as \'idiot\', \'noob\', \'loser\', etc...", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 1) {
+            if(this.reportReason == 1) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8276,7 +8280,7 @@ public class mudclient extends GameApplet {
          label110: {
             this.surface.drawstringCenter("Swearing, profanity, or racial abuse directed at me personally", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 2) {
+            if(this.reportReason == 2) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8290,7 +8294,7 @@ public class mudclient extends GameApplet {
          label105: {
             this.surface.drawstringCenter("I overheard the player being abusive to someone else", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 3) {
+            if(this.reportReason == 3) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8304,7 +8308,7 @@ public class mudclient extends GameApplet {
          label100: {
             this.surface.drawstringCenter("Trade scam - lied about trade to steal items from me", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 4) {
+            if(this.reportReason == 4) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8318,7 +8322,7 @@ public class mudclient extends GameApplet {
          label95: {
             this.surface.drawstringCenter("Asking players for their password / trying to steal accounts", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 5) {
+            if(this.reportReason == 5) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8332,7 +8336,7 @@ public class mudclient extends GameApplet {
          label90: {
             this.surface.drawstringCenter("Attempting to buy/sell a RuneScape account", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 6) {
+            if(this.reportReason == 6) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8346,7 +8350,7 @@ public class mudclient extends GameApplet {
          label85: {
             this.surface.drawstringCenter("Impersonating Jagex staff", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 7) {
+            if(this.reportReason == 7) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -8360,7 +8364,7 @@ public class mudclient extends GameApplet {
          label80: {
             this.surface.drawstringCenter("Advertising scam website", 256, var1, 1, var2);
             var1 += 15;
-            if(this.field_322 == 8) {
+            if(this.reportReason == 8) {
                this.surface.method_228(66, var1 - 12, 380, 15, 16777215);
                var2 = 16744448;
                if(var4 == 0) {
@@ -10608,9 +10612,9 @@ public class mudclient extends GameApplet {
          var8 = var8 * var10 - var7 * var9 >> 18;
          var17 = 16777215;
          var18 = 0;
-         if(var19 != 0 || var18 < super.field_55) {
+         if(var19 != 0 || var18 < super.friendsInList) {
             do {
-               if(var16.usernameHash == super.field_56[var18] && super.field_57[var18] == 99) {
+               if(var16.usernameHash == super.friendNames[var18] && super.friendOnlineStatus[var18] == 99) {
                   var17 = '\uff00';
                   if(var19 == 0) {
                      break;
@@ -10618,7 +10622,7 @@ public class mudclient extends GameApplet {
                }
 
                ++var18;
-            } while(var18 < super.field_55);
+            } while(var18 < super.friendsInList);
          }
 
          this.method_97(var2 + var3 / 2 + var11, 36 + var4 / 2 - var8, var17);
@@ -10633,9 +10637,9 @@ public class mudclient extends GameApplet {
          var8 = var8 * var10 - var7 * var9 >> 18;
          var17 = 16777215;
          var18 = 0;
-         if(var19 != 0 || var18 < super.field_55) {
+         if(var19 != 0 || var18 < super.friendsInList) {
             do {
-               if(var16.usernameHash == super.field_56[var18] && super.field_57[var18] == 99) {
+               if(var16.usernameHash == super.friendNames[var18] && super.friendOnlineStatus[var18] == 99) {
                   var17 = '\uff00';
                   if(var19 == 0) {
                      break;
@@ -10643,7 +10647,7 @@ public class mudclient extends GameApplet {
                }
 
                ++var18;
-            } while(var18 < super.field_55);
+            } while(var18 < super.friendsInList);
          }
 
          this.method_97(var2 + var3 / 2 + var11, 36 + var4 / 2 - var8, var17);
@@ -11130,18 +11134,18 @@ public class mudclient extends GameApplet {
       int var8;
       if(this.field_207 == 0) {
          var8 = 0;
-         if(var10 != 0 || var8 < super.field_55) {
+         if(var10 != 0 || var8 < super.friendsInList) {
             do {
                String var9;
                label214: {
-                  if(super.field_57[var8] == 99) {
+                  if(super.friendOnlineStatus[var8] == 99) {
                      var9 = "@gre@";
                      if(var10 == 0) {
                         break label214;
                      }
                   }
 
-                  if(super.field_57[var8] > 0) {
+                  if(super.friendOnlineStatus[var8] > 0) {
                      var9 = "@yel@";
                      if(var10 == 0) {
                         break label214;
@@ -11151,9 +11155,9 @@ public class mudclient extends GameApplet {
                   var9 = "@red@";
                }
 
-               this.field_205.method_305(this.field_206, var8, var9 + Utility.unhashUsername(super.field_56[var8]) + "~439~@whi@Remove         WWWWWWWWWW");
+               this.field_205.method_305(this.field_206, var8, var9 + Utility.unhashUsername(super.friendNames[var8]) + "~439~@whi@Remove         WWWWWWWWWW");
                ++var8;
-            } while(var8 < super.field_55);
+            } while(var8 < super.friendsInList);
          }
       }
 
@@ -11174,27 +11178,27 @@ public class mudclient extends GameApplet {
             var8 = this.field_205.method_313(this.field_206);
             if(var8 >= 0 && super.mouseX < 489) {
                if(super.mouseX > 429) {
-                  this.surface.drawstringCenter("Click to remove " + Utility.unhashUsername(super.field_56[var8]), var2 + var4 / 2, var3 + 35, 1, 16777215);
+                  this.surface.drawstringCenter("Click to remove " + Utility.unhashUsername(super.friendNames[var8]), var2 + var4 / 2, var3 + 35, 1, 16777215);
                   if(var10 == 0) {
                      break label171;
                   }
                }
 
-               if(super.field_57[var8] == 99) {
-                  this.surface.drawstringCenter("Click to message " + Utility.unhashUsername(super.field_56[var8]), var2 + var4 / 2, var3 + 35, 1, 16777215);
+               if(super.friendOnlineStatus[var8] == 99) {
+                  this.surface.drawstringCenter("Click to message " + Utility.unhashUsername(super.friendNames[var8]), var2 + var4 / 2, var3 + 35, 1, 16777215);
                   if(var10 == 0) {
                      break label171;
                   }
                }
 
-               if(super.field_57[var8] > 0) {
-                  this.surface.drawstringCenter(Utility.unhashUsername(super.field_56[var8]) + " is on world " + super.field_57[var8], var2 + var4 / 2, var3 + 35, 1, 16777215);
+               if(super.friendOnlineStatus[var8] > 0) {
+                  this.surface.drawstringCenter(Utility.unhashUsername(super.friendNames[var8]) + " is on world " + super.friendOnlineStatus[var8], var2 + var4 / 2, var3 + 35, 1, 16777215);
                   if(var10 == 0) {
                      break label171;
                   }
                }
 
-               this.surface.drawstringCenter(Utility.unhashUsername(super.field_56[var8]) + " is offline", var2 + var4 / 2, var3 + 35, 1, 16777215);
+               this.surface.drawstringCenter(Utility.unhashUsername(super.friendNames[var8]) + " is offline", var2 + var4 / 2, var3 + 35, 1, 16777215);
                if(var10 == 0) {
                   break label171;
                }
@@ -11275,15 +11279,15 @@ public class mudclient extends GameApplet {
                if(var8 >= 0 && super.mouseX < 489) {
                   label111: {
                      if(super.mouseX > 429) {
-                        this.friendRemove(super.field_56[var8]);
+                        this.friendRemove(super.friendNames[var8]);
                         if(var10 == 0) {
                            break label111;
                         }
                      }
 
-                     if(super.field_57[var8] != 0) {
+                     if(super.friendOnlineStatus[var8] != 0) {
                         this.field_320 = 2;
-                        this.pmRecipient = super.field_56[var8];
+                        this.pmRecipient = super.friendNames[var8];
                         super.field_42 = "";
                         super.pmToSend = "";
                      }

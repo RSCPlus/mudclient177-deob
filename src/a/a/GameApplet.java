@@ -39,11 +39,11 @@ public class GameApplet extends class_0 {
    // $FF: renamed from: bb long
    long field_54;
    // $FF: renamed from: bc int
-   public int field_55;
+   public int friendsInList;
    // $FF: renamed from: bd long[]
-   public long[] field_56;
+   public long[] friendNames;
    // $FF: renamed from: be int[]
-   public int[] field_57;
+   public int[] friendOnlineStatus;
    // $FF: renamed from: bf int
    public int ignoreListCount;
    // $FF: renamed from: bg long[]
@@ -63,9 +63,9 @@ public class GameApplet extends class_0 {
    // $FF: renamed from: bn int
    public int sessionId;
    // $FF: renamed from: bo int
-   public int field_67;
+   public int loginCooldown;
    // $FF: renamed from: bp int[]
-   public static final int[] field_68;
+   public static final int[] opcodeEncryptionArray;
 
 
    // $FF: renamed from: a (java.math.BigInteger, java.math.BigInteger) void
@@ -82,7 +82,7 @@ public class GameApplet extends class_0 {
    // $FF: renamed from: a (java.lang.String, java.lang.String, boolean) void
    public void login(String username, String password, boolean reconnecting) {
       boolean var8 = class_9.field_759;
-      if(this.field_67 > 0) {
+      if(this.loginCooldown > 0) {
          this.method_43(loginResponses[6], loginResponses[7]);
 
          try {
@@ -151,47 +151,86 @@ public class GameApplet extends class_0 {
                this.clientStream.flushPacket();
                this.clientStream.read();
                int loginResponse = this.clientStream.read();
-               loginResponse = this.clientStream.method_161(loginResponse, field_68);
+               loginResponse = this.clientStream.method_161(loginResponse, opcodeEncryptionArray);
                System.out.println("Login response: " + loginResponse); // authentic System.out.println
                if(loginResponse == 0) {
+               		// login success
                   this.field_53 = 0;
                   this.method_45();
                } else if(loginResponse == 1) {
+               	  // reconnect success
                   this.field_53 = 0;
                   this.method_44();
                } else if(reconnecting) {
+               	  // keep trying to reconnect
                   username = "";
                   password = "";
                   this.method_46();
+
                } else if(loginResponse == 3) {
-                  this.method_43(loginResponses[10], loginResponses[11]);
+								 // "Invalid username or password.";
+								 // "Try again, or create a new account";
+								 this.method_43(loginResponses[10], loginResponses[11]);
+
                } else if(loginResponse == 4) {
-                  this.method_43(loginResponses[4], loginResponses[5]);
+								 // "That username is already in use.";
+								 // "Wait 60 seconds then retry";
+								 this.method_43(loginResponses[4], loginResponses[5]);
+
                } else if(loginResponse == 5) {
-                  this.method_43(loginResponses[16], loginResponses[17]);
+								 // "The client has been updated.";
+								 // "Please reload this page";
+								 this.method_43(loginResponses[16], loginResponses[17]);
+
                } else if(loginResponse == 6) {
-                  this.method_43(loginResponses[18], loginResponses[19]);
+								 // "You may only use 1 character at once.";
+								 // "Your ip-address is already in use";
+								 this.method_43(loginResponses[18], loginResponses[19]);
+
                } else if(loginResponse == 7) {
-                  this.method_43(loginResponses[20], loginResponses[21]);
+								 // "Login attempts exceeded!";
+								 // "Please try again in 5 minutes";
+								 this.method_43(loginResponses[20], loginResponses[21]);
+
                } else if(loginResponse == 11) {
-                  this.method_43(loginResponses[22], loginResponses[23]);
+								 // "Account has been temporarily disabled";
+								 // "check your message inbox for details";
+								 this.method_43(loginResponses[22], loginResponses[23]);
+
                } else if(loginResponse == 12) {
-                  this.method_43(loginResponses[24], loginResponses[25]);
+								 // "Account has been permanently disabled";
+								 // "check your message inbox for details";
+								 this.method_43(loginResponses[24], loginResponses[25]);
+
                } else if(loginResponse == 13) {
-                  this.method_43(loginResponses[14], loginResponses[15]);
+               	 // "Username already taken.";
+								 // "Please choose another username";
+								 this.method_43(loginResponses[14], loginResponses[15]);
+
                } else if(loginResponse == 14) {
+								  // "Sorry! The server is currently full.";
+								  // "Please try again later";
                   this.method_43(loginResponses[8], loginResponses[9]);
-                  this.field_67 = 1500;
+                  this.loginCooldown = 1500;
+
                } else if(loginResponse == 15) {
-                  this.method_43(loginResponses[26], loginResponses[27]);
+								 // "You need a members account";
+								 // "to login to this server";
+								 this.method_43(loginResponses[26], loginResponses[27]);
+
                } else if(loginResponse == 16) {
-                  this.method_43(loginResponses[28], loginResponses[29]);
+               	 // "Please login to a members server";
+								 // "to access member-only features";
+								 this.method_43(loginResponses[28], loginResponses[29]);
+
                } else {
-                  this.method_43(loginResponses[12], loginResponses[13]);
+								 // "Sorry! Unable to connect to server.";
+								 // "Check your internet settings";
+								 this.method_43(loginResponses[12], loginResponses[13]);
                }
             }
-         } catch (Exception var12) {
-            System.out.println(String.valueOf(var12)); // authentic System.out.println
+         } catch (Exception ex) {
+            System.out.println(String.valueOf(ex)); // authentic System.out.println
             if(this.field_53 > 0) {
                try {
                   Thread.sleep(5000L);
@@ -212,6 +251,8 @@ public class GameApplet extends class_0 {
                }
             }
 
+					 // "Sorry! Unable to connect to server.";
+					 // "Check your internet settings";
             this.method_43(loginResponses[12], loginResponses[13]);
          }
       }
@@ -255,8 +296,9 @@ public class GameApplet extends class_0 {
    }
 
    // $FF: renamed from: b (java.lang.String, java.lang.String) void
-   public void method_30(String var1, String var2) {
-      if(this.field_67 > 0) {
+   public void registerAccount(String username, String password) {
+      if(this.loginCooldown > 0) {
+				// Please wait... Connecting to server
          this.method_43(loginResponses[6], loginResponses[7]);
 
          try {
@@ -265,25 +307,27 @@ public class GameApplet extends class_0 {
             ;
          }
 
-         this.method_43(loginResponses[8], loginResponses[9]);
+				// "Sorry! The server is currently full." "Please try again later";
+				this.method_43(loginResponses[8], loginResponses[9]);
       } else {
          try {
-            var1 = Utility.method_453(var1, 20);
-            var2 = Utility.method_453(var2, 20);
+            username = Utility.method_453(username, 20);
+            password = Utility.method_453(password, 20);
+					 // Please wait... Connecting to server
             this.method_43(loginResponses[6], loginResponses[7]);
             this.clientStream = new ClientStream(this.connect(this.address, this.port), this);
-            int var3 = this.clientStream.readInt();
-            this.sessionId = var3;
-            System.out.println("Session id: " + var3); // authentic System.out.println
-            int var4 = 0;
+            int sessionId = this.clientStream.readInt();
+            this.sessionId = sessionId;
+            System.out.println("Session id: " + sessionId); // authentic System.out.println
+            int referId = 0;
 
             try {
                if(this.method_8()) {
                   String var5 = this.getParameter("referid");
-                  var4 = Integer.parseInt(var5);
+                  referId = Integer.parseInt(var5);
                   String var6 = this.getParameter("limit30");
                   if(var6.equals("1")) {
-                     var4 += 50;
+                     referId += 50;
                   }
                }
             } catch (Exception var8) {
@@ -292,46 +336,85 @@ public class GameApplet extends class_0 {
 
             this.clientStream.newPacket(2, 129);
             this.clientStream.putShort(clientVersion);
-            this.clientStream.putLong(Utility.hashUsername(var1));
-            this.clientStream.putShort(var4);
-            this.clientStream.putPassword(var2, var3, this.field_64, this.field_65);
+            this.clientStream.putLong(Utility.hashUsername(username));
+            this.clientStream.putShort(referId);
+            this.clientStream.putPassword(password, sessionId, this.field_64, this.field_65);
             this.clientStream.putInt(this.getRandomDat());
             this.clientStream.flushPacket();
             this.clientStream.read();
-            int var10 = this.clientStream.read();
-            this.clientStream.method_143();
-            var10 = this.clientStream.method_161(var10, field_68);
-            System.out.println("Newplayer response: " + var10); // authentic System.out.println
-            if(var10 == 2) {
-               this.method_48();
-            } else if(var10 == 3) {
-               this.method_43(loginResponses[14], loginResponses[15]);
-            } else if(var10 == 4) {
-               this.method_43(loginResponses[4], loginResponses[5]);
-            } else if(var10 == 5) {
-               this.method_43(loginResponses[16], loginResponses[17]);
-            } else if(var10 == 6) {
-               this.method_43(loginResponses[18], loginResponses[19]);
-            } else if(var10 == 7) {
+            int newPlayerResponse = this.clientStream.read();
+            this.clientStream.closeStream();
+            newPlayerResponse = this.clientStream.method_161(newPlayerResponse, opcodeEncryptionArray);
+            System.out.println("Newplayer response: " + newPlayerResponse); // authentic System.out.println
+            if(newPlayerResponse == 2) {
+               this.newPlayerRegistrationLogin(); // successful response
+
+            } else if(newPlayerResponse == 3) {
+							// "Username already taken.";
+							// "Please choose another username";
+							this.method_43(loginResponses[14], loginResponses[15]);
+
+            } else if(newPlayerResponse == 4) {
+							// "That username is already in use.";
+							// "Wait 60 seconds then retry";
+							this.method_43(loginResponses[4], loginResponses[5]);
+
+            } else if(newPlayerResponse == 5) {
+							// "The client has been updated.";
+							// "Please reload this page";
+							this.method_43(loginResponses[16], loginResponses[17]);
+
+            } else if(newPlayerResponse == 6) {
+							// "You may only use 1 character at once.";
+							// "Your ip-address is already in use";
+							this.method_43(loginResponses[18], loginResponses[19]);
+
+            } else if(newPlayerResponse == 7) {
+							// "Login attempts exceeded!";
+							// "Please try again in 5 minutes";
                this.method_43(loginResponses[20], loginResponses[21]);
-            } else if(var10 == 11) {
-               this.method_43(loginResponses[22], loginResponses[23]);
-            } else if(var10 == 12) {
-               this.method_43(loginResponses[24], loginResponses[25]);
-            } else if(var10 == 13) {
-               this.method_43(loginResponses[14], loginResponses[15]);
-            } else if(var10 == 14) {
+
+            } else if(newPlayerResponse == 11) {
+							// "Account has been temporarily disabled";
+							// "check your message inbox for details";
+							this.method_43(loginResponses[22], loginResponses[23]);
+
+            } else if(newPlayerResponse == 12) {
+							// "Account has been permanently disabled";
+							// "check your message inbox for details";
+							this.method_43(loginResponses[24], loginResponses[25]);
+
+            } else if(newPlayerResponse == 13) {
+            	// duplicate of response 3, maybe used for disallowed usernames like "Mod xxx"
+            	// "Username already taken.";
+							// "Please choose another username";
+							this.method_43(loginResponses[14], loginResponses[15]);
+
+            } else if(newPlayerResponse == 14) {
+							 // "Sorry! The server is currently full.";
+							 // "Please try again later";
                this.method_43(loginResponses[8], loginResponses[9]);
-               this.field_67 = 1500;
-            } else if(var10 == 15) {
-               this.method_43(loginResponses[26], loginResponses[27]);
-            } else if(var10 == 16) {
+               this.loginCooldown = 1500;
+
+            } else if(newPlayerResponse == 15) {
+							// "You need a members account";
+							// "to login to this server";
+							this.method_43(loginResponses[26], loginResponses[27]);
+
+            } else if(newPlayerResponse == 16) {
+							 // "Please login to a members server";
+							 // "to access member-only features";
                this.method_43(loginResponses[28], loginResponses[29]);
+
             } else {
+            	 // "Sorry! Unable to connect to server.";
+							 // "Check your internet settings";
                this.method_43(loginResponses[12], loginResponses[13]);
             }
-         } catch (Exception var9) {
-            System.out.println(String.valueOf(var9)); // authentic System.out.println
+         } catch (Exception ex) {
+            System.out.println(String.valueOf(ex)); // authentic System.out.println
+						// "Sorry! Unable to connect to server.";
+						// "Check your internet settings";
             this.method_43(loginResponses[12], loginResponses[13]);
          }
       }
@@ -368,8 +451,8 @@ public class GameApplet extends class_0 {
 
    // $FF: renamed from: a (int, int) void
    public void method_32(int opcode, int packetLength) {
-      boolean var7 = class_9.field_759;
-      opcode = this.clientStream.method_161(opcode, field_68);
+      boolean alwaysFalse = class_9.field_759;
+      opcode = this.clientStream.method_161(opcode, opcodeEncryptionArray);
       if(opcode == 8) {
          String var3 = new String(this.incomingBytes, 1, packetLength - 1);
          this.displayMessage(var3);
@@ -384,7 +467,7 @@ public class GameApplet extends class_0 {
       } else {
          int var9;
          if(opcode != 23) {
-            long var10;
+            long usernameHash;
             if(opcode != 24) {
                if(opcode != 26) {
                   if(opcode == 27) {
@@ -393,16 +476,17 @@ public class GameApplet extends class_0 {
                      this.field_62 = this.incomingBytes[3];
                      this.field_63 = this.incomingBytes[4];
                   } else if(opcode == 28) {
-                     var10 = Utility.getUnsignedLong(this.incomingBytes, 1); // username hash
+                     usernameHash = Utility.getUnsignedLong(this.incomingBytes, 1); // username hash
                      String var11 = class_20.formatChat(class_22.readChatString(this.incomingBytes, 9, packetLength - 9));
-                     this.displayMessage("@pri@" + Utility.unhashUsername(var10) + ": tells you " + var11);
+                     this.displayMessage("@pri@" + Utility.unhashUsername(usernameHash) + ": tells you " + var11);
                   } else {
                      this.method_49(opcode, packetLength, this.incomingBytes);
                   }
                } else {
+               		// (opcode == 26)
                   this.ignoreListCount = Utility.getUnsignedByte(this.incomingBytes[1]);
                   var9 = 0;
-                  if(var7 || var9 < this.ignoreListCount) {
+                  if(alwaysFalse || var9 < this.ignoreListCount) {
                      do {
                         this.ignoreListAccNames[var9] = Utility.getUnsignedLong(this.incomingBytes, 2 + var9 * 8);
                         ++var9;
@@ -411,53 +495,55 @@ public class GameApplet extends class_0 {
                   }
                }
             } else {
-               var10 = Utility.getUnsignedLong(this.incomingBytes, 1);
-               int var5 = this.incomingBytes[9] & 255;
-               int var6 = 0;
-               if(!var7 && var6 >= this.field_55) {
-                  this.field_56[this.field_55] = var10;
-                  this.field_57[this.field_55] = var5;
-                  ++this.field_55;
-                  this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has been added to your friends list");
+            	// (opcode == 24)
+               usernameHash = Utility.getUnsignedLong(this.incomingBytes, 1);
+               int onlineStatus = this.incomingBytes[9] & 255;
+               int i = 0;
+               if(!alwaysFalse && i >= this.friendsInList) {
+                  this.friendNames[this.friendsInList] = usernameHash;
+                  this.friendOnlineStatus[this.friendsInList] = onlineStatus;
+                  ++this.friendsInList;
+                  this.displayMessage("@pri@" + Utility.unhashUsername(usernameHash) + " has been added to your friends list");
                   this.method_33();
                } else {
                   do {
-                     if(this.field_56[var6] == var10) {
-                        if(this.field_57[var6] == 0 && var5 != 0) {
-                           this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has logged in");
+                     if(this.friendNames[i] == usernameHash) {
+                        if(this.friendOnlineStatus[i] == 0 && onlineStatus != 0) {
+                           this.displayMessage("@pri@" + Utility.unhashUsername(usernameHash) + " has logged in");
                         }
 
-                        if(this.field_57[var6] != 0 && var5 == 0) {
-                           this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has logged out");
+                        if(this.friendOnlineStatus[i] != 0 && onlineStatus == 0) {
+                           this.displayMessage("@pri@" + Utility.unhashUsername(usernameHash) + " has logged out");
                         }
 
-                        this.field_57[var6] = var5;
-                        boolean var8 = false;
+                        this.friendOnlineStatus[i] = onlineStatus;
+                        boolean unusedBool = false;
                         this.method_33();
                         return;
                      }
 
-                     ++var6;
-                  } while(var6 < this.field_55);
+                     ++i;
+                  } while(i < this.friendsInList);
 
-                  this.field_56[this.field_55] = var10;
-                  this.field_57[this.field_55] = var5;
-                  ++this.field_55;
-                  this.displayMessage("@pri@" + Utility.unhashUsername(var10) + " has been added to your friends list");
+                  this.friendNames[this.friendsInList] = usernameHash;
+                  this.friendOnlineStatus[this.friendsInList] = onlineStatus;
+                  ++this.friendsInList;
+                  this.displayMessage("@pri@" + Utility.unhashUsername(usernameHash) + " has been added to your friends list");
                   this.method_33();
                }
             }
          } else {
-            this.field_55 = Utility.getUnsignedByte(this.incomingBytes[1]);
+         	 // (opcode == 23)
+            this.friendsInList = Utility.getUnsignedByte(this.incomingBytes[1]);
             var9 = 0;
-            if(!var7 && var9 >= this.field_55) {
+            if(!alwaysFalse && var9 >= this.friendsInList) {
                this.method_33();
             } else {
                do {
-                  this.field_56[var9] = Utility.getUnsignedLong(this.incomingBytes, 2 + var9 * 9);
-                  this.field_57[var9] = Utility.getUnsignedByte(this.incomingBytes[10 + var9 * 9]);
+                  this.friendNames[var9] = Utility.getUnsignedLong(this.incomingBytes, 2 + var9 * 9);
+                  this.friendOnlineStatus[var9] = Utility.getUnsignedByte(this.incomingBytes[10 + var9 * 9]);
                   ++var9;
-               } while(var9 < this.field_55);
+               } while(var9 < this.friendsInList);
 
                this.method_33();
             }
@@ -473,20 +559,20 @@ public class GameApplet extends class_0 {
          do {
             var1 = false;
             int var2 = 0;
-            if(var6 || var2 < this.field_55 - 1) {
+            if(var6 || var2 < this.friendsInList - 1) {
                do {
-                  if(this.field_57[var2] < this.field_57[var2 + 1]) {
-                     int var3 = this.field_57[var2];
-                     this.field_57[var2] = this.field_57[var2 + 1];
-                     this.field_57[var2 + 1] = var3;
-                     long var4 = this.field_56[var2];
-                     this.field_56[var2] = this.field_56[var2 + 1];
-                     this.field_56[var2 + 1] = var4;
+                  if(this.friendOnlineStatus[var2] < this.friendOnlineStatus[var2 + 1]) {
+                     int var3 = this.friendOnlineStatus[var2];
+                     this.friendOnlineStatus[var2] = this.friendOnlineStatus[var2 + 1];
+                     this.friendOnlineStatus[var2 + 1] = var3;
+                     long var4 = this.friendNames[var2];
+                     this.friendNames[var2] = this.friendNames[var2 + 1];
+                     this.friendNames[var2 + 1] = var4;
                      var1 = true;
                   }
 
                   ++var2;
-               } while(var2 < this.field_55 - 1);
+               } while(var2 < this.friendsInList - 1);
             }
          } while(var1);
 
@@ -581,17 +667,17 @@ public class GameApplet extends class_0 {
       this.clientStream.putLong(var1);
       this.clientStream.flushPacket_();
       int var3 = 0;
-      if(var5 || var3 < this.field_55) {
+      if(var5 || var3 < this.friendsInList) {
          do {
-            if(this.field_56[var3] == var1) {
-               --this.field_55;
+            if(this.friendNames[var3] == var1) {
+               --this.friendsInList;
                int var4 = var3;
-               if(var5 || var3 < this.field_55) {
+               if(var5 || var3 < this.friendsInList) {
                   do {
-                     this.field_56[var4] = this.field_56[var4 + 1];
-                     this.field_57[var4] = this.field_57[var4 + 1];
+                     this.friendNames[var4] = this.friendNames[var4 + 1];
+                     this.friendOnlineStatus[var4] = this.friendOnlineStatus[var4 + 1];
                      ++var4;
-                  } while(var4 < this.field_55);
+                  } while(var4 < this.friendsInList);
                }
 
                if(!var5) {
@@ -600,7 +686,7 @@ public class GameApplet extends class_0 {
             }
 
             ++var3;
-         } while(var3 < this.field_55);
+         } while(var3 < this.friendsInList);
       }
 
       this.displayMessage("@pri@" + Utility.unhashUsername(var1) + " has been removed from your friends list");
@@ -644,7 +730,7 @@ public class GameApplet extends class_0 {
    public void method_47() {}
 
    // $FF: renamed from: s () void
-   public void method_48() {}
+   public void newPlayerRegistrationLogin() {}
 
    // $FF: renamed from: a (int, int, byte[]) void
    public void method_49(int var1, int var2, byte[] var3) {}
@@ -665,8 +751,8 @@ public class GameApplet extends class_0 {
       this.username_ = "";
       this.password_ = "";
       this.incomingBytes = new byte[5000];
-      this.field_56 = new long[100];
-      this.field_57 = new int[100];
+      this.friendNames = new long[100];
+      this.friendOnlineStatus = new int[100];
       this.ignoreListAccNames = new long[50];
    }
 
@@ -704,6 +790,6 @@ public class GameApplet extends class_0 {
       loginResponses[27] = "to login to this server";
       loginResponses[28] = "Please login to a members server";
       loginResponses[29] = "to access member-only features";
-      field_68 = new int[]{124, 345, 953, 124, 634, 636, 661, 127, 177, 295, 559, 384, 321, 679, 871, 592, 679, 347, 926, 585, 681, 195, 785, 679, 818, 115, 226, 799, 925, 852, 194, 966, 32, 3, 4, 5, 6, 7, 8, 9, 40, 1, 2, 3, 4, 5, 6, 7, 8, 9, 50, 444, 52, 3, 4, 5, 6, 7, 8, 9, 60, 1, 2, 3, 4, 5, 6, 7, 8, 9, 70, 1, 2, 3, 4, 5, 6, 7, 8, 9, 80, 1, 2, 3, 4, 5, 6, 7, 8, 9, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 110, 1, 2, 3, 4, 5, 6, 7, 8, 9, 120, 1, 2, 3, 4, 5, 6, 7, 8, 9, 130, 1, 2, 3, 4, 5, 6, 7, 8, 9, 140, 1, 2, 3, 4, 5, 6, 7, 8, 9, 150, 1, 2, 3, 4, 5, 6, 7, 8, 9, 160, 1, 2, 3, 4, 5, 6, 7, 8, 9, 170, 1, 2, 3, 4, 5, 6, 7, 8, 9, 180, 1, 2, 3, 4, 5, 6, 7, 8, 9, 694, 235, 846, 834, 300, 200, 298, 278, 247, 286, 346, 144, 23, 913, 812, 765, 432, 176, 935, 452, 542, 45, 346, 65, 637, 62, 354, 123, 34, 912, 812, 834, 698, 324, 872, 912, 438, 765, 344, 731, 625, 783, 176, 658, 128, 854, 489, 85, 6, 865, 43, 573, 132, 527, 235, 434, 658, 912, 825, 298, 753, 282, 652, 439, 629, 945};
+      opcodeEncryptionArray = new int[]{124, 345, 953, 124, 634, 636, 661, 127, 177, 295, 559, 384, 321, 679, 871, 592, 679, 347, 926, 585, 681, 195, 785, 679, 818, 115, 226, 799, 925, 852, 194, 966, 32, 3, 4, 5, 6, 7, 8, 9, 40, 1, 2, 3, 4, 5, 6, 7, 8, 9, 50, 444, 52, 3, 4, 5, 6, 7, 8, 9, 60, 1, 2, 3, 4, 5, 6, 7, 8, 9, 70, 1, 2, 3, 4, 5, 6, 7, 8, 9, 80, 1, 2, 3, 4, 5, 6, 7, 8, 9, 90, 1, 2, 3, 4, 5, 6, 7, 8, 9, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9, 110, 1, 2, 3, 4, 5, 6, 7, 8, 9, 120, 1, 2, 3, 4, 5, 6, 7, 8, 9, 130, 1, 2, 3, 4, 5, 6, 7, 8, 9, 140, 1, 2, 3, 4, 5, 6, 7, 8, 9, 150, 1, 2, 3, 4, 5, 6, 7, 8, 9, 160, 1, 2, 3, 4, 5, 6, 7, 8, 9, 170, 1, 2, 3, 4, 5, 6, 7, 8, 9, 180, 1, 2, 3, 4, 5, 6, 7, 8, 9, 694, 235, 846, 834, 300, 200, 298, 278, 247, 286, 346, 144, 23, 913, 812, 765, 432, 176, 935, 452, 542, 45, 346, 65, 637, 62, 354, 123, 34, 912, 812, 834, 698, 324, 872, 912, 438, 765, 344, 731, 625, 783, 176, 658, 128, 854, 489, 85, 6, 865, 43, 573, 132, 527, 235, 434, 658, 912, 825, 298, 753, 282, 652, 439, 629, 945};
    }
 }

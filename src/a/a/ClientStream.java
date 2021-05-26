@@ -42,8 +42,8 @@ public class ClientStream extends class_5 implements Runnable {
    }
 
    // $FF: renamed from: a () void
-   public void method_143() {
-      super.method_143();
+   public void closeStream() {
+      super.closeStream();
       this.field_601 = true;
 
       try {

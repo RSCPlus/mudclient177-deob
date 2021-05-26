@@ -105,7 +105,7 @@ public class class_5 {
    }
 
    // $FF: renamed from: a () void
-   public void method_143() {}
+   public void closeStream() {}
 
    // $FF: renamed from: b () int
    public int read() throws IOException {
@@ -237,10 +237,10 @@ public class class_5 {
    }
 
    // $FF: renamed from: a (java.lang.String, int, java.math.BigInteger, java.math.BigInteger) void
-   public void putPassword(String var1, int var2, BigInteger var3, BigInteger var4) {
+   public void putPassword(String sessionId, int password, BigInteger rsaModulus, BigInteger rsaExponent) {
       int var14 = field_597;
-      byte[] var5 = var1.getBytes();
-      int var6 = var5.length;
+      byte[] sessionIdB = sessionId.getBytes();
+      int var6 = sessionIdB.length;
       byte[] var7 = new byte[15];
       int var8 = 0;
       if(var14 != 0 || var8 < var6) {
@@ -249,12 +249,12 @@ public class class_5 {
             var7[1] = (byte)((int)(Math.random() * 256.0D));
             var7[2] = (byte)((int)(Math.random() * 256.0D));
             var7[3] = (byte)((int)(Math.random() * 256.0D));
-            Utility.method_445(var7, 4, var2);
+            Utility.method_445(var7, 4, password);
             int var9 = 0;
             if(var14 != 0) {
                label38: {
                   if(var8 + var9 < var6) {
-                     var7[8 + var9] = var5[var8 + var9];
+                     var7[8 + var9] = sessionIdB[var8 + var9];
                      if(var14 == 0) {
                         break label38;
                      }
@@ -268,7 +268,7 @@ public class class_5 {
 
             for(; var9 < 7; ++var9) {
                if(var8 + var9 < var6) {
-                  var7[8 + var9] = var5[var8 + var9];
+                  var7[8 + var9] = sessionIdB[var8 + var9];
                   if(var14 == 0) {
                      continue;
                   }
@@ -278,7 +278,7 @@ public class class_5 {
             }
 
             BigInteger var10 = new BigInteger(1, var7);
-            BigInteger var11 = var10.modPow(var3, var4);
+            BigInteger var11 = var10.modPow(rsaModulus, rsaExponent);
             byte[] var12 = var11.toByteArray();
             this.outgoingData[this.outgoingOffsetTotal++] = (byte)var12.length;
             int var13 = 0;
