@@ -1,0 +1,58 @@
+<project name="mudclient177" default="run">
+	<property name="main.src.dir" value="src" />
+	<property name="main.build.dir" value="build" />
+	
+	<property name="dist.dir" value="dist" />
+	<property name="bin.dir" value="bin" />
+
+	<property name="jar.main-class" value="mudclient" />
+	<property name="jar.name" value="${ant.project.name}.jar" />
+	<property name="jar.file" value="${dist.dir}/${jar.name}" />
+
+	<target name="compile">
+		<mkdir dir="${main.build.dir}" />
+		<javac srcdir="${main.src.dir}" destdir="${main.build.dir}" includeantruntime="false" encoding="UTF-8">
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile">
+		<mkdir dir="${bin.dir}" />
+		<mkdir dir="${dist.dir}" />
+
+		<jar destfile="${jar.file}" basedir="${main.build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${jar.main-class}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="distrun" depends="dist">
+		<java jar="${jar.file}" dir="${bin.dir}" fork="true" >
+			<arg value="members" />
+            <arg value="10.10.200.1" />
+            <arg value="43594" />
+            <arg value="65537" />
+            <arg value="12345678" />
+            <arg value="true" />
+        </java>
+	</target>
+	
+	<target name="run" depends="compile">
+		<java classname="${jar.main-class}" fork="true">
+			<classpath>
+				<pathelement location="${main.build.dir}"/>
+			</classpath>
+			<arg value="members" />
+			<arg value="10.10.200.1" />
+			<arg value="43594" />
+			<arg value="12345678" />
+			<arg value="true" />
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete dir="${main.build.dir}" />
+		<delete dir="${bin.dir}" />
+	</target>
+
+</project>
