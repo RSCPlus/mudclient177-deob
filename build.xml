@@ -1,4 +1,4 @@
-<project name="mudclient177" default="run">
+<project name="mudclient177-deob" default="run">
 	<property name="main.src.dir" value="src" />
 	<property name="main.build.dir" value="build" />
 	
