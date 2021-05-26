@@ -427,7 +427,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: b (int, int, int, int, int) void
-   public void method_227(int var1, int var2, int var3, int var4, int var5) {
+   public void drawBox(int var1, int var2, int var3, int var4, int var5) {
       boolean var11 = field_759;
       if(var1 < this.field_745) {
          var3 -= this.field_745 - var1;
@@ -481,7 +481,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: c (int, int, int, int, int) void
-   public void method_228(int var1, int var2, int var3, int var4, int var5) {
+   public void drawBoxEdge(int var1, int var2, int var3, int var4, int var5) {
       this.drawLineHoriz(var1, var2, var3, var5);
       this.drawLineHoriz(var1, var2 + var4 - 1, var3, var5);
       this.method_230(var1, var2, var4, var5);

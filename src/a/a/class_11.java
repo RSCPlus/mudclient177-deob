@@ -356,7 +356,7 @@ public class class_11 {
 
    // $FF: renamed from: a (int, int, int, int, int) void
    protected void method_279(int var1, int var2, int var3, int var4, int var5) {
-      this.field_761.method_227(var2, var3, var4, var5, 16777215);
+      this.field_761.drawBox(var2, var3, var4, var5, 16777215);
       this.field_761.drawLineHoriz(var2, var3, var4, this.field_796);
       this.field_761.method_230(var2, var3, var5, this.field_796);
       this.field_761.drawLineHoriz(var2, var3 + var5 - 1, var4, this.field_799);
@@ -483,10 +483,10 @@ public class class_11 {
 
    // $FF: renamed from: c (int, int, int, int) void
    public void method_284(int var1, int var2, int var3, int var4) {
-      this.field_761.method_227(var1, var2, var3, var4, 0);
-      this.field_761.method_228(var1, var2, var3, var4, this.field_793);
-      this.field_761.method_228(var1 + 1, var2 + 1, var3 - 2, var4 - 2, this.field_794);
-      this.field_761.method_228(var1 + 2, var2 + 2, var3 - 4, var4 - 4, this.field_795);
+      this.field_761.drawBox(var1, var2, var3, var4, 0);
+      this.field_761.drawBoxEdge(var1, var2, var3, var4, this.field_793);
+      this.field_761.drawBoxEdge(var1 + 1, var2 + 1, var3 - 2, var4 - 2, this.field_794);
+      this.field_761.drawBoxEdge(var1 + 2, var2 + 2, var3 - 4, var4 - 4, this.field_795);
       this.field_761.method_242(var1, var2, 2 + field_802);
       this.field_761.method_242(var1 + var3 - 7, var2, 3 + field_802);
       this.field_761.method_242(var1, var2 + var4 - 7, 4 + field_802);
@@ -589,13 +589,13 @@ public class class_11 {
    // $FF: renamed from: a (int, int, int, int, int, int) void
    protected void method_288(int var1, int var2, int var3, int var4, int var5, int var6) {
       int var7 = var1 + var3 - 12;
-      this.field_761.method_228(var7, var2, 12, var4, 0);
+      this.field_761.drawBoxEdge(var7, var2, 12, var4, 0);
       this.field_761.method_242(var7 + 1, var2 + 1, field_802);
       this.field_761.method_242(var7 + 1, var2 + var4 - 12, 1 + field_802);
       this.field_761.drawLineHoriz(var7, var2 + 13, 12, 0);
       this.field_761.drawLineHoriz(var7, var2 + var4 - 13, 12, 0);
       this.field_761.method_226(var7 + 1, var2 + 14, 11, var4 - 27, this.field_788, this.field_789);
-      this.field_761.method_227(var7 + 3, var5 + var2 + 14, 7, var6, this.field_791);
+      this.field_761.drawBox(var7 + 3, var5 + var2 + 14, 7, var6, this.field_791);
       this.field_761.method_230(var7 + 2, var5 + var2 + 14, var6, this.field_790);
       this.field_761.method_230(var7 + 2 + 8, var5 + var2 + 14, var6, this.field_792);
    }
