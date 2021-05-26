@@ -68,11 +68,11 @@ public class GameData {
    // $FF: renamed from: F int[]
    public static int[] field_503;
    // $FF: renamed from: G int
-   public static int field_504;
+   public static int textureCount;
    // $FF: renamed from: H java.lang.String[]
-   public static String[] field_505;
+   public static String[] textureName;
    // $FF: renamed from: I java.lang.String[]
-   public static String[] field_506;
+   public static String[] textureSubtypeName;
    // $FF: renamed from: J int
    public static int field_507;
    // $FF: renamed from: K java.lang.String[]
@@ -174,9 +174,9 @@ public class GameData {
    // $FF: renamed from: bG java.lang.String[]
    public static String[] field_556;
    // $FF: renamed from: bH int
-   public static int field_557;
+   public static int modelCount;
    // $FF: renamed from: bI java.lang.String[]
-   public static String[] field_558;
+   public static String[] modelName;
    // $FF: renamed from: bJ byte[]
    static byte[] field_559;
    // $FF: renamed from: bK byte[]
@@ -190,29 +190,29 @@ public class GameData {
 
 
    // $FF: renamed from: a (java.lang.String) int
-   public static int method_135(String var0) {
+   public static int getModelIndex(String var0) {
       if(var0.equalsIgnoreCase("na")) {
          return 0;
       } else {
          int var1 = 0;
          if(field_563 != 0) {
-            if(field_558[var1].equalsIgnoreCase(var0)) {
+            if(modelName[var1].equalsIgnoreCase(var0)) {
                return var1;
             }
 
             ++var1;
          }
 
-         while(var1 < field_557) {
-            if(field_558[var1].equalsIgnoreCase(var0)) {
+         while(var1 < modelCount) {
+            if(modelName[var1].equalsIgnoreCase(var0)) {
                return var1;
             }
 
             ++var1;
          }
 
-         field_558[field_557++] = var0;
-         return field_557 - 1;
+         modelName[modelCount++] = var0;
+         return modelCount - 1;
       }
    }
 
@@ -258,7 +258,7 @@ public class GameData {
    }
 
    // $FF: renamed from: a (byte[], boolean) void
-   public static void method_140(byte[] var0, boolean var1) {
+   public static void loadData(byte[] var0, boolean var1) {
       int var74 = field_563;
       field_559 = Utility.loadData("string.dat", 0, var0);
       field_561 = 0;
@@ -631,25 +631,25 @@ public class GameData {
          ++var31;
       }
 
-      field_504 = method_137();
-      field_505 = new String[field_504];
-      field_506 = new String[field_504];
+      textureCount = method_137();
+      textureName = new String[textureCount];
+      textureSubtypeName = new String[textureCount];
       int var32 = 0;
-      if(var74 != 0 || var32 < field_504) {
+      if(var74 != 0 || var32 < textureCount) {
          do {
-            field_505[var32] = method_139();
+            textureName[var32] = method_139();
             ++var32;
-         } while(var32 < field_504);
+         } while(var32 < textureCount);
       }
 
       int var33 = 0;
       if(var74 != 0) {
-         field_506[var33] = method_139();
+         textureSubtypeName[var33] = method_139();
          ++var33;
       }
 
-      while(var33 < field_504) {
-         field_506[var33] = method_139();
+      while(var33 < textureCount) {
+         textureSubtypeName[var33] = method_139();
          ++var33;
       }
 
@@ -768,7 +768,7 @@ public class GameData {
       int var44 = 0;
       if(var74 != 0 || var44 < field_514) {
          do {
-            field_519[var44] = method_135(method_139());
+            field_519[var44] = getModelIndex(method_139());
             ++var44;
          } while(var44 < field_514);
       }
@@ -1132,6 +1132,6 @@ public class GameData {
    static {
       field_555 = new String[5000];
       field_556 = new String[5000];
-      field_558 = new String[5000];
+      modelName = new String[5000];
    }
 }

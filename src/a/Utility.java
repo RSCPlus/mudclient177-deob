@@ -337,7 +337,7 @@ public class Utility {
    }
 
    // $FF: renamed from: a (java.lang.String, byte[]) int
-   public static int method_458(String var0, byte[] var1) {
+   public static int getDataFileOffset(String var0, byte[] var1) {
       int var9 = class_5.field_597;
       int var2 = readUnsignedShort(var1, 0);
       int var3 = 0;
@@ -371,7 +371,7 @@ public class Utility {
    }
 
    // $FF: renamed from: b (java.lang.String, byte[]) int
-   public static int method_459(String var0, byte[] var1) {
+   public static int getDataFileLength(String var0, byte[] var1) {
       int var10 = class_5.field_597;
       int var2 = readUnsignedShort(var1, 0);
       int var3 = 0;

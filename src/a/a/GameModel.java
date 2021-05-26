@@ -70,7 +70,7 @@ public class GameModel {
    // $FF: renamed from: D boolean
    public boolean field_881;
    // $FF: renamed from: E boolean
-   public boolean field_882;
+   public boolean transparent;
    // $FF: renamed from: F int
    public int field_883;
    // $FF: renamed from: G int[]
@@ -188,7 +188,7 @@ public class GameModel {
       this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
-      this.field_882 = false;
+      this.transparent = false;
       this.field_883 = -1;
       this.field_886 = false;
       this.field_887 = false;
@@ -222,7 +222,7 @@ public class GameModel {
       this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
-      this.field_882 = false;
+      this.transparent = false;
       this.field_883 = -1;
       this.field_886 = false;
       this.field_887 = false;
@@ -351,7 +351,7 @@ public class GameModel {
       this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
-      this.field_882 = false;
+      this.transparent = false;
       this.field_883 = -1;
       this.field_886 = false;
       this.field_887 = false;
@@ -512,7 +512,7 @@ public class GameModel {
       this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
-      this.field_882 = false;
+      this.transparent = false;
       this.field_883 = -1;
       this.field_886 = false;
       this.field_887 = false;
@@ -647,7 +647,7 @@ public class GameModel {
       this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
-      this.field_882 = false;
+      this.transparent = false;
       this.field_883 = -1;
       this.field_886 = false;
       this.field_887 = false;
@@ -677,7 +677,7 @@ public class GameModel {
       this.visible = true;
       this.field_880 = true;
       this.field_881 = false;
-      this.field_882 = false;
+      this.transparent = false;
       this.field_883 = -1;
       this.field_886 = false;
       this.field_887 = false;
@@ -1675,7 +1675,7 @@ public class GameModel {
       GameModel[] var1 = new GameModel[]{this};
       GameModel var2 = new GameModel(var1, 1);
       var2.field_871 = this.field_871;
-      var2.field_882 = this.field_882;
+      var2.transparent = this.transparent;
       return var2;
    }
 

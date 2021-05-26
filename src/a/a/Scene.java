@@ -20,11 +20,11 @@ public class Scene {
    // $FF: renamed from: g int
    public int clipFar3d;
    // $FF: renamed from: h int
-   public int field_648;
+   public int clipFar2d;
    // $FF: renamed from: i int
-   public int field_649;
+   public int fogZFalloff;
    // $FF: renamed from: j int
-   public int field_650;
+   public int fogZDistance;
    // $FF: renamed from: k int[]
    public static int[] field_651;
    // $FF: renamed from: l int[]
@@ -180,9 +180,9 @@ public class Scene {
       this.field_643 = new int[this.field_641][256];
       this.clipNear = 5;
       this.clipFar3d = 1000;
-      this.field_648 = 1000;
-      this.field_649 = 20;
-      this.field_650 = 10;
+      this.clipFar2d = 1000;
+      this.fogZFalloff = 20;
+      this.fogZDistance = 10;
       this.field_653 = false;
       this.field_654 = 1.1D;
       this.field_655 = 1;
@@ -914,7 +914,7 @@ public class Scene {
                var12 = gameModel.vertexViewX[var26];
                var13 = gameModel.vertexViewY[var26];
                var14 = gameModel.projectVertexZ[var26];
-               if(var14 > this.clipNear && var14 < this.field_648) {
+               if(var14 > this.clipNear && var14 < this.clipFar2d) {
                   var29 = (this.field_687[var2] << this.viewDistance) / var14;
                   var16 = (this.field_688[var2] << this.viewDistance) / var14;
                   if(var12 - var29 / 2 <= this.clipX && var12 + var29 / 2 >= -this.clipX && var13 - var16 <= this.clipY && var13 >= -this.clipY) {
@@ -1021,8 +1021,8 @@ public class Scene {
                               this.field_708[var29] = gameModel.vertexViewX[var5];
                               this.field_709[var29] = gameModel.vertexViewY[var5];
                               this.field_710[var29] = var17;
-                              if(gameModel.projectVertexZ[var5] > this.field_650) {
-                                 this.field_710[var29] += (gameModel.projectVertexZ[var5] - this.field_650) / this.field_649;
+                              if(gameModel.projectVertexZ[var5] > this.fogZDistance) {
+                                 this.field_710[var29] += (gameModel.projectVertexZ[var5] - this.fogZDistance) / this.fogZFalloff;
                               }
 
                               ++var29;
@@ -2294,7 +2294,7 @@ public class Scene {
             }
 
             Scanline var41;
-            if(!var8.field_882) {
+            if(!var8.transparent) {
                if(!this.field_653) {
                   var1 = this.field_706;
                   if(var39 || var1 < this.field_707) {
@@ -4105,7 +4105,7 @@ public class Scene {
    }
 
    // $FF: renamed from: b (int, int, int) void
-   public void method_204(int var1, int var2, int var3) {
+   public void allocateTextures(int var1, int var2, int var3) {
       this.field_691 = var1;
       this.field_692 = new byte[var1][];
       this.field_693 = new int[var1][];
@@ -4119,7 +4119,7 @@ public class Scene {
    }
 
    // $FF: renamed from: a (int, byte[], int[], int) void
-   public void method_205(int var1, byte[] var2, int[] var3, int var4) {
+   public void defineTexture(int var1, byte[] var2, int[] var3, int var4) {
       this.field_692[var1] = var2;
       this.field_693[var1] = var3;
       this.field_694[var1] = var4;
@@ -4348,7 +4348,7 @@ public class Scene {
    }
 
    // $FF: renamed from: c (int, int, int) void
-   public void method_210(int var1, int var2, int var3) {
+   public void setLight(int var1, int var2, int var3) {
       if(var1 == 0 && var2 == 0 && var3 == 0) {
          var1 = 32;
       }

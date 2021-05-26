@@ -1,6 +1,6 @@
 package a.a;
 
-import a.class_20;
+import a.WordFilter;
 import a.Utility;
 import a.class_22;
 
@@ -18,7 +18,7 @@ public class GameApplet extends GameShell {
    // $FF: renamed from: S int
    public static int clientVersion;
    // $FF: renamed from: T int
-   public static int field_46;
+   public static int maxReadTries;
    // $FF: renamed from: U java.lang.String
    public String address;
    // $FF: renamed from: V int
@@ -110,7 +110,7 @@ public class GameApplet extends GameShell {
                }
 
             	 this.clientStream = new ClientStream(this.connect(this.address, this.port), this);
-               this.clientStream.field_591 = field_46;
+               this.clientStream.field_591 = maxReadTries;
                int sessionId = this.clientStream.readInt();
                this.sessionId = sessionId;
                System.out.println("Session id: " + sessionId); // authentic System.out.println
@@ -474,7 +474,7 @@ public class GameApplet extends GameShell {
                      this.field_63 = this.incomingBytes[4];
                   } else if(opcode == 28) {
                      usernameHash = Utility.getUnsignedLong(this.incomingBytes, 1); // username hash
-                     String var11 = class_20.formatChat(class_22.readChatString(this.incomingBytes, 9, packetLength - 9));
+                     String var11 = WordFilter.formatChat(class_22.readChatString(this.incomingBytes, 9, packetLength - 9));
                      this.displayMessage("@pri@" + Utility.unhashUsername(usernameHash) + ": tells you " + var11);
                   } else {
                      this.method_49(opcode, packetLength, this.incomingBytes);

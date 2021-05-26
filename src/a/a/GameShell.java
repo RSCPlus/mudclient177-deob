@@ -112,7 +112,7 @@ public class GameShell extends Applet implements Runnable {
 
 
    // $FF: renamed from: a () void
-   public void method_2() {}
+   public void startGame() {}
 
    // $FF: renamed from: b () void
    public synchronized void method_3() {}
@@ -415,7 +415,7 @@ public class GameShell extends Applet implements Runnable {
          this.field_22 = this.getGraphics();
          this.method_14();
          this.method_15(0, "Loading...");
-         this.method_2();
+         this.startGame();
          this.field_13 = 0;
       }
 
@@ -556,7 +556,7 @@ public class GameShell extends Applet implements Runnable {
    public void method_14() {
       this.field_22.setColor(Color.black);
       this.field_22.fillRect(0, 0, this.field_1, this.field_2);
-      byte[] var1 = this.method_19("jagex.jag", "Jagex library", 0);
+      byte[] var1 = this.readDataFile("jagex.jag", "Jagex library", 0);
       if(var1 != null) {
          byte[] var2 = Utility.loadData("logo.tga", 0, var1);
          this.field_21 = this.method_18(var2);
@@ -722,7 +722,7 @@ public class GameShell extends Applet implements Runnable {
    }
 
    // $FF: renamed from: a (java.lang.String, java.lang.String, int) byte[]
-   public byte[] method_19(String var1, String var2, int var3) {
+   public byte[] readDataFile(String var1, String var2, int var3) {
       System.out.println("Using default load"); // authentic System.out.println
       int var4 = 0;
       int var5 = 0;
