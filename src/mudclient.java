@@ -190,9 +190,9 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: cU int
    int field_151;
    // $FF: renamed from: cV c[]
-   GameCharacter[] field_152;
+   GameCharacter[] knownNPCs;
    // $FF: renamed from: cW c[]
-   GameCharacter[] field_153;
+   GameCharacter[] NPCs;
    // $FF: renamed from: cX c[]
    GameCharacter[] field_154;
    // $FF: renamed from: cY int[]
@@ -214,7 +214,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: dg int
    int field_163;
    // $FF: renamed from: dh a.a.f[]
-   GameModel[] field_164;
+   GameModel[] objectModel;
    // $FF: renamed from: di int[]
    int[] field_165;
    // $FF: renamed from: dj int[]
@@ -232,7 +232,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: dq int
    int field_172;
    // $FF: renamed from: dr a.a.f[]
-   GameModel[] field_173;
+   GameModel[] wallObjectModel;
    // $FF: renamed from: ds int[]
    int[] field_174;
    // $FF: renamed from: dt int[]
@@ -370,7 +370,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: eH int
    int controlTextListChat;
    // $FF: renamed from: eI int
-   int field_242;
+   int controlTextListAll;
    // $FF: renamed from: eJ int
    int controlTextListQuest;
    // $FF: renamed from: eK int
@@ -570,13 +570,13 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: gD int
    int loginScreen;
    // $FF: renamed from: gE a.a.e
-   Panel field_342;
+   Panel panelLoginWelcome;
    // $FF: renamed from: gF int
    int field_343;
    // $FF: renamed from: gG int
    int field_344;
    // $FF: renamed from: gH a.a.e
-   Panel field_345;
+   Panel panelLoginNewuser;
    // $FF: renamed from: gI int
    int field_346;
    // $FF: renamed from: gJ int
@@ -592,7 +592,7 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: gO int
    int field_352;
    // $FF: renamed from: gP a.a.e
-   Panel field_353;
+   Panel panelLoginExistingUser;
    // $FF: renamed from: gQ int
    int field_354;
    // $FF: renamed from: gR int
@@ -929,9 +929,9 @@ public class mudclient extends GameApplet {
                         }
 
                         if(!this.errorLoadingData) {
-                           this.method_16(100, "Starting game...");
-                           this.method_59();
-                           this.method_75();
+                           this.showLoadingProgress(100, "Starting game...");
+                           this.createMessageTabPanel();
+                           this.createLoginPanels();
                            this.method_65();
                            this.createAppearancePanel();
                            this.method_68();
@@ -1182,7 +1182,7 @@ public class mudclient extends GameApplet {
                   this.surface.drawSprite(0, 0, this.spriteTexture);
                }
 
-               this.surface.method_241(this.spriteTextureWorld + var3, 0, 0, var6, var6);
+               this.surface.drawSprite(this.spriteTextureWorld + var3, 0, 0, var6, var6);
                int var8 = var6 * var6;
                int var9 = 0;
                if(var10 != 0) {
@@ -1264,7 +1264,7 @@ public class mudclient extends GameApplet {
             }
          }
       } else {
-         this.method_16(70, "Loading 3d models");
+         this.showLoadingProgress(70, "Loading 3d models");
          int var1 = 0;
          if(var4 != 0 || var1 < GameData.modelCount) {
             do {
@@ -1306,13 +1306,13 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: B () void
-   public void method_59() {
+   public void createMessageTabPanel() {
       this.panelMessageTabs = new Panel(this.surface, 10);
-      this.controlTextListChat = this.panelMessageTabs.method_297(5, 269, 502, 56, 1, 20, true);
-      this.field_242 = this.panelMessageTabs.method_298(7, 324, 498, 14, 1, 80, false, true);
-      this.controlTextListQuest = this.panelMessageTabs.method_297(5, 269, 502, 56, 1, 20, true);
-      this.controlTextListPrivate = this.panelMessageTabs.method_297(5, 269, 502, 56, 1, 20, true);
-      this.panelMessageTabs.method_311(this.field_242);
+      this.controlTextListChat = this.panelMessageTabs.addTextList(5, 269, 502, 56, 1, 20, true);
+      this.controlTextListAll = this.panelMessageTabs.addTextListInput(7, 324, 498, 14, 1, 80, false, true);
+      this.controlTextListQuest = this.panelMessageTabs.addTextList(5, 269, 502, 56, 1, 20, true);
+      this.controlTextListPrivate = this.panelMessageTabs.addTextList(5, 269, 502, 56, 1, 20, true);
+      this.panelMessageTabs.setFocus(this.controlTextListAll);
    }
 
    // $FF: renamed from: b () void
@@ -1441,7 +1441,7 @@ public class mudclient extends GameApplet {
          try {
             if(this.loggedIn == 0) {
                this.surface.loggedIn = false;
-               this.method_76();
+               this.drawLoginScreens();
             }
 
             if(this.loggedIn == 1) {
@@ -1471,28 +1471,28 @@ public class mudclient extends GameApplet {
    public void disposeAndCollect() {
       try {
          if(this.surface != null) {
-            this.surface.method_235();
-            this.surface.field_729 = null;
+            this.surface.clear();
+            this.surface.pixels = null;
             this.surface = null;
          }
 
          if(this.scene != null) {
-            this.scene.method_172();
+            this.scene.dispose();
             this.scene = null;
          }
 
          this.gameModels = null;
-         this.field_164 = null;
-         this.field_173 = null;
+         this.objectModel = null;
+         this.wallObjectModel = null;
          this.knownPlayers = null;
          this.players = null;
-         this.field_152 = null;
-         this.field_153 = null;
+         this.knownNPCs = null;
+         this.NPCs = null;
          this.localPlayer = null;
          if(this.world != null) {
             this.world.terrainModels = null;
-            this.world.gameModelArrayArray1 = null;
-            this.world.gameModelArrayArray2 = null;
+            this.world.wallModels = null;
+            this.world.roofModels = null;
             this.world.parentModel = null;
             this.world = null;
          }
@@ -1507,15 +1507,15 @@ public class mudclient extends GameApplet {
    public void method_11(int var1) {
       if(this.loggedIn == 0) {
          if(this.loginScreen == 0) {
-            this.field_342.method_277(var1);
+            this.panelLoginWelcome.method_277(var1);
          }
 
          if(this.loginScreen == 1) {
-            this.field_345.method_277(var1);
+            this.panelLoginNewuser.method_277(var1);
          }
 
          if(this.loginScreen == 2) {
-            this.field_353.method_277(var1);
+            this.panelLoginExistingUser.method_277(var1);
          }
 
          if(this.loginScreen == 3) {
@@ -1654,7 +1654,7 @@ public class mudclient extends GameApplet {
       var3 += 35;
       int var2 = 0;
       if(GameData.field_563 == 0 && var2 >= 5) {
-         this.field_379.method_311(this.field_384[0]);
+         this.field_379.setFocus(this.field_384[0]);
          var3 += 10;
          this.field_379.addButtonBackground(256, var3, 250, 30);
          this.field_379.addText(256, var3, "Click here when finished", 4, true);
@@ -1677,7 +1677,7 @@ public class mudclient extends GameApplet {
             ++var2;
          } while(var2 < 5);
 
-         this.field_379.method_311(this.field_384[0]);
+         this.field_379.setFocus(this.field_384[0]);
          var3 += 10;
          this.field_379.addButtonBackground(256, var3, 250, 30);
          this.field_379.addText(256, var3, "Click here when finished", 4, true);
@@ -1823,7 +1823,7 @@ public class mudclient extends GameApplet {
                } while(var6 < 5);
             }
 
-            this.surface.method_223();
+            this.surface.blackScreen();
             this.field_378 = false;
          }
 
@@ -1833,8 +1833,8 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: I () void
    public void method_67() {
       this.surface.interlace = false;
-      this.surface.method_223();
-      this.field_379.method_278();
+      this.surface.blackScreen();
+      this.field_379.drawPanel();
       if(this.field_382 != -1) {
          short var1 = 150;
          this.surface.drawBox(26, var1, 460, 60, 0);
@@ -1874,7 +1874,7 @@ public class mudclient extends GameApplet {
          ++var2;
       }
 
-      this.field_390.method_311(this.field_399[0]);
+      this.field_390.setFocus(this.field_399[0]);
       this.field_390.addButtonBackground(256, var3, 410, 30);
       this.field_390.addText(256, var3 - 7, "If you know it, enter a previous password used on this account", 1, true);
       this.field_393 = this.field_390.method_299(256, var3 + 7, 310, 30, 1, 80, true, true);
@@ -1931,14 +1931,14 @@ public class mudclient extends GameApplet {
       this.field_401.addButtonBackground(var1, var4, 100, 30);
       this.field_401.addText(var1, var4, "Submit", 4, true);
       this.field_407 = this.field_401.addButton(var1, var4, 100, 30);
-      this.field_401.method_311(this.field_403);
+      this.field_401.setFocus(this.field_403);
    }
 
    // $FF: renamed from: L () void
    public void method_70() {
       this.surface.interlace = false;
-      this.surface.method_223();
-      this.field_401.method_278();
+      this.surface.blackScreen();
+      this.field_401.drawPanel();
       this.surface.drawSprite(0, this.gameHeight, this.spriteMedia + 22);
       this.surface.draw(this.graphics, 0, 0);
    }
@@ -1947,19 +1947,19 @@ public class mudclient extends GameApplet {
    public void method_71() {
       this.field_401.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
       if(this.field_401.method_276(this.field_403)) {
-         this.field_401.method_311(this.field_404);
+         this.field_401.setFocus(this.field_404);
       }
 
       if(this.field_401.method_276(this.field_404)) {
-         this.field_401.method_311(this.field_405);
+         this.field_401.setFocus(this.field_405);
       }
 
       if(this.field_401.method_276(this.field_405)) {
-         this.field_401.method_311(this.field_406);
+         this.field_401.setFocus(this.field_406);
       }
 
       if(this.field_401.method_276(this.field_406)) {
-         this.field_401.method_311(this.field_403);
+         this.field_401.setFocus(this.field_403);
       }
 
       if(this.field_401.method_276(this.field_407)) {
@@ -1982,7 +1982,7 @@ public class mudclient extends GameApplet {
          super.clientStream.putByte(var4.length());
          super.clientStream.putUnterminatedString(var4);
          super.clientStream.flushPacket_();
-         this.surface.method_223();
+         this.surface.blackScreen();
          this.field_400 = false;
       }
 
@@ -2054,8 +2054,8 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: O () void
    public void handleAppearancePanelControls() {
       this.surface.interlace = false;
-      this.surface.method_223();
-      this.panelAppearance.method_278();
+      this.surface.blackScreen();
+      this.panelAppearance.drawPanel();
       short var1 = 140;
       byte var2 = 50;
       int var3 = var1 + 116;
@@ -2155,99 +2155,99 @@ public class mudclient extends GameApplet {
          super.clientStream.putByte(this.field_432);
          super.clientStream.putByte(this.field_433);
          super.clientStream.flushPacket_();
-         this.surface.method_223();
+         this.surface.blackScreen();
          this.showAppearanceChange = false;
       }
 
    }
 
    // $FF: renamed from: Q () void
-   public void method_75() {
+   public void createLoginPanels() {
       Panel var10001;
       byte var1;
       label11: {
-         this.field_342 = new Panel(this.surface, 50);;
+         this.panelLoginWelcome = new Panel(this.surface, 50);;
          var1 = 40;
          if(!this.members) {
-            this.field_342.addText(256, 200 + var1, "Click on an option", 5, true);
-            this.field_342.addButtonBackground(156, 240 + var1, 120, 35);
-            this.field_342.addButtonBackground(356, 240 + var1, 120, 35);
-            this.field_342.addText(156, 240 + var1, "New User", 5, false);
-            this.field_342.addText(356, 240 + var1, "Existing User", 5, false);
-            this.field_343 = this.field_342.addButton(156, 240 + var1, 120, 35);
-            this.field_344 = this.field_342.addButton(356, 240 + var1, 120, 35);
+            this.panelLoginWelcome.addText(256, 200 + var1, "Click on an option", 5, true);
+            this.panelLoginWelcome.addButtonBackground(156, 240 + var1, 120, 35);
+            this.panelLoginWelcome.addButtonBackground(356, 240 + var1, 120, 35);
+            this.panelLoginWelcome.addText(156, 240 + var1, "New User", 5, false);
+            this.panelLoginWelcome.addText(356, 240 + var1, "Existing User", 5, false);
+            this.field_343 = this.panelLoginWelcome.addButton(156, 240 + var1, 120, 35);
+            this.field_344 = this.panelLoginWelcome.addButton(356, 240 + var1, 120, 35);
             if(GameData.field_563 == 0) {
                break label11;
             }
          }
 
-         this.field_342.addText(256, 200 + var1, "Welcome to RuneScape", 4, true);
-         this.field_342.addText(256, 215 + var1, "You need a member account to use this server", 4, true);
-         this.field_342.addButtonBackground(256, 250 + var1, 200, 35);
-         this.field_342.addText(256, 250 + var1, "Click here to login", 5, false);
-         this.field_344 = this.field_342.addButton(256, 250 + var1, 200, 35);
+         this.panelLoginWelcome.addText(256, 200 + var1, "Welcome to RuneScape", 4, true);
+         this.panelLoginWelcome.addText(256, 215 + var1, "You need a member account to use this server", 4, true);
+         this.panelLoginWelcome.addButtonBackground(256, 250 + var1, 200, 35);
+         this.panelLoginWelcome.addText(256, 250 + var1, "Click here to login", 5, false);
+         this.field_344 = this.panelLoginWelcome.addButton(256, 250 + var1, 200, 35);
       }
 
-      this.field_345 = new Panel(this.surface, 50);
+      this.panelLoginNewuser = new Panel(this.surface, 50);
       var1 = 70;
-      this.field_346 = this.field_345.addText(256, var1 + 8, "To create an account please enter all the requested details", 4, true);
+      this.field_346 = this.panelLoginNewuser.addText(256, var1 + 8, "To create an account please enter all the requested details", 4, true);
       int var2 = var1 + 25;
-      this.field_345.addButtonBackground(256, var2 + 17, 250, 34);
-      this.field_345.addText(256, var2 + 8, "Choose a Username", 4, false);
-      this.field_349 = this.field_345.method_299(256, var2 + 25, 200, 40, 4, 12, false, false);
-      this.field_345.method_311(this.field_349);
+      this.panelLoginNewuser.addButtonBackground(256, var2 + 17, 250, 34);
+      this.panelLoginNewuser.addText(256, var2 + 8, "Choose a Username", 4, false);
+      this.field_349 = this.panelLoginNewuser.method_299(256, var2 + 25, 200, 40, 4, 12, false, false);
+      this.panelLoginNewuser.setFocus(this.field_349);
       var2 += 40;
-      this.field_345.addButtonBackground(141, var2 + 17, 220, 34);
-      this.field_345.addText(141, var2 + 8, "Choose a Password", 4, false);
-      this.field_350 = this.field_345.method_299(141, var2 + 25, 220, 40, 4, 20, true, false);
-      this.field_345.addButtonBackground(371, var2 + 17, 220, 34);
-      this.field_345.addText(371, var2 + 8, "Confirm Password", 4, false);
-      this.field_351 = this.field_345.method_299(371, var2 + 25, 220, 40, 4, 20, true, false);
+      this.panelLoginNewuser.addButtonBackground(141, var2 + 17, 220, 34);
+      this.panelLoginNewuser.addText(141, var2 + 8, "Choose a Password", 4, false);
+      this.field_350 = this.panelLoginNewuser.method_299(141, var2 + 25, 220, 40, 4, 20, true, false);
+      this.panelLoginNewuser.addButtonBackground(371, var2 + 17, 220, 34);
+      this.panelLoginNewuser.addText(371, var2 + 8, "Confirm Password", 4, false);
+      this.field_351 = this.panelLoginNewuser.method_299(371, var2 + 25, 220, 40, 4, 20, true, false);
       var2 += 40;
       var2 += 20;
-      this.field_352 = this.field_345.method_302(60, var2, 14);
-      this.field_345.method_292(75, var2, "I have read and agree to your terms and conditions", 4, true);
+      this.field_352 = this.panelLoginNewuser.method_302(60, var2, 14);
+      this.panelLoginNewuser.method_292(75, var2, "I have read and agree to your terms and conditions", 4, true);
       var2 += 15;
-      this.field_345.addText(256, var2, "(to view these click the relevant link below this game window)", 4, true);
+      this.panelLoginNewuser.addText(256, var2, "(to view these click the relevant link below this game window)", 4, true);
       var2 += 20;
-      this.field_345.addButtonBackground(156, var2 + 17, 150, 34);
-      this.field_345.addText(156, var2 + 17, "Submit", 5, false);
-      this.field_348 = this.field_345.addButton(156, var2 + 17, 150, 34);
-      this.field_345.addButtonBackground(356, var2 + 17, 150, 34);
-      this.field_345.addText(356, var2 + 17, "Cancel", 5, false);
-      this.field_347 = this.field_345.addButton(356, var2 + 17, 150, 34);
-      this.field_353 = new Panel(this.surface, 50);
+      this.panelLoginNewuser.addButtonBackground(156, var2 + 17, 150, 34);
+      this.panelLoginNewuser.addText(156, var2 + 17, "Submit", 5, false);
+      this.field_348 = this.panelLoginNewuser.addButton(156, var2 + 17, 150, 34);
+      this.panelLoginNewuser.addButtonBackground(356, var2 + 17, 150, 34);
+      this.panelLoginNewuser.addText(356, var2 + 17, "Cancel", 5, false);
+      this.field_347 = this.panelLoginNewuser.addButton(356, var2 + 17, 150, 34);
+      this.panelLoginExistingUser = new Panel(this.surface, 50);
       short var3 = 230;
-      this.field_354 = this.field_353.addText(256, var3 - 10, "Please enter your username and password", 4, true);
+      this.field_354 = this.panelLoginExistingUser.addText(256, var3 - 10, "Please enter your username and password", 4, true);
       var2 = var3 + 28;
-      this.field_353.addButtonBackground(140, var2, 200, 40);
-      this.field_353.addText(140, var2 - 10, "Username:", 4, false);
-      this.field_355 = this.field_353.method_299(140, var2 + 10, 200, 40, 4, 12, false, false);
+      this.panelLoginExistingUser.addButtonBackground(140, var2, 200, 40);
+      this.panelLoginExistingUser.addText(140, var2 - 10, "Username:", 4, false);
+      this.field_355 = this.panelLoginExistingUser.method_299(140, var2 + 10, 200, 40, 4, 12, false, false);
       var2 += 47;
-      this.field_353.addButtonBackground(190, var2, 200, 40);
-      this.field_353.addText(190, var2 - 10, "Password:", 4, false);
-      this.field_356 = this.field_353.method_299(190, var2 + 10, 200, 40, 4, 20, true, false);
+      this.panelLoginExistingUser.addButtonBackground(190, var2, 200, 40);
+      this.panelLoginExistingUser.addText(190, var2 - 10, "Password:", 4, false);
+      this.field_356 = this.panelLoginExistingUser.method_299(190, var2 + 10, 200, 40, 4, 20, true, false);
       var2 -= 55;
-      this.field_353.addButtonBackground(410, var2, 120, 25);
-      this.field_353.addText(410, var2, "Ok", 4, false);
-      this.field_357 = this.field_353.addButton(410, var2, 120, 25);
+      this.panelLoginExistingUser.addButtonBackground(410, var2, 120, 25);
+      this.panelLoginExistingUser.addText(410, var2, "Ok", 4, false);
+      this.field_357 = this.panelLoginExistingUser.addButton(410, var2, 120, 25);
       var2 += 30;
-      this.field_353.addButtonBackground(410, var2, 120, 25);
-      this.field_353.addText(410, var2, "Cancel", 4, false);
-      this.field_358 = this.field_353.addButton(410, var2, 120, 25);
+      this.panelLoginExistingUser.addButtonBackground(410, var2, 120, 25);
+      this.panelLoginExistingUser.addText(410, var2, "Cancel", 4, false);
+      this.field_358 = this.panelLoginExistingUser.addButton(410, var2, 120, 25);
       var2 += 30;
-      this.field_353.addButtonBackground(410, var2, 160, 25);
-      this.field_353.addText(410, var2, "I\'ve lost my password", 4, false);
-      this.field_359 = this.field_353.addButton(410, var2, 160, 25);
-      this.field_353.method_311(this.field_355);
+      this.panelLoginExistingUser.addButtonBackground(410, var2, 160, 25);
+      this.panelLoginExistingUser.addText(410, var2, "I\'ve lost my password", 4, false);
+      this.field_359 = this.panelLoginExistingUser.addButton(410, var2, 160, 25);
+      this.panelLoginExistingUser.setFocus(this.field_355);
    }
 
    // $FF: renamed from: R () void
-   public void method_76() {
+   public void drawLoginScreens() {
       int var2 = GameData.field_563;
       this.field_326 = false;
       this.surface.interlace = false;
-      this.surface.method_223();
+      this.surface.blackScreen();
       if(this.loginScreen == 0 || this.loginScreen == 2) {
          label51: {
             int var1 = this.field_76 * 2 % 3072;
@@ -2257,7 +2257,7 @@ public class mudclient extends GameApplet {
                   break label51;
                }
 
-               this.surface.method_244(0, 10, this.spriteLogo + 1, var1 - 768);
+               this.surface.drawSpriteAlpha(0, 10, this.spriteLogo + 1, var1 - 768);
                if(var2 == 0) {
                   break label51;
                }
@@ -2269,7 +2269,7 @@ public class mudclient extends GameApplet {
                   break label51;
                }
 
-               this.surface.method_244(0, 10, this.spriteMedia + 10, var1 - 1792);
+               this.surface.drawSpriteAlpha(0, 10, this.spriteMedia + 10, var1 - 1792);
                if(var2 == 0) {
                   break label51;
                }
@@ -2277,25 +2277,25 @@ public class mudclient extends GameApplet {
 
             this.surface.drawSprite(0, 10, this.spriteMedia + 10);
             if(var1 > 2816) {
-               this.surface.method_244(0, 10, this.spriteLogo, var1 - 2816);
+               this.surface.drawSpriteAlpha(0, 10, this.spriteLogo, var1 - 2816);
             }
          }
       }
 
       if(this.loginScreen == 0) {
-         this.field_342.method_278();
+         this.panelLoginWelcome.drawPanel();
       }
 
       if(this.loginScreen == 1) {
-         this.field_345.method_278();
+         this.panelLoginNewuser.drawPanel();
       }
 
       if(this.loginScreen == 2) {
-         this.field_353.method_278();
+         this.panelLoginExistingUser.drawPanel();
       }
 
       if(this.loginScreen == 3) {
-         this.field_390.method_278();
+         this.field_390.drawPanel();
       }
 
       this.surface.drawSprite(0, this.gameHeight, this.spriteMedia + 22);
@@ -2309,7 +2309,7 @@ public class mudclient extends GameApplet {
       byte var2 = 50;
       byte var3 = 50;
       this.world.loadSections(var2 * 48 + 23, var3 * 48 + 23, var1);
-      this.world.method_352(this.gameModels);
+      this.world.addModels(this.gameModels);
       short var4 = 9728;
       short var5 = 6400;
       short var6 = 1100;
@@ -2318,19 +2318,19 @@ public class mudclient extends GameApplet {
       this.scene.clipFar2d = 4100;
       this.scene.fogZFalloff = 1;
       this.scene.fogZDistance = 4000;
-      this.scene.method_199(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
+      this.scene.setCamera(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
       this.scene.render();
       this.surface.fade2black();
       this.surface.fade2black();
       this.surface.drawBox(0, 0, 512, 6, 0);
       int var8 = 6;
       if(var15 != 0) {
-         this.surface.method_233(0, var8, 0, var8, 512, 8);
+         this.surface.drawLineAlpha(0, var8, 0, var8, 512, 8);
          --var8;
       }
 
       while(var8 >= 1) {
-         this.surface.method_233(0, var8, 0, var8, 512, 8);
+         this.surface.drawLineAlpha(0, var8, 0, var8, 512, 8);
          --var8;
       }
 
@@ -2338,13 +2338,13 @@ public class mudclient extends GameApplet {
       int var9 = 6;
       if(var15 != 0 || var9 >= 1) {
          do {
-            this.surface.method_233(0, var9, 0, 194 - var9, 512, 8);
+            this.surface.drawLineAlpha(0, var9, 0, 194 - var9, 512, 8);
             --var9;
          } while(var9 >= 1);
       }
 
       this.surface.drawSprite(15, 15, this.spriteMedia + 10);
-      this.surface.method_241(this.spriteLogo, 0, 0, 512, 200);
+      this.surface.drawSprite(this.spriteLogo, 0, 0, 512, 200);
       this.surface.drawWorld(this.spriteLogo);
       var4 = 9216;
       var5 = 9216;
@@ -2354,19 +2354,19 @@ public class mudclient extends GameApplet {
       this.scene.clipFar2d = 4100;
       this.scene.fogZFalloff = 1;
       this.scene.fogZDistance = 4000;
-      this.scene.method_199(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
+      this.scene.setCamera(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
       this.scene.render();
       this.surface.fade2black();
       this.surface.fade2black();
       this.surface.drawBox(0, 0, 512, 6, 0);
       int var10 = 6;
       if(var15 != 0) {
-         this.surface.method_233(0, var10, 0, var10, 512, 8);
+         this.surface.drawLineAlpha(0, var10, 0, var10, 512, 8);
          --var10;
       }
 
       while(var10 >= 1) {
-         this.surface.method_233(0, var10, 0, var10, 512, 8);
+         this.surface.drawLineAlpha(0, var10, 0, var10, 512, 8);
          --var10;
       }
 
@@ -2374,30 +2374,30 @@ public class mudclient extends GameApplet {
       int var11 = 6;
       if(var15 != 0 || var11 >= 1) {
          do {
-            this.surface.method_233(0, var11, 0, 194 - var11, 512, 8);
+            this.surface.drawLineAlpha(0, var11, 0, 194 - var11, 512, 8);
             --var11;
          } while(var11 >= 1);
       }
 
       this.surface.drawSprite(15, 15, this.spriteMedia + 10);
-      this.surface.method_241(this.spriteLogo + 1, 0, 0, 512, 200);
+      this.surface.drawSprite(this.spriteLogo + 1, 0, 0, 512, 200);
       this.surface.drawWorld(this.spriteLogo + 1);
       int var12 = 0;
       if(var15 != 0) {
-         this.scene.freeModel(this.world.gameModelArrayArray2[0][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray1[1][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray2[1][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray1[2][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray2[2][var12]);
+         this.scene.freeModel(this.world.roofModels[0][var12]);
+         this.scene.freeModel(this.world.wallModels[1][var12]);
+         this.scene.freeModel(this.world.roofModels[1][var12]);
+         this.scene.freeModel(this.world.wallModels[2][var12]);
+         this.scene.freeModel(this.world.roofModels[2][var12]);
          ++var12;
       }
 
       while(var12 < 64) {
-         this.scene.freeModel(this.world.gameModelArrayArray2[0][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray1[1][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray2[1][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray1[2][var12]);
-         this.scene.freeModel(this.world.gameModelArrayArray2[2][var12]);
+         this.scene.freeModel(this.world.roofModels[0][var12]);
+         this.scene.freeModel(this.world.wallModels[1][var12]);
+         this.scene.freeModel(this.world.roofModels[1][var12]);
+         this.scene.freeModel(this.world.wallModels[2][var12]);
+         this.scene.freeModel(this.world.roofModels[2][var12]);
          ++var12;
       }
 
@@ -2409,7 +2409,7 @@ public class mudclient extends GameApplet {
       this.scene.clipFar2d = 4100;
       this.scene.fogZFalloff = 1;
       this.scene.fogZDistance = 4000;
-      this.scene.method_199(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
+      this.scene.setCamera(var4, -this.world.getElevation(var4, var5), var5, 912, var7, 0, var6 * 2);
       this.scene.render();
       this.surface.fade2black();
       this.surface.fade2black();
@@ -2417,7 +2417,7 @@ public class mudclient extends GameApplet {
       int var13 = 6;
       if(var15 != 0 || var13 >= 1) {
          do {
-            this.surface.method_233(0, var13, 0, var13, 512, 8);
+            this.surface.drawLineAlpha(0, var13, 0, var13, 512, 8);
             --var13;
          } while(var13 >= 1);
       }
@@ -2425,17 +2425,17 @@ public class mudclient extends GameApplet {
       this.surface.drawBox(0, 194, 512, 20, 0);
       int var14 = 6;
       if(var15 != 0) {
-         this.surface.method_233(0, var14, 0, 194, 512, 8);
+         this.surface.drawLineAlpha(0, var14, 0, 194, 512, 8);
          --var14;
       }
 
       while(var14 >= 1) {
-         this.surface.method_233(0, var14, 0, 194, 512, 8);
+         this.surface.drawLineAlpha(0, var14, 0, 194, 512, 8);
          --var14;
       }
 
       this.surface.drawSprite(15, 15, this.spriteMedia + 10);
-      this.surface.method_241(this.spriteMedia + 10, 0, 0, 512, 200);
+      this.surface.drawSprite(this.spriteMedia + 10, 0, 0, 512, 200);
       this.surface.drawWorld(this.spriteMedia + 10);
    }
 
@@ -2447,78 +2447,78 @@ public class mudclient extends GameApplet {
       }
 
       if(this.loginScreen == 0) {
-         this.field_342.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
-         if(this.field_342.method_276(this.field_343)) {
+         this.panelLoginWelcome.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
+         if(this.panelLoginWelcome.method_276(this.field_343)) {
             this.loginScreen = 1;
-            this.field_345.updateText(this.field_349, "");
-            this.field_345.updateText(this.field_350, "");
-            this.field_345.updateText(this.field_351, "");
-            this.field_345.method_311(this.field_349);
-            this.field_345.method_314(this.field_352, 0);
-            this.field_345.updateText(this.field_346, "To create an account please enter all the requested details");
+            this.panelLoginNewuser.updateText(this.field_349, "");
+            this.panelLoginNewuser.updateText(this.field_350, "");
+            this.panelLoginNewuser.updateText(this.field_351, "");
+            this.panelLoginNewuser.setFocus(this.field_349);
+            this.panelLoginNewuser.method_314(this.field_352, 0);
+            this.panelLoginNewuser.updateText(this.field_346, "To create an account please enter all the requested details");
          }
 
-         if(this.field_342.method_276(this.field_344)) {
+         if(this.panelLoginWelcome.method_276(this.field_344)) {
             this.loginScreen = 2;
-            this.field_353.updateText(this.field_354, "Please enter your username and password");
-            this.field_353.updateText(this.field_355, "");
-            this.field_353.updateText(this.field_356, "");
-            this.field_353.method_311(this.field_355);
+            this.panelLoginExistingUser.updateText(this.field_354, "Please enter your username and password");
+            this.panelLoginExistingUser.updateText(this.field_355, "");
+            this.panelLoginExistingUser.updateText(this.field_356, "");
+            this.panelLoginExistingUser.setFocus(this.field_355);
             return;
          }
       } else {
          String userName;
          String password;
          if(this.loginScreen == 1) {
-            this.field_345.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
-            if(this.field_345.method_276(this.field_349)) {
-               this.field_345.method_311(this.field_350);
+            this.panelLoginNewuser.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
+            if(this.panelLoginNewuser.method_276(this.field_349)) {
+               this.panelLoginNewuser.setFocus(this.field_350);
             }
 
-            if(this.field_345.method_276(this.field_350)) {
-               this.field_345.method_311(this.field_351);
+            if(this.panelLoginNewuser.method_276(this.field_350)) {
+               this.panelLoginNewuser.setFocus(this.field_351);
             }
 
-            if(this.field_345.method_276(this.field_351)) {
-               this.field_345.method_311(this.field_349);
+            if(this.panelLoginNewuser.method_276(this.field_351)) {
+               this.panelLoginNewuser.setFocus(this.field_349);
             }
 
-            if(this.field_345.method_276(this.field_347)) {
+            if(this.panelLoginNewuser.method_276(this.field_347)) {
                this.loginScreen = 0;
             }
 
-            if(this.field_345.method_276(this.field_348)) {
-               if(this.field_345.method_308(this.field_349) != null && this.field_345.method_308(this.field_349).length() != 0 && this.field_345.method_308(this.field_350) != null && this.field_345.method_308(this.field_350).length() != 0) {
-                  if(!this.field_345.method_308(this.field_350).equalsIgnoreCase(this.field_345.method_308(this.field_351))) {
-                     this.field_345.updateText(this.field_346, "@yel@The two passwords entered are not the same as each other!");
+            if(this.panelLoginNewuser.method_276(this.field_348)) {
+               if(this.panelLoginNewuser.method_308(this.field_349) != null && this.panelLoginNewuser.method_308(this.field_349).length() != 0 && this.panelLoginNewuser.method_308(this.field_350) != null && this.panelLoginNewuser.method_308(this.field_350).length() != 0) {
+                  if(!this.panelLoginNewuser.method_308(this.field_350).equalsIgnoreCase(this.panelLoginNewuser.method_308(this.field_351))) {
+                     this.panelLoginNewuser.updateText(this.field_346, "@yel@The two passwords entered are not the same as each other!");
                      return;
                   }
 
-                  if(this.field_345.method_308(this.field_350).length() < 5) {
-                     this.field_345.updateText(this.field_346, "@yel@Your password must be at least 5 letters long");
+                  if(this.panelLoginNewuser.method_308(this.field_350).length() < 5) {
+                     this.panelLoginNewuser.updateText(this.field_346, "@yel@Your password must be at least 5 letters long");
                      return;
                   }
 
-                  if(this.field_345.method_308(this.field_350).trim().equalsIgnoreCase(this.field_345.method_308(this.field_349).trim())) {
-                     this.field_345.updateText(this.field_346, "@yel@Your password must not be the same as your username!");
+                  if(this.panelLoginNewuser.method_308(this.field_350).trim().equalsIgnoreCase(this.panelLoginNewuser.method_308(this.field_349).trim())) {
+                     this.panelLoginNewuser.updateText(this.field_346, "@yel@Your password must not be the same as your username!");
                      return;
                   }
 
-                  if(this.field_345.method_312(this.field_352) == 0) {
-                     this.field_345.updateText(this.field_346, "@yel@You must agree to the terms+conditions to continue");
+                  if(this.panelLoginNewuser.method_312(this.field_352) == 0) {
+                     this.panelLoginNewuser.updateText(this.field_346, "@yel@You must agree to the terms+conditions to continue");
                      return;
                   }
 
-                  this.field_345.updateText(this.field_346, "Please wait... Creating new account");
-                  this.method_76();
+                  this.panelLoginNewuser.updateText(this.field_346, "Please wait... Creating new account");
+                  this.drawLoginScreens();
                   this.method_10();
-                  userName = this.field_345.method_308(this.field_349);
-                  password = this.field_345.method_308(this.field_350);
+                  userName = this.panelLoginNewuser.method_308(this.field_349);
+                  password = this.panelLoginNewuser.method_308(this.field_350);
                   this.registerAccount(userName, password);
                   return;
                }
 
-               this.field_345.updateText(this.field_346, "@yel@Please fill in ALL requested information to continue!");
+               this.panelLoginNewuser.updateText(this.field_346, "@yel@Please fill in ALL requested information to continue!");
                return;
             }
          } else {
@@ -2526,23 +2526,23 @@ public class mudclient extends GameApplet {
             String var5;
             ClientStream var10001;
             if(this.loginScreen == 2) {
-               this.field_353.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
-               if(this.field_353.method_276(this.field_358)) {
+               this.panelLoginExistingUser.method_275(super.mouseX, super.mouseY, super.lastMouseButtonDown, super.field_35);
+               if(this.panelLoginExistingUser.method_276(this.field_358)) {
                   this.loginScreen = 0;
                }
 
-               if(this.field_353.method_276(this.field_355)) {
-                  this.field_353.method_311(this.field_356);
+               if(this.panelLoginExistingUser.method_276(this.field_355)) {
+                  this.panelLoginExistingUser.setFocus(this.field_356);
                }
 
-               if(this.field_353.method_276(this.field_356) || this.field_353.method_276(this.field_357)) {
-                  this.username = this.field_353.method_308(this.field_355);
-                  this.password = this.field_353.method_308(this.field_356);
+               if(this.panelLoginExistingUser.method_276(this.field_356) || this.panelLoginExistingUser.method_276(this.field_357)) {
+                  this.username = this.panelLoginExistingUser.method_308(this.field_355);
+                  this.password = this.panelLoginExistingUser.method_308(this.field_356);
                   this.login(this.username, this.password, false);
                }
 
-               if(this.field_353.method_276(this.field_359)) {
-                  this.username = this.field_353.method_308(this.field_355);
+               if(this.panelLoginExistingUser.method_276(this.field_359)) {
+                  this.username = this.panelLoginExistingUser.method_308(this.field_355);
                   this.username = Utility.method_453(this.username, 20);
                   if(this.username.trim().length() == 0) {
                      this.method_43("You must enter your username to recover your password", "");
@@ -2699,11 +2699,11 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: d (java.lang.String, java.lang.String) void
    public void method_43(String var1, String var2) {
       if(this.loginScreen == 1) {
-         this.field_345.updateText(this.field_346, var1 + " " + var2);
+         this.panelLoginNewuser.updateText(this.field_346, var1 + " " + var2);
       }
 
       if(this.loginScreen == 2) {
-         this.field_353.updateText(this.field_354, var1 + " " + var2);
+         this.panelLoginExistingUser.updateText(this.field_354, var1 + " " + var2);
       }
 
       if(this.loginScreen == 3) {
@@ -2712,7 +2712,7 @@ public class mudclient extends GameApplet {
       }
 
       this.loginUserDisp = var2;
-      this.method_76();
+      this.drawLoginScreens();
       this.method_10();
    }
 
@@ -2746,17 +2746,17 @@ public class mudclient extends GameApplet {
       this.loginScreen = 0;
       this.loggedIn = 1;
       this.method_62();
-      this.surface.method_223();
+      this.surface.blackScreen();
       this.surface.draw(this.graphics, 0, 0);
       int var1 = 0;
       if(var8 != 0) {
-         this.scene.freeModel(this.field_164[var1]);
+         this.scene.freeModel(this.objectModel[var1]);
          this.world.method_327(this.field_165[var1], this.field_166[var1], this.field_167[var1]);
          ++var1;
       }
 
       while(var1 < this.field_163) {
-         this.scene.freeModel(this.field_164[var1]);
+         this.scene.freeModel(this.objectModel[var1]);
          this.world.method_327(this.field_165[var1], this.field_166[var1], this.field_167[var1]);
          ++var1;
       }
@@ -2764,7 +2764,7 @@ public class mudclient extends GameApplet {
       int var2 = 0;
       if(var8 != 0 || var2 < this.field_172) {
          do {
-            this.scene.freeModel(this.field_173[var2]);
+            this.scene.freeModel(this.wallObjectModel[var2]);
             this.world.method_325(this.field_174[var2], this.field_175[var2], this.field_176[var2], this.field_177[var2]);
             ++var2;
          } while(var2 < this.field_172);
@@ -2796,19 +2796,19 @@ public class mudclient extends GameApplet {
       this.npcCount = 0;
       int var5 = 0;
       if(var8 != 0) {
-         this.field_152[var5] = null;
+         this.knownNPCs[var5] = null;
          ++var5;
       }
 
       while(var5 < this.field_148) {
-         this.field_152[var5] = null;
+         this.knownNPCs[var5] = null;
          ++var5;
       }
 
       int var6 = 0;
       if(var8 != 0 || var6 < this.field_149) {
          do {
-            this.field_153[var6] = null;
+            this.NPCs[var6] = null;
             ++var6;
          } while(var6 < this.field_149);
       }
@@ -2834,13 +2834,13 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: s () void
    public void newPlayerRegistrationLogin() {
-      String username = this.field_345.method_308(this.field_349);
-      String password = this.field_345.method_308(this.field_350);
+      String username = this.panelLoginNewuser.method_308(this.field_349);
+      String password = this.panelLoginNewuser.method_308(this.field_350);
       this.loginScreen = 2;
-      this.field_353.updateText(this.field_354, "Please enter your username and password");
-      this.field_353.updateText(this.field_355, username);
-      this.field_353.updateText(this.field_356, password);
-      this.method_76();
+      this.panelLoginExistingUser.updateText(this.field_354, "Please enter your username and password");
+      this.panelLoginExistingUser.updateText(this.field_355, username);
+      this.panelLoginExistingUser.updateText(this.field_356, password);
+      this.drawLoginScreens();
       this.method_10();
       this.login(username, password, false);
    }
@@ -3179,7 +3179,7 @@ public class mudclient extends GameApplet {
                do {
                   GameCharacter var11;
                   label642: {
-                     var11 = this.field_153[var10];
+                     var11 = this.NPCs[var10];
                      var14 = (var11.waypointCurrent + 1) % 10;
                      if(var11.movingStep != var14) {
                         byte var12;
@@ -3485,10 +3485,10 @@ public class mudclient extends GameApplet {
                   super.lastMouseButtonDown = 0;
                }
 
-               if(this.panelMessageTabs.method_276(this.field_242)) {
+               if(this.panelMessageTabs.method_276(this.controlTextListAll)) {
                   label544: {
-                     String var16 = this.panelMessageTabs.method_308(this.field_242);
-                     this.panelMessageTabs.updateText(this.field_242, "");
+                     String var16 = this.panelMessageTabs.method_308(this.controlTextListAll);
+                     this.panelMessageTabs.updateText(this.controlTextListAll, "");
                      if(var16.startsWith("::")) {
                         if(var16.equalsIgnoreCase("::lostcon") && !this.appletMode) {
                            super.clientStream.closeStream();
@@ -3725,7 +3725,7 @@ public class mudclient extends GameApplet {
                      var5 = this.field_165[var14];
                      var6 = this.field_166[var14];
                      if(var5 >= 0 && var6 >= 0 && var5 < 96 && var6 < 96 && this.field_167[var14] == 74) {
-                        this.field_164[var14].method_375(1, 0, 0);
+                        this.objectModel[var14].method_375(1, 0, 0);
                      }
 
                      ++var14;
@@ -3982,13 +3982,13 @@ public class mudclient extends GameApplet {
    // $FF: renamed from: a (int, int, int, int, int) c
    public GameCharacter method_82(int var1, int var2, int var3, int var4, int var5) {
       int var10 = GameData.field_563;
-      if(this.field_152[var1] == null) {
-         GameCharacter[] var10000 = this.field_152;
+      if(this.knownNPCs[var1] == null) {
+         GameCharacter[] var10000 = this.knownNPCs;
          var10000[var1] = new GameCharacter();
-         this.field_152[var1].pid = var1;
+         this.knownNPCs[var1].pid = var1;
       }
 
-      GameCharacter var6 = this.field_152[var1];
+      GameCharacter var6 = this.knownNPCs[var1];
       boolean var7 = false;
       int var8 = 0;
       if(var10 != 0 || var8 < this.field_151) {
@@ -4031,7 +4031,7 @@ public class mudclient extends GameApplet {
          var6.field_613 = 0;
       }
 
-      this.field_153[this.npcCount++] = var6;
+      this.NPCs[this.npcCount++] = var6;
       return var6;
    }
 
@@ -4328,8 +4328,8 @@ public class mudclient extends GameApplet {
                               reuseableVar1 = (this.field_166[pid] >> 3) - userForIdx;
                               if(var9 != 0 || reuseableVar1 != 0) {
                                  if(pid != newIndex) {
-                                    this.field_164[newIndex] = this.field_164[pid];
-                                    this.field_164[newIndex].field_883 = newIndex;
+                                    this.objectModel[newIndex] = this.objectModel[pid];
+                                    this.objectModel[newIndex].field_883 = newIndex;
                                     this.field_165[newIndex] = this.field_165[pid];
                                     this.field_166[newIndex] = this.field_166[pid];
                                     this.field_167[newIndex] = this.field_167[pid];
@@ -4342,7 +4342,7 @@ public class mudclient extends GameApplet {
                                  }
                               }
 
-                              this.scene.freeModel(this.field_164[pid]);
+                              this.scene.freeModel(this.objectModel[pid]);
                               this.world.method_327(this.field_165[pid], this.field_166[pid], this.field_167[pid]);
                            }
 
@@ -4366,8 +4366,8 @@ public class mudclient extends GameApplet {
                      label1704: {
                         if(this.field_165[var9] != updateIndex || this.field_166[var9] != userForIdx) {
                            if(var9 != pid) {
-                              this.field_164[pid] = this.field_164[var9];
-                              this.field_164[pid].field_883 = pid;
+                              this.objectModel[pid] = this.objectModel[var9];
+                              this.objectModel[pid].field_883 = pid;
                               this.field_165[pid] = this.field_165[var9];
                               this.field_166[pid] = this.field_166[var9];
                               this.field_167[pid] = this.field_167[var9];
@@ -4380,7 +4380,7 @@ public class mudclient extends GameApplet {
                            }
                         }
 
-                        this.scene.freeModel(this.field_164[var9]);
+                        this.scene.freeModel(this.objectModel[var9]);
                         this.world.method_327(this.field_165[var9], this.field_166[var9], this.field_167[var9]);
                      }
 
@@ -4390,8 +4390,8 @@ public class mudclient extends GameApplet {
                   for(; var9 < this.field_163; ++var9) {
                      if(this.field_165[var9] != updateIndex || this.field_166[var9] != userForIdx) {
                         if(var9 != pid) {
-                           this.field_164[pid] = this.field_164[var9];
-                           this.field_164[pid].field_883 = pid;
+                           this.objectModel[pid] = this.objectModel[var9];
+                           this.objectModel[pid].field_883 = pid;
                            this.field_165[pid] = this.field_165[var9];
                            this.field_166[pid] = this.field_166[var9];
                            this.field_167[pid] = this.field_167[var9];
@@ -4404,7 +4404,7 @@ public class mudclient extends GameApplet {
                         }
                      }
 
-                     this.scene.freeModel(this.field_164[var9]);
+                     this.scene.freeModel(this.objectModel[var9]);
                      this.world.method_327(this.field_165[var9], this.field_166[var9], this.field_167[var9]);
                   }
 
@@ -4442,7 +4442,7 @@ public class mudclient extends GameApplet {
                      this.field_166[this.field_163] = userForIdx;
                      this.field_167[this.field_163] = newIndex;
                      this.field_168[this.field_163] = reuseableVar1;
-                     this.field_164[this.field_163++] = var39;
+                     this.objectModel[this.field_163++] = var39;
                   }
                } while(updateSize < var2);
 
@@ -4705,8 +4705,8 @@ public class mudclient extends GameApplet {
                               reuseableVar1 = (this.field_175[pid] >> 3) - userForIdx;
                               if(var9 != 0 || reuseableVar1 != 0) {
                                  if(pid != newIndex) {
-                                    this.field_173[newIndex] = this.field_173[pid];
-                                    this.field_173[newIndex].field_883 = newIndex + 10000;
+                                    this.wallObjectModel[newIndex] = this.wallObjectModel[pid];
+                                    this.wallObjectModel[newIndex].field_883 = newIndex + 10000;
                                     this.field_174[newIndex] = this.field_174[pid];
                                     this.field_175[newIndex] = this.field_175[pid];
                                     this.field_176[newIndex] = this.field_176[pid];
@@ -4719,7 +4719,7 @@ public class mudclient extends GameApplet {
                                  }
                               }
 
-                              this.scene.freeModel(this.field_173[pid]);
+                              this.scene.freeModel(this.wallObjectModel[pid]);
                               this.world.method_325(this.field_174[pid], this.field_175[pid], this.field_176[pid], this.field_177[pid]);
                            }
 
@@ -4746,7 +4746,7 @@ public class mudclient extends GameApplet {
                      if(newIndex != '\uffff') {
                         this.world.method_324(updateIndex, userForIdx, var35, newIndex);
                         var37 = this.method_104(updateIndex, userForIdx, var35, newIndex, this.field_172);
-                        this.field_173[this.field_172] = var37;
+                        this.wallObjectModel[this.field_172] = var37;
                         this.field_174[this.field_172] = updateIndex;
                         this.field_175[this.field_172] = userForIdx;
                         this.field_177[this.field_172] = newIndex;
@@ -4757,8 +4757,8 @@ public class mudclient extends GameApplet {
                         label1706: {
                            if(this.field_174[reuseableVar1] != updateIndex || this.field_175[reuseableVar1] != userForIdx || this.field_176[reuseableVar1] != var35) {
                               if(reuseableVar1 != var9) {
-                                 this.field_173[var9] = this.field_173[reuseableVar1];
-                                 this.field_173[var9].field_883 = var9 + 10000;
+                                 this.wallObjectModel[var9] = this.wallObjectModel[reuseableVar1];
+                                 this.wallObjectModel[var9].field_883 = var9 + 10000;
                                  this.field_174[var9] = this.field_174[reuseableVar1];
                                  this.field_175[var9] = this.field_175[reuseableVar1];
                                  this.field_176[var9] = this.field_176[reuseableVar1];
@@ -4771,7 +4771,7 @@ public class mudclient extends GameApplet {
                               }
                            }
 
-                           this.scene.freeModel(this.field_173[reuseableVar1]);
+                           this.scene.freeModel(this.wallObjectModel[reuseableVar1]);
                            this.world.method_325(this.field_174[reuseableVar1], this.field_175[reuseableVar1], this.field_176[reuseableVar1], this.field_177[reuseableVar1]);
                         }
 
@@ -4782,7 +4782,7 @@ public class mudclient extends GameApplet {
                      if(newIndex != '\uffff') {
                         this.world.method_324(updateIndex, userForIdx, var35, newIndex);
                         var37 = this.method_104(updateIndex, userForIdx, var35, newIndex, this.field_172);
-                        this.field_173[this.field_172] = var37;
+                        this.wallObjectModel[this.field_172] = var37;
                         this.field_174[this.field_172] = updateIndex;
                         this.field_175[this.field_172] = userForIdx;
                         this.field_177[this.field_172] = newIndex;
@@ -4799,12 +4799,12 @@ public class mudclient extends GameApplet {
                this.npcCount = 0;
                updateSize = 0;
                if(var19 != 0) {
-                  this.field_154[updateSize] = this.field_153[updateSize];
+                  this.field_154[updateSize] = this.NPCs[updateSize];
                   ++updateSize;
                }
 
                while(updateSize < this.field_151) {
-                  this.field_154[updateSize] = this.field_153[updateSize];
+                  this.field_154[updateSize] = this.NPCs[updateSize];
                   ++updateSize;
                }
 
@@ -4902,7 +4902,7 @@ public class mudclient extends GameApplet {
                         }
                      }
 
-                     this.field_153[this.npcCount++] = mob;
+                     this.NPCs[this.npcCount++] = mob;
                   }
 
                   ++userForIdx;
@@ -4955,7 +4955,7 @@ public class mudclient extends GameApplet {
                   label987: {
                      userForIdx = Utility.readUnsignedShort(data, newIndex);
                      newIndex += 2;
-                     mob = this.field_152[userForIdx];
+                     mob = this.knownNPCs[userForIdx];
                      var9 = Utility.getUnsignedByte(data[newIndex]);
                      ++newIndex;
                      if(var9 == 1) { //update type
@@ -5151,8 +5151,8 @@ public class mudclient extends GameApplet {
                            j = (this.field_166[reuseableVar1] >> 3) - userForIdx;
                            if(i != 0 || j != 0) {
                               if(reuseableVar1 != pid) {
-                                 this.field_164[pid] = this.field_164[reuseableVar1];
-                                 this.field_164[pid].field_883 = pid;
+                                 this.objectModel[pid] = this.objectModel[reuseableVar1];
+                                 this.objectModel[pid].field_883 = pid;
                                  this.field_165[pid] = this.field_165[reuseableVar1];
                                  this.field_166[pid] = this.field_166[reuseableVar1];
                                  this.field_167[pid] = this.field_167[reuseableVar1];
@@ -5165,7 +5165,7 @@ public class mudclient extends GameApplet {
                               }
                            }
 
-                           this.scene.freeModel(this.field_164[reuseableVar1]);
+                           this.scene.freeModel(this.objectModel[reuseableVar1]);
                            this.world.method_327(this.field_165[reuseableVar1], this.field_166[reuseableVar1], this.field_167[reuseableVar1]);
                         }
 
@@ -5186,8 +5186,8 @@ public class mudclient extends GameApplet {
                            var13 = (this.field_175[i] >> 3) - userForIdx;
                            if(j != 0 || var13 != 0) {
                               if(i != pid) {
-                                 this.field_173[pid] = this.field_173[i];
-                                 this.field_173[pid].field_883 = pid + 10000;
+                                 this.wallObjectModel[pid] = this.wallObjectModel[i];
+                                 this.wallObjectModel[pid].field_883 = pid + 10000;
                                  this.field_174[pid] = this.field_174[i];
                                  this.field_175[pid] = this.field_175[i];
                                  this.field_176[pid] = this.field_176[i];
@@ -5200,7 +5200,7 @@ public class mudclient extends GameApplet {
                               }
                            }
 
-                           this.scene.freeModel(this.field_173[i]);
+                           this.scene.freeModel(this.wallObjectModel[i]);
                            this.world.method_325(this.field_174[i], this.field_175[i], this.field_176[i], this.field_177[i]);
                         }
 
@@ -6098,21 +6098,21 @@ public class mudclient extends GameApplet {
       } else if(this.world.playerAlive) {
          int var1 = 0;
          if(var15 != 0) {
-            this.scene.freeModel(this.world.gameModelArrayArray2[this.lastHeightOffset][var1]);
+            this.scene.freeModel(this.world.roofModels[this.lastHeightOffset][var1]);
             if(this.lastHeightOffset == 0) {
-               this.scene.freeModel(this.world.gameModelArrayArray1[1][var1]);
-               this.scene.freeModel(this.world.gameModelArrayArray2[1][var1]);
-               this.scene.freeModel(this.world.gameModelArrayArray1[2][var1]);
-               this.scene.freeModel(this.world.gameModelArrayArray2[2][var1]);
+               this.scene.freeModel(this.world.wallModels[1][var1]);
+               this.scene.freeModel(this.world.roofModels[1][var1]);
+               this.scene.freeModel(this.world.wallModels[2][var1]);
+               this.scene.freeModel(this.world.roofModels[2][var1]);
             }
             this.fogOfWar = true;
             if(this.lastHeightOffset == 0 && (this.world.objectTileDirections[this.localPlayer.currentX / 128][this.localPlayer.currentY / 128] & 128) == 0) {
-               this.scene.addModel(this.world.gameModelArrayArray2[this.lastHeightOffset][var1]);
+               this.scene.addModel(this.world.roofModels[this.lastHeightOffset][var1]);
                if(this.lastHeightOffset == 0) {
-                  this.scene.addModel(this.world.gameModelArrayArray1[1][var1]);
-                  this.scene.addModel(this.world.gameModelArrayArray2[1][var1]);
-                  this.scene.addModel(this.world.gameModelArrayArray1[2][var1]);
-                  this.scene.addModel(this.world.gameModelArrayArray2[2][var1]);
+                  this.scene.addModel(this.world.wallModels[1][var1]);
+                  this.scene.addModel(this.world.roofModels[1][var1]);
+                  this.scene.addModel(this.world.wallModels[2][var1]);
+                  this.scene.addModel(this.world.roofModels[2][var1]);
                }
 
                this.fogOfWar = false;
@@ -6122,22 +6122,22 @@ public class mudclient extends GameApplet {
          }
 
 				 for (; var1 < 64; ++var1) {
-					 this.scene.freeModel(this.world.gameModelArrayArray2[this.lastHeightOffset][var1]);
+					 this.scene.freeModel(this.world.roofModels[this.lastHeightOffset][var1]);
 					 if (this.lastHeightOffset == 0) {
-						 this.scene.freeModel(this.world.gameModelArrayArray1[1][var1]);
-						 this.scene.freeModel(this.world.gameModelArrayArray2[1][var1]);
-						 this.scene.freeModel(this.world.gameModelArrayArray1[2][var1]);
-						 this.scene.freeModel(this.world.gameModelArrayArray2[2][var1]);
+						 this.scene.freeModel(this.world.wallModels[1][var1]);
+						 this.scene.freeModel(this.world.roofModels[1][var1]);
+						 this.scene.freeModel(this.world.wallModels[2][var1]);
+						 this.scene.freeModel(this.world.roofModels[2][var1]);
 					 }
 
 					 this.fogOfWar = true;
 					 if (this.lastHeightOffset == 0 && (this.world.objectTileDirections[this.localPlayer.currentX / 128][this.localPlayer.currentY / 128] & 128) == 0) {
-						 this.scene.addModel(this.world.gameModelArrayArray2[this.lastHeightOffset][var1]);
+						 this.scene.addModel(this.world.roofModels[this.lastHeightOffset][var1]);
 						 if (this.lastHeightOffset == 0) {
-							 this.scene.addModel(this.world.gameModelArrayArray1[1][var1]);
-							 this.scene.addModel(this.world.gameModelArrayArray2[1][var1]);
-							 this.scene.addModel(this.world.gameModelArrayArray1[2][var1]);
-							 this.scene.addModel(this.world.gameModelArrayArray2[2][var1]);
+							 this.scene.addModel(this.world.wallModels[1][var1]);
+							 this.scene.addModel(this.world.roofModels[1][var1]);
+							 this.scene.addModel(this.world.wallModels[2][var1]);
+							 this.scene.addModel(this.world.roofModels[2][var1]);
 						 }
 
 						 this.fogOfWar = false;
@@ -6271,7 +6271,7 @@ public class mudclient extends GameApplet {
                if(var17.field_637 > 0) {
                   var18 = null;
                   if(var17.field_636 != -1) {
-                     var18 = this.field_152[var17.field_636];
+                     var18 = this.knownNPCs[var17.field_636];
                   } else if(var17.field_635 != -1) {
                      var18 = this.knownPlayers[var17.field_635];
                   }
@@ -6297,7 +6297,7 @@ public class mudclient extends GameApplet {
 
          var4 = 0;
          if(var15 != 0) {
-            var18 = this.field_153[var4];
+            var18 = this.NPCs[var4];
             var6 = var18.currentX;
             var7 = var18.currentY;
             var8 = -this.world.getElevation(var6, var7);
@@ -6315,7 +6315,7 @@ public class mudclient extends GameApplet {
          }
 
          for(; var4 < this.npcCount; ++var4) {
-            var18 = this.field_153[var4];
+            var18 = this.NPCs[var4];
             var6 = var18.currentX;
             var7 = var18.currentY;
             var8 = -this.world.getElevation(var6, var7);
@@ -6375,7 +6375,7 @@ public class mudclient extends GameApplet {
          }
 
          this.surface.interlace = false;
-         this.surface.method_223();
+         this.surface.blackScreen();
          this.surface.interlace = super.field_39;
          if(this.lastHeightOffset == 3) {
             var7 = 40 + (int)(Math.random() * 3.0D);
@@ -6404,7 +6404,7 @@ public class mudclient extends GameApplet {
                this.field_135 = this.field_133 * 32;
                var7 = this.cameraAutoRotatePlayerY + this.field_85;
                var8 = this.cameraAutoRotatePlayerX + this.field_87;
-               this.scene.method_199(var7, -this.world.getElevation(var7, var8), var8, 912, this.field_135 * 4, 0, 2000);
+               this.scene.setCamera(var7, -this.world.getElevation(var7, var8), var8, 912, this.field_135 * 4, 0, 2000);
                if(var15 == 0) {
                   break label434;
                }
@@ -6433,7 +6433,7 @@ public class mudclient extends GameApplet {
 
             var7 = this.cameraAutoRotatePlayerY + this.field_85;
             var8 = this.cameraAutoRotatePlayerX + this.field_87;
-            this.scene.method_199(var7, -this.world.getElevation(var7, var8), var8, 912, this.field_135 * 4, 0, this.cameraZoom * 2);
+            this.scene.setCamera(var7, -this.world.getElevation(var7, var8), var8, 912, this.field_135 * 4, 0, this.cameraZoom * 2);
          }
 
          this.scene.render();
@@ -6505,9 +6505,9 @@ public class mudclient extends GameApplet {
          }
 
          Panel.field_806 = 2;
-         this.panelMessageTabs.method_278();
+         this.panelMessageTabs.drawPanel();
          Panel.field_806 = 0;
-         this.surface.method_244(this.surface.field_723 - 3 - 197, 3, this.spriteMedia, 128);
+         this.surface.drawSpriteAlpha(this.surface.field_723 - 3 - 197, 3, this.spriteMedia, 128);
          this.method_105();
          this.surface.loggedIn = false;
          this.drawChatMessageTabs();
@@ -6523,14 +6523,14 @@ public class mudclient extends GameApplet {
       int var6 = var4 - this.localPlayer.currentY / 128;
       byte var7 = 7;
       if(var3 >= 0 && var4 >= 0 && var3 < 96 && var4 < 96 && var5 > -var7 && var5 < var7 && var6 > -var7 && var6 < var7) {
-         this.scene.freeModel(this.field_164[var1]);
+         this.scene.freeModel(this.objectModel[var1]);
          int var8 = GameData.getModelIndex(var2);
          GameModel var9 = this.gameModels[var8].method_390();
          this.scene.addModel(var9);
          var9.setLight(true, 48, 48, -50, -10, -50);
-         var9.method_392(this.field_164[var1]);
+         var9.method_392(this.objectModel[var1]);
          var9.field_883 = var1;
-         this.field_164[var1] = var9;
+         this.objectModel[var1] = var9;
       }
 
    }
@@ -6614,7 +6614,7 @@ public class mudclient extends GameApplet {
       int var23;
       label172: {
          var23 = GameData.field_563;
-         var8 = this.field_153[var5];
+         var8 = this.NPCs[var5];
          var9 = var8.animationCurrent + (this.field_135 + 16) / 32 & 7;
          var10 = false;
          var11 = var9;
@@ -7514,7 +7514,7 @@ public class mudclient extends GameApplet {
                var10 = this.field_165[var9];
                var11 = this.field_166[var9];
                var12 = this.field_167[var9];
-               var13 = this.field_164[var9];
+               var13 = this.objectModel[var9];
 
                try {
                   label200: {
@@ -7556,7 +7556,7 @@ public class mudclient extends GameApplet {
                var10 = this.field_165[var9];
                var11 = this.field_166[var9];
                var12 = this.field_167[var9];
-               var13 = this.field_164[var9];
+               var13 = this.objectModel[var9];
 
                try {
                   label205: {
@@ -7604,7 +7604,7 @@ public class mudclient extends GameApplet {
                   try {
                      this.world.method_324(var11, var12, var14, var23);
                      GameModel var26 = this.method_104(var11, var12, var14, var23, var10);
-                     this.field_173[var10] = var26;
+                     this.wallObjectModel[var10] = var26;
                   } catch (RuntimeException var20) {
                      System.out.println("Bound Error: " + var20.getMessage()); // authentic System.out.println
                      var20.printStackTrace();
@@ -7655,7 +7655,7 @@ public class mudclient extends GameApplet {
                return true;
             } else {
                do {
-                  GameCharacter var25 = this.field_153[var23];
+                  GameCharacter var25 = this.NPCs[var23];
                   var25.currentX -= var7 * this.magicLoc;
                   var25.currentY -= var8 * this.magicLoc;
                   var15 = 0;
@@ -10590,7 +10590,7 @@ public class mudclient extends GameApplet {
       int var14 = 0;
       if(var19 != 0 || var14 < this.npcCount) {
          do {
-            GameCharacter var15 = this.field_153[var14];
+            GameCharacter var15 = this.NPCs[var14];
             var7 = (var15.currentX - this.localPlayer.currentX) * 3 * var5 / 2048;
             var8 = (var15.currentY - this.localPlayer.currentY) * 3 * var5 / 2048;
             var11 = var8 * var9 + var7 * var10 >> 18;
@@ -10824,7 +10824,7 @@ public class mudclient extends GameApplet {
             } while(var16 < this.field_212);
          }
 
-         this.panelQuestList.method_278();
+         this.panelQuestList.drawPanel();
       }
 
       if(var1) {
@@ -10925,7 +10925,7 @@ public class mudclient extends GameApplet {
                } while(var9 < GameData.field_542);
             }
 
-            this.panelMagic.method_278();
+            this.panelMagic.drawPanel();
             var18 = this.panelMagic.method_313(this.controlListMagic);
             if(var18 != -1) {
                this.surface.drawString("Level " + GameData.field_545[var18] + ": " + GameData.field_543[var18], var2 + 2, var3 + 124, 1, 16776960);
@@ -10977,7 +10977,7 @@ public class mudclient extends GameApplet {
                } while(var9 < GameData.field_550);
             }
 
-            this.panelMagic.method_278();
+            this.panelMagic.drawPanel();
             var18 = this.panelMagic.method_313(this.controlListMagic);
             if(var18 != -1) {
                this.surface.drawstringCenter("Level " + GameData.field_553[var18] + ": " + GameData.field_551[var18], var2 + var4 / 2, var3 + 130, 1, 16776960);
@@ -11171,7 +11171,7 @@ public class mudclient extends GameApplet {
          }
       }
 
-      this.panelSocialList.method_278();
+      this.panelSocialList.drawPanel();
       int var12;
       if(this.field_207 == 0) {
          label171: {
@@ -11786,7 +11786,7 @@ public class mudclient extends GameApplet {
 
                      var13 = "";
                      var14 = -1;
-                     int var15 = this.field_153[var11].field_612;
+                     int var15 = this.NPCs[var11].field_612;
                      if(GameData.field_493[var15] > 0) {
                         int var16 = (GameData.field_489[var15] + GameData.field_492[var15] + GameData.field_490[var15] + GameData.field_491[var15]) / 4;
                         int var17 = (this.playerStatBase[0] + this.playerStatBase[1] + this.playerStatBase[2] + this.playerStatBase[3] + 27) / 4;
@@ -11833,11 +11833,11 @@ public class mudclient extends GameApplet {
                         }
 
                         this.field_228[this.field_225] = "Cast " + GameData.field_543[this.field_204] + " on";
-                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.field_153[var11].field_612];
+                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
                         this.field_229[this.field_225] = 700;
-                        this.field_230[this.field_225] = this.field_153[var11].currentX;
-                        this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].pid;
+                        this.field_230[this.field_225] = this.NPCs[var11].currentX;
+                        this.field_231[this.field_225] = this.NPCs[var11].currentY;
+                        this.field_232[this.field_225] = this.NPCs[var11].pid;
                         this.field_233[this.field_225] = this.field_204;
                         ++this.field_225;
                         if(var18 == 0) {
@@ -11847,11 +11847,11 @@ public class mudclient extends GameApplet {
 
                      if(this.field_185 >= 0) {
                         this.field_228[this.field_225] = "Use " + this.field_186 + " with";
-                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.field_153[var11].field_612];
+                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
                         this.field_229[this.field_225] = 710;
-                        this.field_230[this.field_225] = this.field_153[var11].currentX;
-                        this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].pid;
+                        this.field_230[this.field_225] = this.NPCs[var11].currentX;
+                        this.field_231[this.field_225] = this.NPCs[var11].currentY;
+                        this.field_232[this.field_225] = this.NPCs[var11].pid;
                         this.field_233[this.field_225] = this.field_185;
                         ++this.field_225;
                         if(var18 == 0) {
@@ -11862,7 +11862,7 @@ public class mudclient extends GameApplet {
                      if(GameData.field_493[var15] > 0) {
                         label221: {
                            this.field_228[this.field_225] = "Attack";
-                           this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.field_153[var11].field_612] + var13;
+                           this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612] + var13;
                            if(var14 >= 0) {
                               this.field_229[this.field_225] = 715;
                               if(var18 == 0) {
@@ -11873,33 +11873,33 @@ public class mudclient extends GameApplet {
                            this.field_229[this.field_225] = 2715;
                         }
 
-                        this.field_230[this.field_225] = this.field_153[var11].currentX;
-                        this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].pid;
+                        this.field_230[this.field_225] = this.NPCs[var11].currentX;
+                        this.field_231[this.field_225] = this.NPCs[var11].currentY;
+                        this.field_232[this.field_225] = this.NPCs[var11].pid;
                         ++this.field_225;
                      }
 
                      this.field_228[this.field_225] = "Talk-to";
-                     this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.field_153[var11].field_612];
+                     this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
                      this.field_229[this.field_225] = 720;
-                     this.field_230[this.field_225] = this.field_153[var11].currentX;
-                     this.field_231[this.field_225] = this.field_153[var11].currentY;
-                     this.field_232[this.field_225] = this.field_153[var11].pid;
+                     this.field_230[this.field_225] = this.NPCs[var11].currentX;
+                     this.field_231[this.field_225] = this.NPCs[var11].currentY;
+                     this.field_232[this.field_225] = this.NPCs[var11].pid;
                      ++this.field_225;
                      if(!GameData.field_488[var15].equals("")) {
                         this.field_228[this.field_225] = GameData.field_488[var15];
-                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.field_153[var11].field_612];
+                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
                         this.field_229[this.field_225] = 725;
-                        this.field_230[this.field_225] = this.field_153[var11].currentX;
-                        this.field_231[this.field_225] = this.field_153[var11].currentY;
-                        this.field_232[this.field_225] = this.field_153[var11].pid;
+                        this.field_230[this.field_225] = this.NPCs[var11].currentX;
+                        this.field_231[this.field_225] = this.NPCs[var11].currentY;
+                        this.field_232[this.field_225] = this.NPCs[var11].pid;
                         ++this.field_225;
                      }
 
                      this.field_228[this.field_225] = "Examine";
-                     this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.field_153[var11].field_612];
+                     this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
                      this.field_229[this.field_225] = 3700;
-                     this.field_232[this.field_225] = this.field_153[var11].field_612;
+                     this.field_232[this.field_225] = this.NPCs[var11].field_612;
                      ++this.field_225;
                      if(var18 == 0) {
                         break label356;
@@ -12646,7 +12646,7 @@ public class mudclient extends GameApplet {
             ++var8;
          }
 
-         this.method_16(var3, "Unpacking " + var2);
+         this.showLoadingProgress(var3, "Unpacking " + var2);
          if(var6 != var5) {
             byte[] var9 = new byte[var5];
             class_18.method_397(var9, var5, var7, var6, 0);
@@ -12776,8 +12776,8 @@ public class mudclient extends GameApplet {
       this.localPlayerServerIndex = -1;
       this.field_148 = 5000;
       this.field_149 = 500;
-      this.field_152 = new GameCharacter[this.field_148];
-      this.field_153 = new GameCharacter[this.field_149];
+      this.knownNPCs = new GameCharacter[this.field_148];
+      this.NPCs = new GameCharacter[this.field_149];
       this.field_154 = new GameCharacter[this.field_149];
       this.knownPlayerIds = new int[500];
       this.field_156 = 5000;
@@ -12786,7 +12786,7 @@ public class mudclient extends GameApplet {
       this.groundItemId = new int[this.field_156];
       this.field_161 = new int[this.field_156];
       this.field_162 = 1500;
-      this.field_164 = new GameModel[this.field_162];
+      this.objectModel = new GameModel[this.field_162];
       this.field_165 = new int[this.field_162];
       this.field_166 = new int[this.field_162];
       this.field_167 = new int[this.field_162];
@@ -12794,7 +12794,7 @@ public class mudclient extends GameApplet {
       this.gameModels = new GameModel[1000];
       this.field_170 = new boolean[this.field_162];
       this.field_171 = 500;
-      this.field_173 = new GameModel[this.field_171];
+      this.wallObjectModel = new GameModel[this.field_171];
       this.field_174 = new int[this.field_171];
       this.field_175 = new int[this.field_171];
       this.field_176 = new int[this.field_171];

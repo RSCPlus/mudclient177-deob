@@ -66,9 +66,9 @@ public class World {
    // $FF: renamed from: C a.a.f[]
    GameModel[] terrainModels;
    // $FF: renamed from: D a.a.f[][]
-   GameModel[][] gameModelArrayArray1;
+   GameModel[][] wallModels;
    // $FF: renamed from: E a.a.f[][]
-   GameModel[][] gameModelArrayArray2;
+   GameModel[][] roofModels;
    // $FF: renamed from: F a.a.f
    GameModel parentModel;
 
@@ -100,8 +100,8 @@ public class World {
       this.terrainHeightLocal = new int[this.field_840][this.field_841];
       this.playerAlive = false;
       this.terrainModels = new GameModel[64];
-      this.gameModelArrayArray1 = new GameModel[4][64];
-      this.gameModelArrayArray2 = new GameModel[4][64];
+      this.wallModels = new GameModel[4][64];
+      this.roofModels = new GameModel[4][64];
       this.field_823 = var1;
       this.surface = var2;
       int var3 = 0;
@@ -1267,7 +1267,7 @@ public class World {
    public void reset() {
       int var4 = GameData.field_563;
       if(this.field_821) {
-         this.field_823.method_172();
+         this.field_823.dispose();
       }
 
       int var1 = 0;
@@ -1278,19 +1278,19 @@ public class World {
             this.terrainModels[var1] = null;
             int var2 = 0;
             if(var4 != 0) {
-               this.gameModelArrayArray1[var2][var1] = null;
+               this.wallModels[var2][var1] = null;
                ++var2;
             }
 
             while(var2 < 4) {
-               this.gameModelArrayArray1[var2][var1] = null;
+               this.wallModels[var2][var1] = null;
                ++var2;
             }
 
             int var3 = 0;
             if(var4 != 0 || var3 < 4) {
                do {
-                  this.gameModelArrayArray2[var3][var1] = null;
+                  this.roofModels[var3][var1] = null;
                   ++var3;
                } while(var3 < 4);
 
@@ -1418,7 +1418,7 @@ public class World {
       int var43;
       int var44;
       if(isLocalPlane) {
-         this.surface.method_223();
+         this.surface.blackScreen();
          var7 = 0;
          if(var40 != 0 || var7 < 96) {
             do {
@@ -1939,15 +1939,15 @@ public class World {
       }
 
       this.parentModel.setLight(false, 60, 24, -50, -10, -50);
-      this.gameModelArrayArray1[plane] = this.parentModel.split(0, 0, 1536, 1536, 8, 64, 338, true);
+      this.wallModels[plane] = this.parentModel.split(0, 0, 1536, 1536, 8, 64, 338, true);
       var9 = 0;
       if(var40 != 0) {
-         this.field_823.addModel(this.gameModelArrayArray1[plane][var9]);
+         this.field_823.addModel(this.wallModels[plane][var9]);
          ++var9;
       }
 
       while(var9 < 64) {
-         this.field_823.addModel(this.gameModelArrayArray1[plane][var9]);
+         this.field_823.addModel(this.wallModels[plane][var9]);
          ++var9;
       }
 
@@ -2441,19 +2441,19 @@ public class World {
       }
 
       this.parentModel.setLight(true, 50, 50, -50, -10, -50);
-      this.gameModelArrayArray2[plane] = this.parentModel.split(0, 0, 1536, 1536, 8, 64, 169, true);
+      this.roofModels[plane] = this.parentModel.split(0, 0, 1536, 1536, 8, 64, 169, true);
       var13 = 0;
       if(var40 != 0) {
-         this.field_823.addModel(this.gameModelArrayArray2[plane][var13]);
+         this.field_823.addModel(this.roofModels[plane][var13]);
          ++var13;
       }
 
       while(var13 < 64) {
-         this.field_823.addModel(this.gameModelArrayArray2[plane][var13]);
+         this.field_823.addModel(this.roofModels[plane][var13]);
          ++var13;
       }
 
-      if(this.gameModelArrayArray2[plane][0] == null) {
+      if(this.roofModels[plane][0] == null) {
          throw new RuntimeException("null roof!");
       } else {
          roof_nvs = 0;
@@ -2480,7 +2480,7 @@ public class World {
    }
 
    // $FF: renamed from: a (a.a.f[]) void
-   public void method_352(GameModel[] var1) {
+   public void addModels(GameModel[] var1) {
       int var14 = GameData.field_563;
       int var2 = 0;
       if(var14 != 0 || var2 < this.field_840 - 2) {

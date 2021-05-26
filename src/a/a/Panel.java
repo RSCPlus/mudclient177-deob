@@ -255,7 +255,7 @@ public class Panel {
    }
 
    // $FF: renamed from: a () void
-   public void method_278() {
+   public void drawPanel() {
       boolean var2 = Surface.field_759;
       int var1 = 0;
       if(!var2 && var1 >= this.field_762) {
@@ -456,7 +456,7 @@ public class Panel {
                   var5 += 128;
                } else {
                   do {
-                     this.field_761.method_244(var5, var6, 6 + baseSpriteStart, 128);
+                     this.field_761.drawSpriteAlpha(var5, var6, 6 + baseSpriteStart, 128);
                      var6 += 128;
                   } while(var6 < var2 + var4);
 
@@ -919,7 +919,7 @@ public class Panel {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, boolean) int
-   public int method_297(int var1, int var2, int var3, int var4, int var5, int var6, boolean var7) {
+   public int addTextList(int var1, int var2, int var3, int var4, int var5, int var6, boolean var7) {
       this.field_775[this.field_762] = 4;
       this.field_764[this.field_762] = true;
       this.field_767[this.field_762] = false;
@@ -937,7 +937,7 @@ public class Panel {
    }
 
    // $FF: renamed from: a (int, int, int, int, int, int, boolean, boolean) int
-   public int method_298(int var1, int var2, int var3, int var4, int var5, int var6, boolean var7, boolean var8) {
+   public int addTextListInput(int var1, int var2, int var3, int var4, int var5, int var6, boolean var7, boolean var8) {
       this.field_775[this.field_762] = 5;
       this.field_764[this.field_762] = true;
       this.field_766[this.field_762] = var7;
@@ -1077,7 +1077,7 @@ public class Panel {
    }
 
    // $FF: renamed from: h (int) void
-   public void method_311(int var1) {
+   public void setFocus(int var1) {
       this.field_786 = var1;
    }
 

@@ -624,7 +624,7 @@ public class GameShell extends Applet implements Runnable {
    }
 
    // $FF: renamed from: b (int, java.lang.String) void
-   public void method_16(int var1, String var2) {
+   public void showLoadingProgress(int var1, String var2) {
       try {
          int var3 = (this.field_1 - 281) / 2;
          int var4 = (this.field_2 - 148) / 2;
@@ -729,14 +729,14 @@ public class GameShell extends Applet implements Runnable {
       byte[] var6 = null;
 
       try {
-         this.method_16(var3, "Loading " + var2 + " - 0%");
+         this.showLoadingProgress(var3, "Loading " + var2 + " - 0%");
          InputStream var7 = Utility.method_443(var1);
          DataInputStream var8 = new DataInputStream(var7);
          byte[] var9 = new byte[6];
          var8.readFully(var9, 0, 6);
          var4 = ((var9[0] & 255) << 16) + ((var9[1] & 255) << 8) + (var9[2] & 255);
          var5 = ((var9[3] & 255) << 16) + ((var9[4] & 255) << 8) + (var9[5] & 255);
-         this.method_16(var3, "Loading " + var2 + " - 5%");
+         this.showLoadingProgress(var3, "Loading " + var2 + " - 5%");
          int var10 = 0;
          var6 = new byte[var5];
          if(Surface.field_759 || var10 < var5) {
@@ -748,7 +748,7 @@ public class GameShell extends Applet implements Runnable {
 
                var8.readFully(var6, var10, var11);
                var10 += var11;
-               this.method_16(var3, "Loading " + var2 + " - " + (5 + var10 * 95 / var5) + "%");
+               this.showLoadingProgress(var3, "Loading " + var2 + " - " + (5 + var10 * 95 / var5) + "%");
             } while(var10 < var5);
          }
 
@@ -757,7 +757,7 @@ public class GameShell extends Applet implements Runnable {
          ;
       }
 
-      this.method_16(var3, "Unpacking " + var2);
+      this.showLoadingProgress(var3, "Unpacking " + var2);
       if(var5 != var4) {
          byte[] var13 = new byte[var4];
          class_18.method_397(var13, var4, var6, var5, 0);

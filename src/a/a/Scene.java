@@ -207,7 +207,7 @@ public class Scene {
       this.surface = var1;
       this.clipX = var1.field_723 / 2;
       this.clipY = var1.field_724 / 2;
-      this.field_704 = var1.field_729;
+      this.field_704 = var1.pixels;
       this.modelCount = 0;
       this.maxModelCount = var2;
       this.models = new GameModel[this.maxModelCount];
@@ -315,7 +315,7 @@ public class Scene {
    }
 
    // $FF: renamed from: a () void
-   public void method_172() {
+   public void dispose() {
       this.method_173();
       int var1 = 0;
       if(Surface.field_759) {
@@ -3596,7 +3596,7 @@ public class Scene {
    }
 
    // $FF: renamed from: b (int, int, int, int, int, int, int) void
-   public void method_199(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+   public void setCamera(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
       var4 &= 1023;
       var5 &= 1023;
       var6 &= 1023;

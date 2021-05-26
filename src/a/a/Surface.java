@@ -27,7 +27,7 @@ public class Surface implements ImageProducer, ImageObserver {
    // $FF: renamed from: f java.awt.image.ColorModel
    ColorModel field_728;
    // $FF: renamed from: g int[]
-   public int[] field_729;
+   public int[] pixels;
    // $FF: renamed from: h java.awt.image.ImageConsumer
    ImageConsumer field_730;
    // $FF: renamed from: i java.awt.Component
@@ -100,7 +100,7 @@ public class Surface implements ImageProducer, ImageObserver {
       this.field_726 = this.field_723 = var1;
       this.field_727 = this.field_724 = var2;
       this.field_725 = var1 * var2;
-      this.field_729 = new int[var1 * var2];
+      this.pixels = new int[var1 * var2];
       this.spritePixels = new int[var3][];
       this.field_742 = new boolean[var3];
       this.spriteColoursUsed = new byte[var3][];
@@ -117,7 +117,7 @@ public class Surface implements ImageProducer, ImageObserver {
          int var6 = 0;
          if(field_759 || var6 < var5) {
             do {
-               this.field_729[var6] = 0;
+               this.pixels[var6] = 0;
                ++var6;
             } while(var6 < var5);
          }
@@ -163,7 +163,7 @@ public class Surface implements ImageProducer, ImageObserver {
    // $FF: renamed from: a () void
    public synchronized void method_219() {
       if(this.field_730 != null) {
-         this.field_730.setPixels(0, 0, this.field_723, this.field_724, this.field_728, this.field_729, 0, this.field_723);
+         this.field_730.setPixels(0, 0, this.field_723, this.field_724, this.field_728, this.pixels, 0, this.field_723);
          this.field_730.imageComplete(2);
       }
    }
@@ -207,7 +207,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: c () void
-   public void method_223() {
+   public void blackScreen() {
       boolean var5 = field_759;
       int var1 = this.field_723 * this.field_724;
       int var2;
@@ -218,12 +218,12 @@ public class Surface implements ImageProducer, ImageObserver {
             do {
                int var4 = -this.field_723;
                if(var5) {
-                  this.field_729[var2++] = 0;
+                  this.pixels[var2++] = 0;
                   ++var4;
                }
 
                while(var4 < 0) {
-                  this.field_729[var2++] = 0;
+                  this.pixels[var2++] = 0;
                   ++var4;
                }
 
@@ -236,7 +236,7 @@ public class Surface implements ImageProducer, ImageObserver {
          var2 = 0;
          if(var5 || var2 < var1) {
             do {
-               this.field_729[var2] = 0;
+               this.pixels[var2] = 0;
                ++var2;
             } while(var2 < var1);
 
@@ -290,11 +290,11 @@ public class Surface implements ImageProducer, ImageObserver {
                var16 += var15;
             } else {
                do {
-                  int var10 = (this.field_729[var21] >> 16 & 255) * var6;
-                  int var11 = (this.field_729[var21] >> 8 & 255) * var6;
-                  int var12 = (this.field_729[var21] & 255) * var6;
+                  int var10 = (this.pixels[var21] >> 16 & 255) * var6;
+                  int var11 = (this.pixels[var21] >> 8 & 255) * var6;
+                  int var12 = (this.pixels[var21] & 255) * var6;
                   int var23 = (var7 + var10 >> 8 << 16) + (var8 + var11 >> 8 << 8) + (var9 + var12 >> 8);
-                  this.field_729[var21++] = var23;
+                  this.pixels[var21++] = var23;
                   ++var22;
                } while(var22 <= var20);
 
@@ -351,11 +351,11 @@ public class Surface implements ImageProducer, ImageObserver {
                var17 += var15;
             } else {
                do {
-                  int var11 = (this.field_729[var16] >> 16 & 255) * var7;
-                  int var12 = (this.field_729[var16] >> 8 & 255) * var7;
-                  int var13 = (this.field_729[var16] & 255) * var7;
+                  int var11 = (this.pixels[var16] >> 16 & 255) * var7;
+                  int var12 = (this.pixels[var16] >> 8 & 255) * var7;
+                  int var13 = (this.pixels[var16] & 255) * var7;
                   int var19 = (var8 + var11 >> 8 << 16) + (var9 + var12 >> 8 << 8) + (var10 + var13 >> 8);
-                  this.field_729[var16++] = var19;
+                  this.pixels[var16++] = var19;
                   ++var18;
                } while(var18 < 0);
 
@@ -406,7 +406,7 @@ public class Surface implements ImageProducer, ImageObserver {
                   int var18 = -var3;
                   if(var19 || var18 < 0) {
                      do {
-                        this.field_729[var15++] = var17;
+                        this.pixels[var15++] = var17;
                         ++var18;
                      } while(var18 < 0);
                   }
@@ -464,12 +464,12 @@ public class Surface implements ImageProducer, ImageObserver {
          do {
             int var10 = -var3;
             if(var11) {
-               this.field_729[var8++] = var5;
+               this.pixels[var8++] = var5;
                ++var10;
             }
 
             while(var10 < 0) {
-               this.field_729[var8++] = var5;
+               this.pixels[var8++] = var5;
                ++var10;
             }
 
@@ -504,7 +504,7 @@ public class Surface implements ImageProducer, ImageObserver {
          int var6 = 0;
          if(field_759 || var6 < var3) {
             do {
-               this.field_729[var5 + var6] = var4;
+               this.pixels[var5 + var6] = var4;
                ++var6;
             } while(var6 < var3);
 
@@ -528,7 +528,7 @@ public class Surface implements ImageProducer, ImageObserver {
          int var6 = 0;
          if(field_759 || var6 < var3) {
             do {
-               this.field_729[var5 + var6 * this.field_723] = var4;
+               this.pixels[var5 + var6 * this.field_723] = var4;
                ++var6;
             } while(var6 < var3);
 
@@ -539,7 +539,7 @@ public class Surface implements ImageProducer, ImageObserver {
    // $FF: renamed from: a (int, int, int) void
    public void setPixel(int var1, int var2, int var3) {
       if(var1 >= this.field_745 && var2 >= this.field_743 && var1 < this.field_746 && var2 < this.field_744) {
-         this.field_729[var1 + var2 * this.field_723] = var3;
+         this.pixels[var1 + var2 * this.field_723] = var3;
       }
    }
 
@@ -549,8 +549,8 @@ public class Surface implements ImageProducer, ImageObserver {
       int var2 = 0;
       if(field_759 || var2 < var3) {
          do {
-            int var1 = this.field_729[var2] & 16777215;
-            this.field_729[var2] = (var1 >>> 1 & 8355711) + (var1 >>> 2 & 4144959) + (var1 >>> 3 & 2039583) + (var1 >>> 4 & 986895);
+            int var1 = this.pixels[var2] & 16777215;
+            this.pixels[var2] = (var1 >>> 1 & 8355711) + (var1 >>> 2 & 4144959) + (var1 >>> 3 & 2039583) + (var1 >>> 4 & 986895);
             ++var2;
          } while(var2 < var3);
 
@@ -558,7 +558,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: c (int, int, int, int, int, int) void
-   public void method_233(int var1, int var2, int var3, int var4, int var5, int var6) {
+   public void drawLineAlpha(int var1, int var2, int var3, int var4, int var5, int var6) {
       boolean var16 = field_759;
       int var7 = var3;
       if(var16 || var3 < var3 + var5) {
@@ -574,7 +574,7 @@ public class Surface implements ImageProducer, ImageObserver {
                   int var12 = 0;
                   int var13 = var7 - var1;
                   if(!var16 && var13 > var7 + var1) {
-                     this.field_729[var7 + this.field_723 * var8] = (var9 / var12 << 16) + (var10 / var12 << 8) + var11 / var12;
+                     this.pixels[var7 + this.field_723 * var8] = (var9 / var12 << 16) + (var10 / var12 << 8) + var11 / var12;
                      ++var8;
                   } else {
                      do {
@@ -583,7 +583,7 @@ public class Surface implements ImageProducer, ImageObserver {
                            if(var16 || var14 <= var8 + var2) {
                               do {
                                  if(var14 >= 0 && var14 < this.field_724) {
-                                    int var15 = this.field_729[var13 + this.field_723 * var14];
+                                    int var15 = this.pixels[var13 + this.field_723 * var14];
                                     var9 += var15 >> 16 & 255;
                                     var10 += var15 >> 8 & 255;
                                     var11 += var15 & 255;
@@ -598,7 +598,7 @@ public class Surface implements ImageProducer, ImageObserver {
                         ++var13;
                      } while(var13 <= var7 + var1);
 
-                     this.field_729[var7 + this.field_723 * var8] = (var9 / var12 << 16) + (var10 / var12 << 8) + var11 / var12;
+                     this.pixels[var7 + this.field_723 * var8] = (var9 / var12 << 16) + (var10 / var12 << 8) + var11 / var12;
                      ++var8;
                   }
                } while(var8 < var4 + var6);
@@ -616,7 +616,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: e () void
-   public void method_235() {
+   public void clear() {
       int var1 = 0;
       if(field_759 || var1 < this.spritePixels.length) {
          do {
@@ -963,7 +963,7 @@ public class Surface implements ImageProducer, ImageObserver {
                ++var8;
             } else {
                do {
-                  this.spritePixels[var1][var7++] = this.field_729[var8 + var9 * this.field_723];
+                  this.spritePixels[var1][var7++] = this.pixels[var8 + var9 * this.field_723];
                   ++var9;
                } while(var9 < var3 + var5);
 
@@ -975,7 +975,7 @@ public class Surface implements ImageProducer, ImageObserver {
    }
 
    // $FF: renamed from: e (int, int, int, int, int) void
-   public void method_241(int var1, int var2, int var3, int var4, int var5) {
+   public void drawSprite(int var1, int var2, int var3, int var4, int var5) {
       boolean var10 = field_759;
       this.field_736[var1] = var4;
       this.field_737[var1] = var5;
@@ -995,7 +995,7 @@ public class Surface implements ImageProducer, ImageObserver {
                ++var8;
             } else {
                do {
-                  this.spritePixels[var1][var7++] = this.field_729[var9 + var8 * this.field_723];
+                  this.spritePixels[var1][var7++] = this.pixels[var9 + var8 * this.field_723];
                   ++var9;
                } while(var9 < var2 + var4);
 
@@ -1062,9 +1062,9 @@ public class Surface implements ImageProducer, ImageObserver {
          }
 
          if(this.spritePixels[var3] == null) {
-            this.method_248(this.field_729, this.spriteColoursUsed[var3], this.spriteColourList[var3], var5, var4, var7, var6, var8, var9, var11);
+            this.method_248(this.pixels, this.spriteColoursUsed[var3], this.spriteColourList[var3], var5, var4, var7, var6, var8, var9, var11);
          } else {
-            this.method_247(this.field_729, this.spritePixels[var3], 0, var5, var4, var7, var6, var8, var9, var11);
+            this.method_247(this.pixels, this.spritePixels[var3], 0, var5, var4, var7, var6, var8, var9, var11);
          }
       }
    }
@@ -1140,14 +1140,14 @@ public class Surface implements ImageProducer, ImageObserver {
             }
          }
 
-         this.method_249(this.field_729, this.spritePixels[var5], 0, var8, var9, var12, var13, var3, var4, var10, var11, var6, var16);
+         this.method_249(this.pixels, this.spritePixels[var5], 0, var8, var9, var12, var13, var3, var4, var10, var11, var6, var16);
       } catch (Exception var15) {
          System.out.println("error in sprite clipping routine"); // authentic System.out.println
       }
    }
 
    // $FF: renamed from: d (int, int, int, int) void
-   public void method_244(int var1, int var2, int var3, int var4) {
+   public void drawSpriteAlpha(int var1, int var2, int var3, int var4) {
       if(this.field_742[var3]) {
          var1 += this.field_738[var3];
          var2 += this.field_739[var3];
@@ -1202,9 +1202,9 @@ public class Surface implements ImageProducer, ImageObserver {
          }
 
          if(this.spritePixels[var3] == null) {
-            this.method_251(this.field_729, this.spriteColoursUsed[var3], this.spriteColourList[var3], var6, var5, var8, var7, var9, var10, var12, var4);
+            this.method_251(this.pixels, this.spriteColoursUsed[var3], this.spriteColourList[var3], var6, var5, var8, var7, var9, var10, var12, var4);
          } else {
-            this.method_250(this.field_729, this.spritePixels[var3], 0, var6, var5, var8, var7, var9, var10, var12, var4);
+            this.method_250(this.pixels, this.spritePixels[var3], 0, var6, var5, var8, var7, var9, var10, var12, var4);
          }
       }
    }
@@ -1280,7 +1280,7 @@ public class Surface implements ImageProducer, ImageObserver {
             }
          }
 
-         this.method_252(this.field_729, this.spritePixels[var5], 0, var9, var10, var13, var14, var3, var4, var11, var12, var7, var17, var6);
+         this.method_252(this.pixels, this.spritePixels[var5], 0, var9, var10, var13, var14, var3, var4, var11, var12, var7, var17, var6);
       } catch (Exception var16) {
          System.out.println("error in sprite clipping routine"); // authentic System.out.println
       }
@@ -1357,7 +1357,7 @@ public class Surface implements ImageProducer, ImageObserver {
             }
          }
 
-         this.method_253(this.field_729, this.spritePixels[var5], 0, var9, var10, var13, var14, var3, var4, var11, var12, var7, var17, var6);
+         this.method_253(this.pixels, this.spritePixels[var5], 0, var9, var10, var13, var14, var3, var4, var11, var12, var7, var17, var6);
       } catch (Exception var16) {
          System.out.println("error in sprite clipping routine"); // authentic System.out.println
       }
@@ -2269,13 +2269,13 @@ public class Surface implements ImageProducer, ImageObserver {
                if(!this.interlace || (var45 & 1) == 0) {
                   label319: {
                      if(!this.field_742[var3]) {
-                        this.method_255(this.field_729, var44, 0, var43 + var46, var48, var50, var49, var51, var46 - var47, var37);
+                        this.method_255(this.pixels, var44, 0, var43 + var46, var48, var50, var49, var51, var46 - var47, var37);
                         if(!var52) {
                            break label319;
                         }
                      }
 
-                     this.method_256(this.field_729, var44, 0, var43 + var46, var48, var50, var49, var51, var46 - var47, var37);
+                     this.method_256(this.pixels, var44, 0, var43 + var46, var48, var50, var49, var51, var46 - var47, var37);
                   }
                }
 
@@ -2293,7 +2293,7 @@ public class Surface implements ImageProducer, ImageObserver {
       var3 = var9;
       if(field_759 || var9 < 0) {
          do {
-            this.field_729[var4++] = var2[(var5 >> 17) + (var6 >> 17) * var10];
+            this.pixels[var4++] = var2[(var5 >> 17) + (var6 >> 17) * var10];
             var5 += var7;
             var6 += var8;
             ++var3;
@@ -2311,7 +2311,7 @@ public class Surface implements ImageProducer, ImageObserver {
             label16: {
                var3 = var2[(var5 >> 17) + (var6 >> 17) * var10];
                if(var3 != 0) {
-                  this.field_729[var4++] = var3;
+                  this.pixels[var4++] = var3;
                   if(!var12) {
                      break label16;
                   }
@@ -2404,25 +2404,25 @@ public class Surface implements ImageProducer, ImageObserver {
          if(var7 == 16777215) {
             if(this.spritePixels[var5] != null) {
                if(!var9) {
-                  this.method_259(this.field_729, this.spritePixels[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var14, var17, var19);
+                  this.method_259(this.pixels, this.spritePixels[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var14, var17, var19);
                } else {
-                  this.method_259(this.field_729, this.spritePixels[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var14, var17, var19);
+                  this.method_259(this.pixels, this.spritePixels[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var14, var17, var19);
                }
             } else if(!var9) {
-               this.method_261(this.field_729, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var14, var17, var19);
+               this.method_261(this.pixels, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var14, var17, var19);
             } else {
-               this.method_261(this.field_729, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var14, var17, var19);
+               this.method_261(this.pixels, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var14, var17, var19);
             }
          } else if(this.spritePixels[var5] != null) {
             if(!var9) {
-               this.method_260(this.field_729, this.spritePixels[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var7, var14, var17, var19);
+               this.method_260(this.pixels, this.spritePixels[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var7, var14, var17, var19);
             } else {
-               this.method_260(this.field_729, this.spritePixels[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var7, var14, var17, var19);
+               this.method_260(this.pixels, this.spritePixels[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var7, var14, var17, var19);
             }
          } else if(!var9) {
-            this.method_262(this.field_729, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var7, var14, var17, var19);
+            this.method_262(this.pixels, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, var12, var13, var18, var3, var4, var15, var16, var10, var6, var7, var14, var17, var19);
          } else {
-            this.method_262(this.field_729, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var7, var14, var17, var19);
+            this.method_262(this.pixels, this.spriteColoursUsed[var5], this.spriteColourList[var5], 0, (this.field_736[var5] << 16) - var12 - 1, var13, var18, var3, var4, -var15, var16, var10, var6, var7, var14, var17, var19);
          }
       } catch (Exception var23) {
          System.out.println("error in sprite clipping routine"); // authentic System.out.println
@@ -3028,7 +3028,7 @@ public class Surface implements ImageProducer, ImageObserver {
       }
 
       if(var8 > 0 && var9 > 0) {
-         this.method_269(this.field_729, var5, var4, var10, var11, var8, var9, var12, var13);
+         this.method_269(this.pixels, var5, var4, var10, var11, var8, var9, var12, var13);
       }
 
    }
