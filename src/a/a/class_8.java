@@ -1,10 +1,6 @@
 package a.a;
 
 import a.Utility;
-import a.a.GameModel;
-import a.a.class_2;
-import a.a.class_3;
-import a.a.class_9;
 
 // $FF: renamed from: a.a.j
 public class class_8 {
@@ -134,11 +130,11 @@ public class class_8 {
    // $FF: renamed from: bj int[]
    private static int[] field_702;
    // $FF: renamed from: bk a.a.g
-   class_9 field_703;
+   Surface field_703;
    // $FF: renamed from: bl int[]
    public int[] field_704;
    // $FF: renamed from: bm a.a.i[]
-   class_2[] field_705;
+   Scanline[] field_705;
    // $FF: renamed from: bn int
    int field_706;
    // $FF: renamed from: bo int
@@ -176,9 +172,9 @@ public class class_8 {
 
 
    // $FF: renamed from: <init> (a.a.g, int, int, int) void
-   public class_8(class_9 var1, int var2, int var3, int var4) {
+   public class_8(Surface var1, int var2, int var3, int var4) {
       super();
-      boolean var8 = class_9.field_759;
+      boolean var8 = Surface.field_759;
       this.field_641 = 50;
       this.field_642 = new int[this.field_641];
       this.field_643 = new int[this.field_641][256];
@@ -264,7 +260,7 @@ public class class_8 {
       int var7 = 0;
       if(!var8 && var7 >= 1024) {
          if(Utility.field_1009 != 0) {
-            class_9.field_759 = !var8;
+            Surface.field_759 = !var8;
          }
 
       } else {
@@ -275,7 +271,7 @@ public class class_8 {
          } while(var7 < 1024);
 
          if(Utility.field_1009 != 0) {
-            class_9.field_759 = !var8;
+            Surface.field_759 = !var8;
          }
 
       }
@@ -296,7 +292,7 @@ public class class_8 {
 
    // $FF: renamed from: b (a.a.f) void
    public void freeModel(GameModel var1) {
-      boolean var4 = class_9.field_759;
+      boolean var4 = Surface.field_759;
       int var2 = 0;
       if(var4 || var2 < this.field_676) {
          do {
@@ -322,7 +318,7 @@ public class class_8 {
    public void method_172() {
       this.method_173();
       int var1 = 0;
-      if(class_9.field_759) {
+      if(Surface.field_759) {
          this.field_678[var1] = null;
          ++var1;
       }
@@ -410,12 +406,12 @@ public class class_8 {
       this.field_667 = var2;
       this.field_663 = var5;
       this.field_668 = var6;
-      this.field_705 = new class_2[var4 + var2];
+      this.field_705 = new Scanline[var4 + var2];
       int var7 = 0;
-      if(class_9.field_759 || var7 < var4 + var2) {
+      if(Surface.field_759 || var7 < var4 + var2) {
          do {
-            class_2[] var10000 = this.field_705;
-            var10000[var7] = new class_2();
+            Scanline[] var10000 = this.field_705;
+            var10000[var7] = new Scanline();
             ++var7;
          } while(var7 < var4 + var2);
 
@@ -432,7 +428,7 @@ public class class_8 {
          var1[var6] = var1[var2];
          var1[var2] = var7;
          int var8 = var7.field_463;
-         if(class_9.field_759 || var4 < var5) {
+         if(Surface.field_759 || var4 < var5) {
             do {
                do {
                   --var5;
@@ -458,7 +454,7 @@ public class class_8 {
 
    // $FF: renamed from: a (int, a.a.h[], int) void
    public void method_184(int var1, class_3[] var2, int var3) {
-      boolean var11 = class_9.field_759;
+      boolean var11 = Surface.field_759;
       int var4 = 0;
       if(var11 || var4 <= var3) {
          do {
@@ -516,7 +512,7 @@ public class class_8 {
 
    // $FF: renamed from: b (a.a.h[], int, int) boolean
    public boolean method_185(class_3[] var1, int var2, int var3) {
-      boolean var9 = class_9.field_759;
+      boolean var9 = Surface.field_759;
 
       while(true) {
          class_3 var4 = var1[var2];
@@ -639,7 +635,7 @@ public class class_8 {
 
    // $FF: renamed from: f () void
    public void method_187() {
-      boolean var23 = class_9.field_759;
+      boolean var23 = Surface.field_759;
       this.field_714 = this.field_703.field_747;
       int var7 = this.field_664 * this.field_647 >> this.field_668;
       int var8 = this.field_665 * this.field_647 >> this.field_668;
@@ -965,7 +961,7 @@ public class class_8 {
                      var20 = var1.field_856[var28[1]] - var14;
                      var21 = var14 - var17 / 2;
                      int var22 = this.field_667 + var29 - var18;
-                     this.field_703.method_257(var21 + this.field_666, var22, var17, var18, this.field_683[var2], var20, (256 << this.field_668) / var16);
+                     this.field_703.spriteClipping(var21 + this.field_666, var22, var17, var18, this.field_683[var2], var20, (256 << this.field_668) / var16);
                      if(!this.field_656 || this.field_659 >= this.field_660) {
                         break label512;
                      }
@@ -1131,9 +1127,9 @@ public class class_8 {
 
    // $FF: renamed from: a (int, int, int, int, int, int[], int[], int[], a.a.f, int) void
    private void method_188(int var1, int var2, int var3, int var4, int var5, int[] var6, int[] var7, int[] var8, GameModel var9, int var10) {
-      class_2 var51;
+      Scanline var51;
       label575: {
-         boolean var50 = class_9.field_759;
+         boolean var50 = Surface.field_759;
          int var11;
          int var12;
          int var13;
@@ -1354,11 +1350,11 @@ public class class_8 {
                      var35 += var36;
                   }
 
-                  class_2 var40 = this.field_705[var3];
-                  var40.field_451 = var1;
-                  var40.field_452 = var2;
-                  var40.field_453 = var4;
-                  var40.field_454 = var39;
+                  Scanline var40 = this.field_705[var3];
+                  var40.startX = var1;
+                  var40.endX = var2;
+                  var40.startS = var4;
+                  var40.endS = var39;
                   ++var3;
                } while(var3 < this.field_707);
             }
@@ -1627,11 +1623,11 @@ public class class_8 {
                      var44 += var45;
                   }
 
-                  class_2 var49 = this.field_705[var3];
-                  var49.field_451 = var1;
-                  var49.field_452 = var2;
-                  var49.field_453 = var4;
-                  var49.field_454 = var48;
+                  Scanline var49 = this.field_705[var3];
+                  var49.startX = var1;
+                  var49.endX = var2;
+                  var49.startS = var4;
+                  var49.endS = var48;
                   ++var3;
                } while(var3 < this.field_707);
             }
@@ -1683,8 +1679,8 @@ public class class_8 {
          if(var50 || var3 < this.field_707) {
             do {
                var51 = this.field_705[var3];
-               var51.field_451 = 655360;
-               var51.field_452 = -655360;
+               var51.startX = 655360;
+               var51.endX = -655360;
                ++var3;
             } while(var3 < this.field_707);
          }
@@ -1693,7 +1689,7 @@ public class class_8 {
             var11 = var5 - 1;
             var12 = var7[0];
             var13 = var7[var11];
-            class_2 var52;
+            Scanline var52;
             if(var12 < var13) {
                var14 = var6[0] << 8;
                var15 = (var6[var11] - var6[0] << 8) / (var13 - var12);
@@ -1713,8 +1709,8 @@ public class class_8 {
                if(var50 || var12 <= var13) {
                   do {
                      var52 = this.field_705[var3];
-                     var52.field_451 = var52.field_452 = var14;
-                     var52.field_453 = var52.field_454 = var16;
+                     var52.startX = var52.endX = var14;
+                     var52.startS = var52.endS = var16;
                      var14 += var15;
                      var16 += var17;
                      ++var3;
@@ -1745,8 +1741,8 @@ public class class_8 {
                if(var50 || var13 <= var12) {
                   do {
                      var52 = this.field_705[var3];
-                     var52.field_451 = var52.field_452 = var14;
-                     var52.field_453 = var52.field_454 = var16;
+                     var52.startX = var52.endX = var14;
+                     var52.startS = var52.endS = var16;
                      var14 += var15;
                      var16 += var17;
                      ++var3;
@@ -1762,7 +1758,7 @@ public class class_8 {
                   var14 = var3 + 1;
                   var12 = var7[var3];
                   var13 = var7[var14];
-                  class_2 var53;
+                  Scanline var53;
                   if(var12 < var13) {
                      var15 = var6[var3] << 8;
                      var16 = (var6[var14] - var6[var3] << 8) / (var13 - var12);
@@ -1782,14 +1778,14 @@ public class class_8 {
                      if(var50 || var12 <= var13) {
                         do {
                            var53 = this.field_705[var19];
-                           if(var15 < var53.field_451) {
-                              var53.field_451 = var15;
-                              var53.field_453 = var17;
+                           if(var15 < var53.startX) {
+                              var53.startX = var15;
+                              var53.startS = var17;
                            }
 
-                           if(var15 > var53.field_452) {
-                              var53.field_452 = var15;
-                              var53.field_454 = var17;
+                           if(var15 > var53.endX) {
+                              var53.endX = var15;
+                              var53.endS = var17;
                            }
 
                            var15 += var16;
@@ -1822,14 +1818,14 @@ public class class_8 {
                      if(var50 || var13 <= var12) {
                         do {
                            var53 = this.field_705[var19];
-                           if(var15 < var53.field_451) {
-                              var53.field_451 = var15;
-                              var53.field_453 = var17;
+                           if(var15 < var53.startX) {
+                              var53.startX = var15;
+                              var53.startS = var17;
                            }
 
-                           if(var15 > var53.field_452) {
-                              var53.field_452 = var15;
-                              var53.field_454 = var17;
+                           if(var15 > var53.endX) {
+                              var53.endX = var15;
+                              var53.endS = var17;
                            }
 
                            var15 += var16;
@@ -1851,7 +1847,7 @@ public class class_8 {
 
       if(this.field_656 && this.field_659 < this.field_660 && this.field_658 >= this.field_706 && this.field_658 < this.field_707) {
          var51 = this.field_705[this.field_658];
-         if(this.field_657 >= var51.field_451 >> 8 && this.field_657 <= var51.field_452 >> 8 && var51.field_451 <= var51.field_452 && !var9.field_889 && var9.field_885[var10] == 0) {
+         if(this.field_657 >= var51.startX >> 8 && this.field_657 <= var51.endX >> 8 && var51.startX <= var51.endX && !var9.field_889 && var9.field_885[var10] == 0) {
             this.field_661[this.field_659] = var9;
             this.field_662[this.field_659] = var10;
             ++this.field_659;
@@ -1862,7 +1858,7 @@ public class class_8 {
 
    // $FF: renamed from: a (int, int, int, int[], int[], int[], int, a.a.f) void
    private void method_189(int var1, int var2, int var3, int[] var4, int[] var5, int[] var6, int var7, GameModel var8) {
-      boolean var39 = class_9.field_759;
+      boolean var39 = Surface.field_759;
       if(var7 != -2) {
          int var9;
          int var10;
@@ -1905,7 +1901,7 @@ public class class_8 {
             int var31;
             int var32;
             byte var33;
-            class_2 var34;
+            Scanline var34;
             int var35;
             int var36;
             int var37;
@@ -1953,8 +1949,8 @@ public class class_8 {
                         do {
                            label401: {
                               var34 = this.field_705[var1];
-                              var2 = var34.field_451 >> 8;
-                              var35 = var34.field_452 >> 8;
+                              var2 = var34.startX >> 8;
+                              var35 = var34.endX >> 8;
                               var36 = var35 - var2;
                               if(var36 <= 0) {
                                  var18 += var20;
@@ -1966,8 +1962,8 @@ public class class_8 {
                                  }
                               }
 
-                              var37 = var34.field_453;
-                              var38 = (var34.field_454 - var37) / var36;
+                              var37 = var34.startS;
+                              var38 = (var34.endS - var37) / var36;
                               if(var2 < -this.field_664) {
                                  var37 += (-this.field_664 - var2) * var38;
                                  var2 = -this.field_664;
@@ -1996,8 +1992,8 @@ public class class_8 {
                         do {
                            label403: {
                               var34 = this.field_705[var1];
-                              var2 = var34.field_451 >> 8;
-                              var35 = var34.field_452 >> 8;
+                              var2 = var34.startX >> 8;
+                              var35 = var34.endX >> 8;
                               var36 = var35 - var2;
                               if(var36 <= 0) {
                                  var18 += var20;
@@ -2009,8 +2005,8 @@ public class class_8 {
                                  }
                               }
 
-                              var37 = var34.field_453;
-                              var38 = (var34.field_454 - var37) / var36;
+                              var37 = var34.startS;
+                              var38 = (var34.endS - var37) / var36;
                               if(var2 < -this.field_664) {
                                  var37 += (-this.field_664 - var2) * var38;
                                  var2 = -this.field_664;
@@ -2040,8 +2036,8 @@ public class class_8 {
                      do {
                         label405: {
                            var34 = this.field_705[var1];
-                           var2 = var34.field_451 >> 8;
-                           var35 = var34.field_452 >> 8;
+                           var2 = var34.startX >> 8;
+                           var35 = var34.endX >> 8;
                            var36 = var35 - var2;
                            if(var36 <= 0) {
                               var18 += var20;
@@ -2053,8 +2049,8 @@ public class class_8 {
                               }
                            }
 
-                           var37 = var34.field_453;
-                           var38 = (var34.field_454 - var37) / var36;
+                           var37 = var34.startS;
+                           var38 = (var34.endS - var37) / var36;
                            if(var2 < -this.field_664) {
                               var37 += (-this.field_664 - var2) * var38;
                               var2 = -this.field_664;
@@ -2121,8 +2117,8 @@ public class class_8 {
                         do {
                            label409: {
                               var34 = this.field_705[var1];
-                              var2 = var34.field_451 >> 8;
-                              var35 = var34.field_452 >> 8;
+                              var2 = var34.startX >> 8;
+                              var35 = var34.endX >> 8;
                               var36 = var35 - var2;
                               if(var36 <= 0) {
                                  var18 += var20;
@@ -2134,8 +2130,8 @@ public class class_8 {
                                  }
                               }
 
-                              var37 = var34.field_453;
-                              var38 = (var34.field_454 - var37) / var36;
+                              var37 = var34.startS;
+                              var38 = (var34.endS - var37) / var36;
                               if(var2 < -this.field_664) {
                                  var37 += (-this.field_664 - var2) * var38;
                                  var2 = -this.field_664;
@@ -2164,8 +2160,8 @@ public class class_8 {
                         do {
                            label411: {
                               var34 = this.field_705[var1];
-                              var2 = var34.field_451 >> 8;
-                              var35 = var34.field_452 >> 8;
+                              var2 = var34.startX >> 8;
+                              var35 = var34.endX >> 8;
                               var36 = var35 - var2;
                               if(var36 <= 0) {
                                  var18 += var20;
@@ -2177,8 +2173,8 @@ public class class_8 {
                                  }
                               }
 
-                              var37 = var34.field_453;
-                              var38 = (var34.field_454 - var37) / var36;
+                              var37 = var34.startS;
+                              var38 = (var34.endS - var37) / var36;
                               if(var2 < -this.field_664) {
                                  var37 += (-this.field_664 - var2) * var38;
                                  var2 = -this.field_664;
@@ -2208,8 +2204,8 @@ public class class_8 {
                      do {
                         label413: {
                            var34 = this.field_705[var1];
-                           var2 = var34.field_451 >> 8;
-                           var35 = var34.field_452 >> 8;
+                           var2 = var34.startX >> 8;
+                           var35 = var34.endX >> 8;
                            var36 = var35 - var2;
                            if(var36 <= 0) {
                               var18 += var20;
@@ -2221,8 +2217,8 @@ public class class_8 {
                               }
                            }
 
-                           var37 = var34.field_453;
-                           var38 = (var34.field_454 - var37) / var36;
+                           var37 = var34.startS;
+                           var38 = (var34.endS - var37) / var36;
                            if(var2 < -this.field_664) {
                               var37 += (-this.field_664 - var2) * var38;
                               var2 = -this.field_664;
@@ -2297,7 +2293,7 @@ public class class_8 {
                var40 = 2;
             }
 
-            class_2 var41;
+            Scanline var41;
             if(!var8.field_882) {
                if(!this.field_653) {
                   var1 = this.field_706;
@@ -2305,8 +2301,8 @@ public class class_8 {
                      do {
                         label418: {
                            var41 = this.field_705[var1];
-                           var2 = var41.field_451 >> 8;
-                           var14 = var41.field_452 >> 8;
+                           var2 = var41.startX >> 8;
+                           var14 = var41.endX >> 8;
                            var15 = var14 - var2;
                            if(var15 <= 0) {
                               var11 += var10;
@@ -2315,8 +2311,8 @@ public class class_8 {
                               }
                            }
 
-                           var16 = var41.field_453;
-                           var17 = (var41.field_454 - var16) / var15;
+                           var16 = var41.startS;
+                           var17 = (var41.endS - var16) / var15;
                            if(var2 < -this.field_664) {
                               var16 += (-this.field_664 - var2) * var17;
                               var2 = -this.field_664;
@@ -2342,8 +2338,8 @@ public class class_8 {
                      do {
                         label420: {
                            var41 = this.field_705[var1];
-                           var2 = var41.field_451 >> 8;
-                           var14 = var41.field_452 >> 8;
+                           var2 = var41.startX >> 8;
+                           var14 = var41.endX >> 8;
                            var15 = var14 - var2;
                            if(var15 <= 0) {
                               var11 += var10;
@@ -2352,8 +2348,8 @@ public class class_8 {
                               }
                            }
 
-                           var16 = var41.field_453;
-                           var17 = (var41.field_454 - var16) / var15;
+                           var16 = var41.startS;
+                           var17 = (var41.endS - var16) / var15;
                            if(var2 < -this.field_664) {
                               var16 += (-this.field_664 - var2) * var17;
                               var2 = -this.field_664;
@@ -2380,8 +2376,8 @@ public class class_8 {
                   do {
                      label422: {
                         var41 = this.field_705[var1];
-                        var2 = var41.field_451 >> 8;
-                        var14 = var41.field_452 >> 8;
+                        var2 = var41.startX >> 8;
+                        var14 = var41.endX >> 8;
                         var15 = var14 - var2;
                         if(var15 <= 0) {
                            var11 += var10;
@@ -2390,8 +2386,8 @@ public class class_8 {
                            }
                         }
 
-                        var16 = var41.field_453;
-                        var17 = (var41.field_454 - var16) / var15;
+                        var16 = var41.startS;
+                        var17 = (var41.endS - var16) / var15;
                         if(var2 < -this.field_664) {
                            var16 += (-this.field_664 - var2) * var17;
                            var2 = -this.field_664;
@@ -2418,7 +2414,7 @@ public class class_8 {
 
    // $FF: renamed from: a (int[], int[], int, int, int, int, int, int, int, int, int, int, int, int) void
    private static void method_190(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13) {
-      boolean var21 = class_9.field_759;
+      boolean var21 = Surface.field_759;
       if(var10 > 0) {
          int var14 = 0;
          int var15 = 0;
@@ -2575,7 +2571,7 @@ public class class_8 {
 
    // $FF: renamed from: b (int[], int[], int, int, int, int, int, int, int, int, int, int, int, int) void
    private static void method_191(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13) {
-      boolean var21 = class_9.field_759;
+      boolean var21 = Surface.field_759;
       if(var10 > 0) {
          int var14 = 0;
          int var15 = 0;
@@ -2732,7 +2728,7 @@ public class class_8 {
 
    // $FF: renamed from: a (int[], int, int, int, int[], int, int, int, int, int, int, int, int, int, int) void
    private static void method_192(int[] var0, int var1, int var2, int var3, int[] var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14) {
-      boolean var22 = class_9.field_759;
+      boolean var22 = Surface.field_759;
       if(var11 > 0) {
          int var15 = 0;
          int var16 = 0;
@@ -2943,7 +2939,7 @@ public class class_8 {
 
    // $FF: renamed from: c (int[], int[], int, int, int, int, int, int, int, int, int, int, int, int) void
    private static void method_193(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13) {
-      boolean var21 = class_9.field_759;
+      boolean var21 = Surface.field_759;
       if(var10 > 0) {
          int var14 = 0;
          int var15 = 0;
@@ -3086,7 +3082,7 @@ public class class_8 {
 
    // $FF: renamed from: d (int[], int[], int, int, int, int, int, int, int, int, int, int, int, int) void
    private static void method_194(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13) {
-      boolean var21 = class_9.field_759;
+      boolean var21 = Surface.field_759;
       if(var10 > 0) {
          int var14 = 0;
          int var15 = 0;
@@ -3229,7 +3225,7 @@ public class class_8 {
 
    // $FF: renamed from: b (int[], int, int, int, int[], int, int, int, int, int, int, int, int, int, int) void
    private static void method_195(int[] var0, int var1, int var2, int var3, int[] var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14) {
-      boolean var22 = class_9.field_759;
+      boolean var22 = Surface.field_759;
       if(var11 > 0) {
          int var15 = 0;
          int var16 = 0;
@@ -3440,7 +3436,7 @@ public class class_8 {
 
    // $FF: renamed from: a (int[], int, int, int, int[], int, int) void
    private static void method_196(int[] var0, int var1, int var2, int var3, int[] var4, int var5, int var6) {
-      boolean var10 = class_9.field_759;
+      boolean var10 = Surface.field_759;
       if(var1 < 0) {
          var6 <<= 1;
          var3 = var4[var5 >> 8 & 255];
@@ -3488,7 +3484,7 @@ public class class_8 {
 
    // $FF: renamed from: b (int[], int, int, int, int[], int, int) void
    private static void method_197(int[] var0, int var1, int var2, int var3, int[] var4, int var5, int var6) {
-      boolean var10 = class_9.field_759;
+      boolean var10 = Surface.field_759;
       if(var1 < 0) {
          var6 <<= 2;
          var3 = var4[var5 >> 8 & 255];
@@ -3545,7 +3541,7 @@ public class class_8 {
 
    // $FF: renamed from: c (int[], int, int, int, int[], int, int) void
    private static void method_198(int[] var0, int var1, int var2, int var3, int[] var4, int var5, int var6) {
-      boolean var10 = class_9.field_759;
+      boolean var10 = Surface.field_759;
       if(var1 < 0) {
          var6 <<= 2;
          var3 = var4[var5 >> 8 & 255];
@@ -3656,7 +3652,7 @@ public class class_8 {
       int var20;
       boolean var28;
       label68: {
-         var28 = class_9.field_759;
+         var28 = Surface.field_759;
          var2 = this.field_681[var1];
          var3 = var2.field_461;
          int var4 = var2.field_462;
@@ -3789,7 +3785,7 @@ public class class_8 {
       int var16;
       boolean var19;
       label41: {
-         var19 = class_9.field_759;
+         var19 = Surface.field_759;
          var2 = this.field_681[var1];
          var3 = var2.field_461;
          int var4 = var2.field_462;
@@ -3877,7 +3873,7 @@ public class class_8 {
 
    // $FF: renamed from: a (a.a.h, a.a.h) boolean
    private boolean method_202(class_3 var1, class_3 var2) {
-      boolean var30 = class_9.field_759;
+      boolean var30 = Surface.field_759;
       if(var1.field_455 >= var2.field_457) {
          return true;
       } else if(var2.field_455 >= var1.field_457) {
@@ -4029,7 +4025,7 @@ public class class_8 {
 
    // $FF: renamed from: b (a.a.h, a.a.h) boolean
    private boolean method_203(class_3 var1, class_3 var2) {
-      boolean var24 = class_9.field_759;
+      boolean var24 = Surface.field_759;
       GameModel var3 = var1.field_461;
       GameModel var4 = var2.field_461;
       int var5 = var1.field_462;
@@ -4135,7 +4131,7 @@ public class class_8 {
 
    // $FF: renamed from: e (int) void
    public void method_206(int var1) {
-      boolean var7 = class_9.field_759;
+      boolean var7 = Surface.field_759;
       if(var1 >= 0) {
          this.field_695[var1] = (long)(field_698++);
          if(this.field_696[var1] == null) {
@@ -4225,7 +4221,7 @@ public class class_8 {
       short var2;
       boolean var8;
       label64: {
-         var8 = class_9.field_759;
+         var8 = Surface.field_759;
          if(this.field_694[var1] == 0) {
             var2 = 64;
             if(!var8) {
@@ -4288,7 +4284,7 @@ public class class_8 {
 
    // $FF: renamed from: g (int) void
    public void method_208(int var1) {
-      boolean var7 = class_9.field_759;
+      boolean var7 = Surface.field_759;
       if(this.field_696[var1] != null) {
          int[] var2 = this.field_696[var1];
          int var3 = 0;
@@ -4358,7 +4354,7 @@ public class class_8 {
       }
 
       int var4 = 0;
-      if(class_9.field_759 || var4 < this.field_676) {
+      if(Surface.field_759 || var4 < this.field_676) {
          do {
             this.field_678[var4].method_373(var1, var2, var3);
             ++var4;
@@ -4374,7 +4370,7 @@ public class class_8 {
       }
 
       int var6 = 0;
-      if(class_9.field_759 || var6 < this.field_676) {
+      if(Surface.field_759 || var6 < this.field_676) {
          do {
             this.field_678[var6].method_372(var1, var2, var3, var4, var5);
             ++var6;
@@ -4405,7 +4401,7 @@ public class class_8 {
 
    // $FF: renamed from: a (int[], int[], int[], int[]) boolean
    public boolean method_216(int[] var1, int[] var2, int[] var3, int[] var4) {
-      boolean var23 = class_9.field_759;
+      boolean var23 = Surface.field_759;
       int var5 = var1.length;
       int var6 = var3.length;
       byte var15 = 0;

@@ -1,6 +1,6 @@
 import a.a.GameModel;
 import a.a.class_8;
-import a.a.class_9;
+import a.a.Surface;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ public class World {
    // $FF: renamed from: b boolean
    boolean field_821;
    // $FF: renamed from: c a.a.g
-   class_9 surface;
+   Surface surface;
    // $FF: renamed from: d a.a.j
    class_8 field_823;
    // $FF: renamed from: e int
@@ -74,7 +74,7 @@ public class World {
 
 
    // $FF: renamed from: <init> (a.a.j, a.a.g) void
-   public World(class_8 var1, class_9 var2) {
+   public World(class_8 var1, Surface var2) {
       super();
       int var7 = GameData.field_563;
       this.field_820 = false;

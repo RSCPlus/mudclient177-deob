@@ -89,7 +89,7 @@ public class ClientStream extends class_5 implements Runnable {
       if(!this.field_601) {
          int var4 = 0;
          boolean var5 = false;
-         if(class_9.field_759 || var4 < var1) {
+         if(Surface.field_759 || var4 < var1) {
             do {
                int var6;
                if((var6 = this.field_598.read(var3, var4 + var2, var1 - var4)) <= 0) {
@@ -114,7 +114,7 @@ public class ClientStream extends class_5 implements Runnable {
 
 					 try {
 						 int var6 = 0;
-						 if (class_9.field_759 || var6 < var3) {
+						 if (Surface.field_759 || var6 < var3) {
 							 do {
 								 this.buffer[this.offset] = var1[var6 + var2];
 								 this.offset = (this.offset + 1) % 5000;
@@ -137,7 +137,7 @@ public class ClientStream extends class_5 implements Runnable {
    }
 
    public void run() {
-      boolean var5 = class_9.field_759;
+      boolean var5 = Surface.field_759;
       if(var5 || !this.field_605) {
          do {
 

@@ -1,6 +1,5 @@
 package a.a;
 
-import a.a.class_9;
 import java.io.InputStream;
 import sun.audio.AudioPlayer;
 
@@ -34,7 +33,7 @@ public class class_13 extends InputStream {
    }
 
    public int read(byte[] var1, int var2, int var3) {
-      boolean var5 = class_9.field_759;
+      boolean var5 = Surface.field_759;
       int var4 = 0;
       if(!var5 && var4 >= var3) {
          return var3;

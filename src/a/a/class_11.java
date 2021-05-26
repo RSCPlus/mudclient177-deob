@@ -1,12 +1,10 @@
 package a.a;
 
-import a.a.class_9;
-
 // $FF: renamed from: a.a.e
 public class class_11 {
 
    // $FF: renamed from: a a.a.g
-   protected class_9 field_761;
+   protected Surface field_761;
    // $FF: renamed from: b int
    int field_762;
    // $FF: renamed from: c int
@@ -100,7 +98,7 @@ public class class_11 {
 
 
    // $FF: renamed from: <init> (a.a.g, int) void
-   public class_11(class_9 var1, int var2) {
+   public class_11(Surface var1, int var2) {
       super();
       this.field_786 = -1;
       this.field_800 = true;
@@ -140,12 +138,12 @@ public class class_11 {
 
    // $FF: renamed from: a (int, int, int) int
    public int method_274(int var1, int var2, int var3) {
-      return class_9.method_234(field_803 * var1 / 114, field_804 * var2 / 114, field_805 * var3 / 176);
+      return Surface.method_234(field_803 * var1 / 114, field_804 * var2 / 114, field_805 * var3 / 176);
    }
 
    // $FF: renamed from: a (int, int, int, int) void
    public void method_275(int var1, int var2, int var3, int var4) {
-      boolean var6 = class_9.field_759;
+      boolean var6 = Surface.field_759;
       this.field_782 = var1;
       this.field_783 = var2;
       this.field_785 = var4;
@@ -225,7 +223,7 @@ public class class_11 {
             String var3 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:\'@#~,<.>/?\\| ";
             if(var2 < this.field_778[this.field_786]) {
                int var4 = 0;
-               if(class_9.field_759 || var4 < var3.length()) {
+               if(Surface.field_759 || var4 < var3.length()) {
                   do {
                      if(var1 == var3.charAt(var4)) {
                         StringBuffer var10000 = new StringBuffer(String.valueOf(this.field_780[this.field_786]));
@@ -258,7 +256,7 @@ public class class_11 {
 
    // $FF: renamed from: a () void
    public void method_278() {
-      boolean var2 = class_9.field_759;
+      boolean var2 = Surface.field_759;
       int var1 = 0;
       if(!var2 && var1 >= this.field_762) {
          this.field_784 = 0;
@@ -365,7 +363,7 @@ public class class_11 {
       this.field_761.method_230(var2 + var4 - 1, var3, var5, this.field_799);
       if(this.field_770[var1] == 1) {
          int var6 = 0;
-         if(class_9.field_759 || var6 < var5) {
+         if(Surface.field_759 || var6 < var5) {
             do {
                this.field_761.drawLineHoriz(var2 + var6, var3 + var6, 1, 0);
                this.field_761.drawLineHoriz(var2 + var4 - 1 - var6, var3 + var6, 1, 0);
@@ -388,7 +386,7 @@ public class class_11 {
       label11: {
          if(this.field_772[var1]) {
             var6 = 16777215;
-            if(!class_9.field_759) {
+            if(!Surface.field_759) {
                break label11;
             }
          }
@@ -401,7 +399,7 @@ public class class_11 {
 
    // $FF: renamed from: a (int, int, int, int, int, java.lang.String, int) void
    protected void method_282(int var1, int var2, int var3, int var4, int var5, String var6, int var7) {
-      boolean var10 = class_9.field_759;
+      boolean var10 = Surface.field_759;
       int var8;
       if(this.field_766[var1]) {
          var8 = var6.length();
@@ -446,7 +444,7 @@ public class class_11 {
 
    // $FF: renamed from: b (int, int, int, int) void
    public void method_283(int var1, int var2, int var3, int var4) {
-      boolean var7 = class_9.field_759;
+      boolean var7 = Surface.field_759;
       this.field_761.method_220(var1, var2, var1 + var3, var2 + var4);
       this.field_761.method_226(var1, var2, var3, var4, this.field_799, this.field_796);
       if(field_801) {
@@ -507,7 +505,7 @@ public class class_11 {
 
    // $FF: renamed from: a (int, int, int, int, int, int, java.lang.String[], int, int) void
    protected void method_287(int var1, int var2, int var3, int var4, int var5, int var6, String[] var7, int var8, int var9) {
-      boolean var15 = class_9.field_759;
+      boolean var15 = Surface.field_759;
       int var10 = var5 / this.field_761.method_270(var6);
       if(var9 > var8 - var10) {
          var9 = var8 - var10;
@@ -604,7 +602,7 @@ public class class_11 {
 
    // $FF: renamed from: a (int, int, int, int, java.lang.String[]) void
    protected void method_289(int var1, int var2, int var3, int var4, String[] var5) {
-      boolean var13 = class_9.field_759;
+      boolean var13 = Surface.field_759;
       int var6 = 0;
       int var7 = var5.length;
       int var8 = 0;
@@ -677,7 +675,7 @@ public class class_11 {
 
    // $FF: renamed from: b (int, int, int, int, java.lang.String[]) void
    protected void method_290(int var1, int var2, int var3, int var4, String[] var5) {
-      boolean var11 = class_9.field_759;
+      boolean var11 = Surface.field_759;
       int var6 = var5.length;
       int var7 = var3 - this.field_761.method_270(var4) * (var6 - 1) / 2;
       int var8 = 0;
@@ -744,7 +742,7 @@ public class class_11 {
       int var14;
       boolean var15;
       label124: {
-         var15 = class_9.field_759;
+         var15 = Surface.field_759;
          var10 = var5 / this.field_761.method_270(var6);
          if(var10 < var8) {
             var11 = var2 + var4 - 12;
@@ -1043,7 +1041,7 @@ public class class_11 {
          --var4;
          --this.field_769[var1];
          int var5 = 0;
-         if(class_9.field_759 || var5 < var4) {
+         if(Surface.field_759 || var5 < var4) {
             do {
                this.field_781[var1][var5] = this.field_781[var1][var5 + 1];
                ++var5;

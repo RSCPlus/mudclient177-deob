@@ -152,7 +152,7 @@ public class GameShell extends Applet implements Runnable {
    // $FF: renamed from: g () void
    public final void method_10() {
       int var1 = 0;
-      if(class_9.field_759 || var1 < 10) {
+      if(Surface.field_759 || var1 < 10) {
          do {
             this.field_6[var1] = 0L;
             ++var1;
@@ -162,7 +162,7 @@ public class GameShell extends Applet implements Runnable {
    }
 
    public synchronized boolean keyDown(Event var1, int var2) {
-      boolean var5 = class_9.field_759;
+      boolean var5 = Surface.field_759;
       this.method_11(var2);
       this.field_37 = var2;
       this.field_38 = var2;
@@ -311,7 +311,7 @@ public class GameShell extends Applet implements Runnable {
          this.mouseY = var3 + this.field_11;
          if(var1.metaDown()) {
             this.field_35 = 2;
-            if(!class_9.field_759) {
+            if(!Surface.field_759) {
                break label11;
             }
          }
@@ -333,7 +333,7 @@ public class GameShell extends Applet implements Runnable {
       this.mouseY = var3 + this.field_11;
       if(var1.metaDown()) {
          this.field_35 = 2;
-         if(!class_9.field_759) {
+         if(!Surface.field_759) {
             return true;
          }
       }
@@ -409,7 +409,7 @@ public class GameShell extends Applet implements Runnable {
    }
 
    public final void run() {
-      boolean var11 = class_9.field_759;
+      boolean var11 = Surface.field_759;
       if(this.field_13 == 1) {
          this.field_13 = 2;
          this.field_22 = this.getGraphics();
@@ -560,14 +560,14 @@ public class GameShell extends Applet implements Runnable {
       if(var1 != null) {
          byte[] var2 = Utility.loadData("logo.tga", 0, var1);
          this.field_21 = this.method_18(var2);
-         class_9.method_263(Utility.loadData("h11p.jf", 0, var1));
-         class_9.method_263(Utility.loadData("h12b.jf", 0, var1));
-         class_9.method_263(Utility.loadData("h12p.jf", 0, var1));
-         class_9.method_263(Utility.loadData("h13b.jf", 0, var1));
-         class_9.method_263(Utility.loadData("h14b.jf", 0, var1));
-         class_9.method_263(Utility.loadData("h16b.jf", 0, var1));
-         class_9.method_263(Utility.loadData("h20b.jf", 0, var1));
-         class_9.method_263(Utility.loadData("h24b.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h11p.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h12b.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h12p.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h13b.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h14b.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h16b.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h20b.jf", 0, var1));
+         Surface.method_263(Utility.loadData("h24b.jf", 0, var1));
       }
    }
 
@@ -603,7 +603,7 @@ public class GameShell extends Applet implements Runnable {
             if(!this.field_15) {
                this.method_17(this.field_22, "Created by JAGeX - visit www.jagex.com", this.field_19, var3 + 138, var4 + 30);
                this.method_17(this.field_22, "©2001-2002 Andrew Gower and Jagex Ltd", this.field_19, var3 + 138, var4 + 44);
-               if(!class_9.field_759) {
+               if(!Surface.field_759) {
                   break label26;
                }
             }
@@ -658,7 +658,7 @@ public class GameShell extends Applet implements Runnable {
       label11: {
          if(field_7 == null) {
             var6 = this;
-            if(!class_9.field_759) {
+            if(!Surface.field_759) {
                break label11;
             }
          }
@@ -674,7 +674,7 @@ public class GameShell extends Applet implements Runnable {
 
    // $FF: renamed from: a (byte[]) java.awt.Image
    public Image method_18(byte[] var1) {
-      boolean var14 = class_9.field_759;
+      boolean var14 = Surface.field_759;
       int var2 = var1[13] * 256 + var1[12];
       int var3 = var1[15] * 256 + var1[14];
       byte[] var4 = new byte[256];
@@ -739,7 +739,7 @@ public class GameShell extends Applet implements Runnable {
          this.method_16(var3, "Loading " + var2 + " - 5%");
          int var10 = 0;
          var6 = new byte[var5];
-         if(class_9.field_759 || var10 < var5) {
+         if(Surface.field_759 || var10 < var5) {
             do {
                int var11 = var5 - var10;
                if(var11 > 1000) {
@@ -793,7 +793,7 @@ public class GameShell extends Applet implements Runnable {
       label11: {
          if(this.method_8()) {
             sock = new Socket(InetAddress.getByName(this.getCodeBase().getHost()), port);
-            if(!class_9.field_759) {
+            if(!Surface.field_759) {
                break label11;
             }
          }

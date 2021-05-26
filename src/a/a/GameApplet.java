@@ -78,7 +78,7 @@ public class GameApplet extends GameShell {
 
    // $FF: renamed from: a (java.lang.String, java.lang.String, boolean) void
    public void login(String username, String password, boolean reconnecting) {
-      boolean var8 = class_9.field_759;
+      boolean var8 = Surface.field_759;
       if(this.loginCooldown > 0) {
          this.method_43(loginResponses[6], loginResponses[7]);
 
@@ -448,7 +448,7 @@ public class GameApplet extends GameShell {
 
    // $FF: renamed from: a (int, int) void
    public void method_32(int opcode, int packetLength) {
-      boolean alwaysFalse = class_9.field_759;
+      boolean alwaysFalse = Surface.field_759;
       opcode = this.clientStream.method_161(opcode, opcodeEncryptionArray);
       if(opcode == 8) {
          String var3 = new String(this.incomingBytes, 1, packetLength - 1);
@@ -550,7 +550,7 @@ public class GameApplet extends GameShell {
 
    // $FF: renamed from: n () void
    public void method_33() {
-      boolean var6 = class_9.field_759;
+      boolean var6 = Surface.field_759;
       boolean var1 = true;
       if(var6 || var1) {
          do {
@@ -602,7 +602,7 @@ public class GameApplet extends GameShell {
       this.clientStream.putLong(var2);
       this.clientStream.flushPacket_();
       int var4 = 0;
-      if(class_9.field_759) {
+      if(Surface.field_759) {
          if(this.ignoreListAccNames[var4] == var2) {
             return;
          }
@@ -625,7 +625,7 @@ public class GameApplet extends GameShell {
 
    // $FF: renamed from: a (long) void
    public void ignoreRemove(long var1) {
-      boolean var5 = class_9.field_759;
+      boolean var5 = Surface.field_759;
       this.clientStream.newPacket(30, 511);
       this.clientStream.putLong(var1);
       this.clientStream.flushPacket_();
@@ -659,7 +659,7 @@ public class GameApplet extends GameShell {
 
    // $FF: renamed from: b (long) void
    public void friendRemove(long var1) {
-      boolean var5 = class_9.field_759;
+      boolean var5 = Surface.field_759;
       this.clientStream.newPacket(27, 707);
       this.clientStream.putLong(var1);
       this.clientStream.flushPacket_();

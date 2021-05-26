@@ -31,7 +31,7 @@ public class GameFrame extends Frame {
          this.gameShell = var1;
          if(var6) {
             this.windowYTranslation = 48;
-            if(!class_9.field_759) {
+            if(!Surface.field_759) {
                break label11;
             }
          }
@@ -51,7 +51,7 @@ public class GameFrame extends Frame {
       Graphics var1 = super.getGraphics();
       if(this.field_939 == 0) {
          var1.translate(0, 24);
-         if(!class_9.field_759) {
+         if(!Surface.field_759) {
             return var1;
          }
       }
@@ -65,7 +65,7 @@ public class GameFrame extends Frame {
    }
 
    public boolean handleEvent(Event var1) {
-      boolean var2 = class_9.field_759;
+      boolean var2 = Surface.field_759;
       if(var1.id == 401) {
          this.gameShell.keyDown(var1, var1.key);
          if(!var2) {

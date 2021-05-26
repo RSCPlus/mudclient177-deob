@@ -207,7 +207,7 @@ public class GameModel {
       this.method_357(var1, var2);
       this.field_905 = new int[var2][1];
       int var3 = 0;
-      if(class_9.field_759 || var3 < var2) {
+      if(Surface.field_759 || var3 < var2) {
          do {
             this.field_905[var3][0] = var3++;
          } while(var3 < var2);
@@ -278,7 +278,7 @@ public class GameModel {
             this.field_901 = this.field_898;
             this.field_902 = this.field_899;
             this.field_903 = this.field_900;
-            if(!class_9.field_759) {
+            if(!Surface.field_759) {
                break label28;
             }
          }
@@ -346,7 +346,7 @@ public class GameModel {
    // $FF: renamed from: <init> (byte[], int, boolean) void
    public GameModel(byte[] var1, int var2, boolean var3) {
       super();
-      boolean var15 = class_9.field_759;
+      boolean var15 = Surface.field_759;
       this.field_872 = 1;
       this.field_873 = true;
       this.field_880 = true;
@@ -507,7 +507,7 @@ public class GameModel {
    // $FF: renamed from: <init> (java.lang.String) void
    public GameModel(String var1) {
       super();
-      boolean var22 = class_9.field_759;
+      boolean var22 = Surface.field_759;
       this.field_872 = 1;
       this.field_873 = true;
       this.field_880 = true;
@@ -698,7 +698,7 @@ public class GameModel {
 
    // $FF: renamed from: a (a.a.f[], int, boolean) void
    public void method_365(GameModel[] var1, int var2, boolean var3) {
-      boolean var15 = class_9.field_759;
+      boolean var15 = Surface.field_759;
       int var4 = 0;
       int var5 = 0;
       int var6 = 0;
@@ -798,7 +798,7 @@ public class GameModel {
    // $FF: renamed from: a (int, int, int) int
    public int vertexAt(int var1, int var2, int var3) {
       int var4 = 0;
-      if(class_9.field_759) {
+      if(Surface.field_759) {
          if(this.field_898[var4] == var1 && this.field_899[var4] == var2 && this.field_900[var4] == var3) {
             return var4;
          }
@@ -852,7 +852,7 @@ public class GameModel {
 
    // $FF: renamed from: a (int, int, int, int, int, int, int, boolean) a.a.f[]
    public GameModel[] split(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8) {
-      boolean var22 = class_9.field_759;
+      boolean var22 = Surface.field_759;
       this.method_389();
       int[] var9 = new int[var6];
       int[] var10 = new int[var6];
@@ -971,7 +971,7 @@ public class GameModel {
       int[] var5 = new int[var3];
       int var6 = 0;
       int var7;
-      if(class_9.field_759) {
+      if(Surface.field_759) {
          var7 = var5[var6] = var1.vertexAt(this.field_898[var2[var6]], this.field_899[var2[var6]], this.field_900[var2[var6]]);
          var1.field_858[var7] = this.field_858[var2[var6]];
          var1.field_859[var7] = this.field_859[var2[var6]];
@@ -997,7 +997,7 @@ public class GameModel {
 
    // $FF: renamed from: a (boolean, int, int, int, int, int) void
    public void setLight(boolean var1, int var2, int var3, int var4, int var5, int var6) {
-      boolean var8 = class_9.field_759;
+      boolean var8 = Surface.field_759;
       this.field_934 = 256 - var2 * 4;
       this.field_933 = (64 - var3) * 16 + 128;
       if(!this.field_888) {
@@ -1125,7 +1125,7 @@ public class GameModel {
    // $FF: renamed from: h (int, int, int) void
    private void method_380(int var1, int var2, int var3) {
       int var4 = 0;
-      if(class_9.field_759 || var4 < this.field_852) {
+      if(Surface.field_759 || var4 < this.field_852) {
          do {
             this.field_901[var4] += var1;
             this.field_902[var4] += var2;
@@ -1139,7 +1139,7 @@ public class GameModel {
    // $FF: renamed from: i (int, int, int) void
    private void method_381(int var1, int var2, int var3) {
       int var7 = 0;
-      if(class_9.field_759 || var7 < this.field_852) {
+      if(Surface.field_759 || var7 < this.field_852) {
          do {
             int var4;
             int var5;
@@ -1177,7 +1177,7 @@ public class GameModel {
    // $FF: renamed from: a (int, int, int, int, int, int) void
    private void method_382(int var1, int var2, int var3, int var4, int var5, int var6) {
       int var7 = 0;
-      if(class_9.field_759 || var7 < this.field_852) {
+      if(Surface.field_759 || var7 < this.field_852) {
          do {
             if(var1 != 0) {
                this.field_901[var7] += this.field_902[var7] * var1 >> 8;
@@ -1212,7 +1212,7 @@ public class GameModel {
    // $FF: renamed from: j (int, int, int) void
    private void method_383(int var1, int var2, int var3) {
       int var4 = 0;
-      if(class_9.field_759 || var4 < this.field_852) {
+      if(Surface.field_759 || var4 < this.field_852) {
          do {
             this.field_901[var4] = this.field_901[var4] * var1 >> 8;
             this.field_902[var4] = this.field_902[var4] * var2 >> 8;
@@ -1225,7 +1225,7 @@ public class GameModel {
 
    // $FF: renamed from: d () void
    private void method_384() {
-      boolean var12 = class_9.field_759;
+      boolean var12 = Surface.field_759;
       this.field_874 = this.field_876 = this.field_878 = 999999;
       this.field_928 = this.field_875 = this.field_877 = this.field_879 = -999999;
       int var2 = 0;
@@ -1378,7 +1378,7 @@ public class GameModel {
 
    // $FF: renamed from: e () void
    public void method_385() {
-      boolean var11 = class_9.field_759;
+      boolean var11 = Surface.field_759;
       if(!this.field_888) {
          int var1 = this.field_933 * this.field_932 >> 8;
          int var2 = 0;
@@ -1451,7 +1451,7 @@ public class GameModel {
 
    // $FF: renamed from: f () void
    public void method_386() {
-      boolean var16 = class_9.field_759;
+      boolean var16 = Surface.field_759;
       if(!this.field_888 || !this.field_887) {
          int var1 = 0;
          if(!var16 && var1 >= this.field_860) {
@@ -1502,7 +1502,7 @@ public class GameModel {
 
    // $FF: renamed from: g () void
    public void method_387() {
-      boolean var2 = class_9.field_759;
+      boolean var2 = Surface.field_759;
       int var1;
       if(this.field_872 != 2) {
          if(this.field_872 == 1) {
@@ -1561,7 +1561,7 @@ public class GameModel {
 
    // $FF: renamed from: a (int, int, int, int, int, int, int, int) void
    public void method_388(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-      boolean var20 = class_9.field_759;
+      boolean var20 = Surface.field_759;
       this.method_387();
       if(this.field_878 <= class_8.field_720 && this.field_879 >= class_8.field_719 && this.field_874 <= class_8.field_716 && this.field_875 >= class_8.field_715 && this.field_876 <= class_8.field_718 && this.field_877 >= class_8.field_717) {
          this.field_873 = true;
@@ -1649,7 +1649,7 @@ public class GameModel {
    public void method_389() {
       this.method_387();
       int var1 = 0;
-      if(class_9.field_759) {
+      if(Surface.field_759) {
          this.field_898[var1] = this.field_901[var1];
          this.field_899[var1] = this.field_902[var1];
          this.field_900[var1] = this.field_903[var1];
@@ -1701,7 +1701,7 @@ public class GameModel {
 
    // $FF: renamed from: a (byte[]) int
    public int method_393(byte[] var1) {
-      if(class_9.field_759) {
+      if(Surface.field_759) {
          ++this.field_935;
       }
 
