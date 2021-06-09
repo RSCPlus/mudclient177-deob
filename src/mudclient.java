@@ -842,7 +842,7 @@ public class mudclient extends GameApplet {
          rsaExponent = new BigInteger(readParam);
          System.out.println("exponent: " + rsaExponent);
       } catch (Exception var5) {
-         var5.printStackTrace();
+         ;
       }
 
       // Inauthentic parameter
@@ -851,7 +851,7 @@ public class mudclient extends GameApplet {
          rsaModulus = new BigInteger(readParam);
          System.out.println("modulus: " + rsaModulus);
       } catch (Exception var5) {
-         var5.printStackTrace();
+         ;
       }
 
       this.method_24(this.rsaExponent, this.rsaModulus);
