@@ -22,6 +22,8 @@ import java.net.URL;
 
 // $FF: renamed from: a.a.a
 public class GameShell extends Applet implements Runnable {
+   // inauthentic boolean to disable cache url loading in applet mode
+   public static boolean disableCacheURLLoader = true;
 
    // $FF: renamed from: a int
    private int field_1;
@@ -348,7 +350,8 @@ public class GameShell extends Applet implements Runnable {
       this.field_1 = 512;
       this.field_2 = 344;
       this.field_13 = 1;
-      Utility.field_1007 = this.getCodeBase();
+      if (!disableCacheURLLoader)
+         Utility.field_1007 = this.getCodeBase();
       this.method_21(this);
    }
 
