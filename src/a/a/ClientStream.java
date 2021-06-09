@@ -11,7 +11,7 @@ import java.net.Socket;
 public class ClientStream extends class_5 implements Runnable {
 
    // $FF: renamed from: I java.io.InputStream
-   private InputStream field_598;
+   private InputStream instream;
    // $FF: renamed from: J java.io.OutputStream
    private OutputStream outstream;
    // $FF: renamed from: K java.net.Socket
@@ -34,10 +34,10 @@ public class ClientStream extends class_5 implements Runnable {
       this.field_601 = false;
       this.field_605 = true;
       this.field_600 = var1;
-      this.field_598 = var1.getInputStream();
+      this.instream = var1.getInputStream();
       this.outstream = var1.getOutputStream();
       this.field_605 = false;
-      var2.method_21(this);
+      var2.startThread(this);
    }
 
    // $FF: renamed from: a () void
@@ -46,8 +46,8 @@ public class ClientStream extends class_5 implements Runnable {
       this.field_601 = true;
 
       try {
-         if(this.field_598 != null) {
-            this.field_598.close();
+         if(this.instream != null) {
+            this.instream.close();
          }
 
          if(this.outstream != null) {
@@ -76,12 +76,12 @@ public class ClientStream extends class_5 implements Runnable {
 
    // $FF: renamed from: b () int
    public int read() throws IOException {
-      return this.field_601?0:this.field_598.read();
+      return this.field_601?0:this.instream.read();
    }
 
    // $FF: renamed from: c () int
    public int available() throws IOException {
-      return this.field_601?0:this.field_598.available();
+      return this.field_601?0:this.instream.available();
    }
 
    // $FF: renamed from: a (int, int, byte[]) void
@@ -92,7 +92,7 @@ public class ClientStream extends class_5 implements Runnable {
          if(Surface.field_759 || var4 < var1) {
             do {
                int var6;
-               if((var6 = this.field_598.read(var3, var4 + var2, var1 - var4)) <= 0) {
+               if((var6 = this.instream.read(var3, var4 + var2, var1 - var4)) <= 0) {
                   throw new IOException("EOF");
                }
 

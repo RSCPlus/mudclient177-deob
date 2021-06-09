@@ -878,7 +878,7 @@ public class mudclient extends GameApplet {
       try {
          readParam = this.getParameter("disableOpcodeEncryption");
          a.class_5.reenableOpcodeEncryption = (readParam == null);
-         System.out.println("opcode encryption disabled");
+         System.out.println("opcode encryption: " + a.class_5.reenableOpcodeEncryption);
       } catch (Exception var5) {
          ;
       }
@@ -12767,7 +12767,7 @@ public class mudclient extends GameApplet {
    }
 
    // $FF: renamed from: a (java.lang.Runnable) void
-   public void method_21(Runnable var1) {
+   public void startThread(Runnable var1) {
       if(link.mainapp != null) {
          link.startthread(var1);
       } else {

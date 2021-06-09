@@ -352,7 +352,7 @@ public class GameShell extends Applet implements Runnable {
       this.field_13 = 1;
       if (!disableCacheURLLoader)
          Utility.field_1007 = this.getCodeBase();
-      this.method_21(this);
+      this.startThread(this);
    }
 
    public final void start() {
@@ -810,7 +810,7 @@ public class GameShell extends Applet implements Runnable {
    }
 
    // $FF: renamed from: a (java.lang.Runnable) void
-   public void method_21(Runnable var1) {
+   public void startThread(Runnable var1) {
       Thread var2 = new Thread(var1);
       var2.setDaemon(true);
       var2.start();

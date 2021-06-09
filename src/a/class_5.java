@@ -123,22 +123,22 @@ public class class_5 {
    public void writeStreamBytes(byte[] var1, int var2, int var3) throws IOException {}
 
    // $FF: renamed from: d () int
-   public int method_148() throws IOException {
+   public int readByte() throws IOException {
       return this.read();
    }
 
    // $FF: renamed from: e () int
-   public int method_149() throws IOException {
-      int var1 = this.method_148();
-      int var2 = this.method_148();
+   public int readShort() throws IOException {
+      int var1 = this.readByte();
+      int var2 = this.readByte();
       return var1 * 256 + var2;
    }
 
    // $FF: renamed from: f () int
    public int readInt() throws IOException {
-      int var1 = this.method_149();
-      int var2 = this.method_149();
-      return var1 * 65536 + var2;
+      int var1 = this.readShort();
+      int var2 = this.readShort();
+      return var2 * 65536 + var1;
    }
 
    // $FF: renamed from: a (int, byte[]) void
