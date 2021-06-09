@@ -22,6 +22,8 @@ import java.net.Socket;
 import java.net.URL;
 
 public class mudclient extends GameApplet {
+   // inauthentic boolean controlling if applet will launch
+   public static boolean disableAppletHostCheck = true;
 
    // $FF: renamed from: bq boolean
    public boolean members;
@@ -824,7 +826,7 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: a () void
    public void startGame() {
-      if(this.appletMode) {
+      if(this.appletMode && !disableAppletHostCheck) {
          String var1 = this.getDocumentBase().getHost().toLowerCase();
          if(!var1.endsWith("jagex.com") && !var1.endsWith("jagex.co.uk") && !var1.endsWith("runescape.com") && !var1.endsWith("runescape.co.uk") && !var1.endsWith("runescape.net") && !var1.endsWith("runescape.org") && !var1.endsWith("penguin") && !var1.endsWith("puffin")) {
             this.errorLoadingCodebase = true;
