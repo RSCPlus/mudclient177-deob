@@ -1,5 +1,8 @@
 package a;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -138,7 +141,7 @@ public class class_5 {
    public int readInt() throws IOException {
       int var1 = this.readShort();
       int var2 = this.readShort();
-      return var2 * 65536 + var1;
+      return var1 * 65536 + var2;
    }
 
    // $FF: renamed from: a (int, byte[]) void
@@ -236,10 +239,10 @@ public class class_5 {
    }
 
    // $FF: renamed from: a (java.lang.String, int, java.math.BigInteger, java.math.BigInteger) void
-   public void putPassword(String sessionId, int password, BigInteger rsaModulus, BigInteger rsaExponent) {
+   public void putPassword(String password, int id, BigInteger rsaModulus, BigInteger rsaExponent) {
       int var14 = field_597;
-      byte[] sessionIdB = sessionId.getBytes();
-      int var6 = sessionIdB.length;
+      byte[] passwordB = password.getBytes();
+      int var6 = passwordB.length;
       byte[] var7 = new byte[15];
       int var8 = 0;
       if(var14 != 0 || var8 < var6) {
@@ -248,12 +251,12 @@ public class class_5 {
             var7[1] = (byte)((int)(Math.random() * 256.0D));
             var7[2] = (byte)((int)(Math.random() * 256.0D));
             var7[3] = (byte)((int)(Math.random() * 256.0D));
-            Utility.method_445(var7, 4, password);
+            Utility.method_445(var7, 4, id);
             int var9 = 0;
             if(var14 != 0) {
                label38: {
                   if(var8 + var9 < var6) {
-                     var7[8 + var9] = sessionIdB[var8 + var9];
+                     var7[8 + var9] = passwordB[var8 + var9];
                      if(var14 == 0) {
                         break label38;
                      }
@@ -267,7 +270,7 @@ public class class_5 {
 
             for(; var9 < 7; ++var9) {
                if(var8 + var9 < var6) {
-                  var7[8 + var9] = sessionIdB[var8 + var9];
+                  var7[8 + var9] = passwordB[var8 + var9];
                   if(var14 == 0) {
                      continue;
                   }

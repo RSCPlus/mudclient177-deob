@@ -826,12 +826,32 @@ public class mudclient extends GameApplet {
 
    // $FF: renamed from: a () void
    public void startGame() {
+      String readParam;
+
       if(this.appletMode && !disableAppletHostCheck) {
          String var1 = this.getDocumentBase().getHost().toLowerCase();
          if(!var1.endsWith("jagex.com") && !var1.endsWith("jagex.co.uk") && !var1.endsWith("runescape.com") && !var1.endsWith("runescape.co.uk") && !var1.endsWith("runescape.net") && !var1.endsWith("runescape.org") && !var1.endsWith("penguin") && !var1.endsWith("puffin")) {
             this.errorLoadingCodebase = true;
             return;
          }
+      }
+
+      // Inauthentic parameter
+      try {
+         readParam = this.getParameter("exponent");
+         rsaExponent = new BigInteger(readParam);
+         System.out.println("exponent: " + rsaExponent);
+      } catch (Exception var5) {
+         var5.printStackTrace();
+      }
+
+      // Inauthentic parameter
+      try {
+         readParam = this.getParameter("modulus");
+         rsaModulus = new BigInteger(readParam);
+         System.out.println("modulus: " + rsaModulus);
+      } catch (Exception var5) {
+         var5.printStackTrace();
       }
 
       this.method_24(this.rsaExponent, this.rsaModulus);
@@ -855,7 +875,6 @@ public class mudclient extends GameApplet {
          ++var2;
       }
 
-      String readParam;
       try {
          readParam = this.getParameter("member");
          var4 = Integer.parseInt(readParam);
@@ -898,24 +917,6 @@ public class mudclient extends GameApplet {
          readParam = this.getParameter("ip");
          super.address = readParam;
          System.out.println("address: " + readParam);
-      } catch (Exception var5) {
-         ;
-      }
-
-      // Inauthentic parameter
-      try {
-         readParam = this.getParameter("exponent");
-         rsaExponent = new BigInteger(readParam);
-         System.out.println("exponent: " + readParam);
-      } catch (Exception var5) {
-         ;
-      }
-
-      // Inauthentic parameter
-      try {
-         readParam = this.getParameter("modulus");
-         rsaModulus = new BigInteger(readParam);
-         System.out.println("modulus: " + readParam);
       } catch (Exception var5) {
          ;
       }
