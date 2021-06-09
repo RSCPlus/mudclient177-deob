@@ -874,6 +874,52 @@ public class mudclient extends GameApplet {
       GameApplet.maxReadTries = 1000;
       GameApplet.clientVersion = Version.clientVer;
 
+      // Inauthentic parameter
+      try {
+         readParam = this.getParameter("disableOpcodeEncryption");
+         a.class_5.reenableOpcodeEncryption = (readParam == null);
+         System.out.println("opcode encryption disabled");
+      } catch (Exception var5) {
+         ;
+      }
+
+      // Inauthentic parameter
+      try {
+         readParam = this.getParameter("port");
+         var4 = Integer.parseInt(readParam);
+         super.port = var4;
+         System.out.println("port: " + var4);
+      } catch (Exception var5) {
+         ;
+      }
+
+      // Inauthentic parameter
+      try {
+         readParam = this.getParameter("ip");
+         super.address = readParam;
+         System.out.println("address: " + readParam);
+      } catch (Exception var5) {
+         ;
+      }
+
+      // Inauthentic parameter
+      try {
+         readParam = this.getParameter("exponent");
+         rsaExponent = new BigInteger(readParam);
+         System.out.println("exponent: " + readParam);
+      } catch (Exception var5) {
+         ;
+      }
+
+      // Inauthentic parameter
+      try {
+         readParam = this.getParameter("modulus");
+         rsaModulus = new BigInteger(readParam);
+         System.out.println("modulus: " + readParam);
+      } catch (Exception var5) {
+         ;
+      }
+
       try {
          readParam = this.getParameter("poff");
          var4 = Integer.parseInt(readParam);
