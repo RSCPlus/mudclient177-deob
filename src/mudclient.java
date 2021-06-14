@@ -1039,7 +1039,7 @@ public class mudclient extends GameApplet {
          this.surface.parseSprite(this.spriteUtil + 2, Utility.loadData("corners.dat", 0, var1), var2, 4);
          this.surface.parseSprite(this.spriteUtil + 6, Utility.loadData("arrows.dat", 0, var1), var2, 2);
          this.surface.parseSprite(this.spriteProjectile, Utility.loadData("projectile.dat", 0, var1), var2, GameData.field_541);
-         int var3 = GameData.field_473;
+         int var3 = GameData.itemSprite;
          int var4 = 1;
          int var5;
          if(var8 != 0 || var3 > 0) {
@@ -1077,11 +1077,11 @@ public class mudclient extends GameApplet {
          }
 
          int var7 = 0;
-         if(var8 != 0 || var7 < GameData.field_473) {
+         if(var8 != 0 || var7 < GameData.itemSprite) {
             do {
                this.surface.method_239(this.spriteItem + var7);
                ++var7;
-            } while(var7 < GameData.field_473);
+            } while(var7 < GameData.itemSprite);
 
          }
       }
@@ -5017,7 +5017,7 @@ public class mudclient extends GameApplet {
                            mob.messageTimer = 150;
                            mob.messageSent = var33;
                            if(reuseableVar1 == this.localPlayer.pid) {
-                              this.displayMessage("@yel@" + GameData.field_486[mob.field_612] + ": " + mob.messageSent, 5);
+                              this.displayMessage("@yel@" + GameData.npcName[mob.field_612] + ": " + mob.messageSent, 5);
                            }
                         }
 
@@ -6331,7 +6331,7 @@ public class mudclient extends GameApplet {
                      var8 = -this.world.getElevation(var6, var7) - 110;
                      var9 = var18.currentX;
                      int var10 = var18.currentY;
-                     int var11 = -this.world.getElevation(var9, var10) - GameData.field_500[var18.field_612] / 2;
+                     int var11 = -this.world.getElevation(var9, var10) - GameData.npcHeight[var18.field_612] / 2;
                      int var12 = (var6 * var17.field_637 + var9 * (this.field_106 - var17.field_637)) / this.field_106;
                      int var13 = (var8 * var17.field_637 + var11 * (this.field_106 - var17.field_637)) / this.field_106;
                      int var14 = (var7 * var17.field_637 + var10 * (this.field_106 - var17.field_637)) / this.field_106;
@@ -6350,7 +6350,7 @@ public class mudclient extends GameApplet {
             var6 = var18.currentX;
             var7 = var18.currentY;
             var8 = -this.world.getElevation(var6, var7);
-            var9 = this.scene.drawSprite(20000 + var4, var6, var8, var7, GameData.field_499[var18.field_612], GameData.field_500[var18.field_612], var4 + 30000);
+            var9 = this.scene.drawSprite(20000 + var4, var6, var8, var7, GameData.npcWidth[var18.field_612], GameData.npcHeight[var18.field_612], var4 + 30000);
             ++this.spriteCount;
             if(var18.animationCurrent == 8) {
                this.scene.setCombatXOffset(var9, -30);
@@ -6368,7 +6368,7 @@ public class mudclient extends GameApplet {
             var6 = var18.currentX;
             var7 = var18.currentY;
             var8 = -this.world.getElevation(var6, var7);
-            var9 = this.scene.drawSprite(20000 + var4, var6, var8, var7, GameData.field_499[var18.field_612], GameData.field_500[var18.field_612], var4 + 30000);
+            var9 = this.scene.drawSprite(20000 + var4, var6, var8, var7, GameData.npcWidth[var18.field_612], GameData.npcHeight[var18.field_612], var4 + 30000);
             ++this.spriteCount;
             if(var18.animationCurrent == 8) {
                this.scene.setCombatXOffset(var9, -30);
@@ -6691,13 +6691,13 @@ public class mudclient extends GameApplet {
 
       int var12;
       label104: {
-         var12 = var11 * 3 + this.field_438[var8.field_613 / GameData.field_501[var8.field_612] % 4];
+         var12 = var11 * 3 + this.field_438[var8.field_613 / GameData.npcWalkModel[var8.field_612] % 4];
          if(var8.animationCurrent == 8) {
             var11 = 5;
             var9 = 2;
             var10 = false;
-            var1 -= GameData.field_503[var8.field_612] * var7 / 100;
-            var12 = var11 * 3 + this.field_439[this.field_76 / (GameData.field_502[var8.field_612] - 1) % 8];
+            var1 -= GameData.npcCombatAnimation[var8.field_612] * var7 / 100;
+            var12 = var11 * 3 + this.field_439[this.field_76 / (GameData.npcCombatModel[var8.field_612] - 1) % 8];
             if(var23 == 0) {
                break label104;
             }
@@ -6707,8 +6707,8 @@ public class mudclient extends GameApplet {
             var11 = 5;
             var9 = 2;
             var10 = true;
-            var1 += GameData.field_503[var8.field_612] * var7 / 100;
-            var12 = var11 * 3 + this.field_440[this.field_76 / GameData.field_502[var8.field_612] % 8];
+            var1 += GameData.npcCombatAnimation[var8.field_612] * var7 / 100;
+            var12 = var11 * 3 + this.field_440[this.field_76 / GameData.npcCombatModel[var8.field_612] % 8];
          }
       }
 
@@ -6726,7 +6726,7 @@ public class mudclient extends GameApplet {
       int var25;
       if(var23 != 0) {
          var14 = this.field_425[var9][var13];
-         var15 = GameData.field_494[var8.field_612][var14];
+         var15 = GameData.npcSprite[var8.field_612][var14];
          if(var15 >= 0) {
             var16 = 0;
             var17 = 0;
@@ -6745,24 +6745,24 @@ public class mudclient extends GameApplet {
                   var21 = GameData.field_509[var15];
                   var22 = 0;
                   if(var21 == 1) {
-                     var21 = GameData.field_495[var8.field_612];
-                     var22 = GameData.field_498[var8.field_612];
+                     var21 = GameData.npcHairColour[var8.field_612];
+                     var22 = GameData.npcSkinColour[var8.field_612];
                      if(var23 == 0) {
                         break label174;
                      }
                   }
 
                   if(var21 == 2) {
-                     var21 = GameData.field_496[var8.field_612];
-                     var22 = GameData.field_498[var8.field_612];
+                     var21 = GameData.npcTopColour[var8.field_612];
+                     var22 = GameData.npcSkinColour[var8.field_612];
                      if(var23 == 0) {
                         break label174;
                      }
                   }
 
                   if(var21 == 3) {
-                     var21 = GameData.field_497[var8.field_612];
-                     var22 = GameData.field_498[var8.field_612];
+                     var21 = GameData.npcBottomColour[var8.field_612];
+                     var22 = GameData.npcSkinColour[var8.field_612];
                   }
                }
 
@@ -6775,7 +6775,7 @@ public class mudclient extends GameApplet {
 
       for(; var13 < 12; ++var13) {
          var14 = this.field_425[var9][var13];
-         var15 = GameData.field_494[var8.field_612][var14];
+         var15 = GameData.npcSprite[var8.field_612][var14];
          if(var15 >= 0) {
             var16 = 0;
             var17 = 0;
@@ -6794,24 +6794,24 @@ public class mudclient extends GameApplet {
                   var21 = GameData.field_509[var15];
                   var22 = 0;
                   if(var21 == 1) {
-                     var21 = GameData.field_495[var8.field_612];
-                     var22 = GameData.field_498[var8.field_612];
+                     var21 = GameData.npcHairColour[var8.field_612];
+                     var22 = GameData.npcSkinColour[var8.field_612];
                      if(var23 == 0) {
                         break label179;
                      }
                   }
 
                   if(var21 == 2) {
-                     var21 = GameData.field_496[var8.field_612];
-                     var22 = GameData.field_498[var8.field_612];
+                     var21 = GameData.npcTopColour[var8.field_612];
+                     var22 = GameData.npcSkinColour[var8.field_612];
                      if(var23 == 0) {
                         break label179;
                      }
                   }
 
                   if(var21 == 3) {
-                     var21 = GameData.field_497[var8.field_612];
-                     var22 = GameData.field_498[var8.field_612];
+                     var21 = GameData.npcBottomColour[var8.field_612];
+                     var22 = GameData.npcSkinColour[var8.field_612];
                   }
                }
 
@@ -9050,7 +9050,7 @@ public class mudclient extends GameApplet {
             }
 
             if(var9 > 0) {
-               this.surface.drawString("Withdraw " + GameData.field_474[var11], var3 + 2, var4 + 248, 1, 16777215);
+               this.surface.drawString("Withdraw " + GameData.itemName[var11], var3 + 2, var4 + 248, 1, 16777215);
                var7 = 16777215;
                if(super.mouseX >= var3 + 220 && super.mouseY >= var4 + 238 && super.mouseX < var3 + 250 && super.mouseY <= var4 + 249) {
                   var7 = 16711680;
@@ -9104,7 +9104,7 @@ public class mudclient extends GameApplet {
             }
 
             if(this.getInventoryCount(var11) > 0) {
-               this.surface.drawString("Deposit " + GameData.field_474[var11], var3 + 2, var4 + 273, 1, 16777215);
+               this.surface.drawString("Deposit " + GameData.itemName[var11], var3 + 2, var4 + 273, 1, 16777215);
                var7 = 16777215;
                if(super.mouseX >= var3 + 220 && super.mouseY >= var4 + 263 && super.mouseX < var3 + 250 && super.mouseY <= var4 + 274) {
                   var7 = 16711680;
@@ -9359,7 +9359,7 @@ public class mudclient extends GameApplet {
                   }
 
                   var10 = var9 * GameData.itemBasePrice[var8] / 100;
-                  this.surface.drawString("Buy a new " + GameData.field_474[var8] + " for " + var10 + "gp", var12 + 2, var13 + 214, 1, 16776960);
+                  this.surface.drawString("Buy a new " + GameData.itemName[var8] + " for " + var10 + "gp", var12 + 2, var13 + 214, 1, 16776960);
                   var4 = 16777215;
                   if(super.mouseX > var12 + 298 && super.mouseY >= var13 + 204 && super.mouseX < var12 + 408 && super.mouseY <= var13 + 215) {
                      var4 = 16711680;
@@ -9381,7 +9381,7 @@ public class mudclient extends GameApplet {
                }
 
                var10 = var9 * GameData.itemBasePrice[var8] / 100;
-               this.surface.method_264("Sell your " + GameData.field_474[var8] + " for " + var10 + "gp", var12 + 405, var13 + 239, 1, 16776960);
+               this.surface.method_264("Sell your " + GameData.itemName[var8] + " for " + var10 + "gp", var12 + 405, var13 + 239, 1, 16776960);
                var4 = 16777215;
                if(super.mouseX > var12 + 2 && super.mouseY >= var13 + 229 && super.mouseX < var12 + 112 && super.mouseY <= var13 + 240) {
                   var4 = 16711680;
@@ -9410,7 +9410,7 @@ public class mudclient extends GameApplet {
       int var4 = 0;
       String var5;
       if(var7 != 0) {
-         var5 = GameData.field_474[this.field_292[var4]];
+         var5 = GameData.itemName[this.field_292[var4]];
          if(GameData.itemStackable[this.field_292[var4]] == 0) {
             var5 = var5 + " (" + this.field_293[var4] + ")";
          }
@@ -9420,7 +9420,7 @@ public class mudclient extends GameApplet {
       }
 
       while(var4 < this.field_291) {
-         var5 = GameData.field_474[this.field_292[var4]];
+         var5 = GameData.itemName[this.field_292[var4]];
          if(GameData.itemStackable[this.field_292[var4]] == 0) {
             var5 = var5 + " (" + this.field_293[var4] + ")";
          }
@@ -9437,7 +9437,7 @@ public class mudclient extends GameApplet {
       int var8 = 0;
       String var6;
       if(var7 != 0) {
-         var6 = GameData.field_474[this.field_295[var8]];
+         var6 = GameData.itemName[this.field_295[var8]];
          if(GameData.itemStackable[this.field_295[var8]] == 0) {
             var6 = var6 + " (" + this.field_296[var8] + ")";
          }
@@ -9447,7 +9447,7 @@ public class mudclient extends GameApplet {
       }
 
       while(var8 < this.tradeConfirmItemCount) {
-         var6 = GameData.field_474[this.field_295[var8]];
+         var6 = GameData.itemName[this.field_295[var8]];
          if(GameData.itemStackable[this.field_295[var8]] == 0) {
             var6 = var6 + " (" + this.field_296[var8] + ")";
          }
@@ -9794,7 +9794,7 @@ public class mudclient extends GameApplet {
                }
 
                if(super.mouseX > var11 && super.mouseX < var11 + 48 && super.mouseY > var12 && super.mouseY < var12 + 32) {
-                  this.surface.drawString(GameData.field_474[this.tradeItemIds[var10]] + ": @whi@" + GameData.field_475[this.tradeItemIds[var10]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.itemName[this.tradeItemIds[var10]] + ": @whi@" + GameData.itemExamine[this.tradeItemIds[var10]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var10;
@@ -9812,7 +9812,7 @@ public class mudclient extends GameApplet {
                }
 
                if(super.mouseX > var12 && super.mouseX < var12 + 48 && super.mouseY > var13 && super.mouseY < var13 + 32) {
-                  this.surface.drawString(GameData.field_474[this.field_282[var11]] + ": @whi@" + GameData.field_475[this.field_282[var11]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.itemName[this.field_282[var11]] + ": @whi@" + GameData.itemExamine[this.field_282[var11]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var11;
@@ -9835,7 +9835,7 @@ public class mudclient extends GameApplet {
       int var4 = 0;
       String var5;
       if(var7 != 0) {
-         var5 = GameData.field_474[this.field_267[var4]];
+         var5 = GameData.itemName[this.field_267[var4]];
          if(GameData.itemStackable[this.field_267[var4]] == 0) {
             var5 = var5 + " (" + this.field_268[var4] + ")";
          }
@@ -9845,7 +9845,7 @@ public class mudclient extends GameApplet {
       }
 
       while(var4 < this.field_266) {
-         var5 = GameData.field_474[this.field_267[var4]];
+         var5 = GameData.itemName[this.field_267[var4]];
          if(GameData.itemStackable[this.field_267[var4]] == 0) {
             var5 = var5 + " (" + this.field_268[var4] + ")";
          }
@@ -9862,7 +9862,7 @@ public class mudclient extends GameApplet {
       int var8 = 0;
       String var6;
       if(var7 != 0) {
-         var6 = GameData.field_474[this.field_270[var8]];
+         var6 = GameData.itemName[this.field_270[var8]];
          if(GameData.itemStackable[this.field_270[var8]] == 0) {
             var6 = var6 + " (" + this.field_271[var8] + ")";
          }
@@ -9872,7 +9872,7 @@ public class mudclient extends GameApplet {
       }
 
       while(var8 < this.field_269) {
-         var6 = GameData.field_474[this.field_270[var8]];
+         var6 = GameData.itemName[this.field_270[var8]];
          if(GameData.itemStackable[this.field_270[var8]] == 0) {
             var6 = var6 + " (" + this.field_271[var8] + ")";
          }
@@ -10324,7 +10324,7 @@ public class mudclient extends GameApplet {
                }
 
                if(super.mouseX > var11 && super.mouseX < var11 + 48 && super.mouseY > var12 && super.mouseY < var12 + 32) {
-                  this.surface.drawString(GameData.field_474[this.field_252[var10]] + ": @whi@" + GameData.field_475[this.field_252[var10]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.itemName[this.field_252[var10]] + ": @whi@" + GameData.itemExamine[this.field_252[var10]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var10;
@@ -10342,7 +10342,7 @@ public class mudclient extends GameApplet {
                }
 
                if(super.mouseX > var12 && super.mouseX < var12 + 48 && super.mouseY > var13 && super.mouseY < var13 + 32) {
-                  this.surface.drawString(GameData.field_474[this.field_255[var11]] + ": @whi@" + GameData.field_475[this.field_255[var11]], var15 + 8, var16 + 273, 1, 16776960);
+                  this.surface.drawString(GameData.itemName[this.field_255[var11]] + ": @whi@" + GameData.itemExamine[this.field_255[var11]], var15 + 8, var16 + 273, 1, 16776960);
                }
 
                ++var11;
@@ -10507,7 +10507,7 @@ public class mudclient extends GameApplet {
                if(this.field_204 >= 0) {
                   if(GameData.field_547[this.field_204] == 3) {
                      this.field_228[this.field_225] = "Cast " + GameData.field_543[this.field_204] + " on";
-                     this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                     this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                      this.field_229[this.field_225] = 600;
                      this.field_232[this.field_225] = var7;
                      this.field_233[this.field_225] = this.field_204;
@@ -10517,7 +10517,7 @@ public class mudclient extends GameApplet {
                } else {
                   if(this.field_185 >= 0) {
                      this.field_228[this.field_225] = "Use " + this.field_186 + " with";
-                     this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                     this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                      this.field_229[this.field_225] = 610;
                      this.field_232[this.field_225] = var7;
                      this.field_233[this.field_225] = this.field_185;
@@ -10528,7 +10528,7 @@ public class mudclient extends GameApplet {
                   label60: {
                      if(this.inventoryEquipped[var7] == 1) {
                         this.field_228[this.field_225] = "Remove";
-                        this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                        this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                         this.field_229[this.field_225] = 620;
                         this.field_232[this.field_225] = var7;
                         ++this.field_225;
@@ -10537,9 +10537,9 @@ public class mudclient extends GameApplet {
                         }
                      }
 
-                     if(GameData.field_481[var8] != 0) {
+                     if(GameData.itemWearable[var8] != 0) {
                         label54: {
-                           if((GameData.field_481[var8] & 24) != 0) {
+                           if((GameData.itemWearable[var8] & 24) != 0) {
                               this.field_228[this.field_225] = "Wield";
                               if(var9 == 0) {
                                  break label54;
@@ -10549,33 +10549,33 @@ public class mudclient extends GameApplet {
                            this.field_228[this.field_225] = "Wear";
                         }
 
-                        this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                        this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                         this.field_229[this.field_225] = 630;
                         this.field_232[this.field_225] = var7;
                         ++this.field_225;
                      }
                   }
 
-                  if(!GameData.field_476[var8].equals("")) {
-                     this.field_228[this.field_225] = GameData.field_476[var8];
-                     this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                  if(!GameData.itemCommand[var8].equals("")) {
+                     this.field_228[this.field_225] = GameData.itemCommand[var8];
+                     this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                      this.field_229[this.field_225] = 640;
                      this.field_232[this.field_225] = var7;
                      ++this.field_225;
                   }
 
                   this.field_228[this.field_225] = "Use";
-                  this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                  this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                   this.field_229[this.field_225] = 650;
                   this.field_232[this.field_225] = var7;
                   ++this.field_225;
                   this.field_228[this.field_225] = "Drop";
-                  this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                  this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                   this.field_229[this.field_225] = 660;
                   this.field_232[this.field_225] = var7;
                   ++this.field_225;
                   this.field_228[this.field_225] = "Examine";
-                  this.field_227[this.field_225] = "@lre@" + GameData.field_474[var8];
+                  this.field_227[this.field_225] = "@lre@" + GameData.itemName[var8];
                   this.field_229[this.field_225] = 3600;
                   this.field_232[this.field_225] = var8;
                   ++this.field_225;
@@ -11786,7 +11786,7 @@ public class mudclient extends GameApplet {
                            }
 
                            this.field_228[this.field_225] = "Cast " + GameData.field_543[this.field_204] + " on";
-                           this.field_227[this.field_225] = "@lre@" + GameData.field_474[this.groundItemId[var11]];
+                           this.field_227[this.field_225] = "@lre@" + GameData.itemName[this.groundItemId[var11]];
                            this.field_229[this.field_225] = 200;
                            this.field_230[this.field_225] = this.groundItemX[var11];
                            this.field_231[this.field_225] = this.groundItemY[var11];
@@ -11800,7 +11800,7 @@ public class mudclient extends GameApplet {
 
                         if(this.field_185 >= 0) {
                            this.field_228[this.field_225] = "Use " + this.field_186 + " with";
-                           this.field_227[this.field_225] = "@lre@" + GameData.field_474[this.groundItemId[var11]];
+                           this.field_227[this.field_225] = "@lre@" + GameData.itemName[this.groundItemId[var11]];
                            this.field_229[this.field_225] = 210;
                            this.field_230[this.field_225] = this.groundItemX[var11];
                            this.field_231[this.field_225] = this.groundItemY[var11];
@@ -11813,14 +11813,14 @@ public class mudclient extends GameApplet {
                         }
 
                         this.field_228[this.field_225] = "Take";
-                        this.field_227[this.field_225] = "@lre@" + GameData.field_474[this.groundItemId[var11]];
+                        this.field_227[this.field_225] = "@lre@" + GameData.itemName[this.groundItemId[var11]];
                         this.field_229[this.field_225] = 220;
                         this.field_230[this.field_225] = this.groundItemX[var11];
                         this.field_231[this.field_225] = this.groundItemY[var11];
                         this.field_232[this.field_225] = this.groundItemId[var11];
                         ++this.field_225;
                         this.field_228[this.field_225] = "Examine";
-                        this.field_227[this.field_225] = "@lre@" + GameData.field_474[this.groundItemId[var11]];
+                        this.field_227[this.field_225] = "@lre@" + GameData.itemName[this.groundItemId[var11]];
                         this.field_229[this.field_225] = 3200;
                         this.field_232[this.field_225] = this.groundItemId[var11];
                         ++this.field_225;
@@ -11836,8 +11836,8 @@ public class mudclient extends GameApplet {
                      var13 = "";
                      var14 = -1;
                      int var15 = this.NPCs[var11].field_612;
-                     if(GameData.field_493[var15] > 0) {
-                        int var16 = (GameData.field_489[var15] + GameData.field_492[var15] + GameData.field_490[var15] + GameData.field_491[var15]) / 4;
+                     if(GameData.npcAttackable[var15] > 0) {
+                        int var16 = (GameData.npcAttack[var15] + GameData.npcDefense[var15] + GameData.npcStrength[var15] + GameData.npcHits[var15]) / 4;
                         int var17 = (this.playerStatBase[0] + this.playerStatBase[1] + this.playerStatBase[2] + this.playerStatBase[3] + 27) / 4;
                         var14 = var17 - var16;
                         var13 = "@yel@";
@@ -11882,7 +11882,7 @@ public class mudclient extends GameApplet {
                         }
 
                         this.field_228[this.field_225] = "Cast " + GameData.field_543[this.field_204] + " on";
-                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
+                        this.field_227[this.field_225] = "@yel@" + GameData.npcName[this.NPCs[var11].field_612];
                         this.field_229[this.field_225] = 700;
                         this.field_230[this.field_225] = this.NPCs[var11].currentX;
                         this.field_231[this.field_225] = this.NPCs[var11].currentY;
@@ -11896,7 +11896,7 @@ public class mudclient extends GameApplet {
 
                      if(this.field_185 >= 0) {
                         this.field_228[this.field_225] = "Use " + this.field_186 + " with";
-                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
+                        this.field_227[this.field_225] = "@yel@" + GameData.npcName[this.NPCs[var11].field_612];
                         this.field_229[this.field_225] = 710;
                         this.field_230[this.field_225] = this.NPCs[var11].currentX;
                         this.field_231[this.field_225] = this.NPCs[var11].currentY;
@@ -11908,10 +11908,10 @@ public class mudclient extends GameApplet {
                         }
                      }
 
-                     if(GameData.field_493[var15] > 0) {
+                     if(GameData.npcAttackable[var15] > 0) {
                         label221: {
                            this.field_228[this.field_225] = "Attack";
-                           this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612] + var13;
+                           this.field_227[this.field_225] = "@yel@" + GameData.npcName[this.NPCs[var11].field_612] + var13;
                            if(var14 >= 0) {
                               this.field_229[this.field_225] = 715;
                               if(var18 == 0) {
@@ -11929,15 +11929,15 @@ public class mudclient extends GameApplet {
                      }
 
                      this.field_228[this.field_225] = "Talk-to";
-                     this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
+                     this.field_227[this.field_225] = "@yel@" + GameData.npcName[this.NPCs[var11].field_612];
                      this.field_229[this.field_225] = 720;
                      this.field_230[this.field_225] = this.NPCs[var11].currentX;
                      this.field_231[this.field_225] = this.NPCs[var11].currentY;
                      this.field_232[this.field_225] = this.NPCs[var11].pid;
                      ++this.field_225;
-                     if(!GameData.field_488[var15].equals("")) {
-                        this.field_228[this.field_225] = GameData.field_488[var15];
-                        this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
+                     if(!GameData.npcCommand[var15].equals("")) {
+                        this.field_228[this.field_225] = GameData.npcCommand[var15];
+                        this.field_227[this.field_225] = "@yel@" + GameData.npcName[this.NPCs[var11].field_612];
                         this.field_229[this.field_225] = 725;
                         this.field_230[this.field_225] = this.NPCs[var11].currentX;
                         this.field_231[this.field_225] = this.NPCs[var11].currentY;
@@ -11946,7 +11946,7 @@ public class mudclient extends GameApplet {
                      }
 
                      this.field_228[this.field_225] = "Examine";
-                     this.field_227[this.field_225] = "@yel@" + GameData.field_486[this.NPCs[var11].field_612];
+                     this.field_227[this.field_225] = "@yel@" + GameData.npcName[this.NPCs[var11].field_612];
                      this.field_229[this.field_225] = 3700;
                      this.field_232[this.field_225] = this.NPCs[var11].field_612;
                      ++this.field_225;
@@ -12389,7 +12389,7 @@ public class mudclient extends GameApplet {
       }
 
       if(var7 == 3200) {
-         this.displayMessage(GameData.field_475[var4], 3);
+         this.displayMessage(GameData.itemExamine[var4], 3);
       }
 
       if(var7 == 300) {
@@ -12513,7 +12513,7 @@ public class mudclient extends GameApplet {
       if(var7 == 650) {
          this.field_185 = var4;
          this.field_179 = 0;
-         this.field_186 = GameData.field_474[this.inventoryItemId[this.field_185]];
+         this.field_186 = GameData.itemName[this.inventoryItemId[this.field_185]];
       }
 
       if(var7 == 660) {
@@ -12522,11 +12522,11 @@ public class mudclient extends GameApplet {
          super.clientStream.flushPacket_();
          this.field_185 = -1;
          this.field_179 = 0;
-         this.displayMessage("Dropping " + GameData.field_474[this.inventoryItemId[var4]], 4);
+         this.displayMessage("Dropping " + GameData.itemName[this.inventoryItemId[var4]], 4);
       }
 
       if(var7 == 3600) {
-         this.displayMessage(GameData.field_475[var4], 3);
+         this.displayMessage(GameData.itemExamine[var4], 3);
       }
 
       int var8;
@@ -12582,7 +12582,7 @@ public class mudclient extends GameApplet {
       }
 
       if(var7 == 3700) {
-         this.displayMessage(GameData.field_487[var4], 3);
+         this.displayMessage(GameData.npcExamine[var4], 3);
       }
 
       // player cast pvp
